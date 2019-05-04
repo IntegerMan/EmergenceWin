@@ -2,4 +2,9 @@
 
 [<AbstractClass>]
 type WorldObject(initialPosition: Position) =
-  class end
+  let mutable position = initialPosition
+  
+  member this.Position = position
+  
+  member this.UpdatePosition newPos =
+       position <- newPos

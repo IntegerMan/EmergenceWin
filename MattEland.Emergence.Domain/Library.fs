@@ -1,1 +1,0 @@
-﻿namespace MattEland.Emergence.Domain
