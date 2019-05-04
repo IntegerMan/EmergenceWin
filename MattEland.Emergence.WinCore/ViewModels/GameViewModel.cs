@@ -9,8 +9,8 @@ namespace MattEland.Emergence.WinCore.ViewModels
     {
         public GameViewModel()
         {
-            WorldGenerator.generateObstacles(50, 32, 23)
-                .Each(o => WorldObjects.Add(new WorldObjectViewModel(o)));
+            var map = WorldGenerator.generateMap(31, 22);
+            map.Each(o => WorldObjects.Add(new WorldObjectViewModel(o)));
         }
 
         public IList<WorldObjectViewModel> WorldObjects { get; } 

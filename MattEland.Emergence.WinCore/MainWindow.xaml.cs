@@ -20,7 +20,7 @@ namespace MattEland.Emergence.WinCore
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
         public MainWindow()
         {
@@ -29,9 +29,5 @@ namespace MattEland.Emergence.WinCore
             DataContext = new GameViewModel();
         }
 
-        private void ButtonExit_Click(object sender, RoutedEventArgs e)
-        {
-            Application.Current.Shutdown();
-        }
     }
 }
