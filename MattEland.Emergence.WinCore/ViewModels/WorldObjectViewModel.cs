@@ -14,8 +14,11 @@ namespace MattEland.Emergence.WinCore.ViewModels
 
         public Brush Brush => Brushes.Gray;
 
-        public int X => Source.Position.x * Size; // TODO:  This won't work for view offsets
-        public int Y => Source.Position.y * Size; // TODO:  This won't work for view offsets
+        [UsedImplicitly] 
+        public int X => Source.Position.X * Size; // TODO:  This won't work for view offsets
+        
+        [UsedImplicitly] 
+        public int Y => Source.Position.Y * Size; // TODO:  This won't work for view offsets
 
         public WorldObjectViewModel(Some<WorldObject> source)
         {

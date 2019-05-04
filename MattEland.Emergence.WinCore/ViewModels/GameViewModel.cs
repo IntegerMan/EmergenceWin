@@ -1,6 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using MattEland.Emergence.Domain;
+using MattEland.Shared.Collections;
 
 namespace MattEland.Emergence.WinCore.ViewModels
 {
@@ -8,11 +9,11 @@ namespace MattEland.Emergence.WinCore.ViewModels
     {
         public GameViewModel()
         {
-            WorldObjects.Add(new WorldObjectViewModel(new Obstacle(new Position(2, 2), 10 )));
-            WorldObjects.Add(new WorldObjectViewModel(new Obstacle(new Position(4, 1), 10 )));
+            WorldGenerator.generateObstacles(50, 32, 23)
+                .Each(o => WorldObjects.Add(new WorldObjectViewModel(o)));
         }
 
-        public ObservableCollection<WorldObjectViewModel> WorldObjects { get; } 
+        public IList<WorldObjectViewModel> WorldObjects { get; } 
             = new ObservableCollection<WorldObjectViewModel>();
     }
 }
