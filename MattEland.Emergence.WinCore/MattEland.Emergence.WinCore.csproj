@@ -6,4 +6,8 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MattEland.Emergence.Domain\MattEland.Emergence.Domain.fsproj" />
+  </ItemGroup>
+
 </Project>
