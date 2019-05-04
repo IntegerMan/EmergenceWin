@@ -3,10 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:MattEland.Emergence.WinCore"
         xmlns:viewModels="clr-namespace:MattEland.Emergence.WinCore.ViewModels"
         mc:Ignorable="d"
-        Title="Emergence Test Bed" Height="450" Width="800" d:DataContext="{d:DesignInstance viewModels:GameViewModel}">
+        Background="Black"
+        Title="Emergence" 
+        Width="800" Height="600" 
+        d:DataContext="{d:DesignInstance viewModels:GameViewModel}">
     <Grid>
         <ItemsControl ItemsSource="{Binding WorldObjects}">
             <ItemsControl.ItemsPanel>
@@ -18,11 +20,15 @@
                 <DataTemplate>
                     <Border Background="{Binding Brush}" 
                             Width="{Binding Size}"
-                            Height="{Binding Size}"
-                            Canvas.Left="{Binding Source.Position.x}"
-                            Canvas.Top="{Binding Source.Position.y}"/>
+                            Height="{Binding Size}"/>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
+            <ItemsControl.ItemContainerStyle>
+                <Style TargetType="ContentPresenter">
+                    <Setter Property="Canvas.Left" Value="{Binding Path=X}" />
+                    <Setter Property="Canvas.Top" Value="{Binding Path=Y}" />
+                </Style>
+            </ItemsControl.ItemContainerStyle>            
         </ItemsControl>
     </Grid>
 </Window>
