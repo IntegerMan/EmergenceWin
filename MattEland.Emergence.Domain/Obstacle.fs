@@ -5,6 +5,8 @@ open MattEland.Emergence.Domain
 type ObstacleType =
     | Wall = 0
     | Column = 1
+    | Service = 2
+    | Data = 3
     
 let getMaxHealth obstacleType =
     match obstacleType with

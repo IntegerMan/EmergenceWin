@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MattEland.Emergence.Domain\MattEland.Emergence.Domain.fsproj" />
+    <ProjectReference Include="..\MattEland.Emergence.LevelGen\MattEland.Emergence.LevelGen.fsproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,4 +1,4 @@
-module MattEland.Emergence.Domain.RandomFunctions
+module MattEland.Shared.Functions.RandomFunctions
 
 open System
 

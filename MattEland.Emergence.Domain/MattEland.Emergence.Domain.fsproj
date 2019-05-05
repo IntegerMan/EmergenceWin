@@ -5,22 +5,27 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="RandomFunctions.fs" />
-    <Compile Include="Health.fs" />
-    <Compile Include="Position.fs" />
-    <Compile Include="WorldObject.fs" />
-    <Compile Include="DestructibleObject.fs" />
-    <Compile Include="Obstacle.fs" />
-    <Compile Include="Doors.fs" />
-    <Compile Include="Floors.fs" />
-    <Compile Include="RoomJson.fs" />
-    <Compile Include="RoomData.fs" />
-    <Compile Include="RoomPlacement.fs" />
-    <Compile Include="WorldGenerator.fs" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+    <EmbeddedResource Remove="GameObjects\**" />
+    <EmbeddedResource Remove="Generation\**" />
+    <EmbeddedResource Remove="Components\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Position.fs" />
+    <Compile Include="Health.fs" />
+    <Compile Include="WorldObject.fs" />
+    <Compile Include="DestructibleObject.fs" />
+    <Compile Include="Doors.fs" />
+    <Compile Include="Floors.fs" />
+    <Compile Include="Obstacle.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MattEland.Shared.Functions\MattEland.Shared.Functions.fsproj" />
   </ItemGroup>
 
 </Project>

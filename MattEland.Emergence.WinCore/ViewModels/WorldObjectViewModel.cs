@@ -41,6 +41,10 @@ namespace MattEland.Emergence.WinCore.ViewModels
                                 return Brushes.DarkSlateGray;
                             case Obstacles.ObstacleType.Column:
                                 return Brushes.DimGray;
+                            case Obstacles.ObstacleType.Service:
+                                return Brushes.Orange;
+                            case Obstacles.ObstacleType.Data:
+                                return Brushes.Purple;
                             default:
                                 throw new NotSupportedException($"The Obstacle {obstacle.ObstacleType:G} does not have a brush mapping");
                         }
@@ -72,6 +76,10 @@ namespace MattEland.Emergence.WinCore.ViewModels
                                 return "#";
                             case Obstacles.ObstacleType.Column:
                                 return "o";
+                            case Obstacles.ObstacleType.Service:
+                                return "*";
+                            case Obstacles.ObstacleType.Data:
+                                return "d";
                             default:
                                 throw new NotSupportedException($"The Obstacle {obstacle.ObstacleType:G} does not have a content mapping");
                         }
