@@ -8,14 +8,14 @@ type RoomData (id: string, data: string list) =
   member this.Data = data;
   
   /// Grabs the character at the relative position within the data, returning a space if that is invalid
-  member this.getCharAtPos x y =
-    match y < 0 || y >= data.Length with
+  member this.getCharAtPos (pos: Position) =
+    match pos.Y < 0 || pos.Y >= data.Length with
     | true -> ' '
     | false ->
-      let row = data.[y]
-      match x < 0 || x >= row.Length with
+      let row = data.[pos.Y]
+      match pos.X < 0 || pos.X >= row.Length with
         | true -> ' '
-        | false -> row.[x]
+        | false -> row.[pos.X]
 
 /// Creates a room from the provided JSON
 let loadDataFromJson json : RoomData = JsonConvert.DeserializeObject<RoomData> json

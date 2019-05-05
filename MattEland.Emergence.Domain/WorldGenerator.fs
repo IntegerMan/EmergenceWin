@@ -1,6 +1,7 @@
 module WorldGenerator
 
 open System
+open System
 open MattEland.Emergence.Domain
 open MattEland.Emergence.Domain.Obstacles
 open MattEland.Emergence.Domain.Floors
@@ -35,6 +36,16 @@ let generateChaoticMap sizeX sizeY =
                 let pos = new Position(x, y)
                 yield generateCell pos
     }
+
+let getObjectForChar char pos = 
+    match char with
+        | '#' -> new Obstacle(pos, ObstacleType.Wall) :> WorldObject
+        | '+' -> new Obstacle(pos, ObstacleType.Column) :> WorldObject // TODO: This is a door
+        | '_' -> new Floor(pos, FloorType.Grate) :> WorldObject
+        | '.' -> new Floor(pos, FloorType.LargeTile) :> WorldObject
+        | 'd' -> new Floor(pos, FloorType.QuadTile) :> WorldObject // TODO: This is actually a drop indicator too
+        | ' ' -> buildVoid pos :> WorldObject
+        | _ -> raise (NotSupportedException("Char type " + char.ToString() + " has no object mapping"))
     
 let generateMap sizeX sizeY =
     let room = loadDataFromJson Rooms.roomPillarJson
@@ -42,10 +53,6 @@ let generateMap sizeX sizeY =
         for y in 0..sizeY do
             for x in 0..sizeX do
                 let pos = new Position(x, y)
-                let char = room.getCharAtPos x y
-                match char with
-                    | '#' -> yield buildObstacle pos :> WorldObject
-                    | '_' | '.' -> yield buildFloor pos :> WorldObject
-                    | _ -> yield buildVoid pos :> WorldObject
-                    // TODO: +, d
+                let char = room.getCharAtPos pos
+                yield getObjectForChar char pos 
     }
