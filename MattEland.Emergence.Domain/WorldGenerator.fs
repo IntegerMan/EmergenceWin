@@ -4,6 +4,7 @@ open System
 open MattEland.Emergence.Domain
 open MattEland.Emergence.Domain.Obstacles
 open MattEland.Emergence.Domain.Floors
+open MattEland.Emergence.Domain.Rooms
 open RandomFunctions
 
 let getPosition maxX maxY= new Position(getPositiveInt maxX, getPositiveInt maxY)
@@ -26,10 +27,25 @@ let generateCell pos: WorldObject =
         | ObjectType.Void -> buildVoid pos :> WorldObject
         | _ -> raise (NotSupportedException("Unsupported ObjectType " + objType.ToString("G")))
 
-let generateMap sizeX sizeY =
+/// Generates a map containing random values in every cell
+let generateChaoticMap sizeX sizeY =
     seq {
         for y in 0..sizeY do
             for x in 0..sizeX do
                 let pos = new Position(x, y)
                 yield generateCell pos
+    }
+    
+let generateMap sizeX sizeY =
+    let room = loadDataFromJson Rooms.roomPillarJson
+    seq {
+        for y in 0..sizeY do
+            for x in 0..sizeX do
+                let pos = new Position(x, y)
+                let char = room.getCharAtPos x y
+                match char with
+                    | '#' -> yield buildObstacle pos :> WorldObject
+                    | '_' | '.' -> yield buildFloor pos :> WorldObject
+                    | _ -> yield buildVoid pos :> WorldObject
+                    // TODO: +, d
     }

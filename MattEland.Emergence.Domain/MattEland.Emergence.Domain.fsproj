@@ -12,7 +12,12 @@
     <Compile Include="DestructibleObject.fs" />
     <Compile Include="Obstacle.fs" />
     <Compile Include="Floors.fs" />
+    <Compile Include="Rooms.fs" />
     <Compile Include="WorldGenerator.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
   </ItemGroup>
 
 </Project>
