@@ -17,4 +17,3 @@ type RoomData (id: string, data: string list, isInvulnerable: bool) =
 
 /// Creates a room from the provided JSON
 let loadDataFromJson json : RoomData = JsonConvert.DeserializeObject<RoomData> json
-

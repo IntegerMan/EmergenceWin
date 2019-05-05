@@ -6,8 +6,7 @@ type WorldObject(initialPosition: Position) =
   
   member this.Position = position
   
-  member this.UpdatePosition newPos =
-       position <- newPos
+  member this.UpdatePosition newPos = position <- newPos
 
 /// Represents empty territory in the game world
 type Void(initialPosition: Position) =

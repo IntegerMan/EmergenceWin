@@ -7,6 +7,7 @@ type ObstacleType =
     | Column = 1
     | Service = 2
     | Data = 3
+    | ThreadPool = 4
     
 let getMaxHealth obstacleType =
     match obstacleType with

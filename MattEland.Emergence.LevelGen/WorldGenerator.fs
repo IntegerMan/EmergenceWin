@@ -6,6 +6,7 @@ open MattEland.Emergence.Domain.Obstacles
 open MattEland.Emergence.Domain.Floors
 open MattEland.Emergence.Domain.Rooms
 open MattEland.Emergence.Domain.Doors
+open MattEland.Emergence.Domain.LevelData
 open MattEland.Emergence.Domain.RoomPlacement
 open MattEland.Shared.Functions.RandomFunctions
 
@@ -27,6 +28,7 @@ let getObjectForChar char pos =
         | '#' -> new Obstacle(pos, ObstacleType.Wall) :> WorldObject
         | 'd' -> new Obstacle(pos, ObstacleType.Data) :> WorldObject
         | '*' -> new Obstacle(pos, ObstacleType.Service) :> WorldObject
+        | '~' -> new Obstacle(pos, ObstacleType.ThreadPool) :> WorldObject
         // Floors
         | ',' -> new Floor(pos, FloorType.Grate) :> WorldObject
         | '.' -> new Floor(pos, FloorType.LargeTile) :> WorldObject
@@ -37,21 +39,34 @@ let getObjectForChar char pos =
         | ' ' -> buildVoid pos :> WorldObject
         | _ -> raise (NotSupportedException("Char type " + char.ToString() + " has no object mapping"))
     
-let placeRoom(json, x, y): RoomPlacement = new RoomPlacement(loadDataFromJson json, new Position(x, y))
+// let placeRoom(json, x, y): RoomPlacement = new RoomPlacement(loadDataFromJson json, new Position(x, y))
     
-let getMapInstructions sizeX sizeY : RoomPlacement seq =
-    seq {
+let placePrefab (instr: LevelInstruction): RoomPlacement =
+    let room = RoomJson.getRoomById instr.PrefabId
+    new RoomPlacement(room, new Position(instr.X, instr.Y))
+    
+let getMapInstructions levelId : RoomPlacement seq =
+    
+    let levelData = LevelData.loadDataFromJson LevelJson.level1Json
+    seq {        
+        for instr in levelData.Instructions do
+            yield placePrefab instr
+(*
         yield placeRoom(RoomJson.roomPillarJson, 0, 0)
         yield placeRoom(RoomJson.roomIntersectionJson, 10, 3)
         yield placeRoom(RoomJson.roomNetworkJson, 0, 10)
         yield placeRoom(RoomJson.roomTankHallJson, 20, 5)
         yield placeRoom(RoomJson.roomQuadServiceJson, 0, 15)
+*)
     }
     
-let generateMap sizeX sizeY =
+let generateMap levelId =
     seq {
-        let instructions = getMapInstructions sizeX sizeY
+        let instructions = getMapInstructions levelId
 
+        let sizeX = 50
+        let sizeY = 50
+        
         for y in 0..sizeY do
             for x in 0..sizeX do
                 let pos = new Position(x, y)
