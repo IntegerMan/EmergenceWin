@@ -11,6 +11,7 @@
     <Compile Include="WorldObject.fs" />
     <Compile Include="DestructibleObject.fs" />
     <Compile Include="Obstacle.fs" />
+    <Compile Include="Floors.fs" />
     <Compile Include="WorldGenerator.fs" />
   </ItemGroup>
 

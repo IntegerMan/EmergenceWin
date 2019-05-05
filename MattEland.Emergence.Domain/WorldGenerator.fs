@@ -1,24 +1,32 @@
 module WorldGenerator
 
+open System
 open MattEland.Emergence.Domain
+open MattEland.Emergence.Domain.Obstacles
+open MattEland.Emergence.Domain.Floors
 open RandomFunctions
 
-    let getPosition maxX maxY= new Position(getRandomCell maxX, getRandomCell maxY)
+let getPosition maxX maxY= new Position(getPositiveInt maxX, getPositiveInt maxY)
 
-    let buildObstacle pos = new Obstacle(pos, 10)
+let buildObstacle pos = new Obstacle(pos, enum<ObstacleType>(getPositiveInt(1)))
+let buildFloor pos = new Floor(pos, enum<FloorType>(getPositiveInt(1)))
 
-    let generateCell pos =  buildObstacle pos // TODO: An option for other types of cells would be good
-    
-    let generateObstacles count maxX maxY =
-        seq {
-            for i in 0..count do
-                yield getPosition maxX maxY |> buildObstacle
-        }
+type ObjectType =
+    | Floor = 0
+    | Obstacle = 1
 
-    let generateMap sizeX sizeY =
-        seq {
-            for y in 0..sizeY do
-                for x in 0..sizeX do
-                    let pos = new Position(x, y)
-                    yield generateCell pos
-        }
+let generateCell pos: WorldObject =
+    let enumId = getPositiveInt(1)
+    let objType:ObjectType = enum<ObjectType>(enumId)
+    match objType with
+        | ObjectType.Floor -> buildFloor pos :> WorldObject
+        | ObjectType.Obstacle -> buildObstacle pos :> WorldObject
+        | _ -> raise (NotSupportedException("Unsupported ObjectType " + objType.ToString("G")))
+
+let generateMap sizeX sizeY =
+    seq {
+        for y in 0..sizeY do
+            for x in 0..sizeX do
+                let pos = new Position(x, y)
+                yield generateCell pos
+    }

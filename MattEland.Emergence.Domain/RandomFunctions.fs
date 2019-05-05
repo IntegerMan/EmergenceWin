@@ -4,5 +4,7 @@ open System
 
 let random = new Random()
 
-let getRandomCell maxValue = random.Next(0, maxValue)
+let getInt minValue maxValue = random.Next(minValue, maxValue + 1)
+
+let getPositiveInt maxValue = getInt 0 maxValue
     

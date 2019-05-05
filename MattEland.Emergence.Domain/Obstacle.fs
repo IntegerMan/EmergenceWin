@@ -1,4 +1,16 @@
-﻿namespace MattEland.Emergence.Domain
+﻿module MattEland.Emergence.Domain.Obstacles
 
-type Obstacle (position: Position, maxHealth: int) = 
-  inherit DestructibleObject(position, maxHealth)
+open MattEland.Emergence.Domain
+
+type ObstacleType =
+    | Wall = 0
+    | Column = 1
+    
+let getMaxHealth obstacleType =
+    match obstacleType with
+        | ObstacleType.Wall -> 10        
+        | _ -> 5
+        
+type Obstacle (position: Position, obstacleType: ObstacleType) = 
+  inherit DestructibleObject(position, getMaxHealth obstacleType)
+  member this.ObstacleType = obstacleType

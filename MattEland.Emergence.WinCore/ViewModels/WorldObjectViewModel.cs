@@ -12,7 +12,23 @@ namespace MattEland.Emergence.WinCore.ViewModels
 
         public int Size => 24;
 
-        public Brush Brush => Brushes.Gray;
+        public Brush Brush
+        {
+            get
+            {
+                switch (Source)
+                {
+                    case Floors.Floor floor:
+                        return Brushes.LightGray;
+                    
+                    case Obstacles.Obstacle obstacle:
+                        return Brushes.DimGray;
+                    
+                    default:
+                        return Brushes.Maroon;
+                }
+            }
+        }
 
         [UsedImplicitly] 
         public int X => Source.Position.X * Size; // TODO:  This won't work for view offsets
