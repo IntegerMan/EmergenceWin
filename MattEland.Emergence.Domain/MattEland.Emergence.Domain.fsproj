@@ -11,8 +11,11 @@
     <Compile Include="WorldObject.fs" />
     <Compile Include="DestructibleObject.fs" />
     <Compile Include="Obstacle.fs" />
+    <Compile Include="Doors.fs" />
     <Compile Include="Floors.fs" />
-    <Compile Include="Rooms.fs" />
+    <Compile Include="RoomJson.fs" />
+    <Compile Include="RoomData.fs" />
+    <Compile Include="RoomPlacement.fs" />
     <Compile Include="WorldGenerator.fs" />
   </ItemGroup>
 

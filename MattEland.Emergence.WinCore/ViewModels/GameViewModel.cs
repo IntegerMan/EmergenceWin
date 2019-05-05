@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using MattEland.Shared.Collections;
 
@@ -13,7 +12,6 @@ namespace MattEland.Emergence.WinCore.ViewModels
             map.Each(o => WorldObjects.Add(new WorldObjectViewModel(o)));
         }
 
-        public IList<WorldObjectViewModel> WorldObjects { get; } 
-            = new ObservableCollection<WorldObjectViewModel>();
+        public IList<WorldObjectViewModel> WorldObjects { get; } = new ObservableCollection<WorldObjectViewModel>();
     }
 }

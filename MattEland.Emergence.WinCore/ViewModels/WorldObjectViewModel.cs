@@ -45,8 +45,11 @@ namespace MattEland.Emergence.WinCore.ViewModels
                                 throw new NotSupportedException($"The Obstacle {obstacle.ObstacleType:G} does not have a brush mapping");
                         }
 
-                    case Domain.Void empty:
+                    case Domain.Void _:
                         return Brushes.Black;
+
+                    case Doors.Door _:
+                        return Brushes.LightYellow;
 
                     default:
                         throw new NotSupportedException($"Source {Source.GetType().Name} does not have a brush mapping");
@@ -59,7 +62,7 @@ namespace MattEland.Emergence.WinCore.ViewModels
             {
                 switch (Source)
                 {
-                    case Floors.Floor floor:
+                    case Floors.Floor _:
                         return ".";
                     
                     case Obstacles.Obstacle obstacle:
@@ -73,8 +76,11 @@ namespace MattEland.Emergence.WinCore.ViewModels
                                 throw new NotSupportedException($"The Obstacle {obstacle.ObstacleType:G} does not have a content mapping");
                         }
 
-                    case Domain.Void empty:
+                    case Domain.Void _:
                         return string.Empty;
+                    
+                    case Doors.Door door:
+                        return door.IsOpen ? "." : "+";
 
                     default:
                         throw new NotSupportedException($"Source {Source.GetType().Name} does not have a content mapping");

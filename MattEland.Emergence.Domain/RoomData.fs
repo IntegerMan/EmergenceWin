@@ -19,24 +19,4 @@ type RoomData (id: string, data: string list) =
 
 /// Creates a room from the provided JSON
 let loadDataFromJson json : RoomData = JsonConvert.DeserializeObject<RoomData> json
-  
-/// JSON representing a room with 4 pillars
-let roomPillarJson = """
-  {
-    "Id": "Pillar Room",
-    "Data": [
-      "#####+#####",
-      "#...._....#",
-      "#.##._.##.#",
-      "#.#.._..#.#",
-      "#...___...#",
-      "+____d____+",
-      "#...___...#",
-      "#.#.._..#.#",
-      "#.##._.##.#",
-      "#...._....#",
-      "#####+#####"
-    ]
-  }
-"""
 
