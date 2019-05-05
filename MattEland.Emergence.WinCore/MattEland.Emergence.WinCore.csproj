@@ -4,6 +4,7 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>favicon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,6 +15,15 @@
     <PackageReference Include="JetBrains.Annotations" Version="2019.1.1" />
     <PackageReference Include="LanguageExt.Core" Version="3.1.21" />
     <PackageReference Include="MattEland.Shared" Version="1.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 
 </Project>

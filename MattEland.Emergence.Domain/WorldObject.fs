@@ -8,3 +8,7 @@ type WorldObject(initialPosition: Position) =
   
   member this.UpdatePosition newPos =
        position <- newPos
+
+/// Represents empty territory in the game world
+type Void(initialPosition: Position) =
+  inherit WorldObject(initialPosition)

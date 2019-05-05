@@ -6,11 +6,11 @@
         xmlns:viewModels="clr-namespace:MattEland.Emergence.WinCore.ViewModels"
         mc:Ignorable="d"
         Background="Black"
-        Title="Emergence" 
+        Title="Emergence Test Client" 
         Width="800" Height="600" 
         d:DataContext="{d:DesignInstance viewModels:GameViewModel}">
     <Grid>
-        <ItemsControl ItemsSource="{Binding WorldObjects}">
+        <ItemsControl ItemsSource="{Binding WorldObjects}" Margin="4">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <Canvas />
@@ -20,7 +20,13 @@
                 <DataTemplate>
                     <Border Background="{Binding Brush}" 
                             Width="{Binding Size}"
-                            Height="{Binding Size}"/>
+                            Height="{Binding Size}">
+                      <TextBlock Text="{Binding Content}" 
+                                 FontFamily="Lucida Console"
+                                 FontSize="24"
+                                 HorizontalAlignment="Center"
+                                 VerticalAlignment="Center"/>
+                    </Border>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
             <ItemsControl.ItemContainerStyle>

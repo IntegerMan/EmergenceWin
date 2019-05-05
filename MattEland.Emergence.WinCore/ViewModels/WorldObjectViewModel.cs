@@ -1,3 +1,4 @@
+using System;
 using System.Windows.Media;
 using JetBrains.Annotations;
 using LanguageExt;
@@ -19,13 +20,64 @@ namespace MattEland.Emergence.WinCore.ViewModels
                 switch (Source)
                 {
                     case Floors.Floor floor:
-                        return Brushes.LightGray;
+                        switch (floor.FloorType)
+                        {
+                            case Floors.FloorType.LargeTile:
+                                return Brushes.Gray;
+                            case Floors.FloorType.QuadTile:
+                                return Brushes.LightGray;
+                            case Floors.FloorType.Grate:
+                                return Brushes.DarkGray;
+                            case Floors.FloorType.Caution:
+                                return Brushes.Yellow;
+                            default:
+                                throw new NotSupportedException($"The FloorType {floor.FloorType:G} does not have a brush mapping");
+                        }
                     
                     case Obstacles.Obstacle obstacle:
-                        return Brushes.DimGray;
-                    
+                        switch (obstacle.ObstacleType)
+                        {
+                            case Obstacles.ObstacleType.Wall:
+                                return Brushes.DarkSlateGray;
+                            case Obstacles.ObstacleType.Column:
+                                return Brushes.DimGray;
+                            default:
+                                throw new NotSupportedException($"The Obstacle {obstacle.ObstacleType:G} does not have a brush mapping");
+                        }
+
+                    case Domain.Void empty:
+                        return Brushes.Black;
+
                     default:
-                        return Brushes.Maroon;
+                        throw new NotSupportedException($"Source {Source.GetType().Name} does not have a brush mapping");
+                }
+            }
+        }
+        public string Content
+        {
+            get
+            {
+                switch (Source)
+                {
+                    case Floors.Floor floor:
+                        return ".";
+                    
+                    case Obstacles.Obstacle obstacle:
+                        switch (obstacle.ObstacleType)
+                        {
+                            case Obstacles.ObstacleType.Wall:
+                                return "#";
+                            case Obstacles.ObstacleType.Column:
+                                return "o";
+                            default:
+                                throw new NotSupportedException($"The Obstacle {obstacle.ObstacleType:G} does not have a content mapping");
+                        }
+
+                    case Domain.Void empty:
+                        return string.Empty;
+
+                    default:
+                        throw new NotSupportedException($"Source {Source.GetType().Name} does not have a content mapping");
                 }
             }
         }
