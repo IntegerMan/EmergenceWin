@@ -32,7 +32,7 @@ namespace MattEland.Emergence.WinCore.ViewModels
                             case Floors.FloorType.Grate:
                                 return Brushes.DarkGray;
                             case Floors.FloorType.Caution:
-                                return Brushes.Yellow;
+                                return Brushes.LightYellow;
                             default:
                                 return Brushes.LightGray;
                         }
@@ -46,11 +46,11 @@ namespace MattEland.Emergence.WinCore.ViewModels
                                 return Brushes.MediumAquamarine;
                             case LogicObjectType.StairsUp:
                             case LogicObjectType.StairsDown:
-                                return Brushes.Teal;
+                                return Brushes.White;
                             case LogicObjectType.Help:
                                 return Brushes.DodgerBlue;
                             default:
-                                return Brushes.Magenta;
+                                return Brushes.Teal;
                         }
 
                     case Obstacles.Obstacle obstacle:
@@ -68,11 +68,11 @@ namespace MattEland.Emergence.WinCore.ViewModels
                                 return Brushes.DimGray;
                         }
 
-                    case Domain.Void _:
-                        return Brushes.Black;
-
                     case Doors.Door _:
                         return Brushes.LightYellow;
+
+                    case Firewall firewall:
+                        return firewall.IsOpen ? Brushes.YellowGreen : Brushes.OrangeRed;
 
                     default:
                         throw new NotSupportedException($"Source {Source.GetType().Name} does not have a brush mapping");

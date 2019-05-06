@@ -8,14 +8,11 @@ open MattEland.Emergence.Domain.Doors
 open MattEland.Emergence.Domain.LevelData
 open MattEland.Emergence.Domain.RoomPlacement
 
-let buildVoid pos = new Void(pos)
-let buildDoor pos = new Door(pos)
-
 let getObjectForChar char pos = 
     match char with
         // Special Tiles
-        | '+' -> buildDoor pos :> WorldObject
-        | '|' -> buildDoor pos :> WorldObject // TODO: This is a firewall
+        | '+' -> new Door(pos) :> WorldObject
+        | '|' -> new Firewall(pos) :> WorldObject
         // Character Select
         | '<' -> new LogicObject(pos, LogicObjectType.StairsDown) :> WorldObject
         | '>' -> new LogicObject(pos, LogicObjectType.StairsUp) :> WorldObject
@@ -35,7 +32,7 @@ let getObjectForChar char pos =
         | 't' -> new Floor(pos, FloorType.QuadTile) :> WorldObject // TODO: This is actually a treasure indicator
         | '$' -> new Floor(pos, FloorType.QuadTile) :> WorldObject // TODO: This is actually a drop indicator too
         // Misc. Cases
-        | ' ' -> buildVoid pos :> WorldObject
+        | ' ' -> failwith "Cannot create a void entity"
         | _ -> raise (NotSupportedException("Char type " + char.ToString() + " has no object mapping"))
     
 let placePrefab (instr: LevelInstruction): RoomPlacement =

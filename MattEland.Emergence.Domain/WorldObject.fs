@@ -9,9 +9,3 @@ type WorldObject(initialPosition: Position) =
   member this.UpdatePosition newPos = position <- newPos
 
   abstract member AsciiCharacter: char;
-
-/// Represents empty territory in the game world
-type Void(initialPosition: Position) =
-  inherit WorldObject(initialPosition)
-
-  override this.AsciiCharacter = ' '
