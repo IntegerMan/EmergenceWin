@@ -16,7 +16,7 @@ namespace MattEland.Emergence.WinCore.ViewModels
 
         public IList<WorldObjectViewModel> WorldObjects { get; } = new ObservableCollection<WorldObjectViewModel>();
         
-        public int XOffset => 50;
-        public int YOffset => 0;
+        public int XOffset => 40;
+        public int YOffset => -35;
     }
 }

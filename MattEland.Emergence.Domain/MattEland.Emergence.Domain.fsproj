@@ -18,6 +18,7 @@
     <Compile Include="Position.fs" />
     <Compile Include="Health.fs" />
     <Compile Include="WorldObject.fs" />
+    <Compile Include="LogicObject.fs" />
     <Compile Include="DestructibleObject.fs" />
     <Compile Include="Doors.fs" />
     <Compile Include="Floors.fs" />

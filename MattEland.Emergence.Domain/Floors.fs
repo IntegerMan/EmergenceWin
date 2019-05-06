@@ -9,3 +9,10 @@ type FloorType =
 type Floor (position: Position, floorType: FloorType) =
     inherit WorldObject(position)
     member this.FloorType = floorType
+
+    override this.AsciiCharacter = 
+      match floorType with
+      | FloorType.QuadTile -> ','
+      | FloorType.Grate -> '_'
+      | FloorType.Caution -> '='
+      | _ -> '.'

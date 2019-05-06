@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Windows.Media;
 using JetBrains.Annotations;
 using LanguageExt;
@@ -6,6 +7,7 @@ using MattEland.Emergence.Domain;
 
 namespace MattEland.Emergence.WinCore.ViewModels
 {
+    [DebuggerDisplay("{Source.GetType().Name} at ({Source.Position.X}, {Source.Position.Y}) rendering at ({X}, {Y})")]
     public class WorldObjectViewModel
     {
         [NotNull]
@@ -27,29 +29,43 @@ namespace MattEland.Emergence.WinCore.ViewModels
                         {
                             case Floors.FloorType.LargeTile:
                                 return Brushes.Gray;
-                            case Floors.FloorType.QuadTile:
-                                return Brushes.LightGray;
                             case Floors.FloorType.Grate:
                                 return Brushes.DarkGray;
                             case Floors.FloorType.Caution:
                                 return Brushes.Yellow;
                             default:
-                                throw new NotSupportedException($"The FloorType {floor.FloorType:G} does not have a brush mapping");
+                                return Brushes.LightGray;
                         }
-                    
+
+                    case LogicObject lob:
+                        switch (lob.ObjectType)
+                        {
+                            case LogicObjectType.Core:
+                                return Brushes.Aqua;
+                            case LogicObjectType.CharacterSelect:
+                                return Brushes.MediumAquamarine;
+                            case LogicObjectType.StairsUp:
+                            case LogicObjectType.StairsDown:
+                                return Brushes.Teal;
+                            case LogicObjectType.Help:
+                                return Brushes.DodgerBlue;
+                            default:
+                                return Brushes.Magenta;
+                        }
+
                     case Obstacles.Obstacle obstacle:
                         switch (obstacle.ObstacleType)
                         {
                             case Obstacles.ObstacleType.Wall:
                                 return Brushes.DarkSlateGray;
-                            case Obstacles.ObstacleType.Column:
-                                return Brushes.DimGray;
                             case Obstacles.ObstacleType.Service:
                                 return Brushes.Orange;
                             case Obstacles.ObstacleType.Data:
                                 return Brushes.Purple;
+                            case Obstacles.ObstacleType.ThreadPool:
+                                return Brushes.CornflowerBlue;
                             default:
-                                throw new NotSupportedException($"The Obstacle {obstacle.ObstacleType:G} does not have a brush mapping");
+                                return Brushes.DimGray;
                         }
 
                     case Domain.Void _:
@@ -63,47 +79,14 @@ namespace MattEland.Emergence.WinCore.ViewModels
                 }
             }
         }
-        public string Content
-        {
-            get
-            {
-                switch (Source)
-                {
-                    case Floors.Floor _:
-                        return ".";
-                    
-                    case Obstacles.Obstacle obstacle:
-                        switch (obstacle.ObstacleType)
-                        {
-                            case Obstacles.ObstacleType.Wall:
-                                return "#";
-                            case Obstacles.ObstacleType.Column:
-                                return "o";
-                            case Obstacles.ObstacleType.Service:
-                                return "*";
-                            case Obstacles.ObstacleType.Data:
-                                return "d";
-                            default:
-                                throw new NotSupportedException($"The Obstacle {obstacle.ObstacleType:G} does not have a content mapping");
-                        }
 
-                    case Domain.Void _:
-                        return string.Empty;
-                    
-                    case Doors.Door door:
-                        return door.IsOpen ? "." : "+";
-
-                    default:
-                        throw new NotSupportedException($"Source {Source.GetType().Name} does not have a content mapping");
-                }
-            }
-        }
+        public string Content => Source.AsciiCharacter.ToString();
 
         [UsedImplicitly] 
-        public int X => (Source.Position.X * Size) + _gameVM.XOffset;
+        public int X => (Source.Position.X + _gameVM.XOffset) * Size;
         
         [UsedImplicitly] 
-        public int Y => (Source.Position.Y * Size) + _gameVM.YOffset;
+        public int Y => (Source.Position.Y + _gameVM.YOffset) * Size;
 
         public WorldObjectViewModel(Some<WorldObject> source, Some<GameViewModel> gameViewModel)
         {

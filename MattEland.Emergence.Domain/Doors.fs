@@ -6,3 +6,8 @@ type Door (position: Position) =
   let mutable isOpen: bool = false
   
   member this.IsOpen = isOpen
+
+  override this.AsciiCharacter =
+    match isOpen with 
+    | true -> '.'
+    | _ -> '+'

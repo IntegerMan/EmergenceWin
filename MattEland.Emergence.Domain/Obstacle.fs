@@ -8,9 +8,7 @@ type ObstacleType =
     | Service = 2
     | Data = 3
     | ThreadPool = 4
-    | Core = 5
-    | Help = 6
-    | Barrier = 7
+    | Barrier = 5
     
 let getMaxHealth obstacleType =
     match obstacleType with
@@ -20,3 +18,12 @@ let getMaxHealth obstacleType =
 type Obstacle (position: Position, obstacleType: ObstacleType) = 
   inherit DestructibleObject(position, getMaxHealth obstacleType)
   member this.ObstacleType = obstacleType
+
+  override this.AsciiCharacter =
+    match obstacleType with
+      | ObstacleType.Barrier -> '-'
+      | ObstacleType.Column -> 'o'
+      | ObstacleType.Service -> '*'
+      | ObstacleType.Data -> 'd'
+      | ObstacleType.ThreadPool -> '~'
+      | _ -> '#'
