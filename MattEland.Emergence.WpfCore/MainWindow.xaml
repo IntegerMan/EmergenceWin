@@ -11,32 +11,31 @@
         Loaded="OnWindowLoaded"
         d:DataContext="{d:DesignInstance viewModels:GameViewModel}">
   <Grid>
-    <Button x:Name="btnLoad" Click="BtnLoad_OnClick">Load</Button>
-  <ItemsControl ItemsSource="{Binding WorldObjects}" Margin="4">
-    <ItemsControl.ItemsPanel>
-      <ItemsPanelTemplate>
-        <Canvas />
-      </ItemsPanelTemplate>
-    </ItemsControl.ItemsPanel>
-    <ItemsControl.ItemTemplate>
-      <DataTemplate>
-        <Border Background="{Binding Brush}" 
+    <ItemsControl ItemsSource="{Binding WorldObjects}" Margin="4">
+      <ItemsControl.ItemsPanel>
+        <ItemsPanelTemplate>
+          <Canvas />
+        </ItemsPanelTemplate>
+      </ItemsControl.ItemsPanel>
+      <ItemsControl.ItemTemplate>
+        <DataTemplate>
+          <Border Background="{Binding Brush}" 
                             Width="{Binding Size}"
                             Height="{Binding Size}">
-          <TextBlock Text="{Binding Content}" 
+            <TextBlock Text="{Binding Content}" 
                                  FontFamily="Lucida Console"
                                  FontSize="24"
                                  HorizontalAlignment="Center"
                                  VerticalAlignment="Center"/>
-        </Border>
-      </DataTemplate>
-    </ItemsControl.ItemTemplate>
-    <ItemsControl.ItemContainerStyle>
-      <Style TargetType="ContentPresenter">
-        <Setter Property="Canvas.Left" Value="{Binding Path=X}" />
-        <Setter Property="Canvas.Top" Value="{Binding Path=Y}" />
-      </Style>
-    </ItemsControl.ItemContainerStyle>
-  </ItemsControl>
+          </Border>
+        </DataTemplate>
+      </ItemsControl.ItemTemplate>
+      <ItemsControl.ItemContainerStyle>
+        <Style TargetType="ContentPresenter">
+          <Setter Property="Canvas.Left" Value="{Binding Path=X}" />
+          <Setter Property="Canvas.Top" Value="{Binding Path=Y}" />
+        </Style>
+      </ItemsControl.ItemContainerStyle>
+    </ItemsControl>
   </Grid>
 </Window>

@@ -7,6 +7,7 @@ open MattEland.Emergence.Domain.Floors
 open MattEland.Emergence.Domain.Doors
 open MattEland.Emergence.Domain.LevelData
 open MattEland.Emergence.Domain.RoomPlacement
+open MattEland.Emergence.LevelData
 
 let getObjectForChar char pos = 
     match char with
@@ -35,17 +36,18 @@ let getObjectForChar char pos =
         | ' ' -> failwith "Cannot create a void entity"
         | _ -> raise (NotSupportedException("Char type " + char.ToString() + " has no object mapping"))
     
-let placePrefab (instr: LevelInstruction): RoomPlacement =
-    let room = RoomJson.getRoomById instr.PrefabId
+let placePrefab (instr: LevelInstruction, roomProvider: RoomDataProvider): RoomPlacement =
+    let room = roomProvider.GetRoomById(instr.PrefabId)
     new RoomPlacement(room, new Position(instr.X, instr.Y))
     
 let getMapInstructions levelId : RoomPlacement seq =
     
+    let roomProvider = new RoomDataProvider()
     let json = LevelJson.getLevelJson levelId
     let levelData = LevelData.loadDataFromJson json 
     seq {        
         for instr in levelData.Instructions do
-            yield placePrefab instr
+            yield placePrefab(instr, roomProvider)
     }
     
 let generateMap levelId =

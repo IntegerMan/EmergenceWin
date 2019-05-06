@@ -11,7 +11,6 @@
         Loaded="OnWindowLoaded"
         d:DataContext="{d:DesignInstance viewModels:GameViewModel}">
     <Grid>
-      <Button x:Name="btnLoad" Click="BtnLoad_OnClick">Load</Button>
       <ItemsControl ItemsSource="{Binding WorldObjects}" Margin="4">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>

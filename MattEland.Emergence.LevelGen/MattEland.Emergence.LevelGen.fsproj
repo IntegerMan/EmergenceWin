@@ -7,14 +7,13 @@
   <ItemGroup>
     <Compile Include="LevelData.fs" />
     <Compile Include="LevelJson.fs" />
-    <Compile Include="RoomData.fs" />
-    <Compile Include="RoomJson.fs" />
     <Compile Include="RoomPlacement.fs" />
     <Compile Include="WorldGenerator.fs" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\MattEland.Emergence.Domain\MattEland.Emergence.Domain.fsproj" />
+    <ProjectReference Include="..\MattEland.Emergence.LevelData\MattEland.Emergence.LevelData.csproj" />
   </ItemGroup>
 
 </Project>

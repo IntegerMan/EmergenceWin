@@ -24,6 +24,7 @@
     <Compile Include="Doors.fs" />
     <Compile Include="Floors.fs" />
     <Compile Include="Obstacle.fs" />
+    <Compile Include="RoomData.fs" />
   </ItemGroup>
 
   <ItemGroup>

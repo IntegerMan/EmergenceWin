@@ -15,11 +15,6 @@ namespace MattEland.Emergence.WpfCore
 
         private void OnWindowLoaded(object sender, RoutedEventArgs e)
         {
-        }
-
-        private void BtnLoad_OnClick(object sender, RoutedEventArgs e)
-        {
-            btnLoad.Visibility = Visibility.Collapsed;
             DataContext = new GameViewModel();
         }
     }
