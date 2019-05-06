@@ -8,9 +8,11 @@
         Background="Black"
         Title="Emergence Test Client" 
         Width="800" Height="600" 
+        Loaded="OnWindowLoaded"
         d:DataContext="{d:DesignInstance viewModels:GameViewModel}">
     <Grid>
-        <ItemsControl ItemsSource="{Binding WorldObjects}" Margin="4">
+      <Button x:Name="btnLoad" Click="BtnLoad_OnClick">Load</Button>
+      <ItemsControl ItemsSource="{Binding WorldObjects}" Margin="4">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <Canvas />

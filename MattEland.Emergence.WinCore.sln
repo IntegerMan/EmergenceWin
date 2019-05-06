@@ -7,9 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MattEland.Emergence.WinCore
 EndProject
 Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "MattEland.Emergence.Domain", "MattEland.Emergence.Domain\MattEland.Emergence.Domain.fsproj", "{D95D2757-C22D-47DE-B9AD-2CA313F60913}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "MattEland.Emergence.LevelGen", "MattEland.Emergence.LevelGen\MattEland.Emergence.LevelGen.fsproj", "{346CEA41-97F1-4F74-BA4E-6BA50E9B097A}"
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "MattEland.Emergence.LevelGen", "MattEland.Emergence.LevelGen\MattEland.Emergence.LevelGen.fsproj", "{346CEA41-97F1-4F74-BA4E-6BA50E9B097A}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "MattEland.Shared.Functions", "MattEland.Shared.Functions\MattEland.Shared.Functions.fsproj", "{E87D2E11-1829-443B-87FD-5F096374D179}"
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "MattEland.Shared.Functions", "MattEland.Shared.Functions\MattEland.Shared.Functions.fsproj", "{E87D2E11-1829-443B-87FD-5F096374D179}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MattEland.Emergence.WpfCore", "MattEland.Emergence.WpfCore\MattEland.Emergence.WpfCore.csproj", "{EDA75354-1417-460E-AD30-39A582275059}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{E87D2E11-1829-443B-87FD-5F096374D179}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E87D2E11-1829-443B-87FD-5F096374D179}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E87D2E11-1829-443B-87FD-5F096374D179}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EDA75354-1417-460E-AD30-39A582275059}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDA75354-1417-460E-AD30-39A582275059}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDA75354-1417-460E-AD30-39A582275059}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDA75354-1417-460E-AD30-39A582275059}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
