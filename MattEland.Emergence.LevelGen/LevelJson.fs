@@ -1,4 +1,5 @@
 module MattEland.Emergence.Domain.LevelJson
+open System
 
 let level0Json = """{
     "Name": "Tutorial",
@@ -1128,3 +1129,14 @@ let level5Json = """{
     }
   ]
 }"""
+
+
+let getLevelJson levelId : string =
+  match levelId with
+    | 0 -> level0Json
+    | 1 -> level1Json
+    | 2 -> level2Json
+    | 3 -> level3Json
+    | 4 -> level4Json
+    | 5 -> level5Json
+    | _ -> raise (NotSupportedException("The level " + levelId.ToString() + " is not supported"))

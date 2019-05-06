@@ -8,6 +8,9 @@ namespace MattEland.Emergence.WinCore.ViewModels
 {
     public class WorldObjectViewModel
     {
+        [NotNull]
+        private readonly GameViewModel _gameVM;
+
         [NotNull, UsedImplicitly]
         public WorldObject Source { get; }
 
@@ -97,13 +100,14 @@ namespace MattEland.Emergence.WinCore.ViewModels
         }
 
         [UsedImplicitly] 
-        public int X => Source.Position.X * Size; // TODO:  This won't work for view offsets
+        public int X => (Source.Position.X * Size) + _gameVM.XOffset;
         
         [UsedImplicitly] 
-        public int Y => Source.Position.Y * Size; // TODO:  This won't work for view offsets
+        public int Y => (Source.Position.Y * Size) + _gameVM.YOffset;
 
-        public WorldObjectViewModel(Some<WorldObject> source)
+        public WorldObjectViewModel(Some<WorldObject> source, Some<GameViewModel> gameViewModel)
         {
+            _gameVM = gameViewModel;
             Source = source.Value;
         }
     }

@@ -10,7 +10,6 @@ let mergeChars oldChar newChar =
             | ' ' -> oldChar
             | _ -> newChar
 
-type RoomPlacement (room: RoomData, upperLeftCorner: Position) =
-    
+type RoomPlacement (room: RoomData, upperLeftCorner: Position) =    
     member this.getCharAtPos (pos: Position) currentChar =
         pos.Subtract upperLeftCorner |> room.getCharAtPos |> mergeChars currentChar 

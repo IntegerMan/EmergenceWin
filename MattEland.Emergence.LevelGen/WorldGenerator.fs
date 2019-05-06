@@ -4,7 +4,6 @@ open System
 open MattEland.Emergence.Domain
 open MattEland.Emergence.Domain.Obstacles
 open MattEland.Emergence.Domain.Floors
-open MattEland.Emergence.Domain.Rooms
 open MattEland.Emergence.Domain.Doors
 open MattEland.Emergence.Domain.LevelData
 open MattEland.Emergence.Domain.RoomPlacement
@@ -24,11 +23,15 @@ let getObjectForChar char pos =
         | '|' -> buildDoor pos :> WorldObject // TODO: This is a firewall
         | '<' -> new Floor(pos, FloorType.Caution) :> WorldObject // TODO: This is an outbound port
         | '>' -> new Floor(pos, FloorType.Caution) :> WorldObject // TODO: This is an inbound port
+        | '1' | '2' | '3' | '4' | '5' | '6' -> new Floor(pos, FloorType.Caution) :> WorldObject // TODO: Character select etc
         // Obstacles
         | '#' -> new Obstacle(pos, ObstacleType.Wall) :> WorldObject
         | 'd' -> new Obstacle(pos, ObstacleType.Data) :> WorldObject
         | '*' -> new Obstacle(pos, ObstacleType.Service) :> WorldObject
+        | '=' -> new Obstacle(pos, ObstacleType.Barrier) :> WorldObject
         | '~' -> new Obstacle(pos, ObstacleType.ThreadPool) :> WorldObject
+        | 'C' -> new Obstacle(pos, ObstacleType.Core) :> WorldObject // TODO: Core
+        | '?' -> new Obstacle(pos, ObstacleType.Help) :> WorldObject // TODO: Help
         // Floors
         | ',' -> new Floor(pos, FloorType.Grate) :> WorldObject
         | '.' -> new Floor(pos, FloorType.LargeTile) :> WorldObject
@@ -47,33 +50,23 @@ let placePrefab (instr: LevelInstruction): RoomPlacement =
     
 let getMapInstructions levelId : RoomPlacement seq =
     
-    let levelData = LevelData.loadDataFromJson LevelJson.level1Json
+    let json = LevelJson.getLevelJson levelId
+    let levelData = LevelData.loadDataFromJson json 
     seq {        
         for instr in levelData.Instructions do
             yield placePrefab instr
-(*
-        yield placeRoom(RoomJson.roomPillarJson, 0, 0)
-        yield placeRoom(RoomJson.roomIntersectionJson, 10, 3)
-        yield placeRoom(RoomJson.roomNetworkJson, 0, 10)
-        yield placeRoom(RoomJson.roomTankHallJson, 20, 5)
-        yield placeRoom(RoomJson.roomQuadServiceJson, 0, 15)
-*)
     }
     
 let generateMap levelId =
-    seq {
-        let instructions = getMapInstructions levelId
-
-        let sizeX = 50
-        let sizeY = 50
-        
-        for y in 0..sizeY do
-            for x in 0..sizeX do
+    let instructions = getMapInstructions levelId
+    seq {        
+        for y in -100..100 do
+            for x in -100..100 do
                 let pos = new Position(x, y)
                 
                 let mutable char = ' '
                 for instr in instructions do
                     char <- instr.getCharAtPos pos char
                     
-                yield getObjectForChar char pos
+                if char <> ' ' then yield getObjectForChar char pos
     }
