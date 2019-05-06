@@ -1544,12 +1544,10 @@ let prefabsJson = """[
 """  
 
 let getPrefabs: RoomData seq =
-  let prefabs = JsonConvert.DeserializeObject<Newtonsoft.Json.Linq.JArray> prefabsJson
+  let prefabs = JsonConvert.DeserializeObject prefabsJson :?> Newtonsoft.Json.Linq.JArray
   seq {
     for obj in prefabs do
-      let json: string = obj.ToString()
-      yield loadDataFromJson json
+      yield obj.ToObject<RoomData>()
   }
-
 
 let getRoomById (id: string): Rooms.RoomData = getPrefabs |> Seq.find (fun p -> p.Id = id)
