@@ -16,3 +16,5 @@ type Floor (position: Position, floorType: FloorType) =
       | FloorType.Grate -> '_'
       | FloorType.Caution -> '='
       | _ -> '.'
+
+    override this.ZIndex = 10

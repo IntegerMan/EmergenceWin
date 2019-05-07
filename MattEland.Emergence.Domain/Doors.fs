@@ -11,3 +11,5 @@ type Door (position: Position) =
     match isOpen with 
     | true -> '.'
     | _ -> '+'
+
+  override this.ZIndex = 75

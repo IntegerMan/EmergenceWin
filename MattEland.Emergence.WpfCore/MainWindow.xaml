@@ -34,6 +34,7 @@
         <Style TargetType="ContentPresenter">
           <Setter Property="Canvas.Left" Value="{Binding Path=X}" />
           <Setter Property="Canvas.Top" Value="{Binding Path=Y}" />
+          <Setter Property="Canvas.ZIndex" Value="{Binding Path=ZIndex}" />
         </Style>
       </ItemsControl.ItemContainerStyle>
     </ItemsControl>

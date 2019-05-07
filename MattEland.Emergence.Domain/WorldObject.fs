@@ -9,3 +9,5 @@ type WorldObject(initialPosition: Position) =
   member this.UpdatePosition newPos = position <- newPos
 
   abstract member AsciiCharacter: char;
+
+  abstract member ZIndex: int

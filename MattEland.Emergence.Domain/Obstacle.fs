@@ -27,3 +27,5 @@ type Obstacle (position: Position, obstacleType: ObstacleType) =
       | ObstacleType.Data -> 'd'
       | ObstacleType.ThreadPool -> '~'
       | _ -> '#'
+
+  override this.ZIndex = 50

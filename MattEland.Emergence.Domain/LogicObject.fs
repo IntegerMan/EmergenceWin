@@ -20,3 +20,5 @@ type LogicObject(initialPosition: Position, objType: LogicObjectType) =
       | LogicObjectType.StairsDown -> '<'
       | LogicObjectType.StairsUp -> '>'
       | _ -> '?'
+
+  override this.ZIndex = 60

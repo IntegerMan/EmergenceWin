@@ -88,6 +88,9 @@ namespace MattEland.Emergence.WinCore.ViewModels
         [UsedImplicitly] 
         public int Y => (Source.Position.Y + _gameVM.YOffset) * Size;
 
+        [UsedImplicitly]
+        public int ZIndex => Source.ZIndex;
+
         public WorldObjectViewModel(Some<WorldObject> source, Some<GameViewModel> gameViewModel)
         {
             _gameVM = gameViewModel;
