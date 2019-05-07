@@ -50,7 +50,7 @@ let getMapInstructions levelId : RoomPlacement seq =
             yield placePrefab(instr, roomProvider)
     }
     
-let generateMap levelId =
+let generateMap levelId: WorldObject seq =
     let instructions = getMapInstructions levelId
     seq {        
         // TODO: Analyze instructions to determine min/max x/y

@@ -125,5 +125,11 @@
   <ItemGroup>
     <Resource Include="favicon.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MattEland.Emergence.GameLoop\MattEland.Emergence.GameLoop.fsproj">
+      <Project>{7a106f31-176d-43ea-826a-fbeab248a47f}</Project>
+      <Name>MattEland.Emergence.GameLoop</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
