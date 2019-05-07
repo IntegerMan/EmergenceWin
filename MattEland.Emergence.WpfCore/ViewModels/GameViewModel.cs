@@ -15,19 +15,19 @@ namespace MattEland.Emergence.WinCore.ViewModels
         public GameViewModel()
         {
             _gameManager = new GameManager();
-            _gameManager.Start();
-            
-            UpdateObjects();
+
+            var messages = _gameManager.Start();
+            ProcessMessages(messages);
         }
 
-        private void UpdateObjects()
+        private void ProcessMessages(IEnumerable<GameMessage> messages)
         {
-            WorldObjects.Clear();
-            
-            _gameManager.Objects.Each(obj =>
+            messages.Each(msg =>
             {
-                var vm = new WorldObjectViewModel(obj, this);
-                WorldObjects.Add(vm);
+                if (msg is ObjectCreatedMessage createMessage)
+                {
+                    WorldObjects.Add(new WorldObjectViewModel(createMessage.Object, this));
+                }
             });
         }
 
