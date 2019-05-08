@@ -7,6 +7,7 @@
         mc:Ignorable="d"
         Background="Black"
         Title="Emergence Test Client" 
+        KeyDown="MainWindow_OnKeyDown"
         Width="800" Height="600" 
         Loaded="OnWindowLoaded"
         d:DataContext="{d:DesignInstance viewModels:GameViewModel}">

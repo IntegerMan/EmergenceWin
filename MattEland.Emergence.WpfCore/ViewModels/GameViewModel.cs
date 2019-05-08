@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using JetBrains.Annotations;
+using MattEland.Emergence.Domain;
 using MattEland.Emergence.GameLoop;
 using MattEland.Shared.Collections;
 
@@ -24,9 +25,16 @@ namespace MattEland.Emergence.WinCore.ViewModels
         {
             messages.Each(msg =>
             {
-                if (msg is ObjectCreatedMessage createMessage)
+                switch (msg)
                 {
-                    WorldObjects.Add(new WorldObjectViewModel(createMessage.Object, this));
+                    case ObjectCreatedMessage createMessage:
+                        WorldObjects.Add(new WorldObjectViewModel(createMessage.Object, this));
+                        break;
+
+                    case ObjectUpdatedMessage updateMessage:
+                        // TODO Find existing VM and just update its values
+                        WorldObjects.Add(new WorldObjectViewModel(updateMessage.Object, this));
+                        break;
                 }
             });
         }
@@ -35,5 +43,7 @@ namespace MattEland.Emergence.WinCore.ViewModels
         
         public int XOffset => 40;
         public int YOffset => -35;
+
+        public void MovePlayer(MoveDirection direction) => ProcessMessages(_gameManager.MovePlayer(direction));
     }
 }

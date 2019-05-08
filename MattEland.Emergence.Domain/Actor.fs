@@ -16,3 +16,5 @@ type Actor (position: Position, actorType: ActorType) =
   override this.AsciiCharacter = '@'
 
   override this.ZIndex = 90
+
+  member this.ActorType = actorType

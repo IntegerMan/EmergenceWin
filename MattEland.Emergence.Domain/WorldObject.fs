@@ -4,7 +4,9 @@
 type WorldObject(initialPosition: Position) =
   let mutable position = initialPosition
   
-  member this.Position = position
+  member this.Position
+    with get () = position
+    and set (newPos) = position <- newPos
   
   member this.UpdatePosition newPos = position <- newPos
 

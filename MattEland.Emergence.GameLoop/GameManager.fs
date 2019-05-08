@@ -12,10 +12,20 @@ type ObjectCreatedMessage(object: WorldObject) =
 
   member this.Object = object
 
+type ObjectUpdatedMessage(object: WorldObject) =
+  inherit GameMessage()
+
+  member this.Object = object
+
 type GameManager() =
   let mutable currentState: GameState = GameState.NotStarted
   let mutable objects: WorldObject seq = Seq.empty
   let mutable levelId: int = 0
+
+  let isPlayer (obj: WorldObject): bool = 
+    match obj with
+    | :? Actors.Actor as act -> act.ActorType = Actors.ActorType.Player
+    | _ -> false
   
   member this.State = currentState
   
@@ -35,5 +45,10 @@ type GameManager() =
         for obj in objects do yield new ObjectCreatedMessage(obj)
       }
 
-
+  member this.MovePlayer(direction: MoveDirection) =
+    let player = Seq.find isPlayer this.Objects
+    player.Position <- player.Position.GetNeighbor direction
+    seq {
+      yield new ObjectUpdatedMessage(player)
+    }
       
