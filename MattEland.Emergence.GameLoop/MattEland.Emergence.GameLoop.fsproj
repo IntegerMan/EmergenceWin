@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <Compile Include="GameState.fs" />
-    <Compile Include="InputManager.fs" />
     <Compile Include="GameManager.fs" />
   </ItemGroup>
 

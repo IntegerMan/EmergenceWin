@@ -7,6 +7,7 @@ open MattEland.Emergence.Domain.Floors
 open MattEland.Emergence.Domain.Doors
 open MattEland.Emergence.Domain.LevelData
 open MattEland.Emergence.Domain.RoomPlacement
+open MattEland.Emergence.Domain.Actors
 open MattEland.Emergence.LevelData
 
 let getObjectForChar char pos = 
@@ -39,27 +40,28 @@ let getObjectForChar char pos =
 let placePrefab (instr: LevelInstruction, roomProvider: RoomDataProvider): RoomPlacement =
     let room = roomProvider.GetRoomById(instr.PrefabId)
     new RoomPlacement(room, new Position(instr.X, instr.Y))
+
     
-let getMapInstructions levelId : RoomPlacement seq =
+let generateMap levelId: WorldObject seq =
     
     let roomProvider = new RoomDataProvider()
     let json = LevelJson.getLevelJson levelId
     let levelData = LevelData.loadDataFromJson json 
-    seq {        
-        for instr in levelData.Instructions do
-            yield placePrefab(instr, roomProvider)
-    }
-    
-let generateMap levelId: WorldObject seq =
-    let instructions = getMapInstructions levelId
-    seq {        
+
+    let placements = Seq.map (fun i -> placePrefab(i, roomProvider)) levelData.Instructions
+        
+    seq {
+        
+        // Spawn the player at the level start location
+        yield new Actor(levelData.PlayerStart, ActorType.Player)
+        
         // TODO: Analyze instructions to determine min/max x/y
         for y in -100..100 do
             for x in -100..100 do
                 let pos = new Position(x, y)
                 
                 let mutable char = ' '
-                for instr in instructions do
+                for instr in placements do
                     char <- instr.getCharAtPos pos char
                     
                 if char <> ' ' then yield getObjectForChar char pos

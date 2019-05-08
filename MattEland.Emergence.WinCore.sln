@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28803.352
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MattEland.Emergence.WinCore", "MattEland.Emergence.WinCore\MattEland.Emergence.WinCore.csproj", "{692C8412-DE1E-4AF5-986E-708012B05FFD}"
-EndProject
 Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "MattEland.Emergence.Domain", "MattEland.Emergence.Domain\MattEland.Emergence.Domain.fsproj", "{D95D2757-C22D-47DE-B9AD-2CA313F60913}"
 EndProject
 Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "MattEland.Emergence.LevelGen", "MattEland.Emergence.LevelGen\MattEland.Emergence.LevelGen.fsproj", "{346CEA41-97F1-4F74-BA4E-6BA50E9B097A}"
@@ -23,10 +21,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{692C8412-DE1E-4AF5-986E-708012B05FFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{692C8412-DE1E-4AF5-986E-708012B05FFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{692C8412-DE1E-4AF5-986E-708012B05FFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{692C8412-DE1E-4AF5-986E-708012B05FFD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D95D2757-C22D-47DE-B9AD-2CA313F60913}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D95D2757-C22D-47DE-B9AD-2CA313F60913}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D95D2757-C22D-47DE-B9AD-2CA313F60913}.Release|Any CPU.ActiveCfg = Release|Any CPU

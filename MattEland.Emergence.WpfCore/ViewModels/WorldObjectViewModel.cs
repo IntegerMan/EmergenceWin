@@ -71,6 +71,9 @@ namespace MattEland.Emergence.WinCore.ViewModels
                     case Doors.Door _:
                         return Brushes.LightYellow;
 
+                    case Actors.Actor _:
+                        return Brushes.LimeGreen;
+
                     case Firewall firewall:
                         return firewall.IsOpen ? Brushes.YellowGreen : Brushes.OrangeRed;
 

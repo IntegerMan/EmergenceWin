@@ -21,6 +21,7 @@
     <Compile Include="LogicObject.fs" />
     <Compile Include="Firewall.fs" />
     <Compile Include="DestructibleObject.fs" />
+    <Compile Include="Actor.fs" />
     <Compile Include="Doors.fs" />
     <Compile Include="Floors.fs" />
     <Compile Include="Obstacle.fs" />
