@@ -18,6 +18,8 @@ type Position (x:int, y:int) =
     member this.Add (pos: Position) : Position = new Position(x + pos.X, y + pos.Y)
     member this.Subtract (pos: Position) : Position = new Position(x - pos.X, y - pos.Y)
 
+    override this.ToString() = "{" + x.ToString() + ", " + y.ToString() + "}"
+
     override this.GetHashCode() = (x.GetHashCode() * 100) + y.GetHashCode()
       
     override this.Equals(b) =

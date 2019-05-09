@@ -19,7 +19,7 @@ namespace MattEland.Emergence.EngineTests
             gameManager.MovePlayer(MoveDirection.Left);
 
             // Assert
-            gameManager.Player.Value.Position.ShouldBe(initialPos.GetNeighbor(MoveDirection.Left));
+            gameManager.Player.Value.Position.ToString().ShouldBe(initialPos.GetNeighbor(MoveDirection.Left).ToString());
         }
     }
 }
