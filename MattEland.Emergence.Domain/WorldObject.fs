@@ -8,8 +8,6 @@ type WorldObject(initialPosition: Position) =
     with get () = position
     and set (newPos) = position <- newPos
   
-  member this.UpdatePosition newPos = position <- newPos
-
   abstract member AsciiCharacter: char;
 
   abstract member ZIndex: int
