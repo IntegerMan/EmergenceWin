@@ -1,7 +1,7 @@
 ﻿namespace MattEland.Emergence.Domain
 
 type Firewall (position: Position) = 
-  inherit WorldObject(position)
+  inherit WorldObject(position, System.Guid.NewGuid())
   
   let mutable isOpen: bool = false
   

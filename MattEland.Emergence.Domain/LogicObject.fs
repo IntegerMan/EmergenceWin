@@ -9,7 +9,7 @@ type LogicObjectType =
 
 /// Represents empty territory in the game world
 type LogicObject(initialPosition: Position, objType: LogicObjectType) =
-  inherit WorldObject(initialPosition)
+  inherit WorldObject(initialPosition, System.Guid.NewGuid())
 
   member this.ObjectType = objType
 

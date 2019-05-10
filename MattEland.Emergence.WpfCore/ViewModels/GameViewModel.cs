@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using JetBrains.Annotations;
@@ -10,6 +11,8 @@ namespace MattEland.Emergence.WinCore.ViewModels
 {
     public class GameViewModel
     {
+        private readonly IDictionary<Guid, WorldObjectViewModel> _objects = new Dictionary<Guid, WorldObjectViewModel>();
+
         [NotNull]
         private readonly GameManager _gameManager;
 
@@ -25,15 +28,18 @@ namespace MattEland.Emergence.WinCore.ViewModels
         {
             messages.Each(msg =>
             {
+                WorldObjectViewModel vm;
                 switch (msg)
                 {
                     case ObjectCreatedMessage createMessage:
-                        WorldObjects.Add(new WorldObjectViewModel(createMessage.Object, this));
+                        vm = new WorldObjectViewModel(createMessage.Object, this);
+                        WorldObjects.Add(vm);
+                        _objects[vm.Id] = vm;
                         break;
 
                     case ObjectUpdatedMessage updateMessage:
-                        // TODO Find existing VM and just update its values
-                        WorldObjects.Add(new WorldObjectViewModel(updateMessage.Object, this));
+                        vm = _objects[updateMessage.Object.Id];
+                        vm.UpdateFrom(updateMessage);
                         break;
                 }
             });

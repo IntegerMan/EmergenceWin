@@ -7,7 +7,7 @@ type FloorType =
     | Caution = 3
   
 type Floor (position: Position, floorType: FloorType) =
-    inherit WorldObject(position)
+    inherit WorldObject(position, System.Guid.NewGuid())
     member this.FloorType = floorType
 
     override this.AsciiCharacter = 

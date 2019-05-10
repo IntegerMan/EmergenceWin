@@ -13,6 +13,8 @@ let getMaxHealth actorType =
 type Actor (position: Position, actorType: ActorType) = 
   inherit DestructibleObject(position, getMaxHealth actorType)
 
+  do printfn "Initializing actor"
+
   override this.AsciiCharacter = '@'
 
   override this.ZIndex = 90

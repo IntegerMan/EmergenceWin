@@ -40,20 +40,26 @@ let getObjectForChar char pos =
 let placePrefab (instr: LevelInstruction, roomProvider: RoomDataProvider): RoomPlacement =
     let room = roomProvider.GetRoomById(instr.PrefabId)
     new RoomPlacement(room, new Position(instr.X, instr.Y))
-
     
 let generateMap levelId: WorldObject seq =
     
+    printfn "Generate Map %i" levelId
+
     let roomProvider = new RoomDataProvider()
     let json = LevelJson.getLevelJson levelId
     let levelData = LevelData.loadDataFromJson json 
 
     let placements = Seq.map (fun i -> placePrefab(i, roomProvider)) levelData.Instructions
-        
+
+    // Spawn the player at the level start location
+    let player = new Actor(levelData.PlayerStart, ActorType.Player)
+    
+    // Any logic inside of this will be repeated every enumeration
     seq {
         
-        // Spawn the player at the level start location
-        yield new Actor(levelData.PlayerStart, ActorType.Player)
+        printfn "Generate Map %i Sequence" levelId
+
+        yield player
         
         // TODO: Analyze instructions to determine min/max x/y
         for y in -100..100 do

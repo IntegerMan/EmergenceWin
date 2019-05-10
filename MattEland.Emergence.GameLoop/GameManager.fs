@@ -39,8 +39,10 @@ type GameManager() =
       
       currentState <- GameState.Executing
       
+      printfn "Start invoked"
       objects <- WorldGenerator.generateMap levelId
 
+      printfn "Looking for player"
       for obj in objects do 
         if isPlayer obj then do
           player <- Some(obj :?> Actor)
@@ -55,10 +57,13 @@ type GameManager() =
 
   member this.MovePlayer(direction: MoveDirection) =
     seq {
+      printfn "MovePlayer"
       if player.IsNone then do invalidOp "No player is present. Cannot move."
 
+      printfn "Set Player Position"
       player.Value.Position <- player.Value.Position.GetNeighbor direction
 
+      printfn "Yield update message"
       yield new ObjectUpdatedMessage(player.Value)
     }
       

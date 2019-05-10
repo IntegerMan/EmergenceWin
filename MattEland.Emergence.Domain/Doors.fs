@@ -1,7 +1,7 @@
 module MattEland.Emergence.Domain.Doors
 
 type Door (position: Position) = 
-  inherit WorldObject(position)
+  inherit WorldObject(position, System.Guid.NewGuid())
   
   let mutable isOpen: bool = false
   
