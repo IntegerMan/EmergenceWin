@@ -4,20 +4,6 @@ open MattEland.Emergence.Domain
 open MattEland.Emergence.Domain.Actors
 open MattEland.Emergence.GameLoop
 
-[<AbstractClass>]
-type GameMessage() = 
-  class end
-
-type ObjectCreatedMessage(object: WorldObject) =
-  inherit GameMessage()
-
-  member this.Object = object
-
-type ObjectUpdatedMessage(object: WorldObject) =
-  inherit GameMessage()
-
-  member this.Object = object
-
 type GameManager() =
   let mutable currentState: GameState = GameState.NotStarted
   let mutable objects: WorldObject seq = Seq.empty
@@ -28,6 +14,12 @@ type GameManager() =
     match obj with
     | :? Actors.Actor as act -> act.ActorType = Actors.ActorType.Player
     | _ -> false
+
+  let getObjectsAtPos (pos: Position): WorldObject seq =
+    seq {
+      for obj in objects do
+        if obj.Position = pos then yield obj
+    }
   
   member this.State = currentState
   
@@ -55,13 +47,31 @@ type GameManager() =
           yield new ObjectCreatedMessage(obj)
       }
 
-  member this.MovePlayer(direction: MoveDirection) =
+  member this.GetInteractiveObjectsAtPos(pos: Position): IInteractive seq = 
+
+    let localObjects = getObjectsAtPos pos
+    let sortedObjects: WorldObject seq = Seq.sortBy (fun (o: WorldObject) -> o.ZIndex * -1) localObjects
+
+    seq {
+      for obj in sortedObjects do
+        match box obj with
+        | :? IInteractive as i -> yield i
+        | _ -> ()
+    }
+
+  member this.MovePlayer(direction: MoveDirection): GameMessage seq =
     seq {
       printfn "MovePlayer"
       if player.IsNone then do invalidOp "No player is present. Cannot move."
 
-      printfn "Set Player Position"
-      player.Value.Position <- player.Value.Position.GetNeighbor direction
+      let targetPos = direction |> player.Value.Position.GetNeighbor
+      let interactive = this.GetInteractiveObjectsAtPos targetPos
+
+      for i in interactive do
+        // TODO: Some messages should stop future interactions
+        let interactMessages = i.interact player.Value
+        for message in interactMessages do
+          yield message
 
       printfn "Yield update message"
       yield new ObjectUpdatedMessage(player.Value)

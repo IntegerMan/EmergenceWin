@@ -13,3 +13,9 @@ type Firewall (position: Position) =
     | _ -> '|'
 
   override this.ZIndex = 75
+
+  interface IInteractive with
+    member this.interact source =
+      seq {
+        yield new DisplayMessage("The firewall is not open.")
+      }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows;
 using JetBrains.Annotations;
 using MattEland.Emergence.Domain;
 using MattEland.Emergence.GameLoop;
@@ -40,6 +41,10 @@ namespace MattEland.Emergence.WinCore.ViewModels
                     case ObjectUpdatedMessage updateMessage:
                         vm = _objects[updateMessage.Object.Id];
                         vm.UpdateFrom(updateMessage);
+                        break;
+
+                    case DisplayMessage displayMessage:
+                        MessageBox.Show(displayMessage.Text, "Display Message", MessageBoxButton.OK, MessageBoxImage.Information);
                         break;
                 }
             });

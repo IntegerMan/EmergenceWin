@@ -2,12 +2,12 @@ module WorldGenerator
 
 open System
 open MattEland.Emergence.Domain
+open MattEland.Emergence.Domain.Actors
 open MattEland.Emergence.Domain.Obstacles
 open MattEland.Emergence.Domain.Floors
 open MattEland.Emergence.Domain.Doors
 open MattEland.Emergence.Domain.LevelData
 open MattEland.Emergence.Domain.RoomPlacement
-open MattEland.Emergence.Domain.Actors
 open MattEland.Emergence.LevelData
 
 let getObjectForChar char pos = 

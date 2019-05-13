@@ -13,3 +13,4 @@ type WorldObject(initialPosition: Position, id: System.Guid) =
   abstract member AsciiCharacter: char
 
   abstract member ZIndex: int
+

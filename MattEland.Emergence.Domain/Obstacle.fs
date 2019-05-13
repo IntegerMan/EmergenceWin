@@ -29,3 +29,9 @@ type Obstacle (position: Position, obstacleType: ObstacleType) =
       | _ -> '#'
 
   override this.ZIndex = 50
+
+  interface IInteractive with
+    member this.interact source =
+      seq {
+        yield new DisplayMessage("You can't go that way. Moron.")
+      }

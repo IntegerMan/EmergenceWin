@@ -20,3 +20,9 @@ type Actor (position: Position, actorType: ActorType) =
   override this.ZIndex = 90
 
   member this.ActorType = actorType
+
+  interface IInteractive with
+    member this.interact source =
+      seq {
+        yield new DisplayMessage("Combat isn't implemented, bro")
+      }

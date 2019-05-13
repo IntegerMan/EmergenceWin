@@ -13,3 +13,9 @@ type Door (position: Position) =
     | _ -> '+'
 
   override this.ZIndex = 75
+
+  interface IInteractive with
+    member this.interact source =
+      seq {
+        yield new DisplayMessage("Doors are not implemented")
+      }
