@@ -28,6 +28,8 @@ namespace MattEland.Emergence.WinCore.ViewModels
 
         private void ProcessMessages(IEnumerable<GameMessage> messages)
         {
+            Messages.Clear();
+
             messages.Each(msg =>
             {
                 WorldObjectViewModel vm;
@@ -45,13 +47,16 @@ namespace MattEland.Emergence.WinCore.ViewModels
                         break;
 
                     case DisplayTextMessage displayMessage:
-                        MessageBox.Show(displayMessage.Text, "Display Message", MessageBoxButton.OK, MessageBoxImage.Information);
+                        // MessageBox.Show(displayMessage.Text, "Display Message", MessageBoxButton.OK, MessageBoxImage.Information);
                         break;
                 }
+
+                Messages.Add(new MessageViewModel(msg));
             });
         }
 
         public IList<WorldObjectViewModel> WorldObjects { get; } = new ObservableCollection<WorldObjectViewModel>();
+        public IList<MessageViewModel> Messages { get; } = new ObservableCollection<MessageViewModel>();
         
         public int XOffset => 40;
         public int YOffset => -35;

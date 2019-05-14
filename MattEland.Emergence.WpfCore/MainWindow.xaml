@@ -5,13 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModels="clr-namespace:MattEland.Emergence.WinCore.ViewModels"
         mc:Ignorable="d"
-        Background="Black"
         Title="Emergence Test Client" 
         KeyDown="MainWindow_OnKeyDown"
-        Width="800" Height="600" 
+        Width="1024" Height="600" 
         Loaded="OnWindowLoaded"
         d:DataContext="{d:DesignInstance viewModels:GameViewModel}">
   <Grid>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="*"></ColumnDefinition>
+      <ColumnDefinition Width="5"></ColumnDefinition>
+      <ColumnDefinition Width="300"></ColumnDefinition>
+    </Grid.ColumnDefinitions>
+
+    <Border Background="Black" ClipToBounds="True">
     <ItemsControl ItemsSource="{Binding WorldObjects}" Margin="4">
       <ItemsControl.ItemsPanel>
         <ItemsPanelTemplate>
@@ -39,5 +45,8 @@
         </Style>
       </ItemsControl.ItemContainerStyle>
     </ItemsControl>
+    </Border>
+
+    <ItemsControl Grid.Column="2" ItemsSource="{Binding Messages}" DisplayMemberPath="Text"></ItemsControl>
   </Grid>
 </Window>

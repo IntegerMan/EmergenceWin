@@ -12,5 +12,8 @@ namespace MattEland.Emergence.Model.Messages
         {
             Text = text ?? throw new ArgumentNullException(nameof(text));
         }
+
+        public override string ToString() => $"Display '{Text}'";
+
     }
 }

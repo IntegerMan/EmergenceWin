@@ -13,5 +13,7 @@ namespace MattEland.Emergence.Model.Messages
 
         [NotNull]
         public WorldObject Source { get; }
+
+        public override string ToString() => $"Created {Source.AsciiChar} at {Source.Pos}";
     }
 }

@@ -23,10 +23,11 @@ let getObjectForChar char pos =
         | '#' -> new Obstacle(pos, ObstacleType.Wall) :> WorldObject
         | 'd' -> new Obstacle(pos, ObstacleType.Data) :> WorldObject
         | '*' -> new Obstacle(pos, ObstacleType.Service) :> WorldObject
-        | '=' -> new Obstacle(pos, ObstacleType.Barrier) :> WorldObject
+        | 'X' -> new Obstacle(pos, ObstacleType.Barrier) :> WorldObject
         | '~' -> new Obstacle(pos, ObstacleType.ThreadPool) :> WorldObject
         // Floors
-        | ',' -> new Floor(pos, FloorType.Grate) :> WorldObject
+        | ',' -> new Floor(pos, FloorType.LargeTile) :> WorldObject
+        | '=' -> new Floor(pos, FloorType.Grate) :> WorldObject
         | '.' -> new Floor(pos, FloorType.LargeTile) :> WorldObject
         | '_' -> new Floor(pos, FloorType.Caution) :> WorldObject
         | 't' -> new Floor(pos, FloorType.QuadTile) :> WorldObject // TODO: This is actually a treasure indicator

@@ -20,6 +20,7 @@ namespace MattEland.Emergence.Model.Entities
             if (!IsCaptured)
             {
                 IsCaptured = true;
+                yield return new ObjectUpdatedMessage(this);
                 yield return new DisplayTextMessage("The system core is now under your control");
             }
         }

@@ -13,5 +13,8 @@ namespace MattEland.Emergence.Model.Messages
         {
             Source = source ?? throw new ArgumentNullException(nameof(source));
         }
+
+        public override string ToString() => $"Updated {Source.AsciiChar} at {Source.Pos}";
+
     }
 }

@@ -24,7 +24,7 @@ namespace MattEland.Emergence.Model.Entities
             }
             else
             {
-                IsOpen = false;
+                IsOpen = true;
                 yield return new ObjectUpdatedMessage(this);
             }
         }

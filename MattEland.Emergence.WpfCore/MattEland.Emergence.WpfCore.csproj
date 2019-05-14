@@ -78,6 +78,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="ViewModels\GameViewModel.cs" />
+    <Compile Include="ViewModels\MessageViewModel.cs" />
     <Compile Include="ViewModels\WorldObjectViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
