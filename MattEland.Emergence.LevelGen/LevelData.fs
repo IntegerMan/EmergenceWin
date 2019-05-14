@@ -1,6 +1,7 @@
 module MattEland.Emergence.Domain.LevelData
 
 open Newtonsoft.Json
+open MattEland.Emergence.Model
 
 type LevelInstruction (prefabId: string, x: int, y: int, encounterSet: string) =
   member this.PrefabId = prefabId;
@@ -12,7 +13,7 @@ type LevelInstruction (prefabId: string, x: int, y: int, encounterSet: string) =
 type LevelData (name: string, start: Position, instructions: LevelInstruction seq) =
   member this.Name = name
   member this.Instructions = instructions
-  member this.PlayerStart = start
+  member this.PlayerStart: Position = start
 
 /// Creates a level from the provided JSON
 let loadDataFromJson json : LevelData = JsonConvert.DeserializeObject<LevelData> json

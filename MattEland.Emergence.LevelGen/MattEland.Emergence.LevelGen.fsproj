@@ -12,8 +12,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MattEland.Emergence.Domain\MattEland.Emergence.Domain.fsproj" />
     <ProjectReference Include="..\MattEland.Emergence.LevelData\MattEland.Emergence.LevelData.csproj" />
+    <ProjectReference Include="..\MattEland.Emergence.Model\MattEland.Emergence.Model.csproj" />
   </ItemGroup>
 
 </Project>

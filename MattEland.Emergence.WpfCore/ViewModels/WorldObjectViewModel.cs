@@ -5,12 +5,12 @@ using System.Runtime.CompilerServices;
 using System.Windows.Media;
 using JetBrains.Annotations;
 using LanguageExt;
-using MattEland.Emergence.Domain;
-using MattEland.Emergence.GameLoop;
+using MattEland.Emergence.Model.Entities;
+using MattEland.Emergence.Model.Messages;
 
 namespace MattEland.Emergence.WinCore.ViewModels
 {
-    [DebuggerDisplay("{Source.GetType().Name} at ({Source.Position.X}, {Source.Position.Y}) rendering at ({X}, {Y})")]
+    [DebuggerDisplay("{Source.GetType().Name} at ({Source.Pos.X}, {Source.Pos.Y}) rendering at ({X}, {Y})")]
     public class WorldObjectViewModel : INotifyPropertyChanged
     {
         [NotNull]
@@ -27,58 +27,55 @@ namespace MattEland.Emergence.WinCore.ViewModels
             {
                 switch (Source)
                 {
-                    case Floors.Floor floor:
+                    case Floor floor:
                         switch (floor.FloorType)
                         {
-                            case Floors.FloorType.LargeTile:
+                            case FloorType.LargeTile:
                                 return Brushes.Gray;
-                            case Floors.FloorType.Grate:
+                            case FloorType.Grate:
                                 return Brushes.DarkGray;
-                            case Floors.FloorType.Caution:
+                            case FloorType.Caution:
                                 return Brushes.LightYellow;
                             default:
                                 return Brushes.LightGray;
                         }
 
-                    case LogicObject lob:
-                        switch (lob.ObjectType)
-                        {
-                            case LogicObjectType.Core:
-                                return Brushes.Aqua;
-                            case LogicObjectType.CharacterSelect:
-                                return Brushes.MediumAquamarine;
-                            case LogicObjectType.StairsUp:
-                            case LogicObjectType.StairsDown:
-                                return Brushes.White;
-                            case LogicObjectType.Help:
-                                return Brushes.DodgerBlue;
-                            default:
-                                return Brushes.Teal;
-                        }
+                    case StairsUp _:
+                    case StairsDown _:
+                        return Brushes.White;
 
-                    case Obstacles.Obstacle obstacle:
+                    case Obstacle obstacle:
                         switch (obstacle.ObstacleType)
                         {
-                            case Obstacles.ObstacleType.Wall:
+                            case ObstacleType.Wall:
                                 return Brushes.DarkSlateGray;
-                            case Obstacles.ObstacleType.Service:
+                            case ObstacleType.Service:
                                 return Brushes.Orange;
-                            case Obstacles.ObstacleType.Data:
+                            case ObstacleType.Data:
                                 return Brushes.Purple;
-                            case Obstacles.ObstacleType.ThreadPool:
+                            case ObstacleType.ThreadPool:
                                 return Brushes.CornflowerBlue;
                             default:
                                 return Brushes.DimGray;
                         }
 
-                    case Doors.Door _:
+                    case Core core:
+                        return core.IsCaptured ? Brushes.LimeGreen : Brushes.Yellow;
+
+                    case CharacterSelect _:
+                        return Brushes.MediumAquamarine;
+
+                    case HelpTile _:
+                        return Brushes.DodgerBlue;
+
+                    case Door _:
                         return Brushes.LightYellow;
 
-                    case Actors.Actor _:
+                    case Actor _:
                         return Brushes.LimeGreen;
 
                     case Firewall firewall:
-                        return firewall.IsOpen ? Brushes.YellowGreen : Brushes.OrangeRed;
+                        return firewall.IsOpen ? Brushes.Yellow : Brushes.OrangeRed;
 
                     default:
                         throw new NotSupportedException($"Source {Source.GetType().Name} does not have a brush mapping");
@@ -86,13 +83,13 @@ namespace MattEland.Emergence.WinCore.ViewModels
             }
         }
 
-        public string Content => Source.AsciiCharacter.ToString();
+        public string Content => Source.AsciiChar.ToString();
 
         [UsedImplicitly] 
-        public int X => (Source.Position.X + _gameVM.XOffset) * Size;
+        public int X => (Source.Pos.X + _gameVM.XOffset) * Size;
         
         [UsedImplicitly] 
-        public int Y => (Source.Position.Y + _gameVM.YOffset) * Size;
+        public int Y => (Source.Pos.Y + _gameVM.YOffset) * Size;
 
         [UsedImplicitly]
         public int ZIndex => Source.ZIndex;
@@ -109,7 +106,7 @@ namespace MattEland.Emergence.WinCore.ViewModels
         {
             if (message == null) throw new ArgumentNullException(nameof(message));
 
-            Source = message.Object;
+            Source = message.Source;
 
             // Notify all properties changed
             OnPropertyChanged(string.Empty);

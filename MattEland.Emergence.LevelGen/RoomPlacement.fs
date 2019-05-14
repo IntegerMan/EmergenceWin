@@ -1,7 +1,7 @@
 module MattEland.Emergence.Domain.RoomPlacement
 
-open MattEland.Emergence.Domain
-open MattEland.Emergence.Domain.Rooms
+open MattEland.Emergence.Model
+open MattEland.Emergence.LevelData
 
 let mergeChars oldChar newChar =
     match oldChar with
@@ -12,4 +12,4 @@ let mergeChars oldChar newChar =
 
 type RoomPlacement (room: RoomData, upperLeftCorner: Position) =    
     member this.getCharAtPos (pos: Position) currentChar =
-        pos.Subtract upperLeftCorner |> room.getCharAtPos |> mergeChars currentChar 
+        pos.Subtract upperLeftCorner |> room.GetCharacterAtPosition |> mergeChars currentChar 

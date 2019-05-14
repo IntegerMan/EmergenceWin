@@ -48,9 +48,6 @@
     <Reference Include="LanguageExt.Core">
       <HintPath>C:\Users\Matt\.nuget\packages\languageext.core\3.1.21\lib\netstandard2.0\LanguageExt.Core.dll</HintPath>
     </Reference>
-    <Reference Include="MattEland.Emergence.Domain">
-      <HintPath>..\MattEland.Emergence.Domain\bin\Debug\netstandard2.0\MattEland.Emergence.Domain.dll</HintPath>
-    </Reference>
     <Reference Include="MattEland.Emergence.LevelGen">
       <HintPath>..\MattEland.Emergence.LevelGen\bin\Debug\netstandard2.0\MattEland.Emergence.LevelGen.dll</HintPath>
     </Reference>
@@ -126,9 +123,13 @@
     <Resource Include="favicon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MattEland.Emergence.GameLoop\MattEland.Emergence.GameLoop.fsproj">
-      <Project>{7a106f31-176d-43ea-826a-fbeab248a47f}</Project>
-      <Name>MattEland.Emergence.GameLoop</Name>
+    <ProjectReference Include="..\MattEland.Emergence.Engine\MattEland.Emergence.Engine.csproj">
+      <Project>{220FF354-1743-435C-AFF5-79C714598AD7}</Project>
+      <Name>MattEland.Emergence.Engine</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MattEland.Emergence.Model\MattEland.Emergence.Model.csproj">
+      <Project>{5B4A6270-4D26-45C2-B749-E3D71755E037}</Project>
+      <Name>MattEland.Emergence.Model</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28803.352
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "MattEland.Emergence.Domain", "MattEland.Emergence.Domain\MattEland.Emergence.Domain.fsproj", "{D95D2757-C22D-47DE-B9AD-2CA313F60913}"
-EndProject
 Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "MattEland.Emergence.LevelGen", "MattEland.Emergence.LevelGen\MattEland.Emergence.LevelGen.fsproj", "{346CEA41-97F1-4F74-BA4E-6BA50E9B097A}"
 EndProject
 Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "MattEland.Shared.Functions", "MattEland.Shared.Functions\MattEland.Shared.Functions.fsproj", "{E87D2E11-1829-443B-87FD-5F096374D179}"
@@ -13,9 +11,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MattEland.Emergence.WpfCore
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MattEland.Emergence.LevelData", "MattEland.Emergence.LevelData\MattEland.Emergence.LevelData.csproj", "{14E5BEC6-EC82-43A4-AD76-FF52BF04C506}"
 EndProject
-Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "MattEland.Emergence.GameLoop", "MattEland.Emergence.GameLoop\MattEland.Emergence.GameLoop.fsproj", "{7A106F31-176D-43EA-826A-FBEAB248A47F}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MattEland.Emergence.EngineTests", "MattEland.Emergence.EngineTests\MattEland.Emergence.EngineTests.csproj", "{E503C2A6-64BA-41AD-9C3B-73981AE31F1E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MattEland.Emergence.Model", "MattEland.Emergence.Model\MattEland.Emergence.Model.csproj", "{5B4A6270-4D26-45C2-B749-E3D71755E037}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MattEland.Emergence.Engine", "MattEland.Emergence.Engine\MattEland.Emergence.Engine.csproj", "{220FF354-1743-435C-AFF5-79C714598AD7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D95D2757-C22D-47DE-B9AD-2CA313F60913}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D95D2757-C22D-47DE-B9AD-2CA313F60913}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D95D2757-C22D-47DE-B9AD-2CA313F60913}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D95D2757-C22D-47DE-B9AD-2CA313F60913}.Release|Any CPU.Build.0 = Release|Any CPU
 		{346CEA41-97F1-4F74-BA4E-6BA50E9B097A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{346CEA41-97F1-4F74-BA4E-6BA50E9B097A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{346CEA41-97F1-4F74-BA4E-6BA50E9B097A}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -43,14 +39,18 @@ Global
 		{14E5BEC6-EC82-43A4-AD76-FF52BF04C506}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{14E5BEC6-EC82-43A4-AD76-FF52BF04C506}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{14E5BEC6-EC82-43A4-AD76-FF52BF04C506}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7A106F31-176D-43EA-826A-FBEAB248A47F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7A106F31-176D-43EA-826A-FBEAB248A47F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7A106F31-176D-43EA-826A-FBEAB248A47F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7A106F31-176D-43EA-826A-FBEAB248A47F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E503C2A6-64BA-41AD-9C3B-73981AE31F1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E503C2A6-64BA-41AD-9C3B-73981AE31F1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E503C2A6-64BA-41AD-9C3B-73981AE31F1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E503C2A6-64BA-41AD-9C3B-73981AE31F1E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B4A6270-4D26-45C2-B749-E3D71755E037}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B4A6270-4D26-45C2-B749-E3D71755E037}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B4A6270-4D26-45C2-B749-E3D71755E037}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B4A6270-4D26-45C2-B749-E3D71755E037}.Release|Any CPU.Build.0 = Release|Any CPU
+		{220FF354-1743-435C-AFF5-79C714598AD7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{220FF354-1743-435C-AFF5-79C714598AD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{220FF354-1743-435C-AFF5-79C714598AD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{220FF354-1743-435C-AFF5-79C714598AD7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

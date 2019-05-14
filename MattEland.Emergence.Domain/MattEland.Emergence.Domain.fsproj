@@ -15,14 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="Position.fs" />
-    <Compile Include="Health.fs" />
-    <Compile Include="WorldObject.fs" />
-    <Compile Include="Messages.fs" />
-    <Compile Include="IInteractive.fs" />
-    <Compile Include="LogicObject.fs" />
-    <Compile Include="Firewall.fs" />
-    <Compile Include="DestructibleObject.fs" />
     <Compile Include="Actor.fs" />
     <Compile Include="Doors.fs" />
     <Compile Include="Floors.fs" />

@@ -1,11 +1,9 @@
 module WorldGenerator
 
 open System
+open MattEland.Emergence.Model
+open MattEland.Emergence.Model.Entities
 open MattEland.Emergence.Domain
-open MattEland.Emergence.Domain.Actors
-open MattEland.Emergence.Domain.Obstacles
-open MattEland.Emergence.Domain.Floors
-open MattEland.Emergence.Domain.Doors
 open MattEland.Emergence.Domain.LevelData
 open MattEland.Emergence.Domain.RoomPlacement
 open MattEland.Emergence.LevelData
@@ -16,11 +14,11 @@ let getObjectForChar char pos =
         | '+' -> new Door(pos) :> WorldObject
         | '|' -> new Firewall(pos) :> WorldObject
         // Character Select
-        | '<' -> new LogicObject(pos, LogicObjectType.StairsDown) :> WorldObject
-        | '>' -> new LogicObject(pos, LogicObjectType.StairsUp) :> WorldObject
-        | 'C' -> new LogicObject(pos, LogicObjectType.Core) :> WorldObject
-        | '?' -> new LogicObject(pos, LogicObjectType.Help) :> WorldObject
-        | '1' | '2' | '3' | '4' | '5' | '6' -> new LogicObject(pos, LogicObjectType.CharacterSelect) :> WorldObject
+        | '<' -> new StairsDown(pos) :> WorldObject
+        | '>' -> new StairsUp(pos) :> WorldObject
+        | 'C' -> new Core(pos) :> WorldObject
+        | '?' -> new HelpTile(pos, "Hello World") :> WorldObject
+        | '1' | '2' | '3' | '4' | '5' | '6' -> new CharacterSelect(pos) :> WorldObject
         // Obstacles
         | '#' -> new Obstacle(pos, ObstacleType.Wall) :> WorldObject
         | 'd' -> new Obstacle(pos, ObstacleType.Data) :> WorldObject

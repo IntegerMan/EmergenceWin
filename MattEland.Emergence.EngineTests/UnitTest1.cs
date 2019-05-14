@@ -1,5 +1,5 @@
-﻿using MattEland.Emergence.Domain;
-using MattEland.Emergence.GameLoop;
+﻿using MattEland.Emergence.Engine;
+using MattEland.Emergence.Model;
 using Shouldly;
 using Xunit;
 
@@ -13,13 +13,13 @@ namespace MattEland.Emergence.EngineTests
             // Arrange
             var gameManager = new GameManager();
             gameManager.Start();
-            var initialPos = gameManager.Player.Value.Position;
+            var initialPos = gameManager.Player.Pos;
 
             // Act
             gameManager.MovePlayer(MoveDirection.Left);
 
             // Assert
-            gameManager.Player.Value.Position.ToString().ShouldBe(initialPos.GetNeighbor(MoveDirection.Left).ToString());
+            gameManager.Player.Pos.ShouldBe(initialPos.GetNeighbor(MoveDirection.Left));
         }
     }
 }

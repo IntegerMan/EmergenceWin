@@ -1,7 +1,8 @@
 ﻿namespace MattEland.Emergence.GameLoop
 
 open MattEland.Emergence.Domain
-open MattEland.Emergence.Domain.Actors
+open MattEland.Emergence.Model
+open MattEland.Emergence.Model.Entities
 open MattEland.Emergence.GameLoop
 
 type GameManager() =
