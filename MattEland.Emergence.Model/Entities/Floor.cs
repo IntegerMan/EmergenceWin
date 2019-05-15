@@ -32,11 +32,29 @@ namespace MattEland.Emergence.Model.Entities
             }
         }
 
+        public override string ForegroundColor
+        {
+            get
+            {
+                switch (FloorType)
+                {
+                    case FloorType.LargeTile:
+                        return GameColors.Gray;
+                    case FloorType.Grate:
+                        return GameColors.DarkGray;
+                    case FloorType.Caution:
+                        return GameColors.LightYellow;
+                    default:
+                        return GameColors.LightGray;
+                }
+    
+            }
+        }
+
         public override int ZIndex => 0;
         public IEnumerable<GameMessage> Interact(Actor actor)
         {
-            actor.Pos = Pos;
-            yield return new ObjectUpdatedMessage(actor);
+            yield return MoveObject(actor, Pos);
         }
     }
 }

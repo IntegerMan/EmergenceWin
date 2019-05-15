@@ -10,6 +10,8 @@ namespace MattEland.Emergence.Model.Entities
         {
         }
 
+        public override string ForegroundColor => GameColors.LightGreen;
+
         public override char AsciiChar => '@';
         public override int ZIndex => 70;
 

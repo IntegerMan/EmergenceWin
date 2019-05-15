@@ -10,6 +10,8 @@ namespace MattEland.Emergence.Model.Entities
         {
         }
 
+        public override string ForegroundColor => IsOpen ? GameColors.LightGreen : GameColors.Orange;
+
         public bool IsOpen { get; set; }
 
         public override char AsciiChar => IsOpen ? ':' : '|';

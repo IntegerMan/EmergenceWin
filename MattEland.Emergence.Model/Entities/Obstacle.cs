@@ -13,6 +13,26 @@ namespace MattEland.Emergence.Model.Entities
             ObstacleType = obstacleType;
         }
 
+        public override string ForegroundColor
+        {
+            get
+            {
+                switch (ObstacleType)
+                {
+                    case ObstacleType.Wall:
+                        return GameColors.SlateBlue;
+                    case ObstacleType.Service:
+                        return GameColors.Orange;
+                    case ObstacleType.Data:
+                        return GameColors.Purple;
+                    case ObstacleType.ThreadPool:
+                        return GameColors.Blue;
+                    default:
+                        return GameColors.DarkGray;
+                }                
+            }
+        }
+
         public override char AsciiChar
         {
             get

@@ -41,12 +41,17 @@ namespace MattEland.Emergence.WinCore.ViewModels
                         _objects[vm.Id] = vm;
                         break;
 
+                    case MovedMessage moveMessage:
+                        vm = _objects[moveMessage.Source.Id];
+                        vm.UpdatePosition(moveMessage.NewPos);
+                        break;
+                    
                     case ObjectUpdatedMessage updateMessage:
                         vm = _objects[updateMessage.Source.Id];
                         vm.UpdateFrom(updateMessage);
                         break;
 
-                    case DisplayTextMessage displayMessage:
+                    case DisplayTextMessage _:
                         // MessageBox.Show(displayMessage.Text, "Display Message", MessageBoxButton.OK, MessageBoxImage.Information);
                         break;
                 }

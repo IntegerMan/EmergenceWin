@@ -14,13 +14,14 @@ namespace MattEland.Emergence.Model.Entities
 
         public override char AsciiChar => IsOpen ? ':' : '+';
 
+        public override string ForegroundColor => GameColors.White;
+
         public override int ZIndex => 65;
         public IEnumerable<GameMessage> Interact(Actor actor)
         {
             if (IsOpen)
             {
-                actor.Pos = Pos;
-                yield return new ObjectUpdatedMessage(actor);
+                yield return MoveObject(actor, Pos);
             }
             else
             {

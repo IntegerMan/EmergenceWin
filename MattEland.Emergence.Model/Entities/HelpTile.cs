@@ -16,6 +16,10 @@ namespace MattEland.Emergence.Model.Entities
         public override char AsciiChar => '?';
         public override int ZIndex => 70;
 
+        public override string ForegroundColor => GameColors.White;
+        public override string BackgroundColor => GameColors.Blue;
+        
+        
         public IEnumerable<GameMessage> Interact(Actor actor)
         {
             yield return new DisplayTextMessage(Text);

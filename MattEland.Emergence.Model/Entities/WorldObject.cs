@@ -1,4 +1,5 @@
 ﻿using System;
+using MattEland.Emergence.Model.Messages;
 
 namespace MattEland.Emergence.Model.Entities
 {
@@ -10,12 +11,24 @@ namespace MattEland.Emergence.Model.Entities
             Id = id;
         }
 
-        public Guid Id { get; set; }
+        public Guid Id { get; }
 
         public Position Pos { get; set; }
 
         public abstract char AsciiChar { get; }
 
         public abstract int ZIndex { get; }
+        
+        public virtual string BackgroundColor => "#FF000000";
+        public virtual string ForegroundColor => "#FF999999";
+
+        protected GameMessage MoveObject(WorldObject obj, Position newPos)
+        {
+            var oldPos = obj.Pos;
+            
+            obj.Pos = newPos;
+            
+            return new MovedMessage(obj, oldPos, newPos);
+        }
     }
 }

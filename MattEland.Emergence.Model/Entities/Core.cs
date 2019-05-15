@@ -15,6 +15,8 @@ namespace MattEland.Emergence.Model.Entities
 
         public bool IsCaptured { get; private set; }
 
+        public override string ForegroundColor => IsCaptured ? GameColors.Green : GameColors.Yellow;
+
         public IEnumerable<GameMessage> Interact(Actor actor)
         {
             if (!IsCaptured)

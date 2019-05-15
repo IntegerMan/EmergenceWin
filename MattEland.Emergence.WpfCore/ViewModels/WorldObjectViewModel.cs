@@ -5,8 +5,10 @@ using System.Runtime.CompilerServices;
 using System.Windows.Media;
 using JetBrains.Annotations;
 using LanguageExt;
+using MattEland.Emergence.Model;
 using MattEland.Emergence.Model.Entities;
 using MattEland.Emergence.Model.Messages;
+using MattEland.Emergence.WpfCore;
 
 namespace MattEland.Emergence.WinCore.ViewModels
 {
@@ -21,67 +23,9 @@ namespace MattEland.Emergence.WinCore.ViewModels
 
         public int Size => 24;
 
-        public Brush Brush
-        {
-            get
-            {
-                switch (Source)
-                {
-                    case Floor floor:
-                        switch (floor.FloorType)
-                        {
-                            case FloorType.LargeTile:
-                                return Brushes.Gray;
-                            case FloorType.Grate:
-                                return Brushes.DarkGray;
-                            case FloorType.Caution:
-                                return Brushes.LightYellow;
-                            default:
-                                return Brushes.LightGray;
-                        }
-
-                    case StairsUp _:
-                    case StairsDown _:
-                        return Brushes.White;
-
-                    case Obstacle obstacle:
-                        switch (obstacle.ObstacleType)
-                        {
-                            case ObstacleType.Wall:
-                                return Brushes.DarkSlateGray;
-                            case ObstacleType.Service:
-                                return Brushes.Orange;
-                            case ObstacleType.Data:
-                                return Brushes.Purple;
-                            case ObstacleType.ThreadPool:
-                                return Brushes.CornflowerBlue;
-                            default:
-                                return Brushes.DimGray;
-                        }
-
-                    case Core core:
-                        return core.IsCaptured ? Brushes.LimeGreen : Brushes.Yellow;
-
-                    case CharacterSelect _:
-                        return Brushes.MediumAquamarine;
-
-                    case HelpTile _:
-                        return Brushes.DodgerBlue;
-
-                    case Door _:
-                        return Brushes.LightYellow;
-
-                    case Actor _:
-                        return Brushes.LimeGreen;
-
-                    case Firewall firewall:
-                        return firewall.IsOpen ? Brushes.Yellow : Brushes.OrangeRed;
-
-                    default:
-                        throw new NotSupportedException($"Source {Source.GetType().Name} does not have a brush mapping");
-                }
-            }
-        }
+        public Brush ForegroundBrush => Source.ForegroundColor.BuildBrush();
+        
+        public Brush BackgroundBrush => Source.BackgroundColor.BuildBrush();
 
         public string Content => Source.AsciiChar.ToString();
 
@@ -118,6 +62,14 @@ namespace MattEland.Emergence.WinCore.ViewModels
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public void UpdatePosition(Position newPos)
+        {
+            Source.Pos = newPos;
+            
+            OnPropertyChanged(nameof(X));
+            OnPropertyChanged(nameof(Y));
         }
     }
 }

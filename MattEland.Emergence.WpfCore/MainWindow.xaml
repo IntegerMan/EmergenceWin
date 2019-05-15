@@ -5,48 +5,49 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModels="clr-namespace:MattEland.Emergence.WinCore.ViewModels"
         mc:Ignorable="d"
-        Title="Emergence Test Client" 
+        Title="Emergence Test Client"
         KeyDown="MainWindow_OnKeyDown"
-        Width="1024" Height="600" 
+        Width="1024" Height="600"
         Loaded="OnWindowLoaded"
         d:DataContext="{d:DesignInstance viewModels:GameViewModel}">
-  <Grid>
-    <Grid.ColumnDefinitions>
-      <ColumnDefinition Width="*"></ColumnDefinition>
-      <ColumnDefinition Width="5"></ColumnDefinition>
-      <ColumnDefinition Width="300"></ColumnDefinition>
-    </Grid.ColumnDefinitions>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="5" />
+            <ColumnDefinition Width="300" />
+        </Grid.ColumnDefinitions>
 
-    <Border Background="Black" ClipToBounds="True">
-    <ItemsControl ItemsSource="{Binding WorldObjects}" Margin="4">
-      <ItemsControl.ItemsPanel>
-        <ItemsPanelTemplate>
-          <Canvas />
-        </ItemsPanelTemplate>
-      </ItemsControl.ItemsPanel>
-      <ItemsControl.ItemTemplate>
-        <DataTemplate>
-          <Border Background="{Binding Brush}" 
-                            Width="{Binding Size}"
-                            Height="{Binding Size}">
-            <TextBlock Text="{Binding Content}" 
-                                 FontFamily="Lucida Console"
-                                 FontSize="24"
-                                 HorizontalAlignment="Center"
-                                 VerticalAlignment="Center"/>
-          </Border>
-        </DataTemplate>
-      </ItemsControl.ItemTemplate>
-      <ItemsControl.ItemContainerStyle>
-        <Style TargetType="ContentPresenter">
-          <Setter Property="Canvas.Left" Value="{Binding Path=X}" />
-          <Setter Property="Canvas.Top" Value="{Binding Path=Y}" />
-          <Setter Property="Canvas.ZIndex" Value="{Binding Path=ZIndex}" />
-        </Style>
-      </ItemsControl.ItemContainerStyle>
-    </ItemsControl>
-    </Border>
+        <Border Background="Black" ClipToBounds="True">
+            <ItemsControl ItemsSource="{Binding WorldObjects}" Margin="4">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Canvas />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Background="{Binding BackgroundBrush}"
+                                Width="{Binding Size}"
+                                Height="{Binding Size}">
+                            <TextBlock Text="{Binding Content}"
+                                       Foreground="{Binding ForegroundBrush}"
+                                       FontFamily="Lucida Console"
+                                       FontSize="24"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center" />
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                <ItemsControl.ItemContainerStyle>
+                    <Style TargetType="ContentPresenter">
+                        <Setter Property="Canvas.Left" Value="{Binding Path=X}" />
+                        <Setter Property="Canvas.Top" Value="{Binding Path=Y}" />
+                        <Setter Property="Canvas.ZIndex" Value="{Binding Path=ZIndex}" />
+                    </Style>
+                </ItemsControl.ItemContainerStyle>
+            </ItemsControl>
+        </Border>
 
-    <ItemsControl Grid.Column="2" ItemsSource="{Binding Messages}" DisplayMemberPath="Text"></ItemsControl>
-  </Grid>
+        <ItemsControl Grid.Column="2" ItemsSource="{Binding Messages}" DisplayMemberPath="Text" />
+    </Grid>
 </Window>
