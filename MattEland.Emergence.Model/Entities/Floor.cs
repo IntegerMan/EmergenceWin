@@ -52,9 +52,7 @@ namespace MattEland.Emergence.Model.Entities
         }
 
         public override int ZIndex => 0;
-        public IEnumerable<GameMessage> Interact(Actor actor)
-        {
-            yield return MoveObject(actor, Pos);
-        }
+        
+        public void Interact(ICommandContext context) => context.MoveExecutingActor(Pos);
     }
 }

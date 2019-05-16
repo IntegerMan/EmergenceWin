@@ -17,16 +17,16 @@ namespace MattEland.Emergence.Model.Entities
         public override string ForegroundColor => GameColors.White;
 
         public override int ZIndex => 65;
-        public IEnumerable<GameMessage> Interact(Actor actor)
+        public void Interact(ICommandContext context)
         {
             if (IsOpen)
             {
-                yield return MoveObject(actor, Pos);
+                context.MoveExecutingActor(Pos);
             }
             else
             {
                 IsOpen = true;
-                yield return new ObjectUpdatedMessage(this);
+                context.UpdateObject(this);
             }
         }
     }

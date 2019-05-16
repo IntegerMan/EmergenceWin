@@ -22,13 +22,5 @@ namespace MattEland.Emergence.Model.Entities
         public virtual string BackgroundColor => "#FF000000";
         public virtual string ForegroundColor => "#FF999999";
 
-        protected GameMessage MoveObject(WorldObject obj, Position newPos)
-        {
-            var oldPos = obj.Pos;
-            
-            obj.Pos = newPos;
-            
-            return new MovedMessage(obj, oldPos, newPos);
-        }
     }
 }

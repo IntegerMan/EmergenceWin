@@ -20,9 +20,6 @@ namespace MattEland.Emergence.Model.Entities
         public override string BackgroundColor => GameColors.Blue;
         
         
-        public IEnumerable<GameMessage> Interact(Actor actor)
-        {
-            yield return new DisplayTextMessage(Text);
-        }
+        public void Interact(ICommandContext context) => context.DisplayText(Text);
     }
 }

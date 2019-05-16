@@ -58,9 +58,7 @@ namespace MattEland.Emergence.Model.Entities
         }
 
         public override int ZIndex => 30;
-        public IEnumerable<GameMessage> Interact(Actor actor)
-        {
-            yield return new DisplayTextMessage("You can't go that way.");
-        }
+        
+        public void Interact(ICommandContext context) => context.DisplayText("You can't go that way.");
     }
 }

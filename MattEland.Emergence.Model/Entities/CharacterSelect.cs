@@ -15,9 +15,6 @@ namespace MattEland.Emergence.Model.Entities
         public override char AsciiChar => '@';
         public override int ZIndex => 70;
 
-        public IEnumerable<GameMessage> Interact(Actor actor)
-        {
-            yield return new DisplayTextMessage("Character Selection is not implemented");
-        }
+        public void Interact(ICommandContext context) => context.DisplayText("Character Selection is not implemented");
     }
 }

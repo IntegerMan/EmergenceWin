@@ -43,16 +43,17 @@ namespace MattEland.Emergence.Engine
 
             var targetPos = _player.Pos.GetNeighbor(direction);
 
+            var context = new CommandContext(_player, _objects);
+
             foreach (var obj in _objects.Where(o => o.Pos == targetPos).OrderByDescending(o => o.ZIndex).OfType<IInteractive>())
             {
                 // TODO: Some messages should stop future interactions
-                foreach (var message in obj.Interact(_player))
-                {
-                    yield return message;
-                }
+                obj.Interact(context);
             }
 
             State = GameState.Ready;
+
+            return context.Messages;
         }
     }
 

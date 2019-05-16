@@ -5,6 +5,6 @@ namespace MattEland.Emergence.Model.Entities
 {
     public interface IInteractive
     {
-        IEnumerable<GameMessage> Interact(Actor actor);
+        void Interact(ICommandContext context);
     }
 }

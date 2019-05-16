@@ -17,13 +17,13 @@ namespace MattEland.Emergence.Model.Entities
 
         public override string ForegroundColor => IsCaptured ? GameColors.Green : GameColors.Yellow;
 
-        public IEnumerable<GameMessage> Interact(Actor actor)
+        public void Interact(ICommandContext context)
         {
             if (!IsCaptured)
             {
                 IsCaptured = true;
-                yield return new ObjectUpdatedMessage(this);
-                yield return new DisplayTextMessage("The system core is now under your control");
+                context.UpdateObject(this);
+                context.UpdateCapturedCores();
             }
         }
     }

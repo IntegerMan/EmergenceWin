@@ -14,8 +14,8 @@ let getObjectForChar char pos =
         | '+' -> new Door(pos) :> WorldObject
         | '|' -> new Firewall(pos) :> WorldObject
         // Character Select
-        | '<' -> new StairsDown(pos) :> WorldObject
-        | '>' -> new StairsUp(pos) :> WorldObject
+        | '<' -> new Stairs(pos, false) :> WorldObject
+        | '>' -> new Stairs(pos, true) :> WorldObject
         | 'C' -> new Core(pos) :> WorldObject
         | '?' -> new HelpTile(pos, "Hello World") :> WorldObject
         | '1' | '2' | '3' | '4' | '5' | '6' -> new CharacterSelect(pos) :> WorldObject

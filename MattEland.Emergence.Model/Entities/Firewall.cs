@@ -17,16 +17,15 @@ namespace MattEland.Emergence.Model.Entities
         public override char AsciiChar => IsOpen ? ':' : '|';
 
         public override int ZIndex => 50;
-        public IEnumerable<GameMessage> Interact(Actor actor)
+        public void Interact(ICommandContext context)
         {
             if (IsOpen)
             {
-                actor.Pos = Pos;
-                yield return  new ObjectUpdatedMessage(actor);
+                context.MoveExecutingActor(Pos);
             }
             else
             {
-                yield return new DisplayTextMessage("The firewall is still up.");
+                context.DisplayText("The firewall is still up.");
             }
         }
     }
