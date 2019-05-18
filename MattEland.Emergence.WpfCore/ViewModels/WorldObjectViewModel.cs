@@ -67,7 +67,17 @@ namespace MattEland.Emergence.WinCore.ViewModels
         public void UpdatePosition(Position newPos)
         {
             Source.Pos = newPos;
-            
+
+            NotifyOffsetChanged();
+
+            if (Source is Actor a && a.ActorType == ActorType.Player)
+            {
+                _gameVM.CenterOn(newPos);
+            }
+        }
+
+        public void NotifyOffsetChanged()
+        {
             OnPropertyChanged(nameof(X));
             OnPropertyChanged(nameof(Y));
         }

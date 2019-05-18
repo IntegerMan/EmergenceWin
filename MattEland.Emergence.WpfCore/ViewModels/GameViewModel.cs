@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows;
 using JetBrains.Annotations;
 using MattEland.Emergence.Engine;
 using MattEland.Emergence.Model;
+using MattEland.Emergence.Model.Entities;
 using MattEland.Emergence.Model.Messages;
 using MattEland.Shared.Collections;
 
@@ -51,6 +51,11 @@ namespace MattEland.Emergence.WinCore.ViewModels
                         vm.UpdateFrom(updateMessage);
                         break;
 
+                    case DestroyedMessage destroyedMessage:
+                        _objects.Remove(destroyedMessage.Source.Id);
+                        WorldObjects.Where(o => o.Id == destroyedMessage.Source.Id).ToList().Each(o => WorldObjects.Remove(o));
+                        break;
+
                     case DisplayTextMessage _:
                         // MessageBox.Show(displayMessage.Text, "Display Message", MessageBoxButton.OK, MessageBoxImage.Information);
                         break;
@@ -58,14 +63,27 @@ namespace MattEland.Emergence.WinCore.ViewModels
 
                 Messages.Add(new MessageViewModel(msg));
             });
+            
+            CenterOnPlayer();
         }
 
         public IList<WorldObjectViewModel> WorldObjects { get; } = new ObservableCollection<WorldObjectViewModel>();
         public IList<MessageViewModel> Messages { get; } = new ObservableCollection<MessageViewModel>();
         
-        public int XOffset => 40;
-        public int YOffset => -35;
+        public int XOffset { get; set; } = 40;
+
+        public int YOffset { get; set; } = -35;
 
         public void MovePlayer(MoveDirection direction) => ProcessMessages(_gameManager.MovePlayer(direction));
+        
+        private void CenterOnPlayer() => CenterOn(WorldObjects.Select(o => o.Source).OfType<Actor>().First().Pos);
+
+        public void CenterOn(Position pos)
+        {
+            XOffset = -(pos.X - 15);
+            YOffset = -(pos.Y - 10);
+
+            WorldObjects.Each(o => { o.NotifyOffsetChanged(); });
+        }
     }
 }

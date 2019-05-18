@@ -22,7 +22,7 @@ namespace MattEland.Emergence.Model.Entities
         {
             if (IsDown)
             {
-                context.DisplayText("Moving on to the next level is not yet implemented.");
+                context.AdvanceToNextLevel();
             }
             else
             {

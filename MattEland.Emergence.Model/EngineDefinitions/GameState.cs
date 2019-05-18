@@ -4,6 +4,6 @@
     {
         NotStarted,
         Ready,
-        Executing,
+        Executing
     }
 }

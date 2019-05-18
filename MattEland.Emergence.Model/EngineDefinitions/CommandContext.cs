@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
+using MattEland.Emergence.Engine;
 using MattEland.Emergence.Model.Messages;
 using MattEland.Shared.Collections;
 
@@ -13,14 +14,18 @@ namespace MattEland.Emergence.Model.Entities
         private readonly IEnumerable<WorldObject> _objects;
 
         [NotNull, ItemNotNull]
-        private readonly IList<GameMessage> _messages = new List<GameMessage>();
+        private readonly List<GameMessage> _messages = new List<GameMessage>();
 
-        public CommandContext([NotNull] Actor actor, [NotNull] IEnumerable<WorldObject> objects)
+        public CommandContext([NotNull] IGameManager gameManager, [NotNull] Actor actor, [NotNull] IEnumerable<WorldObject> objects)
         {
             _objects = objects ?? throw new ArgumentNullException(nameof(objects));
+            GameManager = gameManager ?? throw new ArgumentNullException(nameof(gameManager));
             Actor = actor ?? throw new ArgumentNullException(nameof(actor));
         }
 
+        [NotNull]
+        public IGameManager GameManager { get; }
+        
         [NotNull] public Actor Actor { get; }
         
         public void MoveObject([NotNull] WorldObject obj, Position newPos)
@@ -37,6 +42,13 @@ namespace MattEland.Emergence.Model.Entities
             if (message == null) throw new ArgumentNullException(nameof(message));
             
             _messages.Add(message);
+        }
+        
+        private void AddMessages([NotNull, ItemNotNull] IEnumerable<GameMessage> messages)
+        {
+            if (messages == null) throw new ArgumentNullException(nameof(messages));
+            
+            _messages.AddRange(messages);
         }
 
         public void MoveExecutingActor(Position newPos) => MoveObject(Actor, newPos);
@@ -67,6 +79,13 @@ namespace MattEland.Emergence.Model.Entities
 
         public void DisplayText(string text) => AddMessage(new DisplayTextMessage(text));
 
+        [NotNull, ItemNotNull]
         public IEnumerable<GameMessage> Messages => _messages;
+        public void AdvanceToNextLevel()
+        {
+            AddMessages(_objects.Where(o => o != Actor).Select(o => new DestroyedMessage(o)));
+            AddMessages(GameManager.GenerateLevel());
+        }
+
     }
 }

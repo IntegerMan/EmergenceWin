@@ -8,6 +8,11 @@ open MattEland.Emergence.Domain.LevelData
 open MattEland.Emergence.Domain.RoomPlacement
 open MattEland.Emergence.LevelData
 
+type WorldGenerationResult(levelData: LevelData, objects: WorldObject seq) =
+    member this.Name = levelData.Name
+    member this.PlayerStart = levelData.PlayerStart
+    member this.Objects = objects
+
 let getObjectForChar char pos = 
     match char with
         // Special Tiles
@@ -34,13 +39,13 @@ let getObjectForChar char pos =
         | '$' -> new Floor(pos, FloorType.QuadTile) :> WorldObject // TODO: This is actually a drop indicator too
         // Misc. Cases
         | ' ' -> failwith "Cannot create a void entity"
-        | _ -> raise (NotSupportedException("Char type " + char.ToString() + " has no object mapping"))
+        | c -> new Placeholder(pos, c) :> WorldObject
     
 let placePrefab (instr: LevelInstruction, roomProvider: RoomDataProvider): RoomPlacement =
     let room = roomProvider.GetRoomById(instr.PrefabId)
     new RoomPlacement(room, new Position(instr.X, instr.Y))
     
-let generateMap levelId: WorldObject seq =
+let generateMap levelId: WorldGenerationResult =
     
     printfn "Generate Map %i" levelId
 
@@ -54,6 +59,7 @@ let generateMap levelId: WorldObject seq =
     let player = new Actor(levelData.PlayerStart, ActorType.Player)
     
     // Any logic inside of this will be repeated every enumeration
+    let result = new WorldGenerationResult(levelData, 
     seq {
         
         printfn "Generate Map %i Sequence" levelId
@@ -61,8 +67,8 @@ let generateMap levelId: WorldObject seq =
         yield player
         
         // TODO: Analyze instructions to determine min/max x/y
-        for y in -100..100 do
-            for x in -100..100 do
+        for y in -200..200 do
+            for x in -200..200 do
                 let pos = new Position(x, y)
                 
                 let mutable char = ' '
@@ -70,4 +76,6 @@ let generateMap levelId: WorldObject seq =
                     char <- instr.getCharAtPos pos char
                     
                 if char <> ' ' then yield getObjectForChar char pos
-    }
+    })
+    
+    result

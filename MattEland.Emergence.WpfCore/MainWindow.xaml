@@ -48,6 +48,6 @@
             </ItemsControl>
         </Border>
 
-        <ItemsControl Grid.Column="2" ItemsSource="{Binding Messages}" DisplayMemberPath="Text" />
+        <ListBox Grid.Column="2" ItemsSource="{Binding Messages}" DisplayMemberPath="Text" />
     </Grid>
 </Window>
