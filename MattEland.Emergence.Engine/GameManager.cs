@@ -56,7 +56,7 @@ namespace MattEland.Emergence.Engine
 
             }, null); //_player);
 
-            var map = WorldGenerator.generateMap(_nextLevelId++, _player);
+            var map = WorldGenerator.GenerateMap(_nextLevelId++, _player);
             
             _objects = map.Objects.ToList();
 
@@ -64,8 +64,8 @@ namespace MattEland.Emergence.Engine
 
             _player = _objects.OfType<Actor>().Single(a => a.ActorType == ActorType.Player);
             _player.Pos = map.PlayerStart;
-            
-            return _objects.Map(o => new CreatedMessage(o));
+
+            return _objects.Select(o => new CreatedMessage(o));
         }
 
         public IEnumerable<GameMessage> MovePlayer(MoveDirection direction)

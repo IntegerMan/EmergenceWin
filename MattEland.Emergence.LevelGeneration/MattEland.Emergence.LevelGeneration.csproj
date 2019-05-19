@@ -14,6 +14,7 @@
   <ItemGroup>
     <ProjectReference Include="..\MattEland.Emergence.Definitions\MattEland.Emergence.Definitions.csproj" />
     <ProjectReference Include="..\MattEland.Emergence.Helpers\MattEland.Emergence.Helpers.csproj" />
+    <ProjectReference Include="..\MattEland.Emergence.Model\MattEland.Emergence.Model.csproj" />
   </ItemGroup>
 
   <ItemGroup>

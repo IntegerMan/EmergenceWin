@@ -5,10 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="LevelData.fs" />
     <Compile Include="LevelJson.fs" />
-    <Compile Include="RoomPlacement.fs" />
-    <Compile Include="WorldGenerator.fs" />
   </ItemGroup>
 
   <ItemGroup>

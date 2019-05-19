@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Windows.Media;
 using JetBrains.Annotations;
-using LanguageExt;
 using MattEland.Emergence.Model;
 using MattEland.Emergence.Model.Entities;
 using MattEland.Emergence.Model.Messages;
@@ -40,10 +39,10 @@ namespace MattEland.Emergence.WinCore.ViewModels
 
         public Guid Id => Source.Id;
 
-        public WorldObjectViewModel(Some<WorldObject> source, Some<GameViewModel> gameViewModel)
+        public WorldObjectViewModel(WorldObject source, GameViewModel gameViewModel)
         {
             _gameVM = gameViewModel;
-            Source = source.Value;
+            Source = source;
         }
 
         public void UpdateFrom([NotNull] ObjectUpdatedMessage message)
