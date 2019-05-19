@@ -42,7 +42,7 @@ namespace MattEland.Emergence.LevelGeneration
                     var pos = new Position(x, y);
 
                     char c = ' ';
-                    placements.Each(p => p.GetChar(pos, c));
+                    placements.Each(p => c = p.GetChar(pos, c));
 
                     if (c != ' ')
                     {
