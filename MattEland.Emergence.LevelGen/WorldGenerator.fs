@@ -45,7 +45,12 @@ let placePrefab (instr: LevelInstruction, roomProvider: RoomDataProvider): RoomP
     let room = roomProvider.GetRoomById(instr.PrefabId)
     new RoomPlacement(room, new Position(instr.X, instr.Y))
     
-let generateMap levelId: WorldGenerationResult =
+let getOrCreatePlayer (existingPlayer: Actor option, levelData: LevelData): Actor = 
+  match existingPlayer with
+  | Some p when existingPlayer.Value <> null -> p
+  | _ -> new Actor(levelData.PlayerStart, ActorType.Player)
+
+let generateMap (levelId:int, existingPlayer: Actor option) : WorldGenerationResult =
     
     printfn "Generate Map %i" levelId
 
@@ -56,8 +61,9 @@ let generateMap levelId: WorldGenerationResult =
     let placements = Seq.map (fun i -> placePrefab(i, roomProvider)) levelData.Instructions
 
     // Spawn the player at the level start location
-    let player = new Actor(levelData.PlayerStart, ActorType.Player)
-    
+    let player = getOrCreatePlayer(existingPlayer, levelData)
+    player.Pos <- levelData.PlayerStart
+
     // Any logic inside of this will be repeated every enumeration
     let result = new WorldGenerationResult(levelData, 
     seq {

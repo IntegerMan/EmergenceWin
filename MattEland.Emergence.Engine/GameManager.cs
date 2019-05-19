@@ -26,7 +26,7 @@ namespace MattEland.Emergence.Engine
 
             if (State != GameState.NotStarted) throw new InvalidOperationException("The game has already been started");
 
-            _nextLevelId = 1;
+            _nextLevelId = 0;
             
             return GenerateLevel();
         }
@@ -35,7 +35,7 @@ namespace MattEland.Emergence.Engine
         {
             State = GameState.Executing;
 
-            var map = WorldGenerator.generateMap(_nextLevelId++);
+            var map = WorldGenerator.generateMap(_nextLevelId++, _player);
             
             _objects = map.Objects.ToList();
 

@@ -19,6 +19,9 @@ namespace MattEland.Emergence.Model.Entities
         public override int ZIndex => 50;
         public void Interact(ICommandContext context)
         {
+#if DEBUG
+            context.MoveExecutingActor(Pos);
+#else
             if (IsOpen)
             {
                 context.MoveExecutingActor(Pos);
@@ -27,6 +30,7 @@ namespace MattEland.Emergence.Model.Entities
             {
                 context.DisplayText("The firewall is still up.");
             }
+#endif
         }
     }
 }

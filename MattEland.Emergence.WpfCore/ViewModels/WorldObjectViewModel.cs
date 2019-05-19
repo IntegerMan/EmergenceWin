@@ -59,10 +59,8 @@ namespace MattEland.Emergence.WinCore.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null) 
+            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
         public void UpdatePosition(Position newPos)
         {
@@ -80,6 +78,11 @@ namespace MattEland.Emergence.WinCore.ViewModels
         {
             OnPropertyChanged(nameof(X));
             OnPropertyChanged(nameof(Y));
+            OnPropertyChanged(nameof(Tag));
         }
+
+        public string Tag => $"{Content} {Source.Pos}";
+
+        public override string ToString() => Tag;
     }
 }
