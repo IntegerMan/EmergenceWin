@@ -58,6 +58,10 @@
       <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ComponentModel.Annotations.4.5.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -125,13 +129,25 @@
     <Resource Include="favicon.ico" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MattEland.Emergence.Definitions\MattEland.Emergence.Definitions.csproj">
+      <Project>{ED2B3C34-8367-4C4D-8D99-0CB8B7689EF2}</Project>
+      <Name>MattEland.Emergence.Definitions</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MattEland.Emergence.Engine\MattEland.Emergence.Engine.csproj">
       <Project>{220FF354-1743-435C-AFF5-79C714598AD7}</Project>
       <Name>MattEland.Emergence.Engine</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MattEland.Emergence.LevelGeneration\MattEland.Emergence.LevelGeneration.csproj">
+      <Project>{6df627c5-2bfe-43a0-bfcd-e400232f6677}</Project>
+      <Name>MattEland.Emergence.LevelGeneration</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MattEland.Emergence.Model\MattEland.Emergence.Model.csproj">
       <Project>{5B4A6270-4D26-45C2-B749-E3D71755E037}</Project>
       <Name>MattEland.Emergence.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MattEland.Emergence.SharedServices\MattEland.Emergence.SharedServices.csproj">
+      <Project>{DF0DDEE8-459B-4345-8346-E8E228E69945}</Project>
+      <Name>MattEland.Emergence.SharedServices</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

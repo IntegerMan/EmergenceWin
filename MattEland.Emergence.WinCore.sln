@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.28803.352
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "MattEland.Emergence.LevelGen", "MattEland.Emergence.LevelGen\MattEland.Emergence.LevelGen.fsproj", "{346CEA41-97F1-4F74-BA4E-6BA50E9B097A}"
 EndProject
-Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "MattEland.Shared.Functions", "MattEland.Shared.Functions\MattEland.Shared.Functions.fsproj", "{E87D2E11-1829-443B-87FD-5F096374D179}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MattEland.Emergence.WpfCore", "MattEland.Emergence.WpfCore\MattEland.Emergence.WpfCore.csproj", "{EDA75354-1417-460E-AD30-39A582275059}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MattEland.Emergence.LevelData", "MattEland.Emergence.LevelData\MattEland.Emergence.LevelData.csproj", "{14E5BEC6-EC82-43A4-AD76-FF52BF04C506}"
@@ -15,7 +13,23 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MattEland.Emergence.EngineT
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MattEland.Emergence.Model", "MattEland.Emergence.Model\MattEland.Emergence.Model.csproj", "{5B4A6270-4D26-45C2-B749-E3D71755E037}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MattEland.Emergence.Engine", "MattEland.Emergence.Engine\MattEland.Emergence.Engine.csproj", "{220FF354-1743-435C-AFF5-79C714598AD7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MattEland.Emergence.Engine", "MattEland.Emergence.Engine\MattEland.Emergence.Engine.csproj", "{220FF354-1743-435C-AFF5-79C714598AD7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MattEland.Emergence.Definitions", "MattEland.Emergence.Definitions\MattEland.Emergence.Definitions.csproj", "{ED2B3C34-8367-4C4D-8D99-0CB8B7689EF2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MattEland.Emergence.LevelGeneration", "MattEland.Emergence.LevelGeneration\MattEland.Emergence.LevelGeneration.csproj", "{6DF627C5-2BFE-43A0-BFCD-E400232F6677}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MattEland.Emergence.Helpers", "MattEland.Emergence.Helpers\MattEland.Emergence.Helpers.csproj", "{12937E2E-55AD-4E40-B61D-49DE7F612B6C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MattEland.Emergence.SharedServices", "MattEland.Emergence.SharedServices\MattEland.Emergence.SharedServices.csproj", "{DF0DDEE8-459B-4345-8346-E8E228E69945}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MattEland.Emergence.AI", "MattEland.Emergence.Core.AI\MattEland.Emergence.AI.csproj", "{99359747-5AFD-493F-A5E7-4B74551F7E92}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MattEland.Emergence.Vision", "MattEland.Emergence.Vision\MattEland.Emergence.Vision.csproj", "{02B76C84-F6F3-4B0B-8D63-232E3DA46514}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MattEland.Emergence.EntityLogic", "MattEland.Emergence.EntityLogic\MattEland.Emergence.EntityLogic.csproj", "{9B68857D-19D8-4D8C-8788-BD9F0D215212}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MattEland.Emergence.Commands", "MattEland.Emergence.Commands\MattEland.Emergence.Commands.csproj", "{FA81910A-C291-4072-B0F0-E46F2D9577B5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,10 +41,6 @@ Global
 		{346CEA41-97F1-4F74-BA4E-6BA50E9B097A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{346CEA41-97F1-4F74-BA4E-6BA50E9B097A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{346CEA41-97F1-4F74-BA4E-6BA50E9B097A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E87D2E11-1829-443B-87FD-5F096374D179}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E87D2E11-1829-443B-87FD-5F096374D179}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E87D2E11-1829-443B-87FD-5F096374D179}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E87D2E11-1829-443B-87FD-5F096374D179}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EDA75354-1417-460E-AD30-39A582275059}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EDA75354-1417-460E-AD30-39A582275059}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EDA75354-1417-460E-AD30-39A582275059}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -51,6 +61,38 @@ Global
 		{220FF354-1743-435C-AFF5-79C714598AD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{220FF354-1743-435C-AFF5-79C714598AD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{220FF354-1743-435C-AFF5-79C714598AD7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED2B3C34-8367-4C4D-8D99-0CB8B7689EF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED2B3C34-8367-4C4D-8D99-0CB8B7689EF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED2B3C34-8367-4C4D-8D99-0CB8B7689EF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED2B3C34-8367-4C4D-8D99-0CB8B7689EF2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6DF627C5-2BFE-43A0-BFCD-E400232F6677}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DF627C5-2BFE-43A0-BFCD-E400232F6677}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DF627C5-2BFE-43A0-BFCD-E400232F6677}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DF627C5-2BFE-43A0-BFCD-E400232F6677}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12937E2E-55AD-4E40-B61D-49DE7F612B6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12937E2E-55AD-4E40-B61D-49DE7F612B6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12937E2E-55AD-4E40-B61D-49DE7F612B6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12937E2E-55AD-4E40-B61D-49DE7F612B6C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF0DDEE8-459B-4345-8346-E8E228E69945}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF0DDEE8-459B-4345-8346-E8E228E69945}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF0DDEE8-459B-4345-8346-E8E228E69945}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF0DDEE8-459B-4345-8346-E8E228E69945}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99359747-5AFD-493F-A5E7-4B74551F7E92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99359747-5AFD-493F-A5E7-4B74551F7E92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99359747-5AFD-493F-A5E7-4B74551F7E92}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99359747-5AFD-493F-A5E7-4B74551F7E92}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02B76C84-F6F3-4B0B-8D63-232E3DA46514}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02B76C84-F6F3-4B0B-8D63-232E3DA46514}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02B76C84-F6F3-4B0B-8D63-232E3DA46514}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02B76C84-F6F3-4B0B-8D63-232E3DA46514}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B68857D-19D8-4D8C-8788-BD9F0D215212}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B68857D-19D8-4D8C-8788-BD9F0D215212}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B68857D-19D8-4D8C-8788-BD9F0D215212}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B68857D-19D8-4D8C-8788-BD9F0D215212}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA81910A-C291-4072-B0F0-E46F2D9577B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA81910A-C291-4072-B0F0-E46F2D9577B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA81910A-C291-4072-B0F0-E46F2D9577B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA81910A-C291-4072-B0F0-E46F2D9577B5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="GeneticSharp" Version="2.5.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MattEland.Emergence.LevelGeneration\MattEland.Emergence.LevelGeneration.csproj" />
     <ProjectReference Include="..\MattEland.Emergence.LevelGen\MattEland.Emergence.LevelGen.fsproj" />
     <ProjectReference Include="..\MattEland.Emergence.Model\MattEland.Emergence.Model.csproj" />
   </ItemGroup>

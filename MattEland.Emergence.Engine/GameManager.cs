@@ -1,21 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using GeneticSharp.Domain.Randomizations;
 using JetBrains.Annotations;
+using MattEland.Emergence.Definitions.Level;
+using MattEland.Emergence.LevelGeneration;
+using MattEland.Emergence.LevelGeneration.Encounters;
+using MattEland.Emergence.LevelGeneration.Prefabs;
 using MattEland.Emergence.Model;
 using MattEland.Emergence.Model.Entities;
 using MattEland.Emergence.Model.Messages;
+using ActorType = MattEland.Emergence.Model.Entities.ActorType;
 
 namespace MattEland.Emergence.Engine
 {
     public class GameManager : IGameManager
     {
+        public GameManager()
+        {
+            _levelBuilder = new LevelGenerationService(new PrefabService(), new EncountersService(), new BasicRandomization());
+        }
+
         [CanBeNull]
         private Actor _player;
 
         private IList<WorldObject> _objects;
 
         private int _nextLevelId;
+
+        [NotNull]
+        private readonly LevelGenerationService _levelBuilder;
 
         public GameState State { get; private set; }
         public Actor Player => _player;
@@ -34,6 +48,13 @@ namespace MattEland.Emergence.Engine
         public IEnumerable<GameMessage> GenerateLevel()
         {
             State = GameState.Executing;
+
+            var level = _levelBuilder.GenerateLevel(new LevelGenerationParameters()
+            {
+                LevelType = LevelType.Tutorial,
+                PlayerId = "ACTOR_PLAYER_GAME"
+
+            }, null); //_player);
 
             var map = WorldGenerator.generateMap(_nextLevelId++, _player);
             

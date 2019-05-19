@@ -65,8 +65,7 @@ let generateMap (levelId:int, existingPlayer: Actor option) : WorldGenerationRes
     player.Pos <- levelData.PlayerStart
 
     // Any logic inside of this will be repeated every enumeration
-    let result = new WorldGenerationResult(levelData, 
-    seq {
+    let result = new WorldGenerationResult(levelData, seq {
         
         printfn "Generate Map %i Sequence" levelId
 
@@ -82,6 +81,6 @@ let generateMap (levelId:int, existingPlayer: Actor option) : WorldGenerationRes
                     char <- instr.getCharAtPos pos char
                     
                 if char <> ' ' then yield getObjectForChar char pos
-    })
+      })
     
     result

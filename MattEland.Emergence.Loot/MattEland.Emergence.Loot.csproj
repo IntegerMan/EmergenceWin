@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MattEland.Shared" Version="1.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MattEland.Emergence.Commands\MattEland.Emergence.Commands.csproj" />
+    <ProjectReference Include="..\MattEland.Emergence.Definitions\MattEland.Emergence.Definitions.csproj" />
+    <ProjectReference Include="..\MattEland.Emergence.Utilities\MattEland.Emergence.Utilities.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="GeneticSharp.Domain">
+      <HintPath>C:\Users\Matt\.nuget\packages\geneticsharp\2.5.1\lib\netstandard2.0\GeneticSharp.Domain.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

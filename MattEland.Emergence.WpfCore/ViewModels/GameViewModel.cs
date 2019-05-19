@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using JetBrains.Annotations;
+using MattEland.Emergence.Definitions.Services;
 using MattEland.Emergence.Engine;
 using MattEland.Emergence.Model;
 using MattEland.Emergence.Model.Entities;
 using MattEland.Emergence.Model.Messages;
+using MattEland.Emergence.Services;
 using MattEland.Shared.Collections;
 
 namespace MattEland.Emergence.WinCore.ViewModels
@@ -21,6 +23,8 @@ namespace MattEland.Emergence.WinCore.ViewModels
         public GameViewModel()
         {
             _gameManager = new GameManager();
+
+            GameCreationConfigurator.ConfigureObjectCreation();
 
             var messages = _gameManager.Start();
             ProcessMessages(messages);
