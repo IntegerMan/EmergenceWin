@@ -10,7 +10,9 @@ using MattEland.Emergence.LevelGeneration.Prefabs;
 using MattEland.Emergence.Model;
 using MattEland.Emergence.Model.Entities;
 using MattEland.Emergence.Model.Messages;
+using MattEland.Shared.Collections;
 using ActorType = MattEland.Emergence.Model.Entities.ActorType;
+using FloorType = MattEland.Emergence.Model.Entities.FloorType;
 
 namespace MattEland.Emergence.Engine
 {
@@ -19,17 +21,19 @@ namespace MattEland.Emergence.Engine
         public GameManager()
         {
             _levelBuilder = new LevelGenerationService(new PrefabService(), new EncountersService(), new BasicRandomization());
+
+            _levels = new Queue<LevelType>();
         }
 
         [CanBeNull]
         private Actor _player;
 
-        private IList<WorldObject> _objects;
-
-        private int _nextLevelId;
+        private readonly List<WorldObject> _objects = new List<WorldObject>();
 
         [NotNull]
         private readonly LevelGenerationService _levelBuilder;
+
+        private readonly Queue<LevelType> _levels;
 
         public GameState State { get; private set; }
         public Actor Player => _player;
@@ -40,32 +44,112 @@ namespace MattEland.Emergence.Engine
 
             if (State != GameState.NotStarted) throw new InvalidOperationException("The game has already been started");
 
-            _nextLevelId = 0;
-            
+            _levels.Clear();
+            _levels.Enqueue(LevelType.Tutorial);
+            _levels.Enqueue(LevelType.ClientWorkstation);
+            _levels.Enqueue(LevelType.SmartFridge);
+            _levels.Enqueue(LevelType.MessagingServer);
+            _levels.Enqueue(LevelType.Bastion);
+            _levels.Enqueue(LevelType.RouterGateway);
+            _levels.Enqueue(LevelType.Escaped);
+
             return GenerateLevel();
         }
 
         public IEnumerable<GameMessage> GenerateLevel()
         {
+            var player = _player;
+            if (_player == null)
+            {
+                _player = new Actor(new Position(0, 0), ActorType.Player);
+            }
+
             State = GameState.Executing;
 
             var level = _levelBuilder.GenerateLevel(new LevelGenerationParameters()
             {
-                LevelType = LevelType.Tutorial,
+                LevelType = _levels.Dequeue(),
                 PlayerId = "ACTOR_PLAYER_GAME"
 
-            }, null); //_player);
+            }, null);
 
-            var map = WorldGenerator.GenerateMap(_nextLevelId++, _player);
-            
-            _objects = map.Objects.ToList();
+            // Ready for new objects
+            _objects.Clear();
+
+            // Add the player
+            _player.Pos = new Position(level.PlayerStart.X, level.PlayerStart.Y);
+            _objects.Add(_player);
+
+            // Add all objects
+            level.Cells.Each(c => GetGameObjectForCell(c).Each(o => _objects.Add(o)));
 
             State = GameState.Ready;
 
-            _player = _objects.OfType<Actor>().Single(a => a.ActorType == ActorType.Player);
-            _player.Pos = map.PlayerStart;
-
             return _objects.Select(o => new CreatedMessage(o));
+        }
+
+        private static IEnumerable<WorldObject> GetGameObjectForCell(IGameCell c)
+        {
+
+            bool hasObject = false;
+            foreach (var gameObject in c.Objects)
+            {
+                yield return GetGameObjectFromOldObject(gameObject);
+                hasObject = true;
+            }
+
+            if (c.FloorType != Definitions.Level.FloorType.Void && !hasObject)
+            {
+                yield return new Floor(new Position(c.Pos.X, c.Pos.Y), GetFloorType(c.FloorType));
+            }
+        }
+
+        private static FloorType GetFloorType(Definitions.Level.FloorType legacyFloorType)
+        {
+            switch (legacyFloorType)
+            {
+                case Definitions.Level.FloorType.DecorativeTile:
+                    return FloorType.QuadTile;
+                case Definitions.Level.FloorType.Walkway:
+                    return FloorType.Grate;
+                case Definitions.Level.FloorType.CautionMarker:
+                    return FloorType.Caution;
+                case Definitions.Level.FloorType.Normal:
+                default:
+                    return FloorType.LargeTile;
+            }
+        }
+
+        private static WorldObject GetGameObjectFromOldObject(IGameObject gameObject)
+        {
+            var pos = new Position(gameObject.Position.X, gameObject.Position.Y);
+
+            switch (gameObject.ObjectType)
+            {
+                case GameObjectType.Core: return new Core(pos);
+                case GameObjectType.Divider: return new Obstacle(pos, ObstacleType.Barrier);
+                case GameObjectType.Cabling: return new Floor(pos, FloorType.Grate); // TODO: No
+                case GameObjectType.Turret: return new Obstacle(pos, ObstacleType.Service); // TODO: No
+                case GameObjectType.Firewall: return new Firewall(pos);
+                case GameObjectType.Exit: return new Stairs(pos, true);
+                case GameObjectType.Entrance: return new Stairs(pos, false);
+                case GameObjectType.Service: return new Obstacle(pos, ObstacleType.Service);
+                case GameObjectType.DataStore: return new Obstacle(pos, ObstacleType.Data);
+                case GameObjectType.Wall: return new Obstacle(pos, ObstacleType.Wall);
+                case GameObjectType.Debris: return new Floor(pos, FloorType.LargeTile); // TODO: No
+                case GameObjectType.Door: return new Door(pos);
+                case GameObjectType.CommandPickup: return new HelpTile(pos, "Command Pickup");
+                case GameObjectType.Treasure: return new HelpTile(pos, "Treasure");
+                case GameObjectType.Water: return new Obstacle(pos, ObstacleType.ThreadPool);
+                case GameObjectType.Actor: return new Actor(pos, ActorType.Player); // TODO: ActorType
+                case GameObjectType.Player: return new Actor(pos, ActorType.Player);
+                case GameObjectType.Help: return new HelpTile(pos, "Help");
+                case GameObjectType.CharacterSelect: return new CharacterSelect(pos);
+                case GameObjectType.GenericPickup: return new HelpTile(pos, "Generic Pickup");
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
         }
 
         public IEnumerable<GameMessage> MovePlayer(MoveDirection direction)

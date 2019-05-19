@@ -211,7 +211,7 @@ namespace MattEland.Emergence.Services.Game
         /// <inheritdoc />
         public void AdvanceToNextLevel()
         {
-            var levels = new List<LevelType>(5)
+            var levels = new List<LevelType>
             {
                 LevelType.ClientWorkstation,
                 LevelType.SmartFridge,
