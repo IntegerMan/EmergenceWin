@@ -19,13 +19,13 @@ namespace MattEland.Emergence.Definitions.Model.Entities
             {
                 switch (FloorType)
                 {
-                    case FloorType.QuadTile:
+                    case FloorType.DecorativeTile:
                         return ',';
-                    case FloorType.Grate:
+                    case FloorType.Walkway:
                         return '_';
-                    case FloorType.Caution:
+                    case FloorType.CautionMarker:
                         return '=';
-                    case FloorType.LargeTile:
+                    case FloorType.Normal:
                     default:
                         return '.';
                 }
@@ -38,12 +38,11 @@ namespace MattEland.Emergence.Definitions.Model.Entities
             {
                 switch (FloorType)
                 {
-                    case FloorType.LargeTile:
-                        return GameColors.Gray;
-                    case FloorType.Grate:
+                    case FloorType.Walkway:
                         return GameColors.DarkGray;
-                    case FloorType.Caution:
+                    case FloorType.CautionMarker:
                         return GameColors.LightYellow;
+                    case FloorType.Normal:
                     default:
                         return GameColors.LightGray;
                 }

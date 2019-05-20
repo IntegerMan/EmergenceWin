@@ -101,26 +101,7 @@ namespace MattEland.Emergence.Engine
 
             if (c.FloorType != Definitions.Level.FloorType.Void && !hasObject)
             {
-                yield return new Floor(c.Pos, GetFloorType(c.FloorType));
-            }
-        }
-
-        private static Definitions.Model.Entities.FloorType GetFloorType(Definitions.Level.FloorType legacyFloorType)
-        {
-            switch (legacyFloorType)
-            {
-                case Definitions.Level.FloorType.DecorativeTile:
-                    return Definitions.Model.Entities.FloorType.QuadTile;
-
-                case Definitions.Level.FloorType.Walkway:
-                    return Definitions.Model.Entities.FloorType.Grate;
-
-                case Definitions.Level.FloorType.CautionMarker:
-                    return Definitions.Model.Entities.FloorType.Caution;
-
-                case Definitions.Level.FloorType.Normal:
-                default:
-                    return Definitions.Model.Entities.FloorType.LargeTile;
+                yield return new Floor(c.Pos, c.FloorType);
             }
         }
 
@@ -132,7 +113,7 @@ namespace MattEland.Emergence.Engine
             {
                 case GameObjectType.Core: return new Core(pos);
                 case GameObjectType.Divider: return new Obstacle(pos, ObstacleType.Barrier);
-                case GameObjectType.Cabling: return new Floor(pos, Definitions.Model.Entities.FloorType.Grate); // TODO: No
+                case GameObjectType.Cabling: return new Floor(pos, FloorType.DecorativeTile); // TODO: No
                 case GameObjectType.Turret: return new Obstacle(pos, ObstacleType.Service); // TODO: No
                 case GameObjectType.Firewall: return new Firewall(pos);
                 case GameObjectType.Exit: return new Stairs(pos, true);
@@ -140,7 +121,7 @@ namespace MattEland.Emergence.Engine
                 case GameObjectType.Service: return new Obstacle(pos, ObstacleType.Service);
                 case GameObjectType.DataStore: return new Obstacle(pos, ObstacleType.Data);
                 case GameObjectType.Wall: return new Obstacle(pos, ObstacleType.Wall);
-                case GameObjectType.Debris: return new Floor(pos, Definitions.Model.Entities.FloorType.LargeTile); // TODO: No
+                case GameObjectType.Debris: return new Floor(pos, FloorType.DecorativeTile); // TODO: No
                 case GameObjectType.Door: return new Door(pos);
                 case GameObjectType.CommandPickup: return new HelpTile(pos, "Command Pickup");
                 case GameObjectType.Treasure: return new HelpTile(pos, "Treasure");
