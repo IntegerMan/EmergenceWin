@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using GeneticSharp.Domain.Randomizations;
 using JetBrains.Annotations;
+using MattEland.Emergence.AI;
+using MattEland.Emergence.AI.Brains;
 using MattEland.Emergence.Definitions.DTOs;
 using MattEland.Emergence.Definitions.Entities;
 using MattEland.Emergence.Definitions.Level;
@@ -12,7 +14,9 @@ using MattEland.Emergence.Definitions.Model.Messages;
 using MattEland.Emergence.LevelGeneration;
 using MattEland.Emergence.LevelGeneration.Encounters;
 using MattEland.Emergence.LevelGeneration.Prefabs;
+using MattEland.Emergence.Services.Game;
 using MattEland.Shared.Collections;
+using CommandContext = MattEland.Emergence.Definitions.Model.EngineDefinitions.CommandContext;
 
 namespace MattEland.Emergence.Engine
 {
@@ -34,6 +38,7 @@ namespace MattEland.Emergence.Engine
         private readonly LevelGenerationService _levelBuilder;
 
         private readonly Queue<LevelType> _levels;
+        private ILevel _level;
 
         public GameStatus State { get; private set; }
         public Player Player => _player;
@@ -67,7 +72,7 @@ namespace MattEland.Emergence.Engine
                 _player = new Player(new PlayerDto { ObjectId = PlayerId});
             }
 
-            var level = _levelBuilder.GenerateLevel(new LevelGenerationParameters()
+            _level = _levelBuilder.GenerateLevel(new LevelGenerationParameters
             {
                 LevelType = _levels.Dequeue(),
                 PlayerId = PlayerId
@@ -78,11 +83,11 @@ namespace MattEland.Emergence.Engine
             _objects.Clear();
 
             // Add the player
-            _player.Pos = level.PlayerStart;
+            _player.Pos = _level.PlayerStart;
             _objects.Add(_player);
 
             // Add all objects
-            level.Cells.Each(c => GetGameObjectForCell(c).Each(o => _objects.Add(o)));
+            _level.Cells.Each(c => GetGameObjectForCell(c).Each(o => _objects.Add(o)));
 
             State = GameStatus.Ready;
 
@@ -104,14 +109,14 @@ namespace MattEland.Emergence.Engine
 
             if (c.FloorType != FloorType.Void && !hasObject)
             {
-                yield return new Floor(new GameObjectDto()
+                yield return new Floor(new GameObjectDto
                 {
                     Pos = c.Pos.SerializedValue
                 }, c.FloorType);
             }
         }
 
-        public IEnumerable<GameMessage> MovePlayer(MoveDirection direction)
+        public IEnumerable<ClientMessage> MovePlayer(MoveDirection direction)
         {
             if (State != GameStatus.Ready) throw new InvalidOperationException("The game is not ready for input");
 
@@ -119,12 +124,23 @@ namespace MattEland.Emergence.Engine
 
             var targetPos = _player.Pos.GetNeighbor(direction);
 
-            var context = new CommandContext(this, _player, _objects);
+            var aiService = new ArtificialIntelligenceService(new LegacyBrainProvider());
+            var entityService = new EntityDefinitionService();
+            var combatManager = new CombatManager();
+            var randomization = new BasicRandomization();
+
+            var service = new GameService(_levelBuilder, aiService, combatManager, null, entityService, new GameSimulationManager(),  randomization );
+            MattEland.Emergence.Definitions.Services.ICommandContext context = new MattEland.Emergence.Services.Game.CommandContext(_level, service, entityService, combatManager, null, randomization );
+
+            //var context = new CommandContext(this, _player, _objects);
 
             foreach (var obj in _objects.Where(o => o.Pos == targetPos).OrderByDescending(o => o.ZIndex))
             {
-                // TODO: Some messages should stop future interactions
-                obj.OnInteract(context, _player);
+                // Some messages should stop future interactions
+                if (!obj.OnActorAttemptedEnter(context, _player))
+                {
+                    break;
+                }
             }
 
             State = GameStatus.Ready;

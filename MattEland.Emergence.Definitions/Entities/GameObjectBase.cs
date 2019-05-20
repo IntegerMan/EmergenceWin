@@ -101,7 +101,7 @@ namespace MattEland.Emergence.Definitions.Entities
         /// <param name="actor">The actor entering the cell.</param>
         /// <param name="cell">The cell.</param>
         /// <returns><c>true</c> if the action is allowable, <c>false</c> if the action was handled and should be prevented.</returns>
-        public virtual bool OnActorAttemptedEnter(ICommandContext context, IActor actor, IGameCell cell)
+        public virtual bool OnActorAttemptedEnter(ICommandContext context, IActor actor)
         {
             return true;
         }

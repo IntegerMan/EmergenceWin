@@ -37,7 +37,7 @@ namespace MattEland.Emergence.Definitions.Level
         int ZIndex { get; }
 
         GameObjectDto BuildDto();
-        bool OnActorAttemptedEnter(ICommandContext context, IActor actor, IGameCell cell);
+        bool OnActorAttemptedEnter(ICommandContext context, IActor actor);
         void SetInvulnerable();
         void OnCaptured(ICommandContext context, IGameObject newOwner, Alignment oldTeam);
 

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using MattEland.Emergence.Definitions.DTOs;
 using MattEland.Emergence.Definitions.Entities;
 using MattEland.Emergence.Definitions.Model.Messages;
 
@@ -10,6 +11,6 @@ namespace MattEland.Emergence.Definitions.Model.EngineDefinitions
         Player Player { get; }
         IEnumerable<GameMessage> Start();
         IEnumerable<GameMessage> GenerateLevel();
-        IEnumerable<GameMessage> MovePlayer(MoveDirection direction);
+        IEnumerable<ClientMessage> MovePlayer(MoveDirection direction);
     }
 }
