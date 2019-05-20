@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using MattEland.Emergence.Definitions.Level;
 using MattEland.Emergence.Model;
 
 namespace MattEland.Emergence.LevelGeneration
@@ -9,7 +10,7 @@ namespace MattEland.Emergence.LevelGeneration
         public List<string> Data { get; set; }
         public bool IsInvulnerable { get; set; }
 
-        public char GetCharacterAtPosition(Position pos)
+        public char GetCharacterAtPosition(Pos2D pos)
         {
             if (pos.X < 0 || pos.Y < 0 || pos.Y >= Data.Count) return ' ';
 

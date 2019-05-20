@@ -1,14 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using MattEland.Emergence.Model.Messages;
+using MattEland.Emergence.Definitions.Level;
+using MattEland.Emergence.Definitions.Model.EngineDefinitions;
 
-namespace MattEland.Emergence.Model.Entities
+namespace MattEland.Emergence.Definitions.Model.Entities
 {
     public class Floor : WorldObject, IInteractive
     {
         public FloorType FloorType { get; }
 
-        public Floor(Position pos, FloorType floorType) : base(pos, Guid.NewGuid())
+        public Floor(Pos2D pos, FloorType floorType) : base(pos, Guid.NewGuid())
         {
             FloorType = floorType;
         }

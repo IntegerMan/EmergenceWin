@@ -1,12 +1,13 @@
-﻿using MattEland.Emergence.Model;
-using MattEland.Emergence.Model.Entities;
+﻿using MattEland.Emergence.Definitions.Level;
+using MattEland.Emergence.Definitions.Model.Entities;
+using FloorType = MattEland.Emergence.Definitions.Model.Entities.FloorType;
 
 namespace MattEland.Emergence.LevelGeneration
 {
     public static class LevelObjectCreator
     {
 
-        public static WorldObject GetObject(char mapChar, Position pos)
+        public static WorldObject GetObject(char mapChar, Pos2D pos)
         {
             switch (mapChar)
             {

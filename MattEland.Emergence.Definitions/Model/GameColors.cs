@@ -1,4 +1,4 @@
-namespace MattEland.Emergence.Model
+namespace MattEland.Emergence.Definitions.Model
 {
     public static class GameColors
     {

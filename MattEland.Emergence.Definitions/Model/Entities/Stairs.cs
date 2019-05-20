@@ -1,12 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using MattEland.Emergence.Model.Messages;
+using MattEland.Emergence.Definitions.Level;
+using MattEland.Emergence.Definitions.Model.EngineDefinitions;
 
-namespace MattEland.Emergence.Model.Entities
+namespace MattEland.Emergence.Definitions.Model.Entities
 {
     public class Stairs : WorldObject, IInteractive
     {
-        public Stairs(Position pos, bool isDown) : base(pos, Guid.NewGuid())
+        public Stairs(Pos2D pos, bool isDown) : base(pos, Guid.NewGuid())
         {
             IsDown = isDown;
         }

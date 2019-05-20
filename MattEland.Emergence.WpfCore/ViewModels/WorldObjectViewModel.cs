@@ -4,10 +4,12 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Windows.Media;
 using JetBrains.Annotations;
-using MattEland.Emergence.Model;
-using MattEland.Emergence.Model.Entities;
-using MattEland.Emergence.Model.Messages;
+using MattEland.Emergence.Definitions.Level;
+using MattEland.Emergence.Definitions.Model.Entities;
+using MattEland.Emergence.Definitions.Model.Messages;
 using MattEland.Emergence.WpfCore;
+using MattEland.Emergence.WpfCore.ViewModels;
+using ActorType = MattEland.Emergence.Definitions.Model.Entities.ActorType;
 
 namespace MattEland.Emergence.WinCore.ViewModels
 {
@@ -61,7 +63,7 @@ namespace MattEland.Emergence.WinCore.ViewModels
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null) 
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
-        public void UpdatePosition(Position newPos)
+        public void UpdatePosition(Pos2D newPos)
         {
             Source.Pos = newPos;
 

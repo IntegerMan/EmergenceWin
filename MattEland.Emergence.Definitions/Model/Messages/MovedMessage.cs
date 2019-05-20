@@ -1,17 +1,18 @@
 using JetBrains.Annotations;
-using MattEland.Emergence.Model.Entities;
+using MattEland.Emergence.Definitions.Level;
+using MattEland.Emergence.Definitions.Model.Entities;
 
-namespace MattEland.Emergence.Model.Messages
+namespace MattEland.Emergence.Definitions.Model.Messages
 {
     public class MovedMessage : GameMessage
     {
         [NotNull] 
         public WorldObject Source { get; }
         
-        public Position OldPos { get; }
-        public Position NewPos { get; }
+        public Pos2D OldPos { get; }
+        public Pos2D NewPos { get; }
 
-        public MovedMessage([NotNull] WorldObject source, Position oldPos, Position newPos)
+        public MovedMessage([NotNull] WorldObject source, Pos2D oldPos, Pos2D newPos)
         {
             Source = source;
             OldPos = oldPos;

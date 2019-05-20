@@ -1,12 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using MattEland.Emergence.Model.Messages;
+using MattEland.Emergence.Definitions.Level;
+using MattEland.Emergence.Definitions.Model.EngineDefinitions;
 
-namespace MattEland.Emergence.Model.Entities
+namespace MattEland.Emergence.Definitions.Model.Entities
 {
     public class Firewall : WorldObject, IInteractive
     {
-        public Firewall(Position pos) : base(pos, Guid.NewGuid())
+        public Firewall(Pos2D pos) : base(pos, Guid.NewGuid())
         {
         }
 

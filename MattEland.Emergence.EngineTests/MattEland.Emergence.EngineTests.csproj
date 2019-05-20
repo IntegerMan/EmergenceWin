@@ -87,6 +87,10 @@
     <Analyzer Include="..\packages\xunit.analyzers.0.10.0\analyzers\dotnet\cs\xunit.analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MattEland.Emergence.Definitions\MattEland.Emergence.Definitions.csproj">
+      <Project>{ed2b3c34-8367-4c4d-8d99-0cb8b7689ef2}</Project>
+      <Name>MattEland.Emergence.Definitions</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MattEland.Emergence.Engine\MattEland.Emergence.Engine.csproj">
       <Project>{220FF354-1743-435C-AFF5-79C714598AD7}</Project>
       <Name>MattEland.Emergence.Engine</Name>

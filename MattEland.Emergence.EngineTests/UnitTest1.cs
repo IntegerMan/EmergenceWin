@@ -1,5 +1,5 @@
-﻿using MattEland.Emergence.Engine;
-using MattEland.Emergence.Model;
+﻿using MattEland.Emergence.Definitions.Model;
+using MattEland.Emergence.Engine;
 using Shouldly;
 using Xunit;
 

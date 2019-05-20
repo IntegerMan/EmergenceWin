@@ -1,8 +1,8 @@
 ﻿using System.Windows;
 using System.Windows.Input;
 using JetBrains.Annotations;
-using MattEland.Emergence.Model;
-using MattEland.Emergence.WinCore.ViewModels;
+using MattEland.Emergence.Definitions.Model;
+using MattEland.Emergence.WpfCore.ViewModels;
 
 namespace MattEland.Emergence.WpfCore
 {

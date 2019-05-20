@@ -10,7 +10,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MattEland.Emergence.LevelGeneration\MattEland.Emergence.LevelGeneration.csproj" />
-    <ProjectReference Include="..\MattEland.Emergence.Model\MattEland.Emergence.Model.csproj" />
   </ItemGroup>
 
 </Project>

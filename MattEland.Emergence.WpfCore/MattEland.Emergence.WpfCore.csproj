@@ -147,10 +147,6 @@
       <Project>{6df627c5-2bfe-43a0-bfcd-e400232f6677}</Project>
       <Name>MattEland.Emergence.LevelGeneration</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MattEland.Emergence.Model\MattEland.Emergence.Model.csproj">
-      <Project>{5B4A6270-4D26-45C2-B749-E3D71755E037}</Project>
-      <Name>MattEland.Emergence.Model</Name>
-    </ProjectReference>
     <ProjectReference Include="..\MattEland.Emergence.SharedServices\MattEland.Emergence.SharedServices.csproj">
       <Project>{DF0DDEE8-459B-4345-8346-E8E228E69945}</Project>
       <Name>MattEland.Emergence.SharedServices</Name>

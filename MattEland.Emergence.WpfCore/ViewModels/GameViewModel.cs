@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using JetBrains.Annotations;
-using MattEland.Emergence.Definitions.Services;
+using MattEland.Emergence.Definitions.Level;
+using MattEland.Emergence.Definitions.Model;
+using MattEland.Emergence.Definitions.Model.Entities;
+using MattEland.Emergence.Definitions.Model.Messages;
 using MattEland.Emergence.Engine;
-using MattEland.Emergence.Model;
-using MattEland.Emergence.Model.Entities;
-using MattEland.Emergence.Model.Messages;
 using MattEland.Emergence.Services;
+using MattEland.Emergence.WinCore.ViewModels;
 using MattEland.Shared.Collections;
 
-namespace MattEland.Emergence.WinCore.ViewModels
+namespace MattEland.Emergence.WpfCore.ViewModels
 {
     public class GameViewModel
     {
@@ -82,7 +83,7 @@ namespace MattEland.Emergence.WinCore.ViewModels
         
         private void CenterOnPlayer() => CenterOn(WorldObjects.Select(o => o.Source).OfType<Actor>().First().Pos);
 
-        public void CenterOn(Position pos)
+        public void CenterOn(Pos2D pos)
         {
             XOffset = -(pos.X - 15);
             YOffset = -(pos.Y - 10);

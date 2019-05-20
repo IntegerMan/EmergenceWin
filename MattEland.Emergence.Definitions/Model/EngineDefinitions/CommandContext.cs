@@ -2,11 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
-using MattEland.Emergence.Engine;
-using MattEland.Emergence.Model.Messages;
+using MattEland.Emergence.Definitions.Level;
+using MattEland.Emergence.Definitions.Model.Entities;
+using MattEland.Emergence.Definitions.Model.Messages;
 using MattEland.Shared.Collections;
 
-namespace MattEland.Emergence.Model.Entities
+namespace MattEland.Emergence.Definitions.Model.EngineDefinitions
 {
     public class CommandContext : ICommandContext
     {
@@ -28,7 +29,7 @@ namespace MattEland.Emergence.Model.Entities
         
         [NotNull] public Actor Actor { get; }
         
-        public void MoveObject([NotNull] WorldObject obj, Position newPos)
+        public void MoveObject([NotNull] WorldObject obj, Pos2D newPos)
         {            
             var oldPos = obj.Pos;
         
@@ -51,7 +52,7 @@ namespace MattEland.Emergence.Model.Entities
             _messages.AddRange(messages);
         }
 
-        public void MoveExecutingActor(Position newPos) => MoveObject(Actor, newPos);
+        public void MoveExecutingActor(Pos2D newPos) => MoveObject(Actor, newPos);
         public void UpdateObject(WorldObject gameObject) => AddMessage(new ObjectUpdatedMessage(gameObject));
 
         public void UpdateCapturedCores()

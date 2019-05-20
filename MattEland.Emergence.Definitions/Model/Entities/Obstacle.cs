@@ -1,14 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using MattEland.Emergence.Model.Messages;
+using MattEland.Emergence.Definitions.Level;
+using MattEland.Emergence.Definitions.Model.EngineDefinitions;
 
-namespace MattEland.Emergence.Model.Entities
+namespace MattEland.Emergence.Definitions.Model.Entities
 {
     public class Obstacle : WorldObject, IInteractive
     {
         public ObstacleType ObstacleType { get; }
 
-        public Obstacle(Position pos, ObstacleType obstacleType) : base(pos, Guid.NewGuid())
+        public Obstacle(Pos2D pos, ObstacleType obstacleType) : base(pos, Guid.NewGuid())
         {
             ObstacleType = obstacleType;
         }

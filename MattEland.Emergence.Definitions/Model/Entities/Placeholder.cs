@@ -1,24 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
-using MattEland.Emergence.Model.Messages;
+using MattEland.Emergence.Definitions.Level;
+using MattEland.Emergence.Definitions.Model.EngineDefinitions;
 
-namespace MattEland.Emergence.Model.Entities
+namespace MattEland.Emergence.Definitions.Model.Entities
 {
     public class Placeholder : WorldObject, IInteractive
     {
         private readonly char _display;
 
-        public Placeholder(Position pos, char display) : base(pos, Guid.NewGuid())
+        public Placeholder(Pos2D pos, char display) : base(pos, Guid.NewGuid())
         {
             if (display <= 0) throw new ArgumentOutOfRangeException(nameof(display));
             
             _display = display;
         }
 
-        public override string ForegroundColor
-        {
-            get { return GameColors.Red; }
-        }
+        public override string ForegroundColor => GameColors.Red;
 
         public override char AsciiChar => _display;
 

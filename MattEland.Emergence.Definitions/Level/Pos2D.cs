@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Concurrent;
 using System.Diagnostics;
+using MattEland.Emergence.Definitions.Model;
 
 namespace MattEland.Emergence.Definitions.Level
 {
@@ -162,6 +163,19 @@ namespace MattEland.Emergence.Definitions.Level
         public static Pos2D FromString(string input)
         {
             return PosRepository.FromString(input);
+        }
+
+        public Pos2D GetNeighbor(MoveDirection direction)
+        {
+            switch (direction)
+            {
+                case MoveDirection.Up: return Add(0, -1);
+                case MoveDirection.Right: return Add(1, 0);
+                case MoveDirection.Down: return Add(0, 1);
+                case MoveDirection.Left: return Add(-1, 0);
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
+            }
         }
     }
 }

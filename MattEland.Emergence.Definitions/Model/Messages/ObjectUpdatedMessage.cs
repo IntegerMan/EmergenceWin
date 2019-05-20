@@ -1,8 +1,8 @@
 ﻿using System;
 using JetBrains.Annotations;
-using MattEland.Emergence.Model.Entities;
+using MattEland.Emergence.Definitions.Model.Entities;
 
-namespace MattEland.Emergence.Model.Messages
+namespace MattEland.Emergence.Definitions.Model.Messages
 {
     public class ObjectUpdatedMessage : GameMessage
     {

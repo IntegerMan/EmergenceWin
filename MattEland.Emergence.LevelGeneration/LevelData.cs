@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using MattEland.Emergence.Definitions.Level;
+using MattEland.Emergence.Definitions.Model;
 using MattEland.Emergence.Model;
 using Newtonsoft.Json;
 
@@ -8,9 +10,9 @@ namespace MattEland.Emergence.LevelGeneration
     {
         public string Name { get; }
         public IEnumerable<LevelInstruction> Instructions { get; }
-        public Position PlayerStart { get; }
+        public Pos2D PlayerStart { get; }
 
-        public LevelData(string name, Position start, IEnumerable<LevelInstruction> instructions)
+        public LevelData(string name, Pos2D start, IEnumerable<LevelInstruction> instructions)
         {
             Name = name;
             Instructions = instructions;

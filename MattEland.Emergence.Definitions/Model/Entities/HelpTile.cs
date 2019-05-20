@@ -1,12 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using MattEland.Emergence.Model.Messages;
+using MattEland.Emergence.Definitions.Level;
+using MattEland.Emergence.Definitions.Model.EngineDefinitions;
 
-namespace MattEland.Emergence.Model.Entities
+namespace MattEland.Emergence.Definitions.Model.Entities
 {
     public class HelpTile : WorldObject, IInteractive
     {
-        public HelpTile(Position pos, string text) : base(pos, Guid.NewGuid())
+        public HelpTile(Pos2D pos, string text) : base(pos, Guid.NewGuid())
         {
             Text = text;
         }

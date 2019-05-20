@@ -1,10 +1,11 @@
 ﻿using System;
+using MattEland.Emergence.Definitions.Level;
 
-namespace MattEland.Emergence.Model.Entities
+namespace MattEland.Emergence.Definitions.Model.Entities
 {
     public class Actor : WorldObject
     {
-        public Actor(Position pos, ActorType entityType) : base(pos, Guid.NewGuid())
+        public Actor(Pos2D pos, ActorType entityType) : base(pos, Guid.NewGuid())
         {
             ActorType = entityType;
         }

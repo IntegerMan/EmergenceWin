@@ -1,6 +1,6 @@
-﻿using MattEland.Emergence.Model.Messages;
+﻿using MattEland.Emergence.Definitions.Model.Messages;
 
-namespace MattEland.Emergence.WinCore.ViewModels
+namespace MattEland.Emergence.WpfCore.ViewModels
 {
     public class MessageViewModel
     {

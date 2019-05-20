@@ -1,4 +1,4 @@
-﻿namespace MattEland.Emergence.Model.Entities
+﻿namespace MattEland.Emergence.Definitions.Model.Entities
 {
     public enum ObstacleType
     {
