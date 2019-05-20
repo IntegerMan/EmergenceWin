@@ -11,7 +11,7 @@ using MattEland.Emergence.LevelGeneration.Prefabs;
 namespace MattEland.Emergence.LevelGeneration
 {
     /// <summary>
-    /// A utility class used for constructing and manipulating <see cref="LevelData"/> instances.
+    /// A utility class used for constructing and manipulating LevelData instances.
     /// </summary>
     public class LevelBuilder : ILevelBuilder
     {
@@ -29,6 +29,7 @@ namespace MattEland.Emergence.LevelGeneration
         /// </summary>
         /// <param name="prefabService">The prefab service.</param>
         /// <param name="encounterService">The encounter service.</param>
+        /// <param name="randomization">The randomization</param>
         public LevelBuilder(
             IPrefabService prefabService,
             EncountersService encounterService,

@@ -141,8 +141,6 @@ namespace MattEland.Emergence.Definitions.Entities
         /// </summary>
         public bool IsImmobile { get; set; }
 
-
-
         /// <summary>
         /// Gets the type of the actor from an actor <paramref name="id"/>.
         /// </summary>
