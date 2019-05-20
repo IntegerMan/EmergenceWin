@@ -2,7 +2,9 @@
 using JetBrains.Annotations;
 using MattEland.Emergence.Definitions.DTOs;
 using MattEland.Emergence.Definitions.Level;
-using MattEland.Emergence.Definitions.Services;
+using MattEland.Emergence.Definitions.Model;
+using MattEland.Emergence.Definitions.Model.EngineDefinitions;
+using ICommandContext = MattEland.Emergence.Definitions.Services.ICommandContext;
 
 namespace MattEland.Emergence.Definitions.Entities
 {
@@ -87,5 +89,13 @@ namespace MattEland.Emergence.Definitions.Entities
                 OnCaptured(context, source, currentTeam);
             }
         }
+
+        public override char AsciiChar => 'C';
+        public override void OnInteract(CommandContext context, IActor actor)
+        {
+            context.DisplayNotImplemented();
+        }
+
+        public override string ForegroundColor => GameColors.Yellow;
     }
 }

@@ -1,6 +1,8 @@
 ﻿using MattEland.Emergence.Definitions.DTOs;
 using MattEland.Emergence.Definitions.Level;
-using MattEland.Emergence.Definitions.Services;
+using MattEland.Emergence.Definitions.Model;
+using MattEland.Emergence.Definitions.Model.EngineDefinitions;
+using ICommandContext = MattEland.Emergence.Definitions.Services.ICommandContext;
 
 namespace MattEland.Emergence.Definitions.Entities
 {
@@ -15,6 +17,10 @@ namespace MattEland.Emergence.Definitions.Entities
 
         public override char AsciiChar => '~';
         public override bool IsCorruptable => true;
+        public override void OnInteract(CommandContext context, IActor actor)
+        {
+            context.DisplayText("You can't do that; nobody implemented swimming!", ClientMessageType.Failure);
+        }
 
         protected override string CustomName => "Thread Pool";
 
@@ -27,5 +33,8 @@ namespace MattEland.Emergence.Definitions.Entities
 
             return false;
         }
+
+        public override string ForegroundColor => GameColors.LightBlue;
+        public override string BackgroundColor => GameColors.DarkBlue;
     }
 }

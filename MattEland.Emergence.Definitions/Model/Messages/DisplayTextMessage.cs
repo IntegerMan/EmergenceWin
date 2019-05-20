@@ -1,5 +1,6 @@
 ﻿using System;
 using JetBrains.Annotations;
+using MattEland.Emergence.Definitions.DTOs;
 
 namespace MattEland.Emergence.Definitions.Model.Messages
 {
@@ -8,9 +9,12 @@ namespace MattEland.Emergence.Definitions.Model.Messages
         [NotNull]
         public string Text { get; }
 
-        public DisplayTextMessage([NotNull] string text)
+        public ClientMessageType MessageType { get; }
+
+        public DisplayTextMessage([NotNull] string text, ClientMessageType messageType)
         {
             Text = text ?? throw new ArgumentNullException(nameof(text));
+            MessageType = messageType;
         }
 
         public override string ToString() => $"Display '{Text}'";

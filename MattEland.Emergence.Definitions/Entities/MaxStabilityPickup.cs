@@ -1,7 +1,8 @@
 ﻿using MattEland.Emergence.Definitions.DTOs;
 using MattEland.Emergence.Definitions.Effects;
 using MattEland.Emergence.Definitions.Level;
-using MattEland.Emergence.Definitions.Services;
+using MattEland.Emergence.Definitions.Model.EngineDefinitions;
+using ICommandContext = MattEland.Emergence.Definitions.Services.ICommandContext;
 
 namespace MattEland.Emergence.Definitions.Entities
 {
@@ -33,5 +34,11 @@ namespace MattEland.Emergence.Definitions.Entities
         public int Potency { get; set; } = 1;
 
         public override int ZIndex => 10;
+
+        public override void OnInteract(CommandContext context, IActor actor)
+        {
+            context.DisplayNotImplemented();
+        }
+
     }
 }

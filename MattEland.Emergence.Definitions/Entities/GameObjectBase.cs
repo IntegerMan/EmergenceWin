@@ -205,10 +205,7 @@ namespace MattEland.Emergence.Definitions.Entities
             Corruption += damage;
         }
 
-        public virtual void OnInteract(CommandContext context, IGameObject source)
-        {
-            context.DisplayText("Pretty much nothing happens");
-        }
+        public abstract void OnInteract(CommandContext context, IActor actor);
 
         /// <summary>
         /// Gets or sets the corruption amount present on the object.

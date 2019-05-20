@@ -1,4 +1,7 @@
 ﻿using MattEland.Emergence.Definitions.DTOs;
+using MattEland.Emergence.Definitions.Level;
+using MattEland.Emergence.Definitions.Model;
+using MattEland.Emergence.Definitions.Model.EngineDefinitions;
 
 namespace MattEland.Emergence.Definitions.Entities
 {
@@ -13,7 +16,13 @@ namespace MattEland.Emergence.Definitions.Entities
         public override bool IsInteractive => true;
         public override char AsciiChar => '_';
         public override bool IsCorruptable => false;
+        public override void OnInteract(CommandContext context, IActor actor)
+        {
+            // No action needed
+        }
 
         protected override string CustomName => "Metadata";
+
+        public override string ForegroundColor => GameColors.Brown;
     }
 }

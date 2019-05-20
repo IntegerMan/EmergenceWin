@@ -1,7 +1,9 @@
 ﻿using System.Linq;
 using MattEland.Emergence.Definitions.DTOs;
 using MattEland.Emergence.Definitions.Level;
-using MattEland.Emergence.Definitions.Services;
+using MattEland.Emergence.Definitions.Model;
+using MattEland.Emergence.Definitions.Model.EngineDefinitions;
+using ICommandContext = MattEland.Emergence.Definitions.Services.ICommandContext;
 
 namespace MattEland.Emergence.Definitions.Entities
 {
@@ -12,7 +14,21 @@ namespace MattEland.Emergence.Definitions.Entities
         }
 
         public override bool IsInteractive => true;
-        public override char AsciiChar => '+';
+        public override char AsciiChar => IsOpen ? '.' : '+';
+        public override void OnInteract(CommandContext context, IActor actor)
+        {
+            if (!IsOpen)
+            {
+                IsOpen = true;
+                context.UpdateObject(this);
+            }
+            else
+            {
+                context.MoveObject(actor, Pos);
+            }
+        }
+
+        public override string ForegroundColor => GameColors.Yellow;
 
         public override void MaintainActiveEffects(ICommandContext context)
         {

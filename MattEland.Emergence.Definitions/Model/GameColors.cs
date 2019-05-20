@@ -22,5 +22,6 @@ namespace MattEland.Emergence.Definitions.Model
         public const string DarkBlue = "#000099";
         
         public const string Red = "#FF0000";
+        public const string Brown = "#4B382A";
     }
 }

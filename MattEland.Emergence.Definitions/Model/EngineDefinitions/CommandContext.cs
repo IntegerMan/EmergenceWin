@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
+using MattEland.Emergence.Definitions.DTOs;
 using MattEland.Emergence.Definitions.Entities;
 using MattEland.Emergence.Definitions.Level;
 using MattEland.Emergence.Definitions.Model.Messages;
@@ -80,7 +81,7 @@ namespace MattEland.Emergence.Definitions.Model.EngineDefinitions
             */
         }
 
-        public void DisplayText(string text) => AddMessage(new DisplayTextMessage(text));
+        public void DisplayText(string text, ClientMessageType messageType = ClientMessageType.Generic) => AddMessage(new DisplayTextMessage(text, messageType));
 
         [NotNull, ItemNotNull]
         public IEnumerable<GameMessage> Messages => _messages;
@@ -90,5 +91,9 @@ namespace MattEland.Emergence.Definitions.Model.EngineDefinitions
             AddMessages(GameManager.GenerateLevel());
         }
 
+        public void DisplayNotImplemented()
+        {
+            DisplayText("This action is not yet implemented");
+        }
     }
 }

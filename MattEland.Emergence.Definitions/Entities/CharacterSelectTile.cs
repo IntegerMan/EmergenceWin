@@ -1,6 +1,9 @@
 ﻿using MattEland.Emergence.Definitions.DTOs;
 using MattEland.Emergence.Definitions.Level;
+using MattEland.Emergence.Definitions.Model;
+using MattEland.Emergence.Definitions.Model.EngineDefinitions;
 using MattEland.Emergence.Definitions.Services;
+using ICommandContext = MattEland.Emergence.Definitions.Services.ICommandContext;
 
 namespace MattEland.Emergence.Definitions.Entities
 {
@@ -57,6 +60,13 @@ namespace MattEland.Emergence.Definitions.Entities
             return true;
         }
 
+        public override string ForegroundColor => GameColors.LightGreen;
+
+
         public override bool IsCorruptable => false;
+        public override void OnInteract(CommandContext context, IActor actor)
+        {
+            context.DisplayNotImplemented();
+        }
     }
 }

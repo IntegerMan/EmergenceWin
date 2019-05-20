@@ -111,38 +111,6 @@ namespace MattEland.Emergence.Engine
             }
         }
 
-/*        private static WorldObject GetGameObjectFromOldObject(IGameObject gameObject)
-        {
-            var pos = gameObject.Pos;
-
-            switch (gameObject.ObjectType)
-            {
-                case GameObjectType.Core: return new Core(pos);
-                case GameObjectType.Divider: return new Obstacle(pos, ObstacleType.Barrier);
-                case GameObjectType.Cabling: return new Floor(pos, FloorType.DecorativeTile); // TODO: No
-                case GameObjectType.Turret: return new Obstacle(pos, ObstacleType.Service); // TODO: No
-                case GameObjectType.Firewall: return new Firewall(pos);
-                case GameObjectType.Exit: return new Stairs(pos, true);
-                case GameObjectType.Entrance: return new Stairs(pos, false);
-                case GameObjectType.Service: return new Obstacle(pos, ObstacleType.Service);
-                case GameObjectType.DataStore: return new Obstacle(pos, ObstacleType.Data);
-                case GameObjectType.Wall: return new Obstacle(pos, ObstacleType.Wall);
-                case GameObjectType.Debris: return new Floor(pos, FloorType.DecorativeTile); // TODO: No
-                case GameObjectType.Door: return new Door(pos);
-                case GameObjectType.CommandPickup: return new HelpTile(pos, "Command Pickup");
-                case GameObjectType.Treasure: return new HelpTile(pos, "Treasure");
-                case GameObjectType.Water: return new Obstacle(pos, ObstacleType.ThreadPool);
-                case GameObjectType.Actor: return new Actor(pos, ((Definitions.Entities.Actor) gameObject).ActorType); // TODO: ActorType
-                case GameObjectType.Player: return new Actor(pos, ActorType.Player);
-                case GameObjectType.Help: return new HelpTile(pos, "Help");
-                case GameObjectType.CharacterSelect: return new CharacterSelect(pos);
-                case GameObjectType.GenericPickup: return new HelpTile(pos, "Generic Pickup");
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-
-        }*/
-
         public IEnumerable<GameMessage> MovePlayer(MoveDirection direction)
         {
             if (State != GameStatus.Ready) throw new InvalidOperationException("The game is not ready for input");

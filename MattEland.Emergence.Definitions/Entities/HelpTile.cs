@@ -1,6 +1,8 @@
 ﻿using MattEland.Emergence.Definitions.DTOs;
 using MattEland.Emergence.Definitions.Level;
-using MattEland.Emergence.Definitions.Services;
+using MattEland.Emergence.Definitions.Model;
+using MattEland.Emergence.Definitions.Model.EngineDefinitions;
+using ICommandContext = MattEland.Emergence.Definitions.Services.ICommandContext;
 
 namespace MattEland.Emergence.Definitions.Entities
 {
@@ -14,6 +16,10 @@ namespace MattEland.Emergence.Definitions.Entities
         public override bool IsTargetable => true;
         public override bool IsInteractive => true;
         public override char AsciiChar => '?';
+        public override void OnInteract(CommandContext context, IActor actor)
+        {
+            context.DisplayText(ObjectId, ClientMessageType.Help);
+        }
 
         protected override string CustomName => "Help Provider";
 
@@ -28,5 +34,8 @@ namespace MattEland.Emergence.Definitions.Entities
 
             return false;
         }
+
+        public override string ForegroundColor => GameColors.White;
+        public override string BackgroundColor => GameColors.DarkBlue;
     }
 }

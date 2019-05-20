@@ -1,6 +1,8 @@
 ﻿using MattEland.Emergence.Definitions.DTOs;
 using MattEland.Emergence.Definitions.Level;
-using MattEland.Emergence.Definitions.Services;
+using MattEland.Emergence.Definitions.Model;
+using MattEland.Emergence.Definitions.Model.EngineDefinitions;
+using ICommandContext = MattEland.Emergence.Definitions.Services.ICommandContext;
 
 namespace MattEland.Emergence.Definitions.Entities
 {
@@ -12,6 +14,11 @@ namespace MattEland.Emergence.Definitions.Entities
 
         public override bool IsInteractive => true;
         public override char AsciiChar => '*';
+        public override void OnInteract(CommandContext context, IActor actor)
+        {
+            context.DisplayText($"The {Name} spins and whirs, oblivious to your concerns.");
+        }
+
         protected override string CustomName => "Service";
 
         /// <inheritdoc />
@@ -32,5 +39,8 @@ namespace MattEland.Emergence.Definitions.Entities
 
             return false;
         }
+
+        public override string ForegroundColor => GameColors.Orange;
+
     }
 }

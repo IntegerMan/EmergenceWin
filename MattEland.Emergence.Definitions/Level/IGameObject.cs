@@ -62,6 +62,6 @@ namespace MattEland.Emergence.Definitions.Level
         string BackgroundColor { get; }
 
         void ApplyCorruptionDamage(ICommandContext context, IGameObject source, int damage);
-        void OnInteract(CommandContext context, IGameObject source);
+        void OnInteract(CommandContext context, IActor actor);
     }
 }

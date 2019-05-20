@@ -7,7 +7,10 @@ using MattEland.Emergence.Definitions.Commands;
 using MattEland.Emergence.Definitions.DTOs;
 using MattEland.Emergence.Definitions.Effects;
 using MattEland.Emergence.Definitions.Level;
+using MattEland.Emergence.Definitions.Model;
+using MattEland.Emergence.Definitions.Model.EngineDefinitions;
 using MattEland.Emergence.Definitions.Services;
+using ICommandContext = MattEland.Emergence.Definitions.Services.ICommandContext;
 
 namespace MattEland.Emergence.Definitions.Entities
 {
@@ -390,6 +393,34 @@ namespace MattEland.Emergence.Definitions.Entities
 
                 Operations -= damage;
             }
+        }
+
+        public override string ForegroundColor {
+            get
+            {
+                switch (Team)
+                {
+                    case Alignment.Neutral:
+                    case Alignment.SystemCore:
+                        return GameColors.Yellow;
+                    case Alignment.SystemAntiVirus:
+                        return GameColors.Orange;
+                    case Alignment.SystemSecurity:
+                        return GameColors.Red;
+                    case Alignment.Virus:
+                    case Alignment.Bug:
+                        return GameColors.Purple;
+                    case Alignment.Player:
+                        return GameColors.Green;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
+        }
+
+        public override void OnInteract(CommandContext context, IActor actor)
+        {
+            context.DisplayNotImplemented();
         }
     }
 }

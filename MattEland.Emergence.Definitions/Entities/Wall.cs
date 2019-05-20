@@ -1,6 +1,8 @@
 ﻿using MattEland.Emergence.Definitions.DTOs;
 using MattEland.Emergence.Definitions.Level;
-using MattEland.Emergence.Definitions.Services;
+using MattEland.Emergence.Definitions.Model;
+using MattEland.Emergence.Definitions.Model.EngineDefinitions;
+using ICommandContext = MattEland.Emergence.Definitions.Services.ICommandContext;
 
 namespace MattEland.Emergence.Definitions.Entities
 {
@@ -30,6 +32,13 @@ namespace MattEland.Emergence.Definitions.Entities
             return false;
         }
 
+        public override string ForegroundColor => GameColors.SlateBlue;
+
+        public override void OnInteract(CommandContext context, IActor actor)
+        {
+            context.DisplayText($"The {Name} blocks the way.", ClientMessageType.Failure);
+        }
+        
         public override void OnDestroyed(ICommandContext context, IGameObject attacker)
         {
             base.OnDestroyed(context, attacker);
