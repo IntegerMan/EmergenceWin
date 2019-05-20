@@ -6,7 +6,7 @@ namespace MattEland.Emergence.Definitions.DTOs
     /// <summary>
     /// A data transmission object used for representing an object within the game world.
     /// </summary>
-    [DebuggerDisplay("(GameObject: Pos:{Pos.SerializedValue} Type:{Type} Id:{Id})")]
+    [DebuggerDisplay("(GameObject: Pos:{Pos.SerializedValue} Type:{Type} Id:{ObjectId})")]
     public class GameObjectDto
     {
         /// <summary>
@@ -25,7 +25,7 @@ namespace MattEland.Emergence.Definitions.DTOs
         /// Gets or sets the object identifier.
         /// </summary>
         /// <value>The object identifier.</value>
-        public string Id { get; set; }
+        public string ObjectId { get; set; }
 
         /// <summary>
         /// Gets or sets the health lost from the object's maximum health. Typically this will be 0 until something is hurt,

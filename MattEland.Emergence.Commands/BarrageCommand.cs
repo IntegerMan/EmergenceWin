@@ -44,7 +44,7 @@ namespace MattEland.Emergence.Commands
 
             if (!candidates.Any())
             {
-                if (executor.IsPlayer || context.CanPlayerSee(executor.Position))
+                if (executor.IsPlayer || context.CanPlayerSee(executor.Pos))
                 {
                     context.AddMessage($"{executor.Name} attempts to {Name} but no targets are visible", ClientMessageType.Failure);
                 }
@@ -52,7 +52,7 @@ namespace MattEland.Emergence.Commands
                 return;
             }
             
-            if (executor.IsPlayer || context.CanPlayerSee(executor.Position))
+            if (executor.IsPlayer || context.CanPlayerSee(executor.Pos))
             {
                 context.AddMessage($"{executor.Name} barrages", ClientMessageType.Generic);
             }
@@ -64,13 +64,13 @@ namespace MattEland.Emergence.Commands
             var targets = candidates.Take(Math.Min(6, candidates.Count)).ToList();
             foreach (var target in targets)
             {
-                if (executor.IsPlayer || context.CanPlayerSee(target.Position) ||
-                    context.CanPlayerSee(executor.Position))
+                if (executor.IsPlayer || context.CanPlayerSee(target.Pos) ||
+                    context.CanPlayerSee(executor.Pos))
                 {
-                    context.AddEffect(new ProjectileEffect(executor, target.Position));
+                    context.AddEffect(new ProjectileEffect(executor, target.Pos));
                 }
 
-                context.CombatManager.HandleExplosion(context, executor, target.Position, 2, 1, DamageType.Normal);                
+                context.CombatManager.HandleExplosion(context, executor, target.Pos, 2, 1, DamageType.Normal);                
             }
 
         }

@@ -63,7 +63,7 @@ namespace MattEland.Emergence.Services.Game
 
         public void HandleObjectKilled(IGameObject defender, IGameObject attacker)
         {
-            if (CanPlayerSee(defender.Position))
+            if (CanPlayerSee(defender.Pos))
             {
                 AddEffect(new DestroyedEffect(defender));
             }
@@ -81,7 +81,7 @@ namespace MattEland.Emergence.Services.Game
 
         public bool CanPlayerSee(IGameObject obj)
         {
-            return obj != null && CanPlayerSee(obj.Position);
+            return obj != null && CanPlayerSee(obj.Pos);
         }
 
         public bool CanPlayerSee(Pos2D pos)
@@ -110,7 +110,7 @@ namespace MattEland.Emergence.Services.Game
         {
             Level.RemoveObject(Player);
 
-            player.Position = position;
+            player.Pos = position;
             Level.AddObject(player);
             Player = player;
 
@@ -260,11 +260,11 @@ namespace MattEland.Emergence.Services.Game
             }
 
             // See who else is here
-            var telefragged = Level.Actors.Where(a => a.Position == pos).ToList();
-            var oldPos = actor.Position;
+            var telefragged = Level.Actors.Where(a => a.Pos == pos).ToList();
+            var oldPos = actor.Pos;
 
             // Add an effect for the teleportation
-            if (CanPlayerSee(actor.Position) || CanPlayerSee(pos) || actor.IsPlayer)
+            if (CanPlayerSee(actor.Pos) || CanPlayerSee(pos) || actor.IsPlayer)
             {
                 // Don't give the client-application an unfair idea of where the target teleported to if they can't see it
                 var endPos = pos;
@@ -273,7 +273,7 @@ namespace MattEland.Emergence.Services.Game
                     endPos = new Pos2D(-500, -500);
                 }
 
-                AddEffect(new TeleportEffect(actor.Position, endPos));
+                AddEffect(new TeleportEffect(actor.Pos, endPos));
             }
 
             // Actually move the actor
@@ -308,7 +308,7 @@ namespace MattEland.Emergence.Services.Game
         public void CalculateLineOfSight(IActor actor)
         {
             var fov = new ShadowCasterViewProvider(Level);
-            fov.ComputeFov(actor.Position, actor.EffectiveLineOfSightRadius);
+            fov.ComputeFov(actor.Pos, actor.EffectiveLineOfSightRadius);
 
             actor.VisibleCells = fov.VisiblePositions;
             actor.MarkCellsAsKnown(fov.VisiblePositions);

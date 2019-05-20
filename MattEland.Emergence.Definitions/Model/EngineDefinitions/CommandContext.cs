@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
+using MattEland.Emergence.Definitions.Entities;
 using MattEland.Emergence.Definitions.Level;
-using MattEland.Emergence.Definitions.Model.Entities;
 using MattEland.Emergence.Definitions.Model.Messages;
 using MattEland.Shared.Collections;
 
@@ -12,24 +12,24 @@ namespace MattEland.Emergence.Definitions.Model.EngineDefinitions
     public class CommandContext : ICommandContext
     {
         [NotNull, ItemNotNull]
-        private readonly IEnumerable<WorldObject> _objects;
+        private readonly IEnumerable<IGameObject> _objects;
 
         [NotNull, ItemNotNull]
         private readonly List<GameMessage> _messages = new List<GameMessage>();
 
-        public CommandContext([NotNull] IGameManager gameManager, [NotNull] Actor actor, [NotNull] IEnumerable<WorldObject> objects)
+        public CommandContext([NotNull] IGameManager gameManager, [NotNull] Player player, [NotNull] IEnumerable<IGameObject> objects)
         {
             _objects = objects ?? throw new ArgumentNullException(nameof(objects));
             GameManager = gameManager ?? throw new ArgumentNullException(nameof(gameManager));
-            Actor = actor ?? throw new ArgumentNullException(nameof(actor));
+            Player = player ?? throw new ArgumentNullException(nameof(player));
         }
 
         [NotNull]
         public IGameManager GameManager { get; }
         
-        [NotNull] public Actor Actor { get; }
+        [NotNull] public Player Player { get; }
         
-        public void MoveObject([NotNull] WorldObject obj, Pos2D newPos)
+        public void MoveObject([NotNull] IGameObject obj, Pos2D newPos)
         {            
             var oldPos = obj.Pos;
         
@@ -52,11 +52,12 @@ namespace MattEland.Emergence.Definitions.Model.EngineDefinitions
             _messages.AddRange(messages);
         }
 
-        public void MoveExecutingActor(Pos2D newPos) => MoveObject(Actor, newPos);
-        public void UpdateObject(WorldObject gameObject) => AddMessage(new ObjectUpdatedMessage(gameObject));
+        public void MoveExecutingActor(Pos2D newPos) => MoveObject(Player, newPos);
+        public void UpdateObject(IGameObject gameObject) => AddMessage(new ObjectUpdatedMessage(gameObject));
 
         public void UpdateCapturedCores()
         {
+            /* TODO
             // Check to see if all cores are captured
             var cores = _objects.OfType<Core>().ToList();
             int totalCores = cores.Count;
@@ -76,6 +77,7 @@ namespace MattEland.Emergence.Definitions.Model.EngineDefinitions
                 firewall.IsOpen = isOpen;
                 UpdateObject(firewall);
             });
+            */
         }
 
         public void DisplayText(string text) => AddMessage(new DisplayTextMessage(text));
@@ -84,7 +86,7 @@ namespace MattEland.Emergence.Definitions.Model.EngineDefinitions
         public IEnumerable<GameMessage> Messages => _messages;
         public void AdvanceToNextLevel()
         {
-            AddMessages(_objects.Where(o => o != Actor).Select(o => new DestroyedMessage(o)));
+            AddMessages(_objects.Where(o => o != Player).Select(o => new DestroyedMessage(o)));
             AddMessages(GameManager.GenerateLevel());
         }
 

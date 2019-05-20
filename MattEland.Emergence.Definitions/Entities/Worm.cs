@@ -16,7 +16,7 @@ namespace MattEland.Emergence.Definitions.Entities
         {
             base.ApplyActiveEffects(context);
 
-            var cell = context.Level.GetCell(Position);
+            var cell = context.Level.GetCell(Pos);
 
             if (cell != null)
             {

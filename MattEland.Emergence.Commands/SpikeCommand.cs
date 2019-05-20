@@ -41,7 +41,7 @@ namespace MattEland.Emergence.Commands
             }
             else
             {
-                if (executor.IsPlayer || context.CanPlayerSee(executor.Position) || context.CanPlayerSee(pos))
+                if (executor.IsPlayer || context.CanPlayerSee(executor.Pos) || context.CanPlayerSee(pos))
                 {
                     context.AddMessage($"{executor.Name} sends a spike into nothingness.", ClientMessageType.Failure);
                 }

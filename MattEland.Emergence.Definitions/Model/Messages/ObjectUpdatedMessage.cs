@@ -1,15 +1,15 @@
 ﻿using System;
 using JetBrains.Annotations;
-using MattEland.Emergence.Definitions.Model.Entities;
+using MattEland.Emergence.Definitions.Level;
 
 namespace MattEland.Emergence.Definitions.Model.Messages
 {
     public class ObjectUpdatedMessage : GameMessage
     {
         [NotNull]
-        public WorldObject Source { get; }
+        public IGameObject Source { get; }
 
-        public ObjectUpdatedMessage([NotNull] WorldObject source)
+        public ObjectUpdatedMessage([NotNull] IGameObject source)
         {
             Source = source ?? throw new ArgumentNullException(nameof(source));
         }

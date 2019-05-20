@@ -5,6 +5,7 @@ using MattEland.Emergence.Definitions.Commands;
 using MattEland.Emergence.Definitions.DTOs;
 using MattEland.Emergence.Definitions.Effects;
 using MattEland.Emergence.Definitions.Level;
+using MattEland.Emergence.Definitions.Model;
 using MattEland.Emergence.Definitions.Services;
 
 namespace MattEland.Emergence.Definitions.Entities
@@ -197,7 +198,7 @@ namespace MattEland.Emergence.Definitions.Entities
 
                 AdjustOperationsPoints(-cmd.Command.MaintenanceCost);
 
-                cmd.Command.ApplyEffect(context, this, Position);
+                cmd.Command.ApplyEffect(context, this, Pos);
             }
         }
 
@@ -207,15 +208,15 @@ namespace MattEland.Emergence.Definitions.Entities
                                                      c.Command.ActivationType == CommandActivationType.Active);
             foreach (var cmd in commands)
             {
-                cmd.Command.ApplyPreActionEffect(context, this, Position);
+                cmd.Command.ApplyPreActionEffect(context, this, Pos);
             }
 
             if (ObjectId == "ACTOR_ANTI_VIRUS")
             {
-                var neighbors = context.Level.GetCellsInSquare(Position, 1).ToList();
+                var neighbors = context.Level.GetCellsInSquare(Pos, 1).ToList();
                 foreach (var cell in neighbors)
                 {
-                    if (cell.Pos == Position)
+                    if (cell.Pos == Pos)
                     {
                         cell.Corruption -= 2;
                     }
@@ -226,6 +227,10 @@ namespace MattEland.Emergence.Definitions.Entities
                 }
             }
         }
+
+        public override char AsciiChar => '@';
+
+        public override string ForegroundColor => GameColors.Green;
 
         public override int Corruption
         {

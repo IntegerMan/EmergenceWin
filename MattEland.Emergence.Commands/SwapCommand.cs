@@ -22,7 +22,7 @@ namespace MattEland.Emergence.Commands
 
         public override void ApplyEffect(ICommandContext context, IActor executor, Pos2D pos)
         {
-            if (executor.IsPlayer || context.CanPlayerSee(executor.Position) || context.CanPlayerSee(pos))
+            if (executor.IsPlayer || context.CanPlayerSee(executor.Pos) || context.CanPlayerSee(pos))
             {
                 context.AddMessage($"{executor.Name} teleports", ClientMessageType.Generic);
             }

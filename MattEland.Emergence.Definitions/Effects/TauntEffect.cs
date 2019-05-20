@@ -35,8 +35,8 @@ namespace MattEland.Emergence.Definitions.Effects
 
             return new EffectDto {
                 Effect = tauntType,
-                StartPos = Source?.Position.SerializedValue,
-                EndPos = Source?.Position.SerializedValue,
+                StartPos = Source?.Pos.SerializedValue,
+                EndPos = Source?.Pos.SerializedValue,
                 Text = _text
             };
         }

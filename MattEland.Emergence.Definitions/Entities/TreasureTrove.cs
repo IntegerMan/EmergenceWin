@@ -25,6 +25,8 @@ namespace MattEland.Emergence.Definitions.Entities
             }
         }
 
+        public override char AsciiChar => 't';
+
         public override void OnDestroyed(ICommandContext context, IGameObject attacker)
         {
             base.OnDestroyed(context, attacker);
@@ -40,13 +42,13 @@ namespace MattEland.Emergence.Definitions.Entities
             switch (context.Randomizer.GetInt(0, 2))
             {
                 case 0:
-                    context.Level.AddObject(CreationService.CreateObject("ACTOR_LOGIC_BOMB", GameObjectType.Actor, Position));
+                    context.Level.AddObject(CreationService.CreateObject("ACTOR_LOGIC_BOMB", GameObjectType.Actor, Pos));
                     break;
                 case 1:
-                    context.Level.AddObject(CreationService.CreateObject("ACTOR_BUG", GameObjectType.Actor, Position));
+                    context.Level.AddObject(CreationService.CreateObject("ACTOR_BUG", GameObjectType.Actor, Pos));
                     break;
                 case 2:
-                    context.Level.AddObject(CreationService.CreateObject("ACTOR_FEATURE", GameObjectType.Actor, Position));
+                    context.Level.AddObject(CreationService.CreateObject("ACTOR_FEATURE", GameObjectType.Actor, Pos));
                     break;
             }
         }

@@ -2,7 +2,7 @@
 
 namespace MattEland.Emergence.Definitions.DTOs
 {
-    [DebuggerDisplay("(Openable: Pos:{Pos.SerializedValue} Type:{Type} Id:{Id} Open: {IsOpen})")]
+    [DebuggerDisplay("(Openable: Pos:{Pos.SerializedValue} Type:{Type} Id:{ObjectId} Open: {IsOpen})")]
     public class OpenableDto : GameObjectDto
     {
 

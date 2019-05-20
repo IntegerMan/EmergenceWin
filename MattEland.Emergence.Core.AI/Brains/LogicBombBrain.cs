@@ -41,7 +41,7 @@ namespace MattEland.Emergence.AI.Brains
             }
 
             // Only prime based off of adjacent tiles
-            var neighboringCells = actor.VisibleCells.Where(c => IsNeighboringCell(actor.Position, c));
+            var neighboringCells = actor.VisibleCells.Where(c => IsNeighboringCell(actor.Pos, c));
 
             // Check each adjacent tile to see if it contains actors this actor considers prey in it, then prime.
             foreach (var cellPos in neighboringCells)
@@ -74,7 +74,7 @@ namespace MattEland.Emergence.AI.Brains
             }
 
             context.Level.RemoveObject(actor);
-            context.CombatManager.HandleExplosion(context, actor, actor.Position, actor.Strength, 3, DamageType.Combination);
+            context.CombatManager.HandleExplosion(context, actor, actor.Pos, actor.Strength, 3, DamageType.Combination);
         }
     }
 }

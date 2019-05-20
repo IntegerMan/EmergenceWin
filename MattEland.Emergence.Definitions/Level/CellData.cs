@@ -110,7 +110,7 @@ namespace MattEland.Emergence.Definitions.Level
                 }
             }
 
-            obj.Position = Pos;
+            obj.Pos = Pos;
         }
 
         /// <summary>

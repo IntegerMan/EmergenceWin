@@ -32,7 +32,7 @@ namespace MattEland.Emergence.Commands
 
             // This shouldn't happen, but in the case where zero cells are visible, just do nothing in general
             if (!targets.Any()) {
-                if (executor.IsPlayer || context.CanPlayerSee(pos) || context.CanPlayerSee(executor.Position))
+                if (executor.IsPlayer || context.CanPlayerSee(pos) || context.CanPlayerSee(executor.Pos))
                 {
                     context.AddMessage($"{executor.Name} tries to use {Name} but had a targeting issue", ClientMessageType.Failure);
                 }
@@ -40,7 +40,7 @@ namespace MattEland.Emergence.Commands
                 return;
             }
 
-            if (executor.IsPlayer || context.CanPlayerSee(pos) || context.CanPlayerSee(executor.Position))
+            if (executor.IsPlayer || context.CanPlayerSee(pos) || context.CanPlayerSee(executor.Pos))
             {
                 context.AddMessage($"{executor.Name} fires a {Name}", ClientMessageType.Generic);
             }

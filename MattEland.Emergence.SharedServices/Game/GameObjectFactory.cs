@@ -72,7 +72,7 @@ namespace MattEland.Emergence.Services.Game
                     return new CommandPickup(dto);
 
                 case GameObjectType.GenericPickup:
-                    switch (dto.Id)
+                    switch (dto.ObjectId)
                     {
                         case "GET_HP":
                             return new StabilityPickup(dto);
@@ -87,7 +87,7 @@ namespace MattEland.Emergence.Services.Game
                             return new MaxOperationsPickup(dto);
 
                         default:
-                            throw new ArgumentOutOfRangeException($"No pickup handler present for ID {dto.Id}");
+                            throw new ArgumentOutOfRangeException($"No pickup handler present for ID {dto.ObjectId}");
                     }
 
                 case GameObjectType.Treasure:
@@ -106,7 +106,7 @@ namespace MattEland.Emergence.Services.Game
 
         private static GameObjectBase BuildActor(ActorDto dto)
         {
-            switch (dto.Id)
+            switch (dto.ObjectId)
             {
                 case "ACTOR_ANTI_VIRUS":
                    return new AntiVirus(dto);
@@ -201,7 +201,7 @@ namespace MattEland.Emergence.Services.Game
         private static ActorDto SetEntityStats(ActorDto dto, EntityData definition, GameObjectType objectType, Pos2D position)
         {
             // Set the basic properties
-            dto.Id = definition.Id;
+            dto.ObjectId = definition.Id;
             dto.Type = objectType;
             dto.Pos = position.SerializedValue;
 
@@ -256,7 +256,7 @@ namespace MattEland.Emergence.Services.Game
 
             // Set common properties on dto
             dto.Type = objectType;
-            dto.Id = id;
+            dto.ObjectId = id;
             dto.Pos = position.SerializedValue;
             dto.HPUsed = 0;
             dto.MaxHP = 10;
@@ -273,7 +273,7 @@ namespace MattEland.Emergence.Services.Game
                 Type = GameObjectType.Wall,
                 MaxHP = hp,
                 HPUsed = 0,
-                Id = null,
+                ObjectId = null,
                 Team = Alignment.Neutral,
                 Name = "Wall",
                 State = isExterior ? "External" : null

@@ -13,6 +13,7 @@ namespace MattEland.Emergence.Definitions.Entities
         public override bool IsInvulnerable => true;
         public override bool IsTargetable => false;
         public override bool IsInteractive => true;
+        public override char AsciiChar => '@';
 
         protected override string CustomName => "Select a Character";
 
@@ -48,7 +49,7 @@ namespace MattEland.Emergence.Definitions.Entities
             // Swap the player with the new actor and position it at the tile's location
             if (!IsHidden)
             {
-                context.ReplacePlayer(CreationService.CreatePlayer(ObjectId), Position);
+                context.ReplacePlayer(CreationService.CreatePlayer(ObjectId), Pos);
             }
 
             UpdateIsHidden(context);

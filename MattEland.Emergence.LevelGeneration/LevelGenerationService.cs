@@ -61,7 +61,7 @@ namespace MattEland.Emergence.LevelGeneration
             // Ordinarily the player won't be null, but in some debug / visualization settings, it can happen
             if (player != null)
             {
-                player.Position = prefabLevel.Start;
+                player.Pos = prefabLevel.Start;
                 levelBuilder.AddObject(player);
             }
 

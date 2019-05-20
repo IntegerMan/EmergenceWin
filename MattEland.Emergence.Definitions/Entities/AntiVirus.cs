@@ -17,7 +17,7 @@ namespace MattEland.Emergence.Definitions.Entities
 
             var scrubDelta = IsCorrupted ? 1 : -3; // Corrupt AV agents should make it more corrupt
 
-            var neighbors = context.Level.GetCellsInSquare(Position, 1).ToList();
+            var neighbors = context.Level.GetCellsInSquare(Pos, 1).ToList();
             foreach (var cell in neighbors)
             {
                 if (scrubDelta < 0 && cell.Corruption > 0 && context.CanPlayerSee(cell.Pos))

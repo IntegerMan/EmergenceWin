@@ -63,7 +63,7 @@ namespace MattEland.Emergence.Definitions.Entities
         /// </summary>
         public Actor(ActorDto dto) : base(dto)
         {
-            ActorType = GetActorType(dto.Id);
+            ActorType = GetActorType(dto.ObjectId);
 
             // Max should always be set before current
             MaxStability = dto.MaxHP;
@@ -217,6 +217,8 @@ namespace MattEland.Emergence.Definitions.Entities
         }
 
         public virtual DamageType AttackDamageType => DamageType.Normal;
+
+        public override char AsciiChar => 'a'; // TODO: Not this
 
         /// <inheritdoc />
         protected override GameObjectDto CreateDto()
@@ -381,7 +383,7 @@ namespace MattEland.Emergence.Definitions.Entities
             // Only modify operations in the negative manner. -corruption damage is used for anti-viruses
             if (Operations > 0 && damage > 0)
             {
-                if (context.CanPlayerSee(Position))
+                if (context.CanPlayerSee(Pos))
                 {
                     context.AddEffect(new OpsChangedEffect(this, -damage));
                 }

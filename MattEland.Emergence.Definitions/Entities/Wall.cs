@@ -17,6 +17,7 @@ namespace MattEland.Emergence.Definitions.Entities
         protected override string CustomName => IsInvulnerable ? "External Partition" : "Partition";
 
         public override bool BlocksSight => true;
+        public override char AsciiChar => '#';
 
         /// <inheritdoc />
         public override bool OnActorAttemptedEnter(ICommandContext context, IActor actor, IGameCell cell)
@@ -33,7 +34,7 @@ namespace MattEland.Emergence.Definitions.Entities
         {
             base.OnDestroyed(context, attacker);
 
-            context.Level.GenerateFillerWallsAsNeeded(Position);
+            context.Level.GenerateFillerWallsAsNeeded(Pos);
         }
     }
 }

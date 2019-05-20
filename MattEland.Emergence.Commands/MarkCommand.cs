@@ -30,12 +30,12 @@ namespace MattEland.Emergence.Commands
                 return;
             }
 
-            context.Level.MarkedPos = executor.Position;
+            context.Level.MarkedPos = executor.Pos;
 
-            if (executor.IsPlayer || context.CanPlayerSee(executor.Position))
+            if (executor.IsPlayer || context.CanPlayerSee(executor.Pos))
             {
                 context.AddMessage($"{executor.Name} marks their current position.", ClientMessageType.Success);
-                context.AddEffect(new CellMarkedEffect(executor.Position));
+                context.AddEffect(new CellMarkedEffect(executor.Pos));
             }
         }
     }

@@ -28,7 +28,7 @@ namespace MattEland.Emergence.AI.Sensory
                 [CellAspectType.Firewall] = c => c.Objects.Any(o => o != evaluator && o.ObjectType == GameObjectType.Firewall),
                 [CellAspectType.Turret] = c => c.Objects.Any(o => o != evaluator && o.ObjectType == GameObjectType.Turret),
                 [CellAspectType.HasObstacle] = c => c.HasNonActorObstacle,
-                [CellAspectType.Self] = c => c.Pos == evaluator.Position,
+                [CellAspectType.Self] = c => c.Pos == evaluator.Pos,
             };
 
             // Default the values

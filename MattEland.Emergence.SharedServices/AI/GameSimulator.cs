@@ -36,7 +36,7 @@ namespace MattEland.Emergence.Services.AI
                 if (obj is IActor actor)
                 {
                     // Ensure last position is accurate for later evaluation
-                    actor.RecentPositions.Add(actor.Position);
+                    actor.RecentPositions.Add(actor.Pos);
                     if (actor.RecentPositions.Count > 5)
                     {
                         actor.RecentPositions.RemoveAt(0);
@@ -86,7 +86,7 @@ namespace MattEland.Emergence.Services.AI
             foreach (var actor in context.Level.Actors.ToList())
             {
                 // Gain operations every turn not spent in corruption
-                var cell = context.Level.GetCell(actor.Position);
+                var cell = context.Level.GetCell(actor.Pos);
                 if ((cell != null && cell.Corruption < 2) || actor.Team == Alignment.Bug || actor.Team == Alignment.Virus)
                 {
                     actor.AdjustOperationsPoints(1);
@@ -115,7 +115,7 @@ namespace MattEland.Emergence.Services.AI
             }
 
             // Treat a move to current cell as a wait
-            if (cell.Pos == actor.Position)
+            if (cell.Pos == actor.Pos)
             {
                 return;
             }

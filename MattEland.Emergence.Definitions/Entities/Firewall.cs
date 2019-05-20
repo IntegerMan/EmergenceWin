@@ -13,6 +13,7 @@ namespace MattEland.Emergence.Definitions.Entities
         public override bool IsInvulnerable => true;
         public override bool IsTargetable => true;
         public override bool IsInteractive => true;
+        public override char AsciiChar => '|';
 
         protected override string CustomName => "Firewall";
 
@@ -28,7 +29,7 @@ namespace MattEland.Emergence.Definitions.Entities
             if (actor.IsPlayer)
             {
                 // Let the player in if they have admin access for the level
-                if (context.Level.HasAdminAccess || actor.ObjectId == "ACTOR_PLAYER_DEBUGGER")
+                if (context.Level.HasAdminAccess)
                 {
                     return true;
                 }

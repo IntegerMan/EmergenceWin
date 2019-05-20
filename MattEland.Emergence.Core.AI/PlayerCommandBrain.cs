@@ -33,8 +33,8 @@ namespace MattEland.Emergence.AI
             if (command.CommandType == CommandType.Pathfind)
             {
                 var pos = Pos2D.FromString(command.CommandPosition);
-                int xDelta = pos.X - actor.Position.X;
-                int yDelta = pos.Y - actor.Position.Y;
+                int xDelta = pos.X - actor.Pos.X;
+                int yDelta = pos.Y - actor.Pos.Y;
 
                 if (Math.Abs(xDelta) < Math.Abs(yDelta))
                 {

@@ -23,7 +23,7 @@ namespace MattEland.Emergence.Commands
 
         public override void ApplyEffect(ICommandContext context, IActor executor, Pos2D pos)
         {
-            if (executor.AdjustStability(1) && (executor.IsPlayer || context.CanPlayerSee(executor.Position)))
+            if (executor.AdjustStability(1) && (executor.IsPlayer || context.CanPlayerSee(executor.Pos)))
             {
                 context.AddEffect(new StabilityRestoreEffect(executor, 1));
             }

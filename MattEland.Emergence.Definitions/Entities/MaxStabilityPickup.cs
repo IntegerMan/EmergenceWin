@@ -12,6 +12,7 @@ namespace MattEland.Emergence.Definitions.Entities
         }
 
         public override bool IsInteractive => true;
+        public override char AsciiChar => 'p';
         protected override string CustomName => $"Max Stability +{Potency}";
 
         /// <inheritdoc />

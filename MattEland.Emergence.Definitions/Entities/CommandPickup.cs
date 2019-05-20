@@ -11,6 +11,8 @@ namespace MattEland.Emergence.Definitions.Entities
         }
 
         public override bool IsInteractive => true;
+        public override char AsciiChar => 'c';
+
         public override void ApplyActiveEffects(ICommandContext context)
         {
             base.ApplyActiveEffects(context);

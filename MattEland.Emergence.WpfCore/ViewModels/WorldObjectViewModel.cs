@@ -4,8 +4,8 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Windows.Media;
 using JetBrains.Annotations;
+using MattEland.Emergence.Definitions.Entities;
 using MattEland.Emergence.Definitions.Level;
-using MattEland.Emergence.Definitions.Model.Entities;
 using MattEland.Emergence.Definitions.Model.Messages;
 
 namespace MattEland.Emergence.WpfCore.ViewModels
@@ -17,7 +17,7 @@ namespace MattEland.Emergence.WpfCore.ViewModels
         private readonly GameViewModel _gameVM;
 
         [NotNull, UsedImplicitly]
-        public WorldObject Source { get; private set; }
+        public IGameObject Source { get; private set; }
 
         public int Size => 24;
 
@@ -38,7 +38,7 @@ namespace MattEland.Emergence.WpfCore.ViewModels
 
         public Guid Id => Source.Id;
 
-        public WorldObjectViewModel(WorldObject source, GameViewModel gameViewModel)
+        public WorldObjectViewModel(IGameObject source, GameViewModel gameViewModel)
         {
             _gameVM = gameViewModel;
             Source = source;
@@ -66,7 +66,7 @@ namespace MattEland.Emergence.WpfCore.ViewModels
 
             NotifyOffsetChanged();
 
-            if (Source is Actor a && a.ActorType == ActorType.Player)
+            if (Source is Player)
             {
                 _gameVM.CenterOn(newPos);
             }

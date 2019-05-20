@@ -13,6 +13,7 @@ namespace MattEland.Emergence.Definitions.Entities
         public override bool IsInvulnerable => true;
         public override bool IsTargetable => false;
 
+        public override char AsciiChar => '~';
         public override bool IsCorruptable => true;
 
         protected override string CustomName => "Thread Pool";

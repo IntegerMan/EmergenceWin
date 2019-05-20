@@ -52,7 +52,7 @@ namespace MattEland.Emergence.Services.AI
             int i = 0;
             foreach (var pos in actor.RecentPositions)
             {
-                if (pos == actor.Position)
+                if (pos == actor.Pos)
                 {
                     Penalize(1, RewardType.RemainedStationary);
                 }
@@ -182,7 +182,7 @@ namespace MattEland.Emergence.Services.AI
 
             foreach (var cell in actor.VisibleCells)
             {
-                var observed = _context.Level.Actors.FirstOrDefault(a => a.Position == cell);
+                var observed = _context.Level.Actors.FirstOrDefault(a => a.Pos == cell);
                 if (observed != null &&
                     observed.Team != Alignment.SystemAntiVirus && 
                     observed.Team != Alignment.SystemCore &&
@@ -203,7 +203,7 @@ namespace MattEland.Emergence.Services.AI
 
             if (_context.Player != null)
             {
-                decimal distance = (decimal) _context.Player.Position.CalculateDistanceFrom(actor.Position);
+                decimal distance = (decimal) _context.Player.Pos.CalculateDistanceFrom(actor.Pos);
 
                 if (distance <= 10)
                 {

@@ -22,5 +22,7 @@ namespace MattEland.Emergence.Definitions.Entities
 
             return false;
         }
+
+        public override char AsciiChar => 'X';
     }
 }

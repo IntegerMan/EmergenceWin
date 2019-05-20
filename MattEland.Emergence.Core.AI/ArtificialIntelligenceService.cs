@@ -148,25 +148,25 @@ namespace MattEland.Emergence.AI
 
                     var choices = new List<IGameCell>
                     {
-                        context.Level.GetCell(actor.Position)
+                        context.Level.GetCell(actor.Pos)
                     };
 
                     if (!actor.IsImmobile)
                     {
-                        choices.Add(context.Level.GetCell(actor.Position.Add(1, 0)));
-                        choices.Add(context.Level.GetCell(actor.Position.Add(-1, 0)));
-                        choices.Add(context.Level.GetCell(actor.Position.Add(0, 1)));
-                        choices.Add(context.Level.GetCell(actor.Position.Add(0, -1)));
+                        choices.Add(context.Level.GetCell(actor.Pos.Add(1, 0)));
+                        choices.Add(context.Level.GetCell(actor.Pos.Add(-1, 0)));
+                        choices.Add(context.Level.GetCell(actor.Pos.Add(0, 1)));
+                        choices.Add(context.Level.GetCell(actor.Pos.Add(0, -1)));
                     }
 
-                    choices = choices.Where(c => c != null && (!c.HasNonActorObstacle || c.Objects.Any(o => o.IsInteractive)) && (c.Actor == null || c.Pos == actor.Position || !IsSameTeam(actor.Team, c.Actor.Team)))
+                    choices = choices.Where(c => c != null && (!c.HasNonActorObstacle || c.Objects.Any(o => o.IsInteractive)) && (c.Actor == null || c.Pos == actor.Pos || !IsSameTeam(actor.Team, c.Actor.Team)))
                                      .ToList();
                     choice = brain.GetActorChoice(actor, choices, visible, context);
 
                     // Training framework needs to know about this
                     OnActorChoiceMade?.Invoke(context, actor, choice);
 
-                    if (choice != null && choice.Pos != actor.Position)
+                    if (choice != null && choice.Pos != actor.Pos)
                     {
                         context.GameService.HandleCellMoveCommand(context, actor, choice.Pos);
                     }

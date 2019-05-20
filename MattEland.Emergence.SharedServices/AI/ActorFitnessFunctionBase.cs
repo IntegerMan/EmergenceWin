@@ -256,8 +256,8 @@ namespace MattEland.Emergence.Services.AI
             var actor = actors.First();
             ScoreActor(fitness, context, actor);
 
-            telemetrySeries.First(t => t.Title == "X").Values.Add(actor.Position.X);
-            telemetrySeries.First(t => t.Title == "Y").Values.Add(actor.Position.Y);
+            telemetrySeries.First(t => t.Title == "X").Values.Add(actor.Pos.X);
+            telemetrySeries.First(t => t.Title == "Y").Values.Add(actor.Pos.Y);
             telemetrySeries.First(t => t.Title == "Stability").Values.Add(actor.Stability);
             telemetrySeries.First(t => t.Title == "Damage Dealt").Values.Add(actor.DamageDealt);
             telemetrySeries.First(t => t.Title == "Damage Received").Values.Add(actor.DamageReceived);

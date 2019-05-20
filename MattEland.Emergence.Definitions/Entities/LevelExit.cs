@@ -13,6 +13,7 @@ namespace MattEland.Emergence.Definitions.Entities
         public override bool IsInvulnerable => true;
         public override bool IsTargetable => true;
         public override bool IsInteractive => true;
+        public override char AsciiChar => '<';
 
         protected override string CustomName => "Outgoing Port";
 

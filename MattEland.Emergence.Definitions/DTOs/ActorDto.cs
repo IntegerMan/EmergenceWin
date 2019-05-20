@@ -7,7 +7,7 @@ namespace MattEland.Emergence.Definitions.DTOs
     /// <summary>
     /// A data transmission object representing an Actor in the game world.
     /// </summary>
-    [DebuggerDisplay("(Actor: Pos:{Pos} Type:{Type} Id:{Id} Damage:{HPUsed} OP Spent:{OPUsed})")]
+    [DebuggerDisplay("(Actor: Pos:{Pos} Type:{Type} Id:{ObjectId} Damage:{HPUsed} OP Spent:{OPUsed})")]
     public class ActorDto : GameObjectDto
     {
         /// <summary>

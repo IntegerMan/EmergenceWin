@@ -12,5 +12,6 @@ namespace MattEland.Emergence.Definitions.Entities
         public override bool IsTargetable => false; // For now
 
         protected override string CustomName => "Cabling";
+        public override char AsciiChar => '-';
     }
 }

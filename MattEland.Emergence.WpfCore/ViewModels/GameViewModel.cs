@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using JetBrains.Annotations;
+using MattEland.Emergence.Definitions.Entities;
 using MattEland.Emergence.Definitions.Level;
 using MattEland.Emergence.Definitions.Model;
-using MattEland.Emergence.Definitions.Model.Entities;
 using MattEland.Emergence.Definitions.Model.Messages;
 using MattEland.Emergence.Engine;
 using MattEland.Emergence.Services;
@@ -80,7 +80,7 @@ namespace MattEland.Emergence.WpfCore.ViewModels
 
         public void MovePlayer(MoveDirection direction) => ProcessMessages(_gameManager.MovePlayer(direction));
         
-        private void CenterOnPlayer() => CenterOn(WorldObjects.Select(o => o.Source).OfType<Actor>().First().Pos);
+        private void CenterOnPlayer() => CenterOn(WorldObjects.Select(o => o.Source).OfType<Player>().First().Pos);
 
         public void CenterOn(Pos2D pos)
         {

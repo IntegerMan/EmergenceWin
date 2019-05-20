@@ -30,19 +30,19 @@ namespace MattEland.Emergence.Definitions.DTOs
             switch (CommandType)
             {
                 case CommandType.MoveUp:
-                    return player.Position.Add(0, -1);
+                    return player.Pos.Add(0, -1);
 
                 case CommandType.MoveDown:
-                    return player.Position.Add(0, 1);
+                    return player.Pos.Add(0, 1);
 
                 case CommandType.MoveRight:
-                    return player.Position.Add(1, 0);
+                    return player.Pos.Add(1, 0);
 
                 case CommandType.MoveLeft:
-                    return player.Position.Add(-1, 0);
+                    return player.Pos.Add(-1, 0);
 
                 default:
-                    return player.Position;
+                    return player.Pos;
             }
         }
 

@@ -19,7 +19,7 @@ namespace MattEland.Emergence.Definitions.Entities
             // Bugs can pretty quickly get corruption to cascade throughout a level, so tone down passive infections
             if ( context.Randomizer.GetInt(0, 2) == 0)
             {
-                var cell = context.Level.GetCell(Position);
+                var cell = context.Level.GetCell(Pos);
 
                 if (cell != null)
                 {
@@ -33,7 +33,7 @@ namespace MattEland.Emergence.Definitions.Entities
             if (damage < 0)
             {
                 var message = context.CombatManager.HurtObject(context, this, -damage, source, "cleanses", DamageType.Normal);
-                if (context.CanPlayerSee(Position))
+                if (context.CanPlayerSee(Pos))
                 {
                     context.AddMessage(message, ClientMessageType.Generic);
                 }

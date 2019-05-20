@@ -103,7 +103,7 @@ namespace MattEland.Emergence.Services.Levels
 
         public void MoveObject(IGameObject obj, Pos2D newPos)
         {
-            var currentCell = GetCell(obj.Position);
+            var currentCell = GetCell(obj.Pos);
             currentCell?.RemoveObject(obj);
 
             var newCell = GetCell(newPos);
@@ -262,10 +262,10 @@ namespace MattEland.Emergence.Services.Levels
         /// <exception cref="InvalidOperationException">Thrown if the specified object's position does not correspond with a known cell</exception>
         public void AddObject(IGameObject gameObject)
         {
-            var cell = GetCell(gameObject.Position);
+            var cell = GetCell(gameObject.Pos);
             if (cell == null)
             {
-                throw new InvalidOperationException($"Could not find a cell at {gameObject.Position.ToString()} to add an object to");
+                throw new InvalidOperationException($"Could not find a cell at {gameObject.Pos.ToString()} to add an object to");
             }
 
             cell.AddObject(gameObject);

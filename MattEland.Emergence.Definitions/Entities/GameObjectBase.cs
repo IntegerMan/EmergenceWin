@@ -2,7 +2,10 @@
 using JetBrains.Annotations;
 using MattEland.Emergence.Definitions.DTOs;
 using MattEland.Emergence.Definitions.Level;
+using MattEland.Emergence.Definitions.Model;
+using MattEland.Emergence.Definitions.Model.EngineDefinitions;
 using MattEland.Emergence.Definitions.Services;
+using ICommandContext = MattEland.Emergence.Definitions.Services.ICommandContext;
 
 namespace MattEland.Emergence.Definitions.Entities
 {
@@ -22,8 +25,8 @@ namespace MattEland.Emergence.Definitions.Entities
         protected GameObjectBase(GameObjectDto dto)
         {
             ObjectType = dto.Type;
-            ObjectId = dto.Id;
-            Position = Pos2D.FromString(dto.Pos);
+            ObjectId = dto.ObjectId;
+            Pos = Pos2D.FromString(dto.Pos);
             Stability = dto.MaxHP - dto.HPUsed;
             MaxStability = dto.MaxHP;
             Name = dto.Name;
@@ -54,7 +57,7 @@ namespace MattEland.Emergence.Definitions.Entities
         /// Gets the position of the object within the game world.
         /// </summary>
         /// <value>The position of the object.</value>
-        public Pos2D Position { get; set; }
+        public Pos2D Pos { get; set; }
 
         /// <summary>
         /// Gets or sets the stability or health of the object.
@@ -161,6 +164,9 @@ namespace MattEland.Emergence.Definitions.Entities
 
         public bool IsCorrupted => Corruption > 1;
         public virtual bool IsInteractive => false;
+        public abstract char AsciiChar { get; }
+        public virtual string ForegroundColor => GameColors.LightGray;
+        public virtual string BackgroundColor => GameColors.Black;
 
         /// <summary>
         /// Creates an empty data transmission object to represent this instance.
@@ -177,8 +183,8 @@ namespace MattEland.Emergence.Definitions.Entities
         /// <param name="dto">The data transmission object.</param>
         protected virtual void ConfigureDto(GameObjectDto dto)
         {
-            dto.Pos = Position.SerializedValue;
-            dto.Id = ObjectId;
+            dto.Pos = Pos.SerializedValue;
+            dto.ObjectId = ObjectId;
             dto.Type = ObjectType;
             dto.HPUsed = MaxStability - Stability;
             dto.MaxHP = MaxStability;
@@ -199,6 +205,11 @@ namespace MattEland.Emergence.Definitions.Entities
             Corruption += damage;
         }
 
+        public virtual void OnInteract(CommandContext context, IGameObject source)
+        {
+            context.DisplayText("Pretty much nothing happens");
+        }
+
         /// <summary>
         /// Gets or sets the corruption amount present on the object.
         /// </summary>
@@ -212,7 +223,7 @@ namespace MattEland.Emergence.Definitions.Entities
 
         public virtual void OnCaptured(ICommandContext context, IGameObject executor, Alignment oldTeam)
         {
-            if (executor.IsPlayer || context.CanPlayerSee(executor.Position) || context.CanPlayerSee(Position))
+            if (executor.IsPlayer || context.CanPlayerSee(executor.Pos) || context.CanPlayerSee(Pos))
             {
                 context.AddMessage($"{Name} is now under the control of {executor.Name}", ClientMessageType.Success);
             }
@@ -220,10 +231,12 @@ namespace MattEland.Emergence.Definitions.Entities
 
         public virtual void OnDestroyed(ICommandContext context, IGameObject attacker)
         {
-            var debris = CreationService.CreateObject(ObjectId, GameObjectType.Debris, Position);
+            var debris = CreationService.CreateObject(ObjectId, GameObjectType.Debris, Pos);
 
             context.Level.AddObject(debris);
         }
+
+        public Guid Id { get; set; } = Guid.NewGuid();
 
         public virtual void MaintainActiveEffects(ICommandContext context)
         {

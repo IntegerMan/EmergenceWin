@@ -25,12 +25,12 @@ namespace MattEland.Emergence.Commands
         {
             var strength = context.Randomizer.GetInt(2, 4);
 
-            if (executor.IsPlayer || context.CanPlayerSee(executor.Position))
+            if (executor.IsPlayer || context.CanPlayerSee(executor.Pos))
             {
                 context.AddMessage($"{executor.Name} overloads", ClientMessageType.Generic);
             }
 
-            context.CombatManager.HandleExplosion(context, executor, executor.Position, strength, 4, DamageType.Normal);
+            context.CombatManager.HandleExplosion(context, executor, executor.Pos, strength, 4, DamageType.Normal);
 
         }
 

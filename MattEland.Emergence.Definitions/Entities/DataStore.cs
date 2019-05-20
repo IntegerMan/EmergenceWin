@@ -13,6 +13,7 @@ namespace MattEland.Emergence.Definitions.Entities
         protected override string CustomName => "Data Store";
 
         public override bool IsInteractive => true;
+        public override char AsciiChar => 'd';
 
         /// <inheritdoc />
         public override bool OnActorAttemptedEnter(ICommandContext context, IActor actor, IGameCell cell)

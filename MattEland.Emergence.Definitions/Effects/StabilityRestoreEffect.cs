@@ -17,8 +17,8 @@ namespace MattEland.Emergence.Definitions.Effects
             return new EffectDto {
                 Effect = EffectType.StabilityRestore,
                 Text = $"+{_amount} Stability",
-                StartPos = Source?.Position.SerializedValue,
-                EndPos = Source?.Position.SerializedValue
+                StartPos = Source?.Pos.SerializedValue,
+                EndPos = Source?.Pos.SerializedValue
             };
         }        
     }

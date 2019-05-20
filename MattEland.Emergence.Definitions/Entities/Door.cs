@@ -12,13 +12,14 @@ namespace MattEland.Emergence.Definitions.Entities
         }
 
         public override bool IsInteractive => true;
+        public override char AsciiChar => '+';
 
         public override void MaintainActiveEffects(ICommandContext context)
         {
             base.MaintainActiveEffects(context);
 
             // Auto-open / auto-close based on whether actors are nearby
-            var cells = context.Level.GetCellsInSquare(Position, 1);
+            var cells = context.Level.GetCellsInSquare(Pos, 1);
             var trigger = (cells.Where(c => c.Actor != null).Select(c => c.Actor).FirstOrDefault(ShouldOpenFor));
             var detected = trigger != null;
 

@@ -28,7 +28,7 @@ namespace MattEland.Emergence.Commands
         {
             var strength = context.Randomizer.GetInt(2, 4);
 
-            if (executor.IsPlayer || context.CanPlayerSee(executor.Position) || context.CanPlayerSee(pos))
+            if (executor.IsPlayer || context.CanPlayerSee(executor.Pos) || context.CanPlayerSee(pos))
             {
                 context.AddEffect(new ProjectileEffect(executor, pos));
 

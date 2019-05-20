@@ -16,7 +16,7 @@ namespace MattEland.Emergence.Definitions.Effects
         {
             return new EffectDto {
                 Effect = EffectType.Projectile,
-                StartPos = Source?.Position.SerializedValue,
+                StartPos = Source?.Pos.SerializedValue,
                 EndPos = _endPos.SerializedValue,
             };
         }        

@@ -11,6 +11,7 @@ namespace MattEland.Emergence.Definitions.Entities
         }
 
         public override bool IsInteractive => true;
+        public override char AsciiChar => '*';
         protected override string CustomName => "Service";
 
         /// <inheritdoc />

@@ -227,7 +227,7 @@ namespace MattEland.Emergence.LevelGeneration
 
         private static void FinalizePlacedWalls(ILevel level)
         {
-            foreach (var wall in level.Objects.Where(o => o.ObjectType == GameObjectType.Wall && level.IsPosExterior(o.Position)))
+            foreach (var wall in level.Objects.Where(o => o.ObjectType == GameObjectType.Wall && level.IsPosExterior(o.Pos)))
             {
                 wall.State = "External";
             }
@@ -456,12 +456,12 @@ namespace MattEland.Emergence.LevelGeneration
 
         public void AddObject(IGameObject gameObject)
         {
-            if (!_cells.ContainsKey(gameObject.Position))
+            if (!_cells.ContainsKey(gameObject.Pos))
             {
-                _cells[gameObject.Position] = new CellData();
+                _cells[gameObject.Pos] = new CellData();
             }
 
-            var cell = _cells[gameObject.Position];
+            var cell = _cells[gameObject.Pos];
             cell.AddObject(gameObject);
         }
     }

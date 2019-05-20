@@ -38,7 +38,7 @@ namespace MattEland.Emergence.Commands
             executor.Stability += amount;
 
             // Display the message to the client, rendering things differently if the player did them.
-            if (executor.IsPlayer || context.CanPlayerSee(executor.Position))
+            if (executor.IsPlayer || context.CanPlayerSee(executor.Pos))
             {
                 var messageType = executor.IsPlayer ? ClientMessageType.Success : ClientMessageType.Generic;
                 var message = amount == 0

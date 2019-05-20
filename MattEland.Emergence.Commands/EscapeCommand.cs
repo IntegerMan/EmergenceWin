@@ -29,7 +29,7 @@ namespace MattEland.Emergence.Commands
             // This should rarely ever happen, but is potentially possible
             if (target == null)
             {
-                if (executor.IsPlayer || context.CanPlayerSee(executor.Position))
+                if (executor.IsPlayer || context.CanPlayerSee(executor.Pos))
                 {
                     context.AddMessage($"{executor.Name} tried to escape, but no target location could be found.",
                                        ClientMessageType.Failure);
@@ -38,7 +38,7 @@ namespace MattEland.Emergence.Commands
                 return;
             }
 
-            if (executor.IsPlayer || context.CanPlayerSee(executor.Position))
+            if (executor.IsPlayer || context.CanPlayerSee(executor.Pos))
             {
                 context.AddMessage($"{executor.Name} escapes.", ClientMessageType.Generic);
             }

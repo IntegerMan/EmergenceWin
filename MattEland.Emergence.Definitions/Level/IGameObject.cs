@@ -1,10 +1,14 @@
-﻿using MattEland.Emergence.Definitions.DTOs;
-using MattEland.Emergence.Definitions.Services;
+﻿using System;
+using MattEland.Emergence.Definitions.DTOs;
+using MattEland.Emergence.Definitions.Model;
+using MattEland.Emergence.Definitions.Model.EngineDefinitions;
+using ICommandContext = MattEland.Emergence.Definitions.Services.ICommandContext;
 
 namespace MattEland.Emergence.Definitions.Level
 {
     public interface IGameObject
     {
+
         string Name { get; set; }
         bool IsPlayer { get; }
         Alignment Team { get; set; }
@@ -15,8 +19,11 @@ namespace MattEland.Emergence.Definitions.Level
         bool IsTargetable { get; }
         int MaxStability { get; set; }
         string ObjectId { get; set; }
+
+        Guid Id { get; set; }
+
         GameObjectType ObjectType { get; }
-        Pos2D Position { get; set; }
+        Pos2D Pos { get; set; }
         int Stability { get; set; }
 
         bool IsDead { get; }
@@ -49,6 +56,12 @@ namespace MattEland.Emergence.Definitions.Level
         bool IsCorrupted { get; }
         bool IsInteractive { get; }
 
+        char AsciiChar { get; }
+
+        string ForegroundColor { get; }
+        string BackgroundColor { get; }
+
         void ApplyCorruptionDamage(ICommandContext context, IGameObject source, int damage);
+        void OnInteract(CommandContext context, IGameObject source);
     }
 }

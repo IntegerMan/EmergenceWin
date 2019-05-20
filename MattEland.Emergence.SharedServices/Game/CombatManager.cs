@@ -86,8 +86,8 @@ namespace MattEland.Emergence.Services.Game
             int damage = Math.Max(1, attack - defense);
 
             // Only add this message if it occurs somewhere within the player's line of sight or involves the player
-            if (attacker.IsPlayer || defender.IsPlayer || context.CanPlayerSee(attacker.Position) ||
-                context.CanPlayerSee(defender.Position))
+            if (attacker.IsPlayer || defender.IsPlayer || context.CanPlayerSee(attacker.Pos) ||
+                context.CanPlayerSee(defender.Pos))
             {
                 context.AddMessage(
                     $"{attacker.Name} {verb} with {attack} strength vs {defender.Name}'s {defense} defense",
@@ -161,7 +161,7 @@ namespace MattEland.Emergence.Services.Game
             }
 
             // Add the damage to the object
-            if (attacker.IsPlayer || defender.IsPlayer || context.CanPlayerSee(defender.Position))
+            if (attacker.IsPlayer || defender.IsPlayer || context.CanPlayerSee(defender.Pos))
             {
                 context.AddEffect(new DamagedEffect(defender, damage, damageType));
             }
@@ -221,7 +221,7 @@ namespace MattEland.Emergence.Services.Game
                         damage = 0;
                     }
 
-                    var isVisible = obj.IsPlayer || executor.IsPlayer || context.CanPlayerSee(obj.Position);
+                    var isVisible = obj.IsPlayer || executor.IsPlayer || context.CanPlayerSee(obj.Pos);
                     bool showMessage = obj is Actor && isVisible;
 
                     if (damage <= 0)
@@ -290,7 +290,7 @@ namespace MattEland.Emergence.Services.Game
 
             defender.OnCaptured(context, attacker, oldTeam);
 
-            if (defender.IsPlayer || context.CanPlayerSee(defender.Position))
+            if (defender.IsPlayer || context.CanPlayerSee(defender.Pos))
             {
                 context.AddEffect(new CapturedEffect(defender));
             }
@@ -321,8 +321,8 @@ namespace MattEland.Emergence.Services.Game
             string verb = isHit ? "hit" : "missed";
 
             // Only add this message if it occurs somewhere within the player's line of sight or involves the player
-            if (attacker.IsPlayer || defender.IsPlayer || context.CanPlayerSee(attacker.Position) ||
-                 context.CanPlayerSee(defender.Position)) {
+            if (attacker.IsPlayer || defender.IsPlayer || context.CanPlayerSee(attacker.Pos) ||
+                 context.CanPlayerSee(defender.Pos)) {
 
                 context.AddMessage(
                     $"{attacker.Name} rolled a {roll} and {verb} {defender.Name} ({hitChance} Accuracy vs {evadeChance} Evasion: {chance} needed to hit)",

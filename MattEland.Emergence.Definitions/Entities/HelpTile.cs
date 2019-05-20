@@ -13,6 +13,7 @@ namespace MattEland.Emergence.Definitions.Entities
         public override bool IsInvulnerable => false; // Ya know what? If folks hate 'em? Kill 'em.
         public override bool IsTargetable => true;
         public override bool IsInteractive => true;
+        public override char AsciiChar => '?';
 
         protected override string CustomName => "Help Provider";
 

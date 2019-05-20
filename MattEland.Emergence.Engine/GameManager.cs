@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using GeneticSharp.Domain.Randomizations;
 using JetBrains.Annotations;
+using MattEland.Emergence.Definitions.DTOs;
+using MattEland.Emergence.Definitions.Entities;
 using MattEland.Emergence.Definitions.Level;
 using MattEland.Emergence.Definitions.Model;
 using MattEland.Emergence.Definitions.Model.EngineDefinitions;
-using MattEland.Emergence.Definitions.Model.Entities;
 using MattEland.Emergence.Definitions.Model.Messages;
 using MattEland.Emergence.LevelGeneration;
 using MattEland.Emergence.LevelGeneration.Encounters;
@@ -25,9 +26,9 @@ namespace MattEland.Emergence.Engine
         }
 
         [CanBeNull]
-        private Actor _player;
+        private Player _player;
 
-        private readonly List<WorldObject> _objects = new List<WorldObject>();
+        private readonly List<IGameObject> _objects = new List<IGameObject>();
 
         [NotNull]
         private readonly LevelGenerationService _levelBuilder;
@@ -35,7 +36,7 @@ namespace MattEland.Emergence.Engine
         private readonly Queue<LevelType> _levels;
 
         public GameStatus State { get; private set; }
-        public Actor Player => _player;
+        public Player Player => _player;
 
         public IEnumerable<GameMessage> Start()
         {
@@ -57,20 +58,21 @@ namespace MattEland.Emergence.Engine
 
         public IEnumerable<GameMessage> GenerateLevel()
         {
-            var player = _player;
+            State = GameStatus.Executing;
+
+            const string PlayerId = "ACTOR_PLAYER_GAME";
+
             if (_player == null)
             {
-                _player = new Actor(new Pos2D(0, 0), ActorType.Player);
+                _player = new Player(new PlayerDto { ObjectId = PlayerId});
             }
-
-            State = GameStatus.Executing;
 
             var level = _levelBuilder.GenerateLevel(new LevelGenerationParameters()
             {
                 LevelType = _levels.Dequeue(),
-                PlayerId = "ACTOR_PLAYER_GAME"
+                PlayerId = PlayerId
 
-            }, null);
+            }, _player);
 
             // Ready for new objects
             _objects.Clear();
@@ -87,14 +89,14 @@ namespace MattEland.Emergence.Engine
             return _objects.Select(o => new CreatedMessage(o));
         }
 
-        private static IEnumerable<WorldObject> GetGameObjectForCell(IGameCell c)
+        private static IEnumerable<IGameObject> GetGameObjectForCell(IGameCell c)
         {
             bool hasObject = false;
             foreach (var gameObject in c.Objects)
             {
-                yield return GetGameObjectFromOldObject(gameObject);
+                yield return gameObject;
 
-                if (gameObject.ObjectType != GameObjectType.Actor)
+                if (!(gameObject is Actor))
                 {
                     hasObject = true;
                 }
@@ -102,13 +104,16 @@ namespace MattEland.Emergence.Engine
 
             if (c.FloorType != FloorType.Void && !hasObject)
             {
-                yield return new Floor(c.Pos, c.FloorType);
+                yield return new Floor(new GameObjectDto()
+                {
+                    Pos = c.Pos.SerializedValue
+                }, c.FloorType);
             }
         }
 
-        private static WorldObject GetGameObjectFromOldObject(IGameObject gameObject)
+/*        private static WorldObject GetGameObjectFromOldObject(IGameObject gameObject)
         {
-            var pos = gameObject.Position;
+            var pos = gameObject.Pos;
 
             switch (gameObject.ObjectType)
             {
@@ -136,7 +141,7 @@ namespace MattEland.Emergence.Engine
                     throw new ArgumentOutOfRangeException();
             }
 
-        }
+        }*/
 
         public IEnumerable<GameMessage> MovePlayer(MoveDirection direction)
         {
@@ -148,10 +153,10 @@ namespace MattEland.Emergence.Engine
 
             var context = new CommandContext(this, _player, _objects);
 
-            foreach (var obj in _objects.Where(o => o.Pos == targetPos).OrderByDescending(o => o.ZIndex).OfType<IInteractive>())
+            foreach (var obj in _objects.Where(o => o.Pos == targetPos).OrderByDescending(o => o.ZIndex))
             {
                 // TODO: Some messages should stop future interactions
-                obj.Interact(context);
+                obj.OnInteract(context, _player);
             }
 
             State = GameStatus.Ready;

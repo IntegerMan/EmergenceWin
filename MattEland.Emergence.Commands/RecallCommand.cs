@@ -23,7 +23,7 @@ namespace MattEland.Emergence.Commands
 
         public override void ApplyEffect(ICommandContext context, IActor executor, Pos2D pos)
         {
-            if (executor.IsPlayer || context.CanPlayerSee(executor.Position) || context.CanPlayerSee(context.Level.MarkedPos))
+            if (executor.IsPlayer || context.CanPlayerSee(executor.Pos) || context.CanPlayerSee(context.Level.MarkedPos))
             {
                 context.AddMessage($"{executor.Name} recalls to the previously marked position",
                                    ClientMessageType.Success);
