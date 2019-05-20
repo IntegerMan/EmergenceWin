@@ -1,21 +1,21 @@
-﻿using MattEland.Emergence.Definitions.Commands;
-using MattEland.Emergence.Definitions.DTOs;
-using MattEland.Emergence.Definitions.Level;
-using MattEland.Emergence.Definitions.Services;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using JetBrains.Annotations;
+using MattEland.Emergence.Definitions.Commands;
+using MattEland.Emergence.Definitions.DTOs;
 using MattEland.Emergence.Definitions.Effects;
+using MattEland.Emergence.Definitions.Level;
+using MattEland.Emergence.Definitions.Services;
 
-namespace MattEland.Emergence.EntityLogic
+namespace MattEland.Emergence.Definitions.Entities
 {
     /// <summary>
     /// Represents an actor within the game world. An actor is any sort of entity that has some form of agency - makes moves
     /// and/or decisions every turn and occupies a single space in the game world at any time.
     /// </summary>
-    /// <seealso cref="T:MattEland.Emergence.EntityLogic.GameObjectBase" />
+    /// <seealso cref="T:MattEland.Emergence.Definitions.Entities.GameObjectBase" />
     public class Actor : GameObjectBase, IActor
     {
         private int _operations;

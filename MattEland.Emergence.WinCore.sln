@@ -21,8 +21,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MattEland.Emergence.AI", "M
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MattEland.Emergence.Vision", "MattEland.Emergence.Vision\MattEland.Emergence.Vision.csproj", "{02B76C84-F6F3-4B0B-8D63-232E3DA46514}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MattEland.Emergence.EntityLogic", "MattEland.Emergence.EntityLogic\MattEland.Emergence.EntityLogic.csproj", "{9B68857D-19D8-4D8C-8788-BD9F0D215212}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MattEland.Emergence.Commands", "MattEland.Emergence.Commands\MattEland.Emergence.Commands.csproj", "{FA81910A-C291-4072-B0F0-E46F2D9577B5}"
 EndProject
 Global
@@ -67,10 +65,6 @@ Global
 		{02B76C84-F6F3-4B0B-8D63-232E3DA46514}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02B76C84-F6F3-4B0B-8D63-232E3DA46514}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{02B76C84-F6F3-4B0B-8D63-232E3DA46514}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9B68857D-19D8-4D8C-8788-BD9F0D215212}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9B68857D-19D8-4D8C-8788-BD9F0D215212}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9B68857D-19D8-4D8C-8788-BD9F0D215212}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9B68857D-19D8-4D8C-8788-BD9F0D215212}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FA81910A-C291-4072-B0F0-E46F2D9577B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FA81910A-C291-4072-B0F0-E46F2D9577B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FA81910A-C291-4072-B0F0-E46F2D9577B5}.Release|Any CPU.ActiveCfg = Release|Any CPU

@@ -4,9 +4,9 @@ using System.Text;
 using GeneticSharp.Domain.Randomizations;
 using MattEland.Emergence.Definitions.DTOs;
 using MattEland.Emergence.Definitions.Effects;
+using MattEland.Emergence.Definitions.Entities;
 using MattEland.Emergence.Definitions.Level;
 using MattEland.Emergence.Definitions.Services;
-using MattEland.Emergence.EntityLogic;
 
 namespace MattEland.Emergence.Services.Game
 {

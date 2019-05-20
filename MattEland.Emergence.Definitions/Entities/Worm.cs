@@ -2,7 +2,7 @@
 using MattEland.Emergence.Definitions.DTOs;
 using MattEland.Emergence.Definitions.Services;
 
-namespace MattEland.Emergence.EntityLogic
+namespace MattEland.Emergence.Definitions.Entities
 {
     public class Worm : Bug
     {

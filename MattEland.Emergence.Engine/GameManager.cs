@@ -12,8 +12,6 @@ using MattEland.Emergence.LevelGeneration;
 using MattEland.Emergence.LevelGeneration.Encounters;
 using MattEland.Emergence.LevelGeneration.Prefabs;
 using MattEland.Shared.Collections;
-using ActorType = MattEland.Emergence.Definitions.Model.Entities.ActorType;
-using GameState = MattEland.Emergence.Definitions.DTOs.GameState;
 
 namespace MattEland.Emergence.Engine
 {
@@ -91,15 +89,18 @@ namespace MattEland.Emergence.Engine
 
         private static IEnumerable<WorldObject> GetGameObjectForCell(IGameCell c)
         {
-
             bool hasObject = false;
             foreach (var gameObject in c.Objects)
             {
                 yield return GetGameObjectFromOldObject(gameObject);
-                hasObject = true;
+
+                if (gameObject.ObjectType != GameObjectType.Actor)
+                {
+                    hasObject = true;
+                }
             }
 
-            if (c.FloorType != Definitions.Level.FloorType.Void && !hasObject)
+            if (c.FloorType != FloorType.Void && !hasObject)
             {
                 yield return new Floor(c.Pos, c.FloorType);
             }
@@ -126,8 +127,8 @@ namespace MattEland.Emergence.Engine
                 case GameObjectType.CommandPickup: return new HelpTile(pos, "Command Pickup");
                 case GameObjectType.Treasure: return new HelpTile(pos, "Treasure");
                 case GameObjectType.Water: return new Obstacle(pos, ObstacleType.ThreadPool);
-                case GameObjectType.Actor: return new Actor(pos, Definitions.Model.Entities.ActorType.Player); // TODO: ActorType
-                case GameObjectType.Player: return new Actor(pos, Definitions.Model.Entities.ActorType.Player);
+                case GameObjectType.Actor: return new Actor(pos, ((Definitions.Entities.Actor) gameObject).ActorType); // TODO: ActorType
+                case GameObjectType.Player: return new Actor(pos, ActorType.Player);
                 case GameObjectType.Help: return new HelpTile(pos, "Help");
                 case GameObjectType.CharacterSelect: return new CharacterSelect(pos);
                 case GameObjectType.GenericPickup: return new HelpTile(pos, "Generic Pickup");

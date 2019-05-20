@@ -2,21 +2,20 @@
 using MattEland.Emergence.Definitions.Level;
 using MattEland.Emergence.Definitions.Services;
 
-namespace MattEland.Emergence.EntityLogic
+namespace MattEland.Emergence.Definitions.Entities
 {
-    public class LevelExit : GameObjectBase
+    public class HelpTile : GameObjectBase
     {
-        public LevelExit(GameObjectDto dto) : base(dto)
+        public HelpTile(GameObjectDto dto) : base(dto)
         {
         }
 
-        public override bool IsInvulnerable => true;
+        public override bool IsInvulnerable => false; // Ya know what? If folks hate 'em? Kill 'em.
         public override bool IsTargetable => true;
         public override bool IsInteractive => true;
 
-        protected override string CustomName => "Outgoing Port";
+        protected override string CustomName => "Help Provider";
 
-        /// <inheritdoc />
         public override bool OnActorAttemptedEnter(ICommandContext context, IActor actor, IGameCell cell)
         {
             if (!actor.IsPlayer)
@@ -24,11 +23,9 @@ namespace MattEland.Emergence.EntityLogic
                 return false;
             }
 
-            context.AdvanceToNextLevel();
+            context.DisplayHelp(this, ObjectId);
 
-            return false; // Don't allow the context to think that we've moved within the level
+            return false;
         }
-
-        public override bool IsCorruptable => false;
     }
 }

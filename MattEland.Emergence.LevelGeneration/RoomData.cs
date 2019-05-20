@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using MattEland.Emergence.Definitions.Level;
-using MattEland.Emergence.Model;
 
 namespace MattEland.Emergence.LevelGeneration
 {

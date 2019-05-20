@@ -1,6 +1,6 @@
 ﻿using MattEland.Emergence.Definitions.DTOs;
 
-namespace MattEland.Emergence.EntityLogic
+namespace MattEland.Emergence.Definitions.Entities
 {
     public class Turret : Actor
     {

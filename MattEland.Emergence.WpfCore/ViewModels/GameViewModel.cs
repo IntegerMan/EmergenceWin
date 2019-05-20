@@ -9,7 +9,6 @@ using MattEland.Emergence.Definitions.Model.Entities;
 using MattEland.Emergence.Definitions.Model.Messages;
 using MattEland.Emergence.Engine;
 using MattEland.Emergence.Services;
-using MattEland.Emergence.WinCore.ViewModels;
 using MattEland.Shared.Collections;
 
 namespace MattEland.Emergence.WpfCore.ViewModels

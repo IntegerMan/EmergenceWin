@@ -4,7 +4,7 @@ using MattEland.Emergence.Definitions.DTOs;
 using MattEland.Emergence.Definitions.Level;
 using MattEland.Emergence.Definitions.Services;
 
-namespace MattEland.Emergence.EntityLogic
+namespace MattEland.Emergence.Definitions.Entities
 {
     /// <summary>
     /// Represents an object within the game world that can either move from cell to cell or can be modified in some capacity over time

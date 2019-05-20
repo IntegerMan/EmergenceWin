@@ -3,31 +3,33 @@ using MattEland.Emergence.Definitions.Effects;
 using MattEland.Emergence.Definitions.Level;
 using MattEland.Emergence.Definitions.Services;
 
-namespace MattEland.Emergence.EntityLogic
+namespace MattEland.Emergence.Definitions.Entities
 {
-    public class OperationsPickup : GameObjectBase
+    public class MaxStabilityPickup : GameObjectBase
     {
-        public OperationsPickup(GameObjectDto dto) : base(dto)
+        public MaxStabilityPickup(GameObjectDto dto) : base(dto)
         {
         }
 
         public override bool IsInteractive => true;
-        protected override string CustomName => "Operations Restore";
+        protected override string CustomName => $"Max Stability +{Potency}";
 
         /// <inheritdoc />
         public override bool OnActorAttemptedEnter(ICommandContext context, IActor actor, IGameCell cell)
         {
             if (actor.IsPlayer)
             {
-                actor.Operations += Potency;
-                context.AddEffect(new OpsChangedEffect(this, Potency));
+                actor.MaxStability += Potency;
+                actor.Stability += Potency;
+
+                context.AddEffect(new HelpTextEffect(this, $"Max Stability +{Potency}"));
                 context.Level.RemoveObject(this);
             }
 
             return true;
         }
 
-        public int Potency { get; set; } = 5;
+        public int Potency { get; set; } = 1;
 
         public override int ZIndex => 10;
     }

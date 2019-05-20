@@ -4,7 +4,7 @@ using MattEland.Emergence.Definitions.DTOs;
 using MattEland.Emergence.Definitions.Level;
 using MattEland.Emergence.Definitions.Services;
 
-namespace MattEland.Emergence.EntityLogic
+namespace MattEland.Emergence.Definitions.Entities
 {
     public class LevelCore : Actor
     {

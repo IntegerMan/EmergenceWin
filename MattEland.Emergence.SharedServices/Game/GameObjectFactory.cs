@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using MattEland.Emergence.Definitions.DTOs;
+using MattEland.Emergence.Definitions.Entities;
 using MattEland.Emergence.Definitions.Level;
 using MattEland.Emergence.Definitions.Services;
-using MattEland.Emergence.EntityLogic;
 using MattEland.Emergence.LevelGeneration.Encounters;
 
 namespace MattEland.Emergence.Services.Game

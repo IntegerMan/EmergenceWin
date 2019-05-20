@@ -1,6 +1,5 @@
 ﻿using MattEland.Emergence.Definitions.DTOs;
 using MattEland.Emergence.Definitions.Level;
-using MattEland.Emergence.EntityLogic;
 using MattEland.Emergence.Services.Levels;
 using System;
 using System.Collections.Generic;
@@ -8,6 +7,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using JetBrains.Annotations;
+using MattEland.Emergence.Definitions.Entities;
 
 namespace MattEland.Emergence.Services.Game
 {

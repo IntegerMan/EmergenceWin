@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using MattEland.Emergence.Definitions.Level;
 using MattEland.Emergence.Definitions.Model;
-using MattEland.Emergence.Model;
 using Newtonsoft.Json;
 
 namespace MattEland.Emergence.LevelGeneration

@@ -7,11 +7,8 @@ using JetBrains.Annotations;
 using MattEland.Emergence.Definitions.Level;
 using MattEland.Emergence.Definitions.Model.Entities;
 using MattEland.Emergence.Definitions.Model.Messages;
-using MattEland.Emergence.WpfCore;
-using MattEland.Emergence.WpfCore.ViewModels;
-using ActorType = MattEland.Emergence.Definitions.Model.Entities.ActorType;
 
-namespace MattEland.Emergence.WinCore.ViewModels
+namespace MattEland.Emergence.WpfCore.ViewModels
 {
     [DebuggerDisplay("{Source.GetType().Name} at ({Source.Pos.X}, {Source.Pos.Y}) rendering at ({X}, {Y})")]
     public class WorldObjectViewModel : INotifyPropertyChanged

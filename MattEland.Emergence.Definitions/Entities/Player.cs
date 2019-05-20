@@ -7,7 +7,7 @@ using MattEland.Emergence.Definitions.Effects;
 using MattEland.Emergence.Definitions.Level;
 using MattEland.Emergence.Definitions.Services;
 
-namespace MattEland.Emergence.EntityLogic
+namespace MattEland.Emergence.Definitions.Entities
 {
     public class Player : Actor, IPlayer
     {

@@ -16,7 +16,6 @@
     <ProjectReference Include="..\MattEland.Emergence.Commands\MattEland.Emergence.Commands.csproj" />
     <ProjectReference Include="..\MattEland.Emergence.Core.AI\MattEland.Emergence.AI.csproj" />
     <ProjectReference Include="..\MattEland.Emergence.Definitions\MattEland.Emergence.Definitions.csproj" />
-    <ProjectReference Include="..\MattEland.Emergence.EntityLogic\MattEland.Emergence.EntityLogic.csproj" />
     <ProjectReference Include="..\MattEland.Emergence.LevelGeneration\MattEland.Emergence.LevelGeneration.csproj" />
     <ProjectReference Include="..\MattEland.Emergence.Vision\MattEland.Emergence.Vision.csproj" />
   </ItemGroup>
