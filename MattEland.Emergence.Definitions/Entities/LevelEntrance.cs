@@ -33,9 +33,5 @@ namespace MattEland.Emergence.Definitions.Entities
         public override string ForegroundColor => GameColors.Yellow;
 
         public override bool IsCorruptable => false;
-        public override void OnInteract(CommandContext context, IActor actor)
-        {
-            context.DisplayText("You can't turn back; The network topology doesn't allow for it.", ClientMessageType.Failure);
-        }
     }
 }

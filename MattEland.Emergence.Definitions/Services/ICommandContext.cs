@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using GeneticSharp.Domain.Randomizations;
+using JetBrains.Annotations;
 using MattEland.Emergence.Definitions.DTOs;
 using MattEland.Emergence.Definitions.Effects;
 using MattEland.Emergence.Definitions.Level;
@@ -15,18 +16,13 @@ namespace MattEland.Emergence.Definitions.Services
         IPlayer Player { get; }
         ICombatManager CombatManager { get; }
         ILootProvider LootProvider { get; }
-        IEnumerable<EffectBase> Effects { get; }
 
-        IEnumerable<GameMessage> Messages {get;}
         IRandomization Randomizer { get; set; }
+        IEnumerable<GameMessage> Messages { get; }
+        IEnumerable<EffectBase> Effects { get; }
         event EventHandler<ActorDamagedEventArgs> OnActorHurt;
 
         void AddMessage(string message, ClientMessageType messageType);
-
-        /// <summary>
-        /// Moves the player to the next available level, or wins the game if all levels have been played.
-        /// </summary>
-        void AdvanceToNextLevel();
 
         /// <summary>
         /// Sets the current level to <paramref name="level"/>
@@ -54,11 +50,18 @@ namespace MattEland.Emergence.Definitions.Services
         void ReplacePlayer(IPlayer player, Pos2D position);
         void CalculateLineOfSight(IActor actor);
 
-        void AddEffect(EffectBase effect);
-
         bool CanPlayerSee(IGameObject obj);
         bool CanPlayerSee(Pos2D pos);
         ICommandContext Clone();
         void PreviewObjectHurt(IGameObject attacker, IGameObject defender, int damage, DamageType damageType);
+        void AddEffect(EffectBase effect);
+
+        /// <inheritdoc />
+        void AdvanceToNextLevel();
+
+        void MoveObject([NotNull] IGameObject obj, Pos2D newPos);
+        void MoveExecutingActor(Pos2D newPos);
+        void UpdateObject(IGameObject gameObject);
+        void DisplayText(string text, ClientMessageType messageType = ClientMessageType.Generic);
     }
 }

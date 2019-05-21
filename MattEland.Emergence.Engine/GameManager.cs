@@ -11,12 +11,13 @@ using MattEland.Emergence.Definitions.Level;
 using MattEland.Emergence.Definitions.Model;
 using MattEland.Emergence.Definitions.Model.EngineDefinitions;
 using MattEland.Emergence.Definitions.Model.Messages;
+using MattEland.Emergence.Definitions.Services;
 using MattEland.Emergence.LevelGeneration;
 using MattEland.Emergence.LevelGeneration.Encounters;
 using MattEland.Emergence.LevelGeneration.Prefabs;
+using MattEland.Emergence.Loot;
 using MattEland.Emergence.Services.Game;
 using MattEland.Shared.Collections;
-using CommandContext = MattEland.Emergence.Definitions.Model.EngineDefinitions.CommandContext;
 
 namespace MattEland.Emergence.Engine
 {
@@ -30,7 +31,7 @@ namespace MattEland.Emergence.Engine
         }
 
         [CanBeNull]
-        private Player _player;
+        private IPlayer _player;
 
         private readonly List<IGameObject> _objects = new List<IGameObject>();
 
@@ -41,7 +42,7 @@ namespace MattEland.Emergence.Engine
         private ILevel _level;
 
         public GameStatus State { get; private set; }
-        public Player Player => _player;
+        public IPlayer Player => _player;
 
         public IEnumerable<GameMessage> Start()
         {
@@ -69,7 +70,7 @@ namespace MattEland.Emergence.Engine
 
             if (_player == null)
             {
-                _player = new Player(new PlayerDto { ObjectId = PlayerId});
+                _player = GameObjectFactory.CreatePlayer(PlayerId);
             }
 
             _level = _levelBuilder.GenerateLevel(new LevelGenerationParameters
@@ -128,9 +129,10 @@ namespace MattEland.Emergence.Engine
             var entityService = new EntityDefinitionService();
             var combatManager = new CombatManager();
             var randomization = new BasicRandomization();
+            var loot = new LootProvider();
 
-            var service = new GameService(_levelBuilder, aiService, combatManager, null, entityService, new GameSimulationManager(),  randomization );
-            MattEland.Emergence.Definitions.Services.ICommandContext context = new MattEland.Emergence.Services.Game.CommandContext(_level, service, entityService, combatManager, null, randomization );
+            var service = new GameService(_levelBuilder, aiService, combatManager, loot, entityService, new GameSimulationManager(),  randomization );
+            ICommandContext context = new CommandContext(_level, service, entityService, combatManager, loot, randomization );
 
             //var context = new CommandContext(this, _player, _objects);
 

@@ -33,11 +33,6 @@ namespace MattEland.Emergence.Definitions.Entities
         }
 
         public override string ForegroundColor => GameColors.SlateBlue;
-
-        public override void OnInteract(CommandContext context, IActor actor)
-        {
-            context.DisplayText($"The {Name} blocks the way.", ClientMessageType.Failure);
-        }
         
         public override void OnDestroyed(ICommandContext context, IGameObject attacker)
         {

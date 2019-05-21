@@ -33,11 +33,6 @@ namespace MattEland.Emergence.Definitions.Entities
         public int Potency { get; set; } = 5;
 
         public override int ZIndex => 10;
-
-        public override void OnInteract(CommandContext context, IActor actor)
-        {
-            context.DisplayNotImplemented();
-        }
-
+        
     }
 }

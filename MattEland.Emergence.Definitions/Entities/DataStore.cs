@@ -16,10 +16,6 @@ namespace MattEland.Emergence.Definitions.Entities
 
         public override bool IsInteractive => true;
         public override char AsciiChar => 'd';
-        public override void OnInteract(CommandContext context, IActor actor)
-        {
-            context.DisplayText($"The {Name} does not respond to your queries.", ClientMessageType.Generic);
-        }
 
         /// <inheritdoc />
         public override bool OnActorAttemptedEnter(ICommandContext context, IActor actor)

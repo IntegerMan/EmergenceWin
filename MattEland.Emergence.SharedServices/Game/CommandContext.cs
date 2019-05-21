@@ -235,10 +235,26 @@ namespace MattEland.Emergence.Services.Game
             AddMessage(message, ClientMessageType.Assertion);
         }
 
-        private void AddMessage(GameMessage message)
+        public void MoveObject([NotNull] IGameObject obj, Pos2D newPos)
         {
+            var oldPos = obj.Pos;
+
+            obj.Pos = newPos;
+
+            AddMessage(new MovedMessage(obj, oldPos, newPos));
+        }
+
+        private void AddMessage([NotNull] GameMessage message)
+        {
+            if (message == null) throw new ArgumentNullException(nameof(message));
+
             _messages.Add(message);
         }
+
+        public void MoveExecutingActor(Pos2D newPos) => MoveObject(Player, newPos);
+        public void UpdateObject(IGameObject gameObject) => AddMessage(new ObjectUpdatedMessage(gameObject));
+
+        public void DisplayText(string text, ClientMessageType messageType = ClientMessageType.Generic) => AddMessage(new DisplayTextMessage(text, messageType));
 
         /// <inheritdoc />
         public void TeleportActor(IActor actor, Pos2D pos)

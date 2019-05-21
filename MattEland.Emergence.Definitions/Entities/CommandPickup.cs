@@ -1,6 +1,5 @@
 ﻿using MattEland.Emergence.Definitions.DTOs;
 using MattEland.Emergence.Definitions.Level;
-using MattEland.Emergence.Definitions.Model.EngineDefinitions;
 using MattEland.Emergence.Definitions.Services;
 using ICommandContext = MattEland.Emergence.Definitions.Services.ICommandContext;
 
@@ -14,10 +13,6 @@ namespace MattEland.Emergence.Definitions.Entities
 
         public override bool IsInteractive => true;
         public override char AsciiChar => 'p';
-        public override void OnInteract(CommandContext context, IActor actor)
-        {
-            context.DisplayNotImplemented();
-        }
 
         public override void ApplyActiveEffects(ICommandContext context)
         {

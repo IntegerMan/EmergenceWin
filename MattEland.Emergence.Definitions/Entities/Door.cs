@@ -2,7 +2,6 @@
 using MattEland.Emergence.Definitions.DTOs;
 using MattEland.Emergence.Definitions.Level;
 using MattEland.Emergence.Definitions.Model;
-using MattEland.Emergence.Definitions.Model.EngineDefinitions;
 using ICommandContext = MattEland.Emergence.Definitions.Services.ICommandContext;
 
 namespace MattEland.Emergence.Definitions.Entities
@@ -15,18 +14,6 @@ namespace MattEland.Emergence.Definitions.Entities
 
         public override bool IsInteractive => true;
         public override char AsciiChar => IsOpen ? '.' : '+';
-        public override void OnInteract(CommandContext context, IActor actor)
-        {
-            if (!IsOpen)
-            {
-                IsOpen = true;
-                context.UpdateObject(this);
-            }
-            else
-            {
-                context.MoveObject(actor, Pos);
-            }
-        }
 
         public override string ForegroundColor => GameColors.Yellow;
 
@@ -46,17 +33,26 @@ namespace MattEland.Emergence.Definitions.Entities
                 {
                     OnOpened(context, trigger);
                 }
+                context.UpdateObject(this);
             }
 
         }
 
         public override bool OnActorAttemptedEnter(ICommandContext context, IActor actor)
         {
-            if (ShouldOpenFor(actor) || IsOpen)
+            if (IsOpen)
             {
-                return base.OnActorAttemptedEnter(context, actor);
+                context.MoveObject(actor, Pos);
+                return true;
             }
-            
+
+            if (ShouldOpenFor(actor))
+            {
+                IsOpen = true;
+                context.UpdateObject(this);
+                return true;
+            }
+
             context.CombatManager.HandleAttack(context, actor, this, "attacks", actor.AttackDamageType);
             return false;
         }

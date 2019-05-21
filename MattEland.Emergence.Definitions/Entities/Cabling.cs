@@ -16,11 +16,6 @@ namespace MattEland.Emergence.Definitions.Entities
 
         protected override string CustomName => "Cabling";
         public override char AsciiChar => '-';
-        public override void OnInteract(CommandContext context, IActor actor)
-        {
-            context.MoveObject(actor, Pos);
-        }
-
         public override string ForegroundColor => GameColors.LightGray;
     }
 }

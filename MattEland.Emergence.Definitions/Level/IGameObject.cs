@@ -1,7 +1,5 @@
 ﻿using System;
 using MattEland.Emergence.Definitions.DTOs;
-using MattEland.Emergence.Definitions.Model;
-using MattEland.Emergence.Definitions.Model.EngineDefinitions;
 using ICommandContext = MattEland.Emergence.Definitions.Services.ICommandContext;
 
 namespace MattEland.Emergence.Definitions.Level
@@ -62,6 +60,5 @@ namespace MattEland.Emergence.Definitions.Level
         string BackgroundColor { get; }
 
         void ApplyCorruptionDamage(ICommandContext context, IGameObject source, int damage);
-        void OnInteract(CommandContext context, IActor actor);
     }
 }

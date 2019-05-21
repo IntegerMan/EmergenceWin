@@ -16,10 +16,6 @@ namespace MattEland.Emergence.Definitions.Entities
         public override bool IsTargetable => true;
         public override bool IsInteractive => true;
         public override char AsciiChar => '?';
-        public override void OnInteract(CommandContext context, IActor actor)
-        {
-            context.DisplayText(ObjectId, ClientMessageType.Help);
-        }
 
         protected override string CustomName => "Help Provider";
 

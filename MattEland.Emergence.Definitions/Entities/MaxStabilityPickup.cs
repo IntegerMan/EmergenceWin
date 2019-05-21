@@ -35,10 +35,5 @@ namespace MattEland.Emergence.Definitions.Entities
 
         public override int ZIndex => 10;
 
-        public override void OnInteract(CommandContext context, IActor actor)
-        {
-            context.DisplayNotImplemented();
-        }
-
     }
 }

@@ -54,13 +54,7 @@ namespace MattEland.Emergence.Definitions.Entities
                     break;
             }
         }
-
-        public override void OnInteract(CommandContext context, IActor actor)
-        {
-            context.DisplayNotImplemented();
-        }
-
-
+        
         protected override string CustomName => IsOpen ? "Empty Cache" : "Cache";
 
         public override int ZIndex => 4;

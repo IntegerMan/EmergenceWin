@@ -14,10 +14,6 @@ namespace MattEland.Emergence.Definitions.Entities
 
         public override bool IsInteractive => true;
         public override char AsciiChar => '*';
-        public override void OnInteract(CommandContext context, IActor actor)
-        {
-            context.DisplayText($"The {Name} spins and whirs, oblivious to your concerns.");
-        }
 
         protected override string CustomName => "Service";
 

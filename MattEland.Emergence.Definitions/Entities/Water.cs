@@ -17,10 +17,6 @@ namespace MattEland.Emergence.Definitions.Entities
 
         public override char AsciiChar => '~';
         public override bool IsCorruptable => true;
-        public override void OnInteract(CommandContext context, IActor actor)
-        {
-            context.DisplayText("You can't do that; nobody implemented swimming!", ClientMessageType.Failure);
-        }
 
         protected override string CustomName => "Thread Pool";
 

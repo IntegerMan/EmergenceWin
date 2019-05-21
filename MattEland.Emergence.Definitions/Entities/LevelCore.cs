@@ -3,7 +3,7 @@ using JetBrains.Annotations;
 using MattEland.Emergence.Definitions.DTOs;
 using MattEland.Emergence.Definitions.Level;
 using MattEland.Emergence.Definitions.Model;
-using MattEland.Emergence.Definitions.Model.EngineDefinitions;
+using MattEland.Shared.Collections;
 using ICommandContext = MattEland.Emergence.Definitions.Services.ICommandContext;
 
 namespace MattEland.Emergence.Definitions.Entities
@@ -33,13 +33,9 @@ namespace MattEland.Emergence.Definitions.Entities
             {
                 context.Player.CoresCaptured++;
             }
-            else
+            else if (oldTeam == Alignment.Player)
             {
-                if (oldTeam == Alignment.Player)
-                {
-                    context.Player.CoresCaptured--;
-
-                }
+                context.Player.CoresCaptured--;
             }
 
             int numRemaining = context.Level.Cores.Count(c => c.Team == Alignment.SystemCore || c.Team == Alignment.SystemAntiVirus || c.Team == Alignment.SystemSecurity);
@@ -48,11 +44,11 @@ namespace MattEland.Emergence.Definitions.Entities
 
             if (isPlayerAction)
             {
-                context.AddMessage(
-                    context.Level.HasAdminAccess
-                        ? $"You have captured a {Name}. You now have administrative access and can pass through the firewall."
-                        : $"You have captured a {Name}. {numRemaining} more must be captured before the firewall opens.",
-                    ClientMessageType.Success);
+                var message = context.Level.HasAdminAccess
+                    ? $"You have captured a {Name}. You now have administrative access and can pass through the firewall."
+                    : $"You have captured a {Name}. {numRemaining} more must be captured before the firewall opens.";
+
+                context.AddMessage(message, ClientMessageType.Success);
             }
             else
             {
@@ -62,19 +58,15 @@ namespace MattEland.Emergence.Definitions.Entities
                     executorName = "Corruption";
                 }
 
-                if (numRemaining > 0)
-                {
-                    context.AddMessage(
-                        $"{executorName} has claimed a {Name}. {numRemaining} more must be captured before the firewall opens.",
-                        ClientMessageType.Success);
-                }
-                else
-                {
-                    context.AddMessage(
-                        $"{executorName} has claimed the last {Name}. The firewall has been compromised and the exit is open.",
-                        ClientMessageType.Success);
-                }
+                var message = numRemaining > 0
+                    ? $"{executorName} has claimed a {Name}. {numRemaining} more must be captured before the firewall opens."
+                    : $"{executorName} has claimed the last {Name}. The firewall has been compromised and the exit is open.";
+
+                context.AddMessage(message, ClientMessageType.Success);
             }
+
+            context.UpdateObject(this);
+            context.Level.Objects.OfType<Firewall>().Each(context.UpdateObject);
         }
 
         public override void ApplyCorruptionDamage(ICommandContext context, [CanBeNull] IGameObject source, int damage)
@@ -91,11 +83,9 @@ namespace MattEland.Emergence.Definitions.Entities
         }
 
         public override char AsciiChar => 'C';
-        public override void OnInteract(CommandContext context, IActor actor)
-        {
-            context.DisplayNotImplemented();
-        }
 
-        public override string ForegroundColor => GameColors.Yellow;
+        public bool IsCaptured => ActualTeam == Alignment.Player;
+
+        public override string ForegroundColor => IsCaptured ? GameColors.Green : GameColors.Yellow;
     }
 }

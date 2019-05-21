@@ -34,11 +34,6 @@ namespace MattEland.Emergence.Definitions.Entities
 
         public override bool IsCorruptable => false;
 
-        public override void OnInteract(CommandContext context, IActor actor)
-        {
-            context.AdvanceToNextLevel();
-        }
-
         public override string ForegroundColor => GameColors.Yellow;
     }
 }

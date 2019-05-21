@@ -84,7 +84,7 @@ namespace MattEland.Emergence.Loot
                 }
 
                 // Actually create the entry
-                var obj = CreationService.CreateObject(entry.ObjectId, entry.ObjectType, source.Position);
+                var obj = CreationService.CreateObject(entry.ObjectId, entry.ObjectType, source.Pos);
 
                 if (!string.IsNullOrWhiteSpace(entry.Name))
                 {

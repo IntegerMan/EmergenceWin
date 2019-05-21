@@ -418,9 +418,5 @@ namespace MattEland.Emergence.Definitions.Entities
             }
         }
 
-        public override void OnInteract(CommandContext context, IActor actor)
-        {
-            context.DisplayNotImplemented();
-        }
     }
 }

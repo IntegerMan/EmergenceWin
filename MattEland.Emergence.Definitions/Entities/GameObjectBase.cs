@@ -205,8 +205,6 @@ namespace MattEland.Emergence.Definitions.Entities
             Corruption += damage;
         }
 
-        public abstract void OnInteract(CommandContext context, IActor actor);
-
         /// <summary>
         /// Gets or sets the corruption amount present on the object.
         /// </summary>

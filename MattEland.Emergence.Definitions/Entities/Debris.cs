@@ -16,10 +16,6 @@ namespace MattEland.Emergence.Definitions.Entities
         public override bool IsInteractive => true;
         public override char AsciiChar => '_';
         public override bool IsCorruptable => false;
-        public override void OnInteract(CommandContext context, IActor actor)
-        {
-            // No action needed
-        }
 
         protected override string CustomName => "Metadata";
 

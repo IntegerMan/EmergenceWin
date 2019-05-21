@@ -27,11 +27,6 @@ namespace MattEland.Emergence.Definitions.Entities
 
         public override char AsciiChar => 'X';
 
-        public override void OnInteract(CommandContext context, IActor actor)
-        {
-            context.DisplayText($"The {Name} blocks your path", ClientMessageType.Failure);
-        }
-
         public override string ForegroundColor => GameColors.Brown;
 
     }
