@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using GeneticSharp.Domain.Randomizations;
+using MattEland.Emergence.Definitions.Model.Messages;
 using MattEland.Emergence.Helpers;
 
 namespace MattEland.Emergence.Services.Game
@@ -17,7 +18,7 @@ namespace MattEland.Emergence.Services.Game
     public sealed class CommandContext : ICommandContext
     {
         private readonly IList<EffectBase> _effects;
-        private readonly IList<ClientMessage> _messages;
+        private readonly IList<GameMessage> _messages;
 
         public CommandContext([NotNull] ILevel level,
                               [NotNull] IGameService gameService,
@@ -33,12 +34,12 @@ namespace MattEland.Emergence.Services.Game
             Randomizer = randomization ?? throw new ArgumentNullException(nameof(randomization));
 
             _effects = new List<EffectBase>();
-            _messages = new List<ClientMessage>();
+            _messages = new List<GameMessage>();
 
             SetLevel(level);
         }
 
-        public IEnumerable<ClientMessage> Messages => _messages;
+        public IEnumerable<GameMessage> Messages => _messages;
         public IRandomization Randomizer { get; set; }
 
         public event EventHandler<ActorDamagedEventArgs> OnActorHurt;
@@ -204,7 +205,7 @@ namespace MattEland.Emergence.Services.Game
         {
             if (!string.IsNullOrWhiteSpace(message))
             {
-                AddMessage(new ClientMessage(message, messageType));
+                AddMessage(new DisplayTextMessage(message, messageType));
             }
         }
 
@@ -234,7 +235,7 @@ namespace MattEland.Emergence.Services.Game
             AddMessage(message, ClientMessageType.Assertion);
         }
 
-        private void AddMessage(ClientMessage message)
+        private void AddMessage(GameMessage message)
         {
             _messages.Add(message);
         }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using JetBrains.Annotations;
+using MattEland.Emergence.Definitions.DTOs;
 using MattEland.Emergence.Definitions.Entities;
 using MattEland.Emergence.Definitions.Level;
 using MattEland.Emergence.Definitions.Model;
@@ -79,7 +80,7 @@ namespace MattEland.Emergence.WpfCore.ViewModels
         public int YOffset { get; set; } = -35;
 
         public void MovePlayer(MoveDirection direction) => ProcessMessages(_gameManager.MovePlayer(direction));
-        
+
         private void CenterOnPlayer() => CenterOn(WorldObjects.Select(o => o.Source).OfType<Player>().First().Pos);
 
         public void CenterOn(Pos2D pos)

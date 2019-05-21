@@ -122,7 +122,7 @@ namespace MattEland.Emergence.Services.AI
 
             // Attempt to interact with each object in the cell in turn, aborting the move if something stops us
             var objects = cell.Objects.ToList();
-            if (objects.Any(cellObject => !cellObject.OnActorAttemptedEnter(context, actor, cell)))
+            if (objects.Any(cellObject => !cellObject.OnActorAttemptedEnter(context, actor)))
             {
                 return;
             }

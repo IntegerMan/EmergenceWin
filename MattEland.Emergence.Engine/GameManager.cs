@@ -116,7 +116,7 @@ namespace MattEland.Emergence.Engine
             }
         }
 
-        public IEnumerable<ClientMessage> MovePlayer(MoveDirection direction)
+        public IEnumerable<GameMessage> MovePlayer(MoveDirection direction)
         {
             if (State != GameStatus.Ready) throw new InvalidOperationException("The game is not ready for input");
 

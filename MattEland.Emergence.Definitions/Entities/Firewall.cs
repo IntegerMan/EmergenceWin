@@ -20,7 +20,7 @@ namespace MattEland.Emergence.Definitions.Entities
         protected override string CustomName => "Firewall";
 
         /// <inheritdoc />
-        public override bool OnActorAttemptedEnter(ICommandContext context, IActor actor, IGameCell cell)
+        public override bool OnActorAttemptedEnter(ICommandContext context, IActor actor)
         {
             // Some actors can always breach the firewall
             if (actor.Team == Alignment.SystemCore || actor.Team == Alignment.SystemSecurity || actor.Team == Alignment.SystemAntiVirus)

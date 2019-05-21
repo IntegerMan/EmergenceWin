@@ -11,6 +11,6 @@ namespace MattEland.Emergence.Definitions.Model.EngineDefinitions
         Player Player { get; }
         IEnumerable<GameMessage> Start();
         IEnumerable<GameMessage> GenerateLevel();
-        IEnumerable<ClientMessage> MovePlayer(MoveDirection direction);
+        IEnumerable<GameMessage> MovePlayer(MoveDirection direction);
     }
 }

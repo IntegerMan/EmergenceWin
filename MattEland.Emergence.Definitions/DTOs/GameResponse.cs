@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using MattEland.Emergence.Definitions.Model.Messages;
 
 namespace MattEland.Emergence.Definitions.DTOs
 {
@@ -23,7 +24,7 @@ namespace MattEland.Emergence.Definitions.DTOs
         /// Gets or sets the messages the client application should display.
         /// </summary>
         /// <value>The messages.</value>
-        public ICollection<ClientMessage> Messages { get; set; } = new List<ClientMessage>();
+        public ICollection<GameMessage> Messages { get; set; } = new List<GameMessage>();
 
         /// <summary>
         /// Gets or sets the effects that took place this turn that should be rendered client-side

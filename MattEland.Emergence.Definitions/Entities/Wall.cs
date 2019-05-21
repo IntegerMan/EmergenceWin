@@ -22,7 +22,7 @@ namespace MattEland.Emergence.Definitions.Entities
         public override char AsciiChar => '#';
 
         /// <inheritdoc />
-        public override bool OnActorAttemptedEnter(ICommandContext context, IActor actor, IGameCell cell)
+        public override bool OnActorAttemptedEnter(ICommandContext context, IActor actor)
         {
             if (actor.IsPlayer)
             {

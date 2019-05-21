@@ -50,11 +50,11 @@ namespace MattEland.Emergence.Definitions.Entities
 
         }
 
-        public override bool OnActorAttemptedEnter(ICommandContext context, IActor actor, IGameCell cell)
+        public override bool OnActorAttemptedEnter(ICommandContext context, IActor actor)
         {
             if (ShouldOpenFor(actor) || IsOpen)
             {
-                return base.OnActorAttemptedEnter(context, actor, cell);
+                return base.OnActorAttemptedEnter(context, actor);
             }
             
             context.CombatManager.HandleAttack(context, actor, this, "attacks", actor.AttackDamageType);

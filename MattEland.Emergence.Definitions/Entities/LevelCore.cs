@@ -16,7 +16,7 @@ namespace MattEland.Emergence.Definitions.Entities
 
         public override bool IsCapturable => true;
 
-        public override bool OnActorAttemptedEnter(ICommandContext context, IActor actor, IGameCell cell)
+        public override bool OnActorAttemptedEnter(ICommandContext context, IActor actor)
         {
             context.CombatManager.HandleCapture(context, this, actor);
 

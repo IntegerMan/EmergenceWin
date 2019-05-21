@@ -4,6 +4,7 @@ using GeneticSharp.Domain.Randomizations;
 using MattEland.Emergence.Definitions.DTOs;
 using MattEland.Emergence.Definitions.Effects;
 using MattEland.Emergence.Definitions.Level;
+using MattEland.Emergence.Definitions.Model.Messages;
 
 namespace MattEland.Emergence.Definitions.Services
 {
@@ -16,7 +17,7 @@ namespace MattEland.Emergence.Definitions.Services
         ILootProvider LootProvider { get; }
         IEnumerable<EffectBase> Effects { get; }
 
-        IEnumerable<ClientMessage> Messages {get;}
+        IEnumerable<GameMessage> Messages {get;}
         IRandomization Randomizer { get; set; }
         event EventHandler<ActorDamagedEventArgs> OnActorHurt;
 

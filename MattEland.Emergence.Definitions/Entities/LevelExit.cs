@@ -20,7 +20,7 @@ namespace MattEland.Emergence.Definitions.Entities
         protected override string CustomName => "Outgoing Port";
 
         /// <inheritdoc />
-        public override bool OnActorAttemptedEnter(ICommandContext context, IActor actor, IGameCell cell)
+        public override bool OnActorAttemptedEnter(ICommandContext context, IActor actor)
         {
             if (!actor.IsPlayer)
             {
