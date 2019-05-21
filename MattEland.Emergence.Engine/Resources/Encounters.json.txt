@@ -1,0 +1,390 @@
+[
+  {
+    "Id": "None",
+    "Difficulty": 0
+  },
+  {
+    "Id": "Security Search",
+    "Difficulty": 3,
+    "Entities": [
+      {
+        "Id": "ACTOR_SEC_AGENT",
+        "Chance": 1,
+        "MinQuantity": 2,
+        "MaxQuantity": 4
+      }
+    ]
+  },    {
+    "Id": "Garbage Collector",
+    "Difficulty": 3,
+    "Entities": [
+      {
+        "Id": "ACTOR_GARBAGE_COLLECTOR",
+        "Chance": 1
+      }
+    ]
+  },  
+  {
+    "Id": "Security Detachment",
+    "Difficulty": 3,
+    "Entities": [
+      {
+        "Id": "ACTOR_SEC_AGENT",
+        "Chance": 1,
+        "MinQuantity":  4,  
+        "MaxQuantity":  8  
+      },
+      {
+        "Id": "ACTOR_INSPECTOR",
+        "Chance": 0.6,
+        "MinQuantity":  1,  
+        "MaxQuantity":  2  
+      }
+    ] 
+  },
+  {
+    "Id": "General Search",
+    "Difficulty": 1,
+    "Entities": [
+      {
+        "Id": "ACTOR_SEARCH",
+        "Chance": 1,
+        "MaxQuantity": 2
+      }
+    ] 
+  },
+  {
+    "Id": "Single Daemon",
+    "Difficulty": 1,
+    "Entities": [
+      {
+        "Id": "ACTOR_DAEMON",
+        "Chance": 1
+      }
+    ] 
+  },
+  {
+    "Id": "AntiVirus Patrol",
+    "Difficulty": 3,
+    "Entities": [
+      {
+        "Id": "ACTOR_ANTI_VIRUS",
+        "Chance": 1,
+        "MinQuantity":  1,
+        "MaxQuantity":  3 
+      }
+    ] 
+  },
+  {
+    "Id": "Logic Bomb",
+    "Difficulty": 3,
+    "Entities": [
+      {
+        "Id": "ACTOR_LOGIC_BOMB",
+        "Chance": 1,
+        "MinQuantity": 1,
+        "MaxQuantity": 2
+      }
+    ] 
+  },
+  {
+    "Id": "Inspector Search",
+    "Difficulty": 2,
+    "Entities": [
+      {
+        "Id": "ACTOR_INSPECTOR",
+        "Chance": 1,
+        "MaxQuantity": 2
+      }
+    ] 
+  },
+  {
+    "Id": "Defender w Escort",
+    "Difficulty": 2,
+    "Entities": [
+      {
+        "Id": "ACTOR_DEFENDER",
+        "Chance": 1
+      },
+      {
+        "Id": "ACTOR_SEC_AGENT",
+        "Chance": 1,
+        "MinQuantity": 2,
+        "MaxQuantity": 4
+      }
+    ] 
+  },
+  {
+    "Id": "Help Search",
+    "Difficulty": 2,
+    "Entities": [
+      {
+        "Id": "ACTOR_HELP",
+        "Chance": 1,
+        "MaxQuantity": 4
+      }
+    ] 
+  },
+  {
+    "Id": "Byte",
+    "Difficulty":  1, 
+    "Entities": [
+      {
+        "Id": "ACTOR_BIT",
+        "Chance": 1,
+        "MinQuantity": 8,
+        "MaxQuantity": 8
+      }
+    ]
+  },  
+  {
+    "Id": "BugSwarm",
+    "Difficulty":  3, 
+    "Entities": [
+      {
+        "Id": "ACTOR_BUG",
+        "Chance": 1,
+        "MinQuantity": 3,
+        "MaxQuantity": 8
+      },
+      {
+        "Id": "ACTOR_FEATURE",
+        "Chance": 0.5,
+        "MinQuantity": 0,
+        "MaxQuantity": 2
+      },
+      {
+        "Id": "ACTOR_GLITCH",
+        "Chance": 0.25,
+        "MinQuantity": 1,
+        "MaxQuantity": 1
+      }
+    ]
+  },
+  {
+    "Id": "BugMinor",
+    "Difficulty":  2, 
+    "Entities": [
+      {
+        "Id": "ACTOR_BUG",
+        "Chance": 1,
+        "MinQuantity": 1,
+        "MaxQuantity": 3
+      },
+      {
+        "Id": "ACTOR_FEATURE",
+        "Chance": 0.5,
+        "MinQuantity": 0,
+        "MaxQuantity": 2
+      }
+    ]
+  },
+  {
+    "Id": "Worms",
+    "Difficulty":  2, 
+    "Entities": [
+      {
+        "Id": "ACTOR_WORM",
+        "Chance": 1,
+        "MinQuantity": 1,
+        "MaxQuantity": 3
+      },
+      {
+        "Id": "ACTOR_VIRUS",
+        "Chance": 0.2,
+        "MinQuantity": 0,
+        "MaxQuantity": 2
+      }
+    ]
+  },
+  {
+    "Id": "Virus",
+    "Difficulty":  2, 
+    "Entities": [
+      {
+        "Id": "ACTOR_VIRUS",
+        "Chance": 1,
+        "MinQuantity": 1,
+        "MaxQuantity": 3
+      },
+      {
+        "Id": "ACTOR_GLITCH",
+        "Chance": 0.25,
+        "MinQuantity": 1,
+        "MaxQuantity": 2
+      }
+    ]
+  },
+  {
+    "Id": "Boss",
+    "Difficulty": 5,
+    "Entities": [
+      {
+        "Id": "ACTOR_ANTI_VIRUS",
+        "Chance": 0.5,
+        "MinQuantity": 2,
+        "MaxQuantity": 4
+      },
+      {
+        "Id": "ACTOR_DAEMON",
+        "Chance": 1,
+        "MinQuantity": 6,
+        "MaxQuantity": 8
+      },
+      {
+        "Id": "ACTOR_GARBAGE_COLLECTOR",
+        "Chance": 1,
+        "MinQuantity": 2,
+        "MaxQuantity": 4
+      },
+      {
+        "Id": "ACTOR_SEC_AGENT",
+        "Chance": 1,
+        "MinQuantity": 2,
+        "MaxQuantity": 6
+      },
+      {
+        "Id": "ACTOR_DEFENDER",
+        "Chance": 0.5,
+        "MinQuantity": 2,
+        "MaxQuantity": 4
+      }
+    ]
+  },
+  {
+    "Id": "Kernel",
+    "Difficulty":  5,
+    "Entities": [
+      {
+        "Id": "ACTOR_ANTI_VIRUS",
+        "Chance": 0.5,
+        "MinQuantity": 1,
+        "MaxQuantity": 3
+      },
+      {
+        "Id": "ACTOR_DAEMON",
+        "Chance": 1,
+        "MinQuantity": 4,
+        "MaxQuantity": 6
+      },
+      {
+        "Id": "ACTOR_GARBAGE_COLLECTOR",
+        "Chance": 0.25
+      },
+      {
+        "Id": "ACTOR_SEC_AGENT",
+        "Chance": 1,
+        "MinQuantity": 2,
+        "MaxQuantity": 6
+      },
+      {
+        "Id": "ACTOR_KERNEL_WORKER",
+        "Chance": 1,
+        "MinQuantity": 4,
+        "MaxQuantity": 8
+      },
+      {
+        "Id": "ACTOR_DEFENDER",
+        "Chance": 1,
+        "MinQuantity": 1,
+        "MaxQuantity": 3
+      }
+    ]
+  },
+  {
+    "Id": "Training",
+    "Difficulty":  5,
+    "Entities": [
+      {
+        "Id": "ACTOR_ANTI_VIRUS",
+        "Chance": 1,
+        "MinQuantity": 1,
+        "MaxQuantity": 1
+      },
+      {
+        "Id": "ACTOR_DAEMON",
+        "Chance": 1,
+        "MinQuantity": 1,
+        "MaxQuantity": 1
+      },
+      {
+        "Id": "ACTOR_BIT",
+        "Chance": 1,
+        "MinQuantity": 1,
+        "MaxQuantity": 1
+      },
+      {
+        "Id": "ACTOR_BUG",
+        "Chance": 1,
+        "MinQuantity": 1,
+        "MaxQuantity": 1
+      },
+      {
+        "Id": "ACTOR_VIRUS",
+        "Chance": 1,
+        "MinQuantity": 1,
+        "MaxQuantity": 1
+      },
+      {
+        "Id": "ACTOR_GLITCH",
+        "Chance": 1,
+        "MinQuantity": 1,
+        "MaxQuantity": 1
+      },
+      {
+        "Id": "ACTOR_WORM",
+        "Chance": 1,
+        "MinQuantity": 1,
+        "MaxQuantity": 1
+      },
+      {
+        "Id": "ACTOR_INSPECTOR",
+        "Chance": 1,
+        "MinQuantity": 1,
+        "MaxQuantity": 1
+      },
+      {
+        "Id": "ACTOR_GARBAGE_COLLECTOR",
+        "Chance": 1,
+        "MinQuantity": 1,
+        "MaxQuantity": 1
+      },
+      {
+        "Id": "ACTOR_SEC_AGENT",
+        "Chance": 1,
+        "MinQuantity": 1,
+        "MaxQuantity": 1
+      },
+      {
+        "Id": "ACTOR_KERNEL_WORKER",
+        "Chance": 1,
+        "MinQuantity": 1,
+        "MaxQuantity": 1
+      },
+      {
+        "Id": "ACTOR_FEATURE",
+        "Chance": 1,
+        "MinQuantity": 1,
+        "MaxQuantity": 1
+      },
+      {
+        "Id": "ACTOR_HELP",
+        "Chance": 1,
+        "MinQuantity": 1,
+        "MaxQuantity": 1
+      },
+      {
+        "Id": "ACTOR_LOGIC_BOMB",
+        "Chance": 1,
+        "MinQuantity": 1,
+        "MaxQuantity": 1
+      },
+      {
+        "Id": "ACTOR_DEFENDER",
+        "Chance": 1,
+        "MinQuantity": 1,
+        "MaxQuantity": 1
+      }
+    ]
+  }
+]

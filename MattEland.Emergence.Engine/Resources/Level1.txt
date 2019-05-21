@@ -1,0 +1,162 @@
+{
+    "Name": "Simple Server",
+    "Start": { "X": 11, "Y": 4 },
+    "Instructions": [
+        {
+            "PrefabId": "Intersection",
+            "X": 2,
+            "Y": -8,
+            "EncounterSet": "default"
+        },
+        {
+            "PrefabId": "Tank Room",
+            "X": -12,
+            "Y": -7,
+            "EncounterSet": "default"
+        },
+        {
+            "PrefabId": "Tank Room",
+            "X": 12,
+            "Y": -7,
+            "EncounterSet": "default"
+        },
+        {
+            "PrefabId": "Vertical Hall",
+            "X": -12,
+            "Y": -1,
+            "EncounterSet": "small"
+        },
+        {
+            "PrefabId": "Network Adapter",
+            "X": 0,
+            "Y": 0,
+            "EncounterSet": "none"
+        },
+        {
+            "PrefabId": "Threadpool",
+            "X": 34,
+            "Y": -6,
+            "EncounterSet": "default"
+        },
+        {
+            "PrefabId": "Junction Room",
+            "X": -20,
+            "Y": -6,
+            "EncounterSet": "small"
+        },
+        {
+            "PrefabId": "Junction Room",
+            "X": 26,
+            "Y": -6,
+            "EncounterSet": "small"
+        },
+        {
+            "PrefabId": "Junction Room",
+            "X": -20,
+            "Y": 2,
+            "EncounterSet": "small"
+        },
+        {
+            "PrefabId": "Connector Bus",
+            "X": 16,
+            "Y": -19,
+            "EncounterSet": "default"
+        },
+        {
+            "PrefabId": "Connector Bus",
+            "X": -26,
+            "Y": -10,
+            "EncounterSet": "default"
+        },
+        {
+            "PrefabId": "Side Chamber",
+            "X": 25,
+            "Y": 2,
+            "EncounterSet": "small"
+        },
+        {
+            "PrefabId": "Side Chamber",
+            "X": -35,
+            "Y": -2,
+            "EncounterSet": "small"
+        },
+        {
+            "PrefabId": "Side Chamber",
+            "X": -35,
+            "Y": -10,
+            "EncounterSet": "small"
+        },
+        {
+            "PrefabId": "Data Warehouse",
+            "X": 22,
+            "Y": -18,
+            "EncounterSet": "default"
+        },
+        {
+            "PrefabId": "Operating System Kernel",
+            "X": -36,
+            "Y": -22,
+            "EncounterSet": "kernel"
+        },
+        {
+            "PrefabId": "Tank Room",
+            "X": -4,
+            "Y": -23,
+            "EncounterSet": "default"
+        },
+        {
+            "PrefabId": "Security Checkpoint",
+            "X": -2,
+            "Y": -17,
+            "EncounterSet": "security"
+        },
+        {
+            "PrefabId": "Narrow Hall",
+            "X": -12,
+            "Y": -22,
+            "EncounterSet": "small"
+        },
+        {
+            "PrefabId": "Narrow Hall",
+            "X": 37,
+            "Y": -15,
+            "EncounterSet": "small"
+        },
+        {
+            "PrefabId": "Narrow Hall",
+            "X": 10,
+            "Y": -19,
+            "EncounterSet": "small"
+        },
+        {
+            "PrefabId": "Narrow Junction",
+            "X": 50,
+            "Y": -6,
+            "EncounterSet": "small"
+        },
+        {
+            "PrefabId": "Narrow Junction",
+            "X": -24,
+            "Y": 2,
+            "EncounterSet": "small"
+        },
+        {
+            "PrefabId": "Narrow Junction",
+            "X": 44,
+            "Y": -15,
+            "EncounterSet": "small"
+        },
+        {
+            "PrefabId": "Narrow Junction",
+            "X": -10,
+            "Y": 1,
+            "EncounterSet": "small"
+        },
+        {
+            "PrefabId": "Vertical Hall",
+            "X": 45,
+            "Y": -12,
+            "EncounterSet": "small"
+        }
+    ]
+}

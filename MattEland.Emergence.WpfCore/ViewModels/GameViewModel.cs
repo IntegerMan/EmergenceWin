@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using JetBrains.Annotations;
-using MattEland.Emergence.Definitions.DTOs;
-using MattEland.Emergence.Definitions.Entities;
-using MattEland.Emergence.Definitions.Level;
-using MattEland.Emergence.Definitions.Model;
-using MattEland.Emergence.Definitions.Model.Messages;
 using MattEland.Emergence.Engine;
-using MattEland.Emergence.Services;
+using MattEland.Emergence.Engine.Entities;
+using MattEland.Emergence.Engine.Level;
+using MattEland.Emergence.Engine.Model;
+using MattEland.Emergence.Engine.Model.Messages;
 using MattEland.Shared.Collections;
 
 namespace MattEland.Emergence.WpfCore.ViewModels

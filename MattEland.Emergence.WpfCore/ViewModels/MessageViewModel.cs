@@ -1,4 +1,4 @@
-﻿using MattEland.Emergence.Definitions.Model.Messages;
+﻿using MattEland.Emergence.Engine.Model.Messages;
 
 namespace MattEland.Emergence.WpfCore.ViewModels
 {

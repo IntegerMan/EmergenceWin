@@ -1,0 +1,12 @@
+{
+    "Name": "Training",
+    "Start": { "X": -17, "Y": -12 },
+    "Instructions": [
+        {
+            "PrefabId": "Training",
+            "X": -24,
+            "Y": -36,
+            "EncounterSet": "Training"
+        }
+    ]
+}

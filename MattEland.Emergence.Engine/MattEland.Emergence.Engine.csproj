@@ -5,13 +5,53 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="GeneticSharp" Version="2.5.1" />
+    <Compile Remove="AI\ActorFitnessFunctionBase.cs" />
+    <Compile Remove="AI\ActorSurvivalFitnessFunction.cs" />
+    <Compile Remove="AI\AnnoyPlayerFitnessFunction.cs" />
+    <Compile Remove="AI\AttackAlignmentFitnessFunction.cs" />
+    <Compile Remove="AI\ChromosomeDataProvider.cs" />
+    <Compile Remove="AI\CleanseCorruptionFitnessFunction.cs" />
+    <Compile Remove="AI\ControlCoresFitnessFunction.cs" />
+    <Compile Remove="AI\CorruptActorsFitnessFunction.cs" />
+    <Compile Remove="AI\CorruptAreaFitnessFunction.cs" />
+    <Compile Remove="AI\DefendAlignmentFitnessFunction.cs" />
+    <Compile Remove="AI\FitnessBrainProvider.cs" />
+    <Compile Remove="AI\FitnessFunctionFactory.cs" />
+    <Compile Remove="AI\FitnessFunctionType.cs" />
+    <Compile Remove="AI\FitnessTracker.cs" />
+    <Compile Remove="AI\GameSimulator.cs" />
+    <Compile Remove="AI\ICommandContextGenerator.cs" />
+    <Compile Remove="AI\LogicBombFitnessFunction.cs" />
+    <Compile Remove="AI\MaximizeChaosFitnessFunction.cs" />
+    <Compile Remove="AI\MaximizeVisibilityFitnessFunction.cs" />
+    <Compile Remove="Game\FileSystemGameStateRepository.cs" />
+    <Compile Remove="Level\Pos2DJsonConverter.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MattEland.Emergence.LevelGeneration\MattEland.Emergence.LevelGeneration.csproj" />
-    <ProjectReference Include="..\MattEland.Emergence.Loot\MattEland.Emergence.Loot.csproj" />
-    <ProjectReference Include="..\MattEland.Emergence.SharedServices\MattEland.Emergence.SharedServices.csproj" />
+    <PackageReference Include="GeneticSharp" Version="2.5.1" />
+    <PackageReference Include="JetBrains.Annotations" Version="2019.1.1" />
+    <PackageReference Include="MattEland.Shared" Version="1.0.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="AI\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

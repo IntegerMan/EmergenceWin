@@ -1,0 +1,75 @@
+{
+  "Name": "Router Gateway",
+  "Start": {"X": 5, "Y":  2},
+  "Instructions": [
+    {
+      "PrefabId": "Network In-Only",
+      "X": 0,
+      "Y": 0,
+      "EncounterSet": "none"
+    },
+    {
+      "PrefabId": "Tank Room",
+      "X": -14,
+      "Y": -1
+    },
+    {
+      "PrefabId": "Pillar Room",
+      "X": -24,
+      "Y": -3
+    },
+    {
+      "PrefabId": "Airlock",
+      "X": -21,
+      "Y": 7
+    },
+    {
+      "PrefabId": "AirlockHForceField",
+      "X": -28,
+      "Y": 0
+    },
+    {
+      "PrefabId": "Airlock",
+      "X": -21,
+      "Y": -7
+    },
+    {
+      "PrefabId": "Boss Side Core",
+      "X": -24,
+      "Y": -21,
+      "EncounterSet": "bossCore"
+    },
+    {
+      "PrefabId": "Boss Side Core",
+      "X": -24,
+      "Y": 11,
+      "FlipY": true,
+      "EncounterSet": "bossCore"
+    },
+    {
+      "PrefabId": "BossChamber",
+      "X": -46,
+      "Y": -7,
+      "EncounterSet": "boss"
+    },
+    {
+      "PrefabId": "BossSideChamber",
+      "X": -41,
+      "Y": -15,
+      "EncounterSet": "bossCore"
+    },
+    {
+      "PrefabId": "BossSideChamber",
+      "X": -41,
+      "Y": 12,
+      "FlipY": true,
+      "EncounterSet": "bossCore"
+    },
+    {
+      "PrefabId": "BossEndChamber",
+      "X": -54,
+      "Y": -1,
+      "EncounterSet": "bossEnd"
+    }
+  ]
+}

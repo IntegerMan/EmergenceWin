@@ -1,0 +1,13 @@
+{
+    "Name": "Training Single Room",
+    "Start": { "X": 7, "Y": 2 },
+    "Instructions": [
+        {
+            "PrefabId": "TrainSingleRoom",
+            "X": 0,
+            "Y": 0,
+            "EncounterSet": "None"
+        }
+    ]
+}
+    

@@ -1,0 +1,248 @@
+{
+    "Name": "Data Interchange",
+    "Start": { "X": 2, "Y": 0},
+    "Instructions": [
+        {
+            "PrefabId": "Network Adapter",
+            "X": -9,
+            "Y": -4,
+            "EncounterSet": "none"
+        },
+        {
+            "PrefabId": "Vertical Airlock",
+            "X": -14,
+            "Y": -14
+        },
+        {
+            "PrefabId": "Vertical Airlock",
+            "X": 6,
+            "Y": -14
+        },
+        {
+            "PrefabId": "Elbow Corridor",
+            "X": -13,
+            "Y": -10
+        },
+        {
+            "PrefabId": "Short Vertical Hall",
+            "X": -25,
+            "Y": -22
+        },
+        {
+            "PrefabId": "Short Vertical Hall",
+            "X": 19,
+            "Y": -22
+        },
+        {
+            "PrefabId": "Mini Room with Grates",
+            "X": 18,
+            "Y": -28
+        },
+        {
+            "PrefabId": "Bridge Room End",
+            "X": -22,
+            "Y": -34
+        },
+        {
+            "PrefabId": "Bridge Room End",
+            "X": 11,
+            "Y": -34,
+            "FlipX": true
+        },
+        {
+            "PrefabId": "Bridge Room Segment",
+            "X": -14,
+            "Y": -34
+        },
+        {
+            "PrefabId": "Bridge Room Segment",
+            "X": -2,
+            "Y": -34
+        },
+        {
+            "PrefabId": "Bridge Room Segment",
+            "X": 4,
+            "Y": -34
+        },
+        {
+            "PrefabId": "Bridge Room Segment",
+            "X": -8,
+            "Y": -34
+        },
+        {
+            "PrefabId": "Mini Room with Grates",
+            "X": -26,
+            "Y": -28
+        },
+        {
+            "PrefabId": "Mini Room with Grates",
+            "X": -66,
+            "Y": -18
+        },
+        {
+            "PrefabId": "Vertical Airlock",
+            "X": -66,
+            "Y": -12
+        },
+        {
+            "PrefabId": "Force Field Room",
+            "X": -70,
+            "Y": -8
+        },
+        {
+            "PrefabId": "Vertical Airlock",
+            "X": -66,
+            "Y": -2
+        },
+        {
+            "PrefabId": "Elbow Corridor",
+            "X": 0,
+            "Y": -10,
+            "FlipX": true
+        },
+        {
+            "PrefabId": "Long Corridor",
+            "X": -27,
+            "Y": -18,
+            "FlipX": true
+        },
+        {
+            "PrefabId": "Long Corridor",
+            "X": 5,
+            "Y": -18,
+            "FlipX": true
+        },
+        {
+            "PrefabId": "Short Vertical Hall",
+            "X": 60,
+            "Y": -25
+        },
+        {
+            "PrefabId": "Short Vertical Hall",
+            "X": 60,
+            "Y": -11
+        },
+        {
+            "PrefabId": "Short Vertical Hall",
+            "X": -34,
+            "Y": -25
+        },
+        {
+            "PrefabId": "Short Vertical Hall",
+            "X": -34,
+            "Y": -11
+        },
+        {
+            "PrefabId": "Horizontal Water Maze",
+            "X": 54,
+            "Y": -29
+        },
+        {
+            "PrefabId": "Horizontal Water Maze",
+            "X": 54,
+            "Y": -7,
+            "FlipX": true,
+            "FlipY": true
+        },
+        {
+            "PrefabId": "Horizontal Water Maze",
+            "X": -40,
+            "Y": -29,
+            "FlipX": true
+        },
+        {
+            "PrefabId": "Horizontal Water Maze",
+            "X": -40,
+            "Y": -7,
+            "FlipY": true
+        },
+        {
+            "PrefabId": "Widening Segment",
+            "X": 23,
+            "Y": -21
+        },
+        {
+            "PrefabId": "Widening Segment",
+            "X": -53,
+            "Y": -21
+        },
+        {
+            "PrefabId": "Wide Water Bridge Segment",
+            "X": -45,
+            "Y": -21
+        },
+        {
+            "PrefabId": "Wide Water Bridge Segment",
+            "X": -39,
+            "Y": -21
+        },
+        {
+            "PrefabId": "Widening Segment",
+            "X": -34,
+            "Y": -21,
+            "FlipX": true
+        },
+        {
+            "PrefabId": "Wide Water Bridge Segment",
+            "X": 31,
+            "Y": -21
+        },
+        {
+            "PrefabId": "Wide Water Bridge Segment",
+            "X": 37,
+            "Y": -21
+        },
+        {
+            "PrefabId": "Wide Water Bridge Segment",
+            "X": 43,
+            "Y": -21
+        },
+        {
+            "PrefabId": "Wide Water Bridge Segment",
+            "X": 49,
+            "Y": -21
+        },
+        {
+            "PrefabId": "Wide Water Bridge Segment",
+            "X": 55,
+            "Y": -21
+        },
+        {
+            "PrefabId": "Widening Segment",
+            "X": 60,
+            "Y": -21,
+            "FlipX": true
+        },
+        {
+            "PrefabId": "Horizontal Airlock",
+            "X": 67,
+            "Y": -18
+        },
+        {
+            "PrefabId": "Narrow Hall",
+            "X": -60,
+            "Y": -17
+        },
+        {
+            "PrefabId": "One Block Junction",
+            "X": -62,
+            "Y": -17
+        },
+        {
+            "PrefabId": "Wellhead Quad Core",
+            "X": 71,
+            "Y": -25
+        },
+        {
+            "PrefabId": "Wellhead Quad Core",
+            "X": -73,
+            "Y": 2
+        },
+        {
+            "PrefabId": "Large Caution Room",
+            "X": -9,
+            "Y": -21,
+            "FlipX": true
+        }
+    ]
+}

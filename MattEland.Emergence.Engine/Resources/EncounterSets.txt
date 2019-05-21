@@ -1,0 +1,38 @@
+[
+  {
+    "id": "none",
+    "encounterIds": [ "None" ]
+  },
+  {
+    "id": "default",
+    "encounterIds": [ "Security Search", "Garbage Collector", "General Search", "AntiVirus Patrol", "Logic Bomb", "Inspector Search", "Help Search", "Byte", "Defender w Escort", "Worms", "BugMinor", "BugSwarm", "Virus" ]
+  },
+  {
+    "id": "small",
+    "encounterIds": [ "Security Search", "Garbage Collector", "General Search", "Single Daemon", "Logic Bomb", "Inspector Search", "Byte", "Defender w Escort", "Worms", "BugMinor", "AntiVirus Patrol"]
+  },
+  {
+    "id": "security",
+    "encounterIds": [ "Security Search", "Security Detachment", "Defender w Escort", "AntiVirus Patrol"]
+  },
+  {
+    "id": "boss",
+    "encounterIds": [ "Boss" ]
+  },
+  {
+    "id": "bossEnd",
+    "encounterIds": [ "Garbage Collector", "Logic Bomb", "Help Search", "Single Daemon", "Defender w Escort" ]
+  },
+  {
+    "id": "bossCore",
+    "encounterIds": [ "Garbage Collector", "Security Detachment", "Kernel", "Defender w Escort" ]
+  },
+  {
+    "id": "Training",
+    "encounterIds": [ "Training" ]
+  },
+  {
+    "id": "kernel",
+    "encounterIds": [ "Kernel" ]
+  }
+]

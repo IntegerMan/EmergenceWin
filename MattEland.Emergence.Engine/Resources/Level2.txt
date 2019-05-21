@@ -1,0 +1,246 @@
+{
+  "Name": "Smart Fridge",
+  "Start": { "X": 3, "Y": -2 },
+  "Instructions": [
+    {
+      "PrefabId": "Short Vertical Hall",
+      "X": -5,
+      "Y": -10
+    },
+    {
+      "PrefabId": "Short Vertical Hall",
+      "X": 1,
+      "Y": -10
+    },
+    {
+      "PrefabId": "Large Hall",
+      "X": -8,
+      "Y": -14
+    },
+    {
+      "PrefabId": "Horizontal Airlock",
+      "X": -27,
+      "Y": -14
+    },
+    {
+      "PrefabId": "Large Hall",
+      "X": -24,
+      "Y": -14
+    },
+    {
+      "PrefabId": "Large Hall",
+      "X": -56,
+      "Y": -36
+    },
+    {
+      "PrefabId": "Connector Bus",
+      "X": -4,
+      "Y": -26
+    },
+    {
+      "PrefabId": "Connector Bus",
+      "X": -20,
+      "Y": -26
+    },
+    {
+      "PrefabId": "Small Arena",
+      "X": -8,
+      "Y": -36
+    },
+    {
+      "PrefabId": "Small Arena",
+      "X": -24,
+      "Y": -36
+    },
+    {
+      "PrefabId": "Water Maze",
+      "X": -39,
+      "Y": -20
+    },
+    {
+      "PrefabId": "Quad Service Room",
+      "X": -39,
+      "Y": -30
+    },
+    {
+      "PrefabId": "Mini Room with Twin Data Stores",
+      "X": -31,
+      "Y": -36
+    },
+    {
+      "PrefabId": "Mini Room with Services",
+      "X": -39,
+      "Y": -36
+    },
+    {
+      "PrefabId": "Mini Room with Treasure",
+      "X": -35,
+      "Y": -36
+    },
+    {
+      "PrefabId": "Room with Services",
+      "X": -56,
+      "Y": -44
+    },
+    {
+      "PrefabId": "Room with Trapped Goodies",
+      "X": -50,
+      "Y": -44
+    },
+    {
+      "PrefabId": "Short Horizontal Hall",
+      "X": -60,
+      "Y": -40
+    },
+    {
+      "PrefabId": "Short Horizontal Hall",
+      "X": -59,
+      "Y": -17
+    },
+    {
+      "PrefabId": "Shallow Airlock",
+      "X": -57,
+      "Y": -26
+    },
+    {
+      "PrefabId": "Horizontal Airlock",
+      "X": -11,
+      "Y": -33
+    },
+    {
+      "PrefabId": "Gated Arena",
+      "X": -55,
+      "Y": -32
+    },
+    {
+      "PrefabId": "L Pool",
+      "X": -55,
+      "Y": -22
+    },
+    {
+      "PrefabId": "Turret Hall",
+      "X": -74,
+      "Y": -46
+    },
+    {
+      "PrefabId": "Turret Hall",
+      "X": -74,
+      "Y": -6,
+      "FlipY": true
+    },
+    {
+      "PrefabId": "Dog Bone Service Hall",
+      "X": -77,
+      "Y": -28
+    },
+    {
+      "PrefabId": "Barrier U Hall",
+      "X": -75,
+      "Y": -20
+    },
+    {
+      "PrefabId": "Barrier U Hall",
+      "X": -75,
+      "Y": -36,
+      "FlipY": true
+    },
+    {
+      "PrefabId": "Core Trap Room",
+      "X": -71,
+      "Y": -22
+    },
+    {
+      "PrefabId": "Core Trap Room",
+      "X": -71,
+      "Y": -32,
+      "FlipY": true
+    },
+    {
+      "PrefabId": "Data Beach",
+      "X": -74,
+      "Y": -42
+    },
+    {
+      "PrefabId": "Data Beach",
+      "X": -74,
+      "Y": -12,
+      "FlipY": true
+    },
+    {
+      "PrefabId": "Horizontal Airlock",
+      "X": -27,
+      "Y": -33
+    },
+    {
+      "PrefabId": "3x7 Data Lake",
+      "X": -24,
+      "Y": -22
+    },
+    {
+      "PrefabId": "3x3 Treasure",
+      "X": -24,
+      "Y": -26
+    },
+    {
+      "PrefabId": "3x8 Partitioned Room",
+      "X": -14,
+      "Y": -23
+    },
+    {
+      "PrefabId": "3x2 Service Locker",
+      "X": -14,
+      "Y": -26
+    },
+    {
+      "PrefabId": "1x2 Data Closet",
+      "X": 2,
+      "Y": -26
+    },
+    {
+      "PrefabId": "1x2 Data Closet",
+      "X": 4,
+      "Y": -26
+    },
+    {
+      "PrefabId": "3x3 2 North Doors",
+      "X": 2,
+      "Y": -23
+    },
+    {
+      "PrefabId": "3x7 Data Peninsula",
+      "X": -8,
+      "Y": -26
+    },
+    {
+      "PrefabId": "3x4 Grates",
+      "X": 2,
+      "Y": -19
+    },
+    {
+      "PrefabId": "Horizontal Airlock",
+      "X": -43,
+      "Y": -36
+    },
+    {
+      "PrefabId": "Vertical Airlock",
+      "X": -8,
+      "Y": -18
+    },
+    {
+      "PrefabId": "Vertical Airlock",
+      "X": -35,
+      "Y": -24
+    },
+    {
+      "PrefabId": "One Block Junction",
+      "X": -10,
+      "Y": -13
+    },
+    {
+      "PrefabId": "Network Adapter",
+      "X": -8,
+      "Y": -6,
+      "EncounterSet": "none"
+    }
+  ]
+}

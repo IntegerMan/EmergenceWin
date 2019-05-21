@@ -3,20 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using GeneticSharp.Domain.Randomizations;
 using JetBrains.Annotations;
-using MattEland.Emergence.AI;
-using MattEland.Emergence.AI.Brains;
-using MattEland.Emergence.Definitions.DTOs;
-using MattEland.Emergence.Definitions.Entities;
-using MattEland.Emergence.Definitions.Level;
-using MattEland.Emergence.Definitions.Model;
-using MattEland.Emergence.Definitions.Model.EngineDefinitions;
-using MattEland.Emergence.Definitions.Model.Messages;
-using MattEland.Emergence.Definitions.Services;
-using MattEland.Emergence.LevelGeneration;
-using MattEland.Emergence.LevelGeneration.Encounters;
-using MattEland.Emergence.LevelGeneration.Prefabs;
-using MattEland.Emergence.Loot;
-using MattEland.Emergence.Services.Game;
+using MattEland.Emergence.Engine.DTOs;
+using MattEland.Emergence.Engine.Entities;
+using MattEland.Emergence.Engine.Game;
+using MattEland.Emergence.Engine.Level;
+using MattEland.Emergence.Engine.Level.Generation;
+using MattEland.Emergence.Engine.Level.Generation.Encounters;
+using MattEland.Emergence.Engine.Level.Generation.Prefabs;
+using MattEland.Emergence.Engine.Loot;
+using MattEland.Emergence.Engine.Model;
+using MattEland.Emergence.Engine.Model.EngineDefinitions;
+using MattEland.Emergence.Engine.Model.Messages;
+using MattEland.Emergence.Engine.Services;
 using MattEland.Shared.Collections;
 
 namespace MattEland.Emergence.Engine
@@ -25,7 +23,12 @@ namespace MattEland.Emergence.Engine
     {
         public GameManager()
         {
+            _entityService = new EntityDefinitionService();
+            _combatManager = new CombatManager();
+            _randomization = new BasicRandomization();
+            _loot = new LootProvider();
             _levelBuilder = new LevelGenerationService(new PrefabService(), new EncountersService(), new BasicRandomization());
+            _service = new GameService(_levelBuilder, _combatManager, _loot, _entityService, new GameSimulationManager());
 
             _levels = new Queue<LevelType>();
         }
@@ -38,8 +41,14 @@ namespace MattEland.Emergence.Engine
         [NotNull]
         private readonly LevelGenerationService _levelBuilder;
 
-        private readonly Queue<LevelType> _levels;
         private ILevel _level;
+
+        private readonly Queue<LevelType> _levels;
+        private readonly EntityDefinitionService _entityService;
+        private readonly CombatManager _combatManager;
+        private readonly BasicRandomization _randomization;
+        private readonly LootProvider _loot;
+        private readonly GameService _service;
 
         public GameStatus State { get; private set; }
         public IPlayer Player => _player;
@@ -125,25 +134,7 @@ namespace MattEland.Emergence.Engine
 
             var targetPos = _player.Pos.GetNeighbor(direction);
 
-            var aiService = new ArtificialIntelligenceService(new LegacyBrainProvider());
-            var entityService = new EntityDefinitionService();
-            var combatManager = new CombatManager();
-            var randomization = new BasicRandomization();
-            var loot = new LootProvider();
-
-            var service = new GameService(_levelBuilder, aiService, combatManager, loot, entityService, new GameSimulationManager(),  randomization );
-            ICommandContext context = new CommandContext(_level, service, entityService, combatManager, loot, randomization );
-
-            //var context = new CommandContext(this, _player, _objects);
-
-            foreach (var obj in _objects.Where(o => o.Pos == targetPos).OrderByDescending(o => o.ZIndex))
-            {
-                // Some messages should stop future interactions
-                if (!obj.OnActorAttemptedEnter(context, _player))
-                {
-                    break;
-                }
-            }
+            var context = _service.HandleGameMove(targetPos);
 
             State = GameStatus.Ready;
 

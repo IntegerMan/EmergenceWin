@@ -1,0 +1,12 @@
+{
+    "Name": "Training FriendlyFire",
+    "Start": { "X": 1, "Y": 1 },
+    "Instructions": [
+        {
+            "PrefabId": "TrainFriendlyFire",
+            "X": 0,
+            "Y": 0,
+            "EncounterSet": "None"
+        }
+    ]
+}

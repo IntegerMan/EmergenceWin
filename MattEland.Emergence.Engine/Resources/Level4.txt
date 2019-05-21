@@ -1,0 +1,356 @@
+{
+  "Name": "Bastion System",
+  "Start": { "X": -20, "Y": 31 },
+  "Instructions": [
+    {
+      "PrefabId": "Widening Corridor",
+      "X": -29,
+      "Y": 23
+    },
+    {
+      "PrefabId": "Widening Corridor",
+      "X": -2,
+      "Y": -17,
+      "FlipY": true
+    },
+    {
+      "PrefabId": "Connector Bus",
+      "X": -27,
+      "Y": 11
+    },
+    {
+      "PrefabId": "Connector Bus",
+      "X": -18,
+      "Y": -13
+    },
+    {
+      "PrefabId": "Intersection",
+      "X": -60,
+      "Y": -2
+    },
+    {
+      "PrefabId": "Connector Bus",
+      "X": 0,
+      "Y": -39
+    },
+    {
+      "PrefabId": "5x7 Core",
+      "X": -51,
+      "Y": -13
+    },
+    {
+      "PrefabId": "15x9 Swimming Pool",
+      "X": -56,
+      "Y": -27
+    },
+    {
+      "PrefabId": "Corridor with Ducts",
+      "X": -56,
+      "Y": -17
+    },
+    {
+      "PrefabId": "Corridor with Ducts",
+      "X": -45,
+      "Y": -17,
+      "FlipX": true 
+    },
+    {
+      "PrefabId": "Pillar Room",
+      "X": -2,
+      "Y": -27
+    },
+    {
+      "PrefabId": "Wellhead One Core",
+      "X": -24,
+      "Y": -31
+    },
+    {
+      "PrefabId": "5x4 Vertical Hallway",
+      "X": -9,
+      "Y": 13
+    },
+    {
+      "PrefabId": "5x4 Vertical Hallway",
+      "X": -18,
+      "Y": -36
+    },
+    {
+      "PrefabId": "5x5 Quad Service",
+      "X": -8,
+      "Y": -10
+    },
+    {
+      "PrefabId": "5x5 NS Bridge",
+      "X": -18,
+      "Y": -42
+    },
+    {
+      "PrefabId": "Horizontal Airlock",
+      "X": -22,
+      "Y": -9
+    },
+    {
+      "PrefabId": "Horizontal Airlock",
+      "X": -12,
+      "Y": -9
+    },
+    {
+      "PrefabId": "Horizontal Airlock",
+      "X": -6,
+      "Y": -24
+    },
+    {
+      "PrefabId": "Horizontal Airlock",
+      "X": -50,
+      "Y": 0
+    },
+    {
+      "PrefabId": "Horizontal Airlock",
+      "X": -28,
+      "Y": -24
+    },
+    {
+      "PrefabId": "Horizontal Airlock",
+      "X": -40,
+      "Y": -24
+    },
+    {
+      "PrefabId": "Horizontal Airlock",
+      "X": -2,
+      "Y": -10
+    },
+    {
+      "PrefabId": "13x5 Laser Maze",
+      "X": -55,
+      "Y": -41
+    },
+    {
+      "PrefabId": "Vertical Airlock",
+      "X": -54,
+      "Y": -45
+    },
+    {
+      "PrefabId": "Quad Service Room",
+      "X": -21,
+      "Y": 14
+    },
+    {
+      "PrefabId": "T Corridor",
+      "X": -49,
+      "Y": 14
+    },
+    {
+      "PrefabId": "6x7 Barrier Room",
+      "X": -46,
+      "Y": -2
+    },
+    {
+      "PrefabId": "Room with Services",
+      "X": -51,
+      "Y": -35
+    },
+    {
+      "PrefabId": "7x5 Service Room",
+      "X": -57,
+      "Y": 16
+    },
+    {
+      "PrefabId": "Two-Sided Trench",
+      "X": -21,
+      "Y": 8
+    },
+    {
+      "PrefabId": "5x3 Vertical Hallway",
+      "X": -27,
+      "Y": 7
+    },
+    {
+      "PrefabId": "One Block Junction",
+      "X": -25,
+      "Y": 5
+    },
+    {
+      "PrefabId": "One Block Junction",
+      "X": -56,
+      "Y": -4
+    },
+    {
+      "PrefabId": "One Block Junction",
+      "X": -42,
+      "Y": -4
+    },
+    {
+      "PrefabId": "5x3 Vertical Hallway",
+      "X": -34,
+      "Y": 4
+    },
+    {
+      "PrefabId": "Round Turret Pond",
+      "X": -36,
+      "Y": -26
+    },
+    {
+      "PrefabId": "5x7 Services",
+      "X": -28,
+      "Y": -11
+    },
+    {
+      "PrefabId": "7x3 Treasure",
+      "X": -35,
+      "Y": 0
+    },
+    {
+      "PrefabId": "3x5 Horizontal Hall",
+      "X": -39,
+      "Y": -1
+    },
+    {
+      "PrefabId": "7x2 Data",
+      "X": -35,
+      "Y": -3
+    },
+    {
+      "PrefabId": "Corner Hall",
+      "X": -32,
+      "Y": -8
+    },
+    {
+      "PrefabId": "One Block Junction",
+      "X": -39,
+      "Y": 18
+    },
+    {
+      "PrefabId": "1x7 Hallway",
+      "X": -45,
+      "Y": 6
+    },
+    {
+      "PrefabId": "T Corridor with Water",
+      "X": -10,
+      "Y": 18
+    },
+    {
+      "PrefabId": "T Corridor with Water",
+      "X": -19,
+      "Y": -46,
+      "FlipY": true
+    },
+    {
+      "PrefabId": "BossSideChamber",
+      "X": -10,
+      "Y": 23,
+      "FlipY": true
+    },
+    {
+      "PrefabId": "BossSideChamber",
+      "X": -19,
+      "Y": -54
+    },
+    {
+      "PrefabId": "5x1 Hall",
+      "X": -33,
+      "Y": 16
+    },
+    {
+      "PrefabId": "5x1 Hall",
+      "X": -33,
+      "Y": -51
+    },
+    {
+      "PrefabId": "5x1 Hall",
+      "X": -24,
+      "Y": -51
+    },
+    {
+      "PrefabId": "5x1 Hall",
+      "X": -11,
+      "Y": -51
+    },
+    {
+      "PrefabId": "5x1 Hall",
+      "X": -43,
+      "Y": 10
+    },
+    {
+      "PrefabId": "5x1 Hall",
+      "X": -47,
+      "Y": -51
+    },
+    {
+      "PrefabId": "Mini-Wellhead 1 Core",
+      "X": -57,
+      "Y": -55
+    },
+    {
+      "PrefabId": "Horizontal Airlock",
+      "X": -28,
+      "Y": -52
+    },
+    {
+      "PrefabId": "Side Cage",
+      "X": 2,
+      "Y": -13
+    },
+    {
+      "PrefabId": "3x7 Center Treasure",
+      "X": 2,
+      "Y": -4
+    },
+    {
+      "PrefabId": "7x5 Service Room",
+      "X": -41,
+      "Y": -53
+    },
+    {
+      "PrefabId": "3x5 Hub Room",
+      "X": -37,
+      "Y": 14
+    },
+    {
+      "PrefabId": "Water Pond Room",
+      "X": -37,
+      "Y": 8
+    },
+    {
+      "PrefabId": "3x5 Dual Data",
+      "X": -26,
+      "Y": -1
+    },
+    {
+      "PrefabId": "3x5 Dual Data",
+      "X": -8,
+      "Y": -1
+    },
+    {
+      "PrefabId": "5x1 Hall",
+      "X": -4,
+      "Y": 1
+    },
+    {
+      "PrefabId": "10 Silos",
+      "X": -5,
+      "Y": -54
+    },
+    {
+      "PrefabId": "Water Trench Add-on",
+      "X": -2,
+      "Y": -46
+    },
+    {
+      "PrefabId": "Tank Room",
+      "X": -22,
+      "Y": -1
+    },
+    {
+      "PrefabId": "Room with Services",
+      "X": -9,
+      "Y": 5
+    },
+    {
+      "PrefabId": "Network Adapter",
+      "X": -31,
+      "Y": 27,
+      "EncounterSet": "none"
+    }
+  ]
+}

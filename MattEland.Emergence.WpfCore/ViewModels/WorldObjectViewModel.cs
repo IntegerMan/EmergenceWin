@@ -4,9 +4,9 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Windows.Media;
 using JetBrains.Annotations;
-using MattEland.Emergence.Definitions.Entities;
-using MattEland.Emergence.Definitions.Level;
-using MattEland.Emergence.Definitions.Model.Messages;
+using MattEland.Emergence.Engine.Entities;
+using MattEland.Emergence.Engine.Level;
+using MattEland.Emergence.Engine.Model.Messages;
 
 namespace MattEland.Emergence.WpfCore.ViewModels
 {
