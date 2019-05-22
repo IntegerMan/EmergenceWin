@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using GeneticSharp.Domain.Randomizations;
+using MattEland.Emergence.Engine.Entities;
 using MattEland.Emergence.Engine.Level.Generation.Encounters;
 using MattEland.Emergence.Engine.Level.Generation.Prefabs;
 using MattEland.Emergence.Engine.Services;
@@ -11,12 +12,12 @@ namespace MattEland.Emergence.Engine.Level.Generation
     /// <summary>
     /// A utility class used for constructing and manipulating LevelData instances.
     /// </summary>
-    public class LevelBuilder : ILevelBuilder
+    public class LevelBuilder
     {
-        private readonly IPrefabService _prefabService;
+        private readonly PrefabService _prefabService;
         private readonly EncountersService _encountersService;
         private readonly IRandomization _randomization;
-        private readonly IDictionary<Pos2D, IGameCell> _cells;
+        private readonly IDictionary<Pos2D, GameCell> _cells;
         private readonly IDictionary<Pos2D, Guid> _cellRoomId;
         private readonly IDictionary<char, GameObjectType> _terrainObjects;
         private readonly IDictionary<Guid, PrefabData> _roomPrefabs;
@@ -29,7 +30,7 @@ namespace MattEland.Emergence.Engine.Level.Generation
         /// <param name="encounterService">The encounter service.</param>
         /// <param name="randomization">The randomization</param>
         public LevelBuilder(
-            IPrefabService prefabService,
+            PrefabService prefabService,
             EncountersService encounterService,
             IRandomization randomization)
         {
@@ -38,7 +39,7 @@ namespace MattEland.Emergence.Engine.Level.Generation
             _prefabService = prefabService;
             _encountersService = encounterService;
             _randomization = randomization;
-            _cells = new Dictionary<Pos2D, IGameCell>();
+            _cells = new Dictionary<Pos2D, GameCell>();
             _cellRoomId = new Dictionary<Pos2D, Guid>();
             _roomPrefabs = new Dictionary<Guid, PrefabData>();
             _roomInstructions = new Dictionary<Guid, LevelAssemblyInstruction>();
@@ -73,7 +74,7 @@ namespace MattEland.Emergence.Engine.Level.Generation
         /// Gets the cells in the level thus far. This is a read-only collection.
         /// </summary>
         /// <value>The cells.</value>
-        public IReadOnlyCollection<IGameCell> Cells => _cells.Values.ToList();
+        public IReadOnlyCollection<GameCell> Cells => _cells.Values.ToList();
 
         /// <summary>
         /// Gets or sets the player's starting position.
@@ -98,7 +99,7 @@ namespace MattEland.Emergence.Engine.Level.Generation
         /// </summary>
         /// <param name="cell">The cell to add.</param>
         /// <param name="roomId">The unique identifier of the room.</param>
-        public void AddCell(IGameCell cell, Guid roomId)
+        public void AddCell(GameCell cell, Guid roomId)
         {
             if (_cells.ContainsKey(cell.Pos))
             {
@@ -117,8 +118,8 @@ namespace MattEland.Emergence.Engine.Level.Generation
         /// </summary>
         /// <param name="oldCell">The cell already present.</param>
         /// <param name="newCell">The cell to merge into the original cell.</param>
-        /// <returns>IGameCell.</returns>
-        private static IGameCell MergeCells(IGameCell oldCell, IGameCell newCell)
+        /// <returns>GameCell.</returns>
+        private static GameCell MergeCells(GameCell oldCell, GameCell newCell)
         {
             // Make sure invulnerable flags don't get lost when merging cells
             if (oldCell.Objects.Any(o => o.ObjectType == GameObjectType.Wall && o.IsInvulnerable))
@@ -188,7 +189,7 @@ namespace MattEland.Emergence.Engine.Level.Generation
         /// </summary>
         /// <returns>LevelData.</returns>
         /// <exception cref="InvalidOperationException">Cannot finalize a level if no cells have been added</exception>
-        public ILevel CreateLevel()
+        public LevelData CreateLevel()
         {
 
             if (!Cells.Any())
@@ -223,7 +224,7 @@ namespace MattEland.Emergence.Engine.Level.Generation
             return level;
         }
 
-        private static void FinalizePlacedWalls(ILevel level)
+        private static void FinalizePlacedWalls(LevelData level)
         {
             foreach (var wall in level.Objects.Where(o => o.ObjectType == GameObjectType.Wall && level.IsPosExterior(o.Pos)))
             {
@@ -235,7 +236,7 @@ namespace MattEland.Emergence.Engine.Level.Generation
         /// Generates actors for the level and places their contents inside of the level.
         /// </summary>
         /// <param name="level">The level.</param>
-        private void GenerateActors(ILevel level)
+        private void GenerateActors(LevelData level)
         {
             // Group all cells by room Ids
             var roomCells = BuildRoomMappingDictionary(level);
@@ -268,7 +269,7 @@ namespace MattEland.Emergence.Engine.Level.Generation
             }
         }
 
-        private void AddCoresToPrefab(IEnumerable<IGameCell> cells, PrefabData prefab)
+        private void AddCoresToPrefab(IEnumerable<GameCell> cells, PrefabData prefab)
         {
             int numCores = _randomization.GetInt(prefab.MinCores, prefab.MaxCores);
             if (numCores > 0)
@@ -284,16 +285,16 @@ namespace MattEland.Emergence.Engine.Level.Generation
             }
         }
 
-        private Dictionary<Guid, ICollection<IGameCell>> BuildRoomMappingDictionary(ILevel level)
+        private Dictionary<Guid, ICollection<GameCell>> BuildRoomMappingDictionary(LevelData level)
         {
-            var roomCells = new Dictionary<Guid, ICollection<IGameCell>>();
-            foreach (KeyValuePair<Pos2D, IGameCell> posKvp in _cells)
+            var roomCells = new Dictionary<Guid, ICollection<GameCell>>();
+            foreach (KeyValuePair<Pos2D, GameCell> posKvp in _cells)
             {
                 Guid roomId = _cellRoomId[posKvp.Key];
 
                 if (!roomCells.ContainsKey(roomId))
                 {
-                    roomCells[roomId] = new List<IGameCell>();
+                    roomCells[roomId] = new List<GameCell>();
                 }
 
                 var cell = level.GetCell(posKvp.Key);
@@ -310,9 +311,9 @@ namespace MattEland.Emergence.Engine.Level.Generation
         /// Finalizes the doors on the level by removing door indicators that don't connect to anything meaningful.
         /// </summary>
         /// <param name="level">The level.</param>
-        private static void FinalizeDoors(ILevel level)
+        private static void FinalizeDoors(LevelData level)
         {
-            bool Finder(IGameObject c) => c.ObjectType == GameObjectType.Door;
+            bool Finder(GameObjectBase c) => c.ObjectType == GameObjectType.Door;
 
             var doorCells = level.Cells.Where(c => c.Objects.Any(Finder));
             foreach (var cell in doorCells.OrderBy(c => c.Pos.Y).ThenBy(c => c.Pos.X))
@@ -342,7 +343,7 @@ namespace MattEland.Emergence.Engine.Level.Generation
         /// <param name="level">The level.</param>
         /// <param name="cell">The cell.</param>
         /// <returns><c>true</c> if the cell should have a door, <c>false</c> otherwise.</returns>
-        private static bool DetermineIfCellShouldHaveDoor(ILevel level, IGameCell cell)
+        private static bool DetermineIfCellShouldHaveDoor(LevelData level, GameCell cell)
         {
             // NOTE: Potential performance optimization here might be to give a query to the level to get these four cells at once
             var west = level.GetCell(cell.Pos.Add(-1, 0));
@@ -353,9 +354,9 @@ namespace MattEland.Emergence.Engine.Level.Generation
             return (IsOpenCell(west) && IsOpenCell(east)) || (IsOpenCell(north) && IsOpenCell(south));
         }
 
-        private static bool IsOpenCell(IGameCell IGameCell)
+        private static bool IsOpenCell(GameCell GameCell)
         {
-            return IGameCell != null && IGameCell.Objects.All(c => c.ObjectType != GameObjectType.Wall);
+            return GameCell != null && GameCell.Objects.All(c => c.ObjectType != GameObjectType.Wall);
         }
 
         /// <summary>
@@ -364,7 +365,7 @@ namespace MattEland.Emergence.Engine.Level.Generation
         /// <param name="terrain">The character representing the cell's terrain.</param>
         /// <param name="pos">The position of the cell. This is used for instantiating the object at the correct position.</param>
         /// <returns>The Game Object.</returns>
-        public IGameObject GetGameObjectFromCellTerrain(char terrain, Pos2D pos)
+        public GameObjectBase GetGameObjectFromCellTerrain(char terrain, Pos2D pos)
         {
             if (!_terrainObjects.ContainsKey(terrain))
             {
@@ -402,14 +403,14 @@ namespace MattEland.Emergence.Engine.Level.Generation
         }
 
         /// <summary>
-        /// Builds out a <see cref="IGameCell" /> for the given parameters and returns that object.
+        /// Builds out a <see cref="GameCell" /> for the given parameters and returns that object.
         /// </summary>
         /// <param name="terrain">The type of terrain at that cell.</param>
         /// <param name="point">The absolute location of the cell within the level.</param>
-        /// <returns>The constructed <see cref="IGameCell" /> instance.</returns>
-        public IGameCell BuildCell(char terrain, Pos2D point)
+        /// <returns>The constructed <see cref="GameCell" /> instance.</returns>
+        public GameCell BuildCell(char terrain, Pos2D point)
         {
-            var cell = new CellData
+            var cell = new GameCell
             {
                 FloorType = GetFloorTypeFromTerrain(terrain),
                 Pos = point
@@ -425,7 +426,7 @@ namespace MattEland.Emergence.Engine.Level.Generation
         }
 
 
-        public IGameCell BuildPrefabCell(char terrain, Pos2D point, PrefabData sourcePrefab)
+        public GameCell BuildPrefabCell(char terrain, Pos2D point, PrefabData sourcePrefab)
         {
             var mapping = sourcePrefab.Mapping?.FirstOrDefault(m => m.Char == terrain);
 
@@ -434,7 +435,7 @@ namespace MattEland.Emergence.Engine.Level.Generation
                 return BuildCell(terrain, point);
             }
 
-            var cell = new CellData
+            var cell = new GameCell
             {
                 FloorType = FloorType.Normal, // TODO: This may need to go on the mapping as well
                 Pos = point
@@ -452,11 +453,11 @@ namespace MattEland.Emergence.Engine.Level.Generation
             return cell;
         }
 
-        public void AddObject(IGameObject gameObject)
+        public void AddObject(GameObjectBase gameObject)
         {
             if (!_cells.ContainsKey(gameObject.Pos))
             {
-                _cells[gameObject.Pos] = new CellData();
+                _cells[gameObject.Pos] = new GameCell();
             }
 
             var cell = _cells[gameObject.Pos];

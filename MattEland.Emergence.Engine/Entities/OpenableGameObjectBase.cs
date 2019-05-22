@@ -33,7 +33,7 @@ namespace MattEland.Emergence.Engine.Entities
         }
 
         /// <inheritdoc />
-        public override bool OnActorAttemptedEnter(CommandContext context, IActor actor)
+        public override bool OnActorAttemptedEnter(CommandContext context, Actor actor)
         {
             if (!IsOpen)
             {
@@ -52,7 +52,7 @@ namespace MattEland.Emergence.Engine.Entities
         /// <summary>
         /// Called when the object is opened.
         /// </summary>
-        protected virtual void OnOpened(CommandContext context, IGameObject opener)
+        protected virtual void OnOpened(CommandContext context, GameObjectBase opener)
         {
             
         }

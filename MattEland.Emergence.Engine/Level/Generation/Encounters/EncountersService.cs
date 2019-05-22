@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using GeneticSharp.Domain.Randomizations;
+using MattEland.Emergence.Engine.Entities;
 using MattEland.Emergence.Engine.Services;
 
 namespace MattEland.Emergence.Engine.Level.Generation.Encounters
@@ -94,7 +95,7 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
         /// <param name="cells">The cells. These can be vacant or unvacant.</param>
         /// <param name="encounter">The encounter to generate objects from.</param>
         /// <returns>A collection of generated elements</returns>
-        public IEnumerable<IGameObject> GenerateEncounter(IEnumerable<IGameCell> cells, EncounterData encounter, IRandomization randomization)
+        public IEnumerable<GameObjectBase> GenerateEncounter(IEnumerable<GameCell> cells, EncounterData encounter, IRandomization randomization)
         {
             var encounterElements = GenerateElementsForEncounter(encounter, randomization);
 
@@ -107,15 +108,15 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
         /// <param name="encounterElements">The encounter elements.</param>
         /// <param name="cells">The cells. These can be vacant or unvacant.</param>
         /// <returns>A collection of generated elements</returns>
-        public static IEnumerable<IGameObject> AddEncounterElementsToCells(IEnumerable<EncounterElement> encounterElements, IEnumerable<IGameCell> cells, IRandomization randomization)
+        public static IEnumerable<GameObjectBase> AddEncounterElementsToCells(IEnumerable<EncounterElement> encounterElements, IEnumerable<GameCell> cells, IRandomization randomization)
         {
-            IList<IGameCell> remainingCells = cells.Where(c => !c.HasObstacle).ToList();
+            IList<GameCell> remainingCells = cells.Where(c => !c.HasObstacle).ToList();
 
-            var entities = new List<IGameObject>();
+            var entities = new List<GameObjectBase>();
             foreach (EncounterElement element in encounterElements)
             {
 
-                IGameCell matchedCell = remainingCells.GetRandomElement(randomization);
+                GameCell matchedCell = remainingCells.GetRandomElement(randomization);
                 if (matchedCell == null)
                 {
                     break;
@@ -168,7 +169,7 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
         /// </summary>
         /// <param name="cells">The cells.</param>
         /// <param name="encounterSetId">The encounter set identifier.</param>
-        public void GenerateEncounterFromEncounterSet(ICollection<IGameCell> cells, string encounterSetId, IRandomization randomization)
+        public void GenerateEncounterFromEncounterSet(ICollection<GameCell> cells, string encounterSetId, IRandomization randomization)
         {
             if (string.IsNullOrWhiteSpace(encounterSetId))
             {

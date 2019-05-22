@@ -16,7 +16,7 @@ namespace MattEland.Emergence.Engine.Entities
 
         public override bool IsCapturable => true;
 
-        public override bool OnActorAttemptedEnter(CommandContext context, IActor actor)
+        public override bool OnActorAttemptedEnter(CommandContext context, Actor actor)
         {
             context.CombatManager.HandleCapture(context, this, actor);
 
@@ -25,7 +25,7 @@ namespace MattEland.Emergence.Engine.Entities
 
         protected override string CustomName => "System Core";
 
-        public override void OnCaptured(CommandContext context, [CanBeNull] IGameObject executor, Alignment oldTeam)
+        public override void OnCaptured(CommandContext context, [CanBeNull] GameObjectBase executor, Alignment oldTeam)
         {
             var isPlayerAction = executor != null && executor.IsPlayer;
 
@@ -69,7 +69,7 @@ namespace MattEland.Emergence.Engine.Entities
             context.Level.Objects.OfType<Firewall>().Each(context.UpdateObject);
         }
 
-        public override void ApplyCorruptionDamage(CommandContext context, [CanBeNull] IGameObject source, int damage)
+        public override void ApplyCorruptionDamage(CommandContext context, [CanBeNull] GameObjectBase source, int damage)
         {
             base.ApplyCorruptionDamage(context, source, damage);
 

@@ -1,4 +1,5 @@
 using JetBrains.Annotations;
+using MattEland.Emergence.Engine.Entities;
 using MattEland.Emergence.Engine.Level;
 
 namespace MattEland.Emergence.Engine.Model.Messages
@@ -6,12 +7,12 @@ namespace MattEland.Emergence.Engine.Model.Messages
     public class MovedMessage : GameMessage
     {
         [NotNull] 
-        public IGameObject Source { get; }
+        public GameObjectBase Source { get; }
         
         public Pos2D OldPos { get; }
         public Pos2D NewPos { get; }
 
-        public MovedMessage([NotNull] IGameObject source, Pos2D oldPos, Pos2D newPos)
+        public MovedMessage([NotNull] GameObjectBase source, Pos2D oldPos, Pos2D newPos)
         {
             Source = source;
             OldPos = oldPos;

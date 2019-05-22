@@ -1,5 +1,6 @@
 ﻿using MattEland.Emergence.Engine.DTOs;
 using MattEland.Emergence.Engine.Effects;
+using MattEland.Emergence.Engine.Entities;
 using MattEland.Emergence.Engine.Game;
 using MattEland.Emergence.Engine.Level;
 using MattEland.Emergence.Engine.Services;
@@ -23,7 +24,7 @@ namespace MattEland.Emergence.Engine.Commands
 
         public override string IconId => "label_outline";
 
-        public override void ApplyEffect(CommandContext context, IActor executor, Pos2D pos)
+        public override void ApplyEffect(CommandContext context, Actor executor, Pos2D pos)
         {
             if (!executor.IsPlayer)
             {

@@ -8,10 +8,10 @@ namespace MattEland.Emergence.Engine.Vision
     public class ShadowCasterViewProvider : IFieldOfViewProvider
     {
 
-        private readonly ILevel _level;
+        private readonly LevelData _level;
         private readonly HashSet<Pos2D> _visible = new HashSet<Pos2D>();
 
-        public ShadowCasterViewProvider(ILevel level)
+        public ShadowCasterViewProvider(LevelData level)
         {
             _level = level;
         }

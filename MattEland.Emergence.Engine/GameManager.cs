@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using GeneticSharp.Domain.Randomizations;
 using JetBrains.Annotations;
 using MattEland.Emergence.Engine.DTOs;
+using MattEland.Emergence.Engine.Entities;
 using MattEland.Emergence.Engine.Game;
-using MattEland.Emergence.Engine.Level;
 using MattEland.Emergence.Engine.Level.Generation;
 using MattEland.Emergence.Engine.Level.Generation.Encounters;
 using MattEland.Emergence.Engine.Level.Generation.Prefabs;
@@ -27,9 +27,6 @@ namespace MattEland.Emergence.Engine
             _service = new GameService(_levelBuilder, _combatManager, _loot, _entityService, new GameSimulationManager());
         }
 
-        [CanBeNull]
-        private IPlayer _player;
-
         [NotNull]
         private readonly LevelGenerationService _levelBuilder;
 
@@ -39,7 +36,8 @@ namespace MattEland.Emergence.Engine
         private readonly GameService _service;
 
         public GameStatus State { get; private set; }
-        public IPlayer Player => _player;
+        [CanBeNull]
+        public Player Player { get; }
 
         public IEnumerable<GameMessage> Start()
         {

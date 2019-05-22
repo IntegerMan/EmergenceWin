@@ -6,7 +6,9 @@ using GeneticSharp.Domain.Randomizations;
 using JetBrains.Annotations;
 using MattEland.Emergence.Engine.DTOs;
 using MattEland.Emergence.Engine.Effects;
+using MattEland.Emergence.Engine.Entities;
 using MattEland.Emergence.Engine.Level;
+using MattEland.Emergence.Engine.Loot;
 using MattEland.Emergence.Engine.Model.Messages;
 using MattEland.Emergence.Engine.Services;
 using MattEland.Emergence.Engine.Vision;
@@ -19,11 +21,11 @@ namespace MattEland.Emergence.Engine.Game
         private readonly IList<EffectBase> _effects;
         private readonly IList<GameMessage> _messages;
 
-        public CommandContext([NotNull] ILevel level,
+        public CommandContext([NotNull] LevelData level,
                               [NotNull] GameService gameService,
                               [NotNull] IEntityDefinitionService entityService,
-                              [NotNull] ICombatManager combatManager,
-                              [NotNull] ILootProvider lootProvider)
+                              [NotNull] CombatManager combatManager,
+                              [NotNull] LootProvider lootProvider)
         {
             GameService = gameService ?? throw new ArgumentNullException(nameof(gameService));
             EntityService = entityService ?? throw new ArgumentNullException(nameof(entityService));
@@ -43,7 +45,7 @@ namespace MattEland.Emergence.Engine.Game
 
         public IEntityDefinitionService EntityService { get; set; }
 
-        public IEnumerable<IGameCell> GetCellsVisibleFromPoint(Pos2D point, decimal radius)
+        public IEnumerable<GameCell> GetCellsVisibleFromPoint(Pos2D point, decimal radius)
         {
             var fovCalculator = new ShadowCasterViewProvider(Level);
             var visiblePositions = fovCalculator.ComputeFov(point, radius);
@@ -59,7 +61,7 @@ namespace MattEland.Emergence.Engine.Game
             }
         }
 
-        public void HandleObjectKilled(IGameObject defender, IGameObject attacker)
+        public void HandleObjectKilled(GameObjectBase defender, GameObjectBase attacker)
         {
             if (CanPlayerSee(defender.Pos))
             {
@@ -77,7 +79,7 @@ namespace MattEland.Emergence.Engine.Game
             _effects.Add(effect);
         }
 
-        public bool CanPlayerSee(IGameObject obj)
+        public bool CanPlayerSee(GameObjectBase obj)
         {
             return obj != null && CanPlayerSee(obj.Pos);
         }
@@ -89,18 +91,18 @@ namespace MattEland.Emergence.Engine.Game
 
         public CommandContext Clone() => new CommandContext(Level, GameService, EntityService, CombatManager, LootProvider);
 
-        public void PreviewObjectHurt(IGameObject attacker, IGameObject defender, int damage, DamageType damageType)
+        public void PreviewObjectHurt(GameObjectBase attacker, GameObjectBase defender, int damage, DamageType damageType)
         {
             OnActorHurt?.Invoke(this, new ActorDamagedEventArgs(attacker, defender, damage, damageType));
         }
 
-        public void SetLevel(ILevel level)
+        public void SetLevel(LevelData level)
         {
             Level = level;
             Player = Level.FindPlayer();
         }
 
-        public void ReplacePlayer(IPlayer player, Pos2D position)
+        public void ReplacePlayer(Player player, Pos2D position)
         {
             Level.RemoveObject(Player);
 
@@ -111,7 +113,7 @@ namespace MattEland.Emergence.Engine.Game
         }
 
         /// <inheritdoc />
-        public void DisplayHelp(IGameObject source, string helpTopic)
+        public void DisplayHelp(GameObjectBase source, string helpTopic)
         {
             var topic = helpTopic.ToLowerInvariant();
             string message = null;
@@ -183,13 +185,13 @@ namespace MattEland.Emergence.Engine.Game
             }
         }
 
-        public ICombatManager CombatManager { get; }
-        public ILootProvider LootProvider { get; }
+        public CombatManager CombatManager { get; }
+        public LootProvider LootProvider { get; }
 
         [CanBeNull]
-        public IPlayer Player { get; private set; }
+        public Player Player { get; private set; }
 
-        public ILevel Level { get; private set; }
+        public LevelData Level { get; private set; }
 
 
         public GameService GameService { get; }
@@ -228,7 +230,7 @@ namespace MattEland.Emergence.Engine.Game
             AddMessage(message, ClientMessageType.Assertion);
         }
 
-        public void MoveObject([NotNull] IGameObject obj, Pos2D newPos)
+        public void MoveObject([NotNull] GameObjectBase obj, Pos2D newPos)
         {
             var oldPos = obj.Pos;
 
@@ -245,14 +247,14 @@ namespace MattEland.Emergence.Engine.Game
         }
 
         public void MoveExecutingActor(Pos2D newPos) => MoveObject(Player, newPos);
-        public void UpdateObject(IGameObject gameObject) => AddMessage(new ObjectUpdatedMessage(gameObject));
+        public void UpdateObject(GameObjectBase gameObject) => AddMessage(new ObjectUpdatedMessage(gameObject));
 
-        public void CreatedObject(IGameObject gameObject) => AddMessage(new CreatedMessage(gameObject));
+        public void CreatedObject(GameObjectBase gameObject) => AddMessage(new CreatedMessage(gameObject));
 
         public void DisplayText(string text, ClientMessageType messageType = ClientMessageType.Generic) => AddMessage(new DisplayTextMessage(text, messageType));
 
         /// <inheritdoc />
-        public void TeleportActor(IActor actor, Pos2D pos)
+        public void TeleportActor(Actor actor, Pos2D pos)
         {
 
             const int damage = 1;
@@ -317,7 +319,7 @@ namespace MattEland.Emergence.Engine.Game
 
         }
 
-        public void CalculateLineOfSight(IActor actor)
+        public void CalculateLineOfSight(Actor actor)
         {
             var fov = new ShadowCasterViewProvider(Level);
             fov.ComputeFov(actor.Pos, actor.EffectiveLineOfSightRadius);

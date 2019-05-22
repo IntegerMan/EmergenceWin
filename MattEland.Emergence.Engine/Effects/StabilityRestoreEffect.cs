@@ -1,4 +1,5 @@
 ﻿using MattEland.Emergence.Engine.DTOs;
+using MattEland.Emergence.Engine.Entities;
 using MattEland.Emergence.Engine.Level;
 
 namespace MattEland.Emergence.Engine.Effects
@@ -7,7 +8,7 @@ namespace MattEland.Emergence.Engine.Effects
     {
         private readonly decimal _amount;
 
-        public StabilityRestoreEffect(IGameObject source, decimal amount) : base(source)
+        public StabilityRestoreEffect(GameObjectBase source, decimal amount) : base(source)
         {
             _amount = amount;
         }

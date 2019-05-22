@@ -17,7 +17,7 @@ namespace MattEland.Emergence.Engine.Entities
         protected override string CustomName => "Stability Restore";
 
         /// <inheritdoc />
-        public override bool OnActorAttemptedEnter(CommandContext context, IActor actor)
+        public override bool OnActorAttemptedEnter(CommandContext context, Actor actor)
         {
             if (actor.IsPlayer)
             {

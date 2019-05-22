@@ -38,7 +38,7 @@ namespace MattEland.Emergence.Engine.Entities
 
         }
 
-        public override bool OnActorAttemptedEnter(CommandContext context, IActor actor)
+        public override bool OnActorAttemptedEnter(CommandContext context, Actor actor)
         {
             if (IsOpen)
             {
@@ -57,7 +57,7 @@ namespace MattEland.Emergence.Engine.Entities
             return false;
         }
 
-        private bool ShouldOpenFor(IGameObject actor)
+        private bool ShouldOpenFor(GameObjectBase actor)
         {
             if (actor.IsDead)
             {

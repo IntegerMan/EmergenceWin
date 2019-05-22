@@ -22,7 +22,7 @@ namespace MattEland.Emergence.Engine.Game
         /// </summary>
         /// <param name="levelData">A LevelData object</param>
         /// <returns>A LevelDto representation of <paramref name="levelData"/></returns>
-        public static LevelDto BuildLevelDto(this ILevel levelData)
+        public static LevelDto BuildLevelDto(this LevelData levelData)
         {
             // Define collections
             var objects = new List<GameObjectDto>();
@@ -91,7 +91,7 @@ namespace MattEland.Emergence.Engine.Game
             return dto;
         }
 
-        private static IEnumerable<string> BuildCellList(ILevel level, Func<IGameCell, char> transformFunc)
+        private static IEnumerable<string> BuildCellList(LevelData level, Func<GameCell, char> transformFunc)
         {
             var rows = new List<string>();
 
@@ -113,12 +113,12 @@ namespace MattEland.Emergence.Engine.Game
             return rows;
         }
 
-        private static char GetCorruptionCharacterForCell(IGameCell cell)
+        private static char GetCorruptionCharacterForCell(GameCell cell)
         {
             return cell?.Corruption.ToString(CultureInfo.InvariantCulture)[0] ?? '0';
         }
 
-        private static char GetFloorCharacterForCell(IGameCell cell)
+        private static char GetFloorCharacterForCell(GameCell cell)
         {
             char cellChar;
             if (cell != null)
@@ -154,9 +154,9 @@ namespace MattEland.Emergence.Engine.Game
             return cellChar;
         }
 
-        private static PlayerDto GetPlayerDtoFromLevel(ILevel levelData)
+        private static PlayerDto GetPlayerDtoFromLevel(LevelData levelData)
         {
-            IPlayer player = levelData.Cells.SelectMany(c => c.Objects).FirstOrDefault(o => o.ObjectType == GameObjectType.Player) as IPlayer;
+            Player player = levelData.Cells.SelectMany(c => c.Objects).FirstOrDefault(o => o.ObjectType == GameObjectType.Player) as Player;
             var dto = (PlayerDto)player?.BuildDto();
 
             player?.CopyCellCollectionsToDto(dto, levelData);
@@ -169,7 +169,7 @@ namespace MattEland.Emergence.Engine.Game
         /// </summary>
         /// <param name="dto">The LevelDto to convert</param>
         /// <returns>A LevelData representation of <paramref name="dto"/></returns>
-        public static ILevel BuildLevelData(this LevelDto dto)
+        public static LevelData BuildLevelData(this LevelDto dto)
         {
             if (dto == null)
             {
@@ -193,7 +193,7 @@ namespace MattEland.Emergence.Engine.Game
             {
                 var obj = GameObjectFactory.CreateFromDto(objectDto);
 
-                if (obj is IActor actor)
+                if (obj is Actor actor)
                 {
                     actor.CopyCellCollectionsFromDto((ActorDto) objectDto, level);
                 }
@@ -211,7 +211,7 @@ namespace MattEland.Emergence.Engine.Game
         }
 
         
-        private static void LoadCells(ILevel level, IEnumerable<string> rows, Action<ILevel, int, int, char> cellFunc)
+        private static void LoadCells(LevelData level, IEnumerable<string> rows, Action<LevelData, int, int, char> cellFunc)
         {
             var rowList = rows.ToList();
             var rowIndex = 0;
@@ -233,7 +233,7 @@ namespace MattEland.Emergence.Engine.Game
             }
         }
 
-        private static void CreateCellFromFloorMap(ILevel level, int y, int x, char cellChar)
+        private static void CreateCellFromFloorMap(LevelData level, int y, int x, char cellChar)
         {
             FloorType floorType;
 
@@ -258,11 +258,11 @@ namespace MattEland.Emergence.Engine.Game
 
             if (floorType != FloorType.Void)
             {
-                level.AddCell(new CellData { Pos = new Pos2D(x, y), FloorType = floorType });
+                level.AddCell(new GameCell { Pos = new Pos2D(x, y), FloorType = floorType });
             }
         }
 
-        private static void CopyCellCorruptionMap(ILevel level, int y, int x, char cellChar)
+        private static void CopyCellCorruptionMap(LevelData level, int y, int x, char cellChar)
         {
             var cell = level.GetCell(new Pos2D(x, y));
 

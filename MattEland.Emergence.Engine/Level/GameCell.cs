@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using JetBrains.Annotations;
+using MattEland.Emergence.Engine.Entities;
 
 namespace MattEland.Emergence.Engine.Level
 {
@@ -10,18 +11,18 @@ namespace MattEland.Emergence.Engine.Level
     /// Contains information on a single cell within the level
     /// </summary>
     [DebuggerDisplay("(Cell: Pos:{Pos.X},{Pos.Y} Floor:{FloorType})")]
-    public class CellData : IGameCell
+    public class GameCell
     {
         [ItemNotNull] [NotNull]
-        private readonly ICollection<IGameObject> _objects;
+        private readonly ICollection<GameObjectBase> _objects;
         private int _corruption;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CellData"/> class.
+        /// Initializes a new instance of the <see cref="GameCell"/> class.
         /// </summary>
-        public CellData()
+        public GameCell()
         {
-            _objects = new List<IGameObject>();
+            _objects = new List<GameObjectBase>();
         }
 
         /// <summary>
@@ -40,7 +41,7 @@ namespace MattEland.Emergence.Engine.Level
         /// Gets the objects present in the cell.
         /// </summary>
         /// <value>The objects present in the cell.</value>
-        public IEnumerable<IGameObject> Objects => _objects; // TODO: Only serialize this when there are objects present.
+        public IEnumerable<GameObjectBase> Objects => _objects; // TODO: Only serialize this when there are objects present.
 
         /// <summary>
         /// Gets a value indicating whether or not this cell has a blocking obstacle.
@@ -90,11 +91,11 @@ namespace MattEland.Emergence.Engine.Level
         /// Adds an object to the cell.
         /// </summary>
         /// <param name="obj">The object to add.</param>
-        public void AddObject(IGameObject obj)
+        public void AddObject(GameObjectBase obj)
         {
             _objects.Add(obj);
 
-            if (obj is IActor actor)
+            if (obj is Actor actor)
             {
                 Actor = actor;
 
@@ -111,7 +112,7 @@ namespace MattEland.Emergence.Engine.Level
         /// Removes all objects from the cell that match the specified matcher function.
         /// </summary>
         /// <param name="matcherFunc">The matcher function.</param>
-        public void RemoveAllObjects(Func<IGameObject, bool> matcherFunc)
+        public void RemoveAllObjects(Func<GameObjectBase, bool> matcherFunc)
         {
             var matches = _objects.Where(matcherFunc);
 
@@ -132,7 +133,7 @@ namespace MattEland.Emergence.Engine.Level
             
         }
 
-        public bool RemoveObject(IGameObject gameObject)
+        public bool RemoveObject(GameObjectBase gameObject)
         {
             if (Core == gameObject)
             {
@@ -148,7 +149,7 @@ namespace MattEland.Emergence.Engine.Level
         }
 
         [CanBeNull]
-        public IActor Actor { get; private set; }
+        public Actor Actor { get; private set; }
 
         public bool BlocksSight
         {
@@ -163,7 +164,7 @@ namespace MattEland.Emergence.Engine.Level
         }
 
         [CanBeNull]
-        public IActor Core { get; private set; }
+        public Actor Core { get; private set; }
 
     }
 }

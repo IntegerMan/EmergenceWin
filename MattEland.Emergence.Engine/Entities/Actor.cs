@@ -18,7 +18,7 @@ namespace MattEland.Emergence.Engine.Entities
     /// and/or decisions every turn and occupies a single space in the game world at any time.
     /// </summary>
     /// <seealso cref="T:MattEland.Emergence.Engine.Entities.GameObjectBase" />
-    public class Actor : GameObjectBase, IActor
+    public class Actor : GameObjectBase
     {
         private int _operations;
 
@@ -88,7 +88,7 @@ namespace MattEland.Emergence.Engine.Entities
             ResetEffectiveValues();
         }
 
-        private static HashSet<Pos2D> ConvertStringCollectionToPointCollection(IEnumerable<string> rows, ILevel level)
+        private static HashSet<Pos2D> ConvertStringCollectionToPointCollection(IEnumerable<string> rows, LevelData level)
         {
             var set = new HashSet<Pos2D>();
 
@@ -208,7 +208,7 @@ namespace MattEland.Emergence.Engine.Entities
         }
 
         /// <inheritdoc />
-        public override bool OnActorAttemptedEnter(CommandContext context, IActor actor)
+        public override bool OnActorAttemptedEnter(CommandContext context, Actor actor)
         {
             if (actor != this)
             {
@@ -250,7 +250,7 @@ namespace MattEland.Emergence.Engine.Entities
             actorDto.CoresCaptured = CoresCaptured;
         }
         
-        public void CopyCellCollectionsFromDto(ActorDto dto, ILevel level)
+        public void CopyCellCollectionsFromDto(ActorDto dto, LevelData level)
         {
             KnownCells = ConvertStringCollectionToPointCollection(dto.Known, level);
             VisibleCells = ConvertStringCollectionToPointCollection(dto.Visible, level);
@@ -264,7 +264,7 @@ namespace MattEland.Emergence.Engine.Entities
         public int DamageDealt { get; set; }
         public int DamageReceived { get; set; }
 
-        public void CopyCellCollectionsToDto(ActorDto actorDto, ILevel level)
+        public void CopyCellCollectionsToDto(ActorDto actorDto, LevelData level)
         {
             if (VisibleCells != null && VisibleCells.Any() && PersistVisible)
             {
@@ -277,7 +277,7 @@ namespace MattEland.Emergence.Engine.Entities
             }
         }
 
-        private static IEnumerable<string> ConvertPosCollectionToStringCollection(ISet<Pos2D> collection, ILevel level)
+        private static IEnumerable<string> ConvertPosCollectionToStringCollection(ISet<Pos2D> collection, LevelData level)
         {
             var rows = new List<string>();
             var sb = new StringBuilder();
@@ -328,7 +328,7 @@ namespace MattEland.Emergence.Engine.Entities
 
         public virtual bool IsCommandActive(IGameCommand command) => false;
 
-        public override void OnDestroyed(CommandContext context, IGameObject attacker)
+        public override void OnDestroyed(CommandContext context, GameObjectBase attacker)
         {
             // Increment the kill count if the player just killed an actor
             if (attacker.IsPlayer)
@@ -337,7 +337,7 @@ namespace MattEland.Emergence.Engine.Entities
             }
 
             // Kills should give the actor responsible an additional operations point
-            if (attacker is IActor actor)
+            if (attacker is Actor actor)
             {
                 if (actor.AdjustOperationsPoints(1) && attacker.IsPlayer)
                 {
@@ -378,7 +378,7 @@ namespace MattEland.Emergence.Engine.Entities
 
         public override int ZIndex => 25;
 
-        public override void ApplyCorruptionDamage(CommandContext context, [CanBeNull] IGameObject source, int damage)
+        public override void ApplyCorruptionDamage(CommandContext context, [CanBeNull] GameObjectBase source, int damage)
         {
             base.ApplyCorruptionDamage(context, source, damage);
 

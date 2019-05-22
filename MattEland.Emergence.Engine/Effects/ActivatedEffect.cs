@@ -1,4 +1,5 @@
 ﻿using MattEland.Emergence.Engine.DTOs;
+using MattEland.Emergence.Engine.Entities;
 using MattEland.Emergence.Engine.Level;
 
 namespace MattEland.Emergence.Engine.Effects
@@ -7,7 +8,7 @@ namespace MattEland.Emergence.Engine.Effects
     {
         private readonly string _commandName;
 
-        public ActivatedEffect(IGameObject source, string commandName) : base(source)
+        public ActivatedEffect(GameObjectBase source, string commandName) : base(source)
         {
             _commandName = commandName;
         }

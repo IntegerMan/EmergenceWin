@@ -21,7 +21,7 @@ namespace MattEland.Emergence.Engine.Entities
         public override char AsciiChar => '#';
 
         /// <inheritdoc />
-        public override bool OnActorAttemptedEnter(CommandContext context, IActor actor)
+        public override bool OnActorAttemptedEnter(CommandContext context, Actor actor)
         {
             if (actor.IsPlayer)
             {
@@ -33,7 +33,7 @@ namespace MattEland.Emergence.Engine.Entities
 
         public override string ForegroundColor => GameColors.SlateBlue;
         
-        public override void OnDestroyed(CommandContext context, IGameObject attacker)
+        public override void OnDestroyed(CommandContext context, GameObjectBase attacker)
         {
             base.OnDestroyed(context, attacker);
 

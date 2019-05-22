@@ -11,7 +11,7 @@ using MattEland.Emergence.Engine.Services;
 
 namespace MattEland.Emergence.Engine.Entities
 {
-    public class Player : Actor, IPlayer
+    public class Player : Actor
     {
         public Player(PlayerDto dto) : base(dto)
         {
@@ -73,7 +73,7 @@ namespace MattEland.Emergence.Engine.Entities
             }
         }
 
-        public bool AttemptPickupItem(CommandContext context, IGameObject item)
+        public bool AttemptPickupItem(CommandContext context, GameObjectBase item)
         {
             var command = CreationService.CreateCommand(item.ObjectId);
 

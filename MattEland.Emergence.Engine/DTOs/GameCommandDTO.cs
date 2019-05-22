@@ -1,4 +1,5 @@
-﻿using MattEland.Emergence.Engine.Level;
+﻿using MattEland.Emergence.Engine.Entities;
+using MattEland.Emergence.Engine.Level;
 
 namespace MattEland.Emergence.Engine.DTOs
 {
@@ -25,7 +26,7 @@ namespace MattEland.Emergence.Engine.DTOs
         /// <value>The command information.</value>
         public string CommandData { get; set; }
 
-        public Pos2D CalculateRequestedNewPosition(IGameObject player)
+        public Pos2D CalculateRequestedNewPosition(GameObjectBase player)
         {
             switch (CommandType)
             {

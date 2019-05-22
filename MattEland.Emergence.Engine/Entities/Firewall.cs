@@ -25,7 +25,7 @@ namespace MattEland.Emergence.Engine.Entities
         protected override string CustomName => "Firewall";
 
         /// <inheritdoc />
-        public override bool OnActorAttemptedEnter(CommandContext context, IActor actor)
+        public override bool OnActorAttemptedEnter(CommandContext context, Actor actor)
         {
             if (IsOpen || actor.Team == Alignment.SystemCore || actor.Team == Alignment.SystemSecurity || actor.Team == Alignment.SystemAntiVirus)
             {

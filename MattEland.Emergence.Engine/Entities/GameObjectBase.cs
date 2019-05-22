@@ -11,7 +11,7 @@ namespace MattEland.Emergence.Engine.Entities
     /// <summary>
     /// Represents an object within the game world that can either move from cell to cell or can be modified in some capacity over time
     /// </summary>
-    public abstract class GameObjectBase : IGameObject
+    public abstract class GameObjectBase
     {
         private string _name;
         private int _corruption;
@@ -100,7 +100,7 @@ namespace MattEland.Emergence.Engine.Entities
         /// <param name="actor">The actor entering the cell.</param>
         /// <param name="cell">The cell.</param>
         /// <returns><c>true</c> if the action is allowable, <c>false</c> if the action was handled and should be prevented.</returns>
-        public virtual bool OnActorAttemptedEnter(CommandContext context, IActor actor)
+        public virtual bool OnActorAttemptedEnter(CommandContext context, Actor actor)
         {
             return true;
         }
@@ -199,7 +199,7 @@ namespace MattEland.Emergence.Engine.Entities
         /// </summary>
         public virtual bool IsCorruptable => true;
 
-        public virtual void ApplyCorruptionDamage(CommandContext context, [CanBeNull] IGameObject source, int damage)
+        public virtual void ApplyCorruptionDamage(CommandContext context, [CanBeNull] GameObjectBase source, int damage)
         {
             Corruption += damage;
         }
@@ -215,7 +215,7 @@ namespace MattEland.Emergence.Engine.Entities
 
         public virtual bool IsCapturable => false;
 
-        public virtual void OnCaptured(CommandContext context, IGameObject executor, Alignment oldTeam)
+        public virtual void OnCaptured(CommandContext context, GameObjectBase executor, Alignment oldTeam)
         {
             if (executor.IsPlayer || context.CanPlayerSee(executor.Pos) || context.CanPlayerSee(Pos))
             {
@@ -223,7 +223,7 @@ namespace MattEland.Emergence.Engine.Entities
             }
         }
 
-        public virtual void OnDestroyed(CommandContext context, IGameObject attacker)
+        public virtual void OnDestroyed(CommandContext context, GameObjectBase attacker)
         {
             var debris = CreationService.CreateObject(ObjectId, GameObjectType.Debris, Pos);
 

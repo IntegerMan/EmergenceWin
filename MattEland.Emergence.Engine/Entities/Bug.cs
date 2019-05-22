@@ -29,7 +29,7 @@ namespace MattEland.Emergence.Engine.Entities
             }
         }
 
-        public override void ApplyCorruptionDamage(CommandContext context, IGameObject source, int damage)
+        public override void ApplyCorruptionDamage(CommandContext context, GameObjectBase source, int damage)
         {
             if (damage < 0)
             {

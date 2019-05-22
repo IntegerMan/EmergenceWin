@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using MattEland.Emergence.Engine.Commands;
+using MattEland.Emergence.Engine.Entities;
 using MattEland.Emergence.Engine.Game;
 using MattEland.Emergence.Engine.Level;
 using MattEland.Emergence.Engine.Services;
 
 namespace MattEland.Emergence.Engine.Loot
 {
-    public class LootProvider : ILootProvider
+    public class LootProvider
     {
         private readonly IList<LootEntry> _entries;
 
@@ -37,7 +38,7 @@ namespace MattEland.Emergence.Engine.Loot
 
         }
 
-        public void SpawnLootAsNeeded(CommandContext context, IGameObject source, Rarity rarity)
+        public void SpawnLootAsNeeded(CommandContext context, GameObjectBase source, Rarity rarity)
         {
             if (rarity >= Rarity.Rare || context.Randomizer.GetInt(1, 6) >= 5)
             {
@@ -56,7 +57,7 @@ namespace MattEland.Emergence.Engine.Loot
             }
         }
 
-        public void SpawnLoot(CommandContext context, IGameObject source, Rarity rarity)
+        public void SpawnLoot(CommandContext context, GameObjectBase source, Rarity rarity)
         {
 
             if (rarity == Rarity.None)

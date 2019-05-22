@@ -138,7 +138,7 @@ namespace MattEland.Emergence.Engine.Game
         /// </summary>
         /// <param name="playerId">The player identifier. This cannot be null or empty.</param>
         /// <returns>The player instance</returns>
-        public static IPlayer CreatePlayer([NotNull] string playerId)
+        public static Player CreatePlayer([NotNull] string playerId)
         {
             if (string.IsNullOrWhiteSpace(playerId))
             {
@@ -170,7 +170,7 @@ namespace MattEland.Emergence.Engine.Game
                 dto.Hotbar[commandIndex++] = commandInfoDto;
             }
 
-            return (IPlayer)CreateFromDto(dto);
+            return (Player)CreateFromDto(dto);
         }
 
         private static List<CommandInfoDto> BuildCommandSlots(int count)
@@ -264,7 +264,7 @@ namespace MattEland.Emergence.Engine.Game
             return CreateFromDto(dto);
         }
 
-        public static IGameObject CreateWall(Pos2D pos, bool isExterior)
+        public static GameObjectBase CreateWall(Pos2D pos, bool isExterior)
         {
             var hp = 3;
             var dto = new GameObjectDto

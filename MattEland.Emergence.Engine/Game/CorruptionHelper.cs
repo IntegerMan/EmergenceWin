@@ -13,7 +13,7 @@ namespace MattEland.Emergence.Engine.Game
         /// </summary>
         /// <param name="context">The command context for the game</param>
         /// <param name="cell">The cell in question</param>
-        public static void SpreadCorruptionOnCell(CommandContext context, IGameCell cell)
+        public static void SpreadCorruptionOnCell(CommandContext context, GameCell cell)
         {
             // Do nothing if there's no corruption already
             if (cell.Corruption <= 0)
@@ -47,7 +47,7 @@ namespace MattEland.Emergence.Engine.Game
             }
         }
 
-        private static void SpawnGlitch(CommandContext context, IGameCell cell)
+        private static void SpawnGlitch(CommandContext context, GameCell cell)
         {
             var glitch = CreationService.CreateObject("ACTOR_GLITCH", GameObjectType.Actor, cell.Pos);
             context.Level.AddObject(glitch);
@@ -60,7 +60,7 @@ namespace MattEland.Emergence.Engine.Game
         public static void SpreadCorruption(CommandContext context, int maxCells)
         {
             // Grab random cells from the level
-            var cells = new List<IGameCell>(maxCells);
+            var cells = new List<GameCell>(maxCells);
             for (int i = 0; i <= maxCells; i++)
             {
                 var cell = context.Level.Cells.GetRandomElement(context.Randomizer);

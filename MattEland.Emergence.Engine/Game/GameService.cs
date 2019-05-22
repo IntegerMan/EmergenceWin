@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
 using MattEland.Emergence.Engine.DTOs;
+using MattEland.Emergence.Engine.Entities;
 using MattEland.Emergence.Engine.Level;
 using MattEland.Emergence.Engine.Level.Generation;
+using MattEland.Emergence.Engine.Loot;
 using MattEland.Emergence.Engine.Model;
 using MattEland.Emergence.Engine.Model.Messages;
 using MattEland.Emergence.Engine.Services;
@@ -18,13 +20,13 @@ namespace MattEland.Emergence.Engine.Game
     public sealed class GameService
     {
         [NotNull] private readonly LevelGenerationService _levelService;
-        [NotNull] private readonly ILootProvider _lootProvider;
-        [NotNull] private readonly ICombatManager _combatManager;
+        [NotNull] private readonly LootProvider _lootProvider;
+        [NotNull] private readonly CombatManager _combatManager;
         [NotNull] private readonly IEntityDefinitionService _entityProvider;
         [NotNull] private readonly ISimulationManager _simManager;
 
-        private ILevel _level;
-        private IPlayer _player;
+        private LevelData _level;
+        private Player _player;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GameService"/> class.
@@ -33,8 +35,8 @@ namespace MattEland.Emergence.Engine.Game
         /// <param name="aiService">The artificial intelligence service.</param>
         /// <param name="combatManager">The combat manager</param>
         public GameService([NotNull] LevelGenerationService levelService, 
-                           [NotNull] ICombatManager combatManager,
-                           [NotNull] ILootProvider lootProvider,
+                           [NotNull] CombatManager combatManager,
+                           [NotNull] LootProvider lootProvider,
                            [NotNull] IEntityDefinitionService entityService,
                            [NotNull] ISimulationManager simManager)
         {

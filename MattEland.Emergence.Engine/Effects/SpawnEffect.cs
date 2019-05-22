@@ -1,4 +1,5 @@
 ﻿using MattEland.Emergence.Engine.DTOs;
+using MattEland.Emergence.Engine.Entities;
 using MattEland.Emergence.Engine.Level;
 
 namespace MattEland.Emergence.Engine.Effects
@@ -6,7 +7,7 @@ namespace MattEland.Emergence.Engine.Effects
     public class SpawnEffect : EffectBase
     {
 
-        public SpawnEffect(IGameObject source) : base(source)
+        public SpawnEffect(GameObjectBase source) : base(source)
         {
         }
 

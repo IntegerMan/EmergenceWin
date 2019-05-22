@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using MattEland.Emergence.Engine.Entities;
 using MattEland.Emergence.Engine.Game;
 using MattEland.Emergence.Engine.Level;
 
@@ -15,9 +16,9 @@ namespace MattEland.Emergence.Engine.Services
         /// <param name="choices">The available cell choices.</param>
         /// <param name="visible">The visible cells.</param>
         /// <returns>The actor's choice.</returns>
-        IGameCell GetActorChoice(IActor actor, IList<IGameCell> choices, IList<IGameCell> visible, CommandContext context);
+        GameCell GetActorChoice(Actor actor, IList<GameCell> choices, IList<GameCell> visible, CommandContext context);
 
-        bool HandleSpecialCommand(CommandContext context, IActor actor);
+        bool HandleSpecialCommand(CommandContext context, Actor actor);
 
         /// <summary>
         /// Executes a specific command for a given actor
@@ -27,10 +28,10 @@ namespace MattEland.Emergence.Engine.Services
         /// <param name="commandId">The command to invoke</param>
         /// <param name="commandPosition">The cell targeted by the command (or the actor's current cell)</param>
         void HandleActorCommand(CommandContext context, 
-            IActor actor, 
+            Actor actor, 
             string commandId, 
             Pos2D commandPosition);
 
-        void UpdateActorState(CommandContext context, IActor actor, IGameCell choice);
+        void UpdateActorState(CommandContext context, Actor actor, GameCell choice);
     }
 }

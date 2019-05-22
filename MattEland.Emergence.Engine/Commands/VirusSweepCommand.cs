@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using JetBrains.Annotations;
 using MattEland.Emergence.Engine.Effects;
+using MattEland.Emergence.Engine.Entities;
 using MattEland.Emergence.Engine.Game;
 using MattEland.Emergence.Engine.Level;
 using MattEland.Emergence.Engine.Services;
@@ -21,25 +22,25 @@ namespace MattEland.Emergence.Engine.Commands
 
         public override string IconId => "select_all";
 
-        public override void ApplyPreActionEffect(CommandContext context, IActor executor, Pos2D pos)
+        public override void ApplyPreActionEffect(CommandContext context, Actor executor, Pos2D pos)
         {
         }
 
-        protected override void OnActivated(CommandContext context, IActor executor, Pos2D pos)
-        {
-            CleanseNearby(context, executor, pos);
-        }
-
-        protected override void OnDeactivated(CommandContext context, IActor executor, Pos2D pos)
-        {
-        }
-
-        public override void ApplyEffect(CommandContext context, IActor executor, Pos2D pos)
+        protected override void OnActivated(CommandContext context, Actor executor, Pos2D pos)
         {
             CleanseNearby(context, executor, pos);
         }
 
-        private static void CleanseNearby(CommandContext context, IActor executor, Pos2D pos)
+        protected override void OnDeactivated(CommandContext context, Actor executor, Pos2D pos)
+        {
+        }
+
+        public override void ApplyEffect(CommandContext context, Actor executor, Pos2D pos)
+        {
+            CleanseNearby(context, executor, pos);
+        }
+
+        private static void CleanseNearby(CommandContext context, Actor executor, Pos2D pos)
         {
             const int strength = 1;
 

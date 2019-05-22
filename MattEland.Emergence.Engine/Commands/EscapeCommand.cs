@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using MattEland.Emergence.Engine.DTOs;
+using MattEland.Emergence.Engine.Entities;
 using MattEland.Emergence.Engine.Game;
 using MattEland.Emergence.Engine.Level;
 using MattEland.Emergence.Engine.Services;
@@ -22,9 +23,9 @@ namespace MattEland.Emergence.Engine.Commands
 
         public override int ActivationCost => 2;
 
-        public override void ApplyEffect(CommandContext context, IActor executor, Pos2D pos)
+        public override void ApplyEffect(CommandContext context, Actor executor, Pos2D pos)
         {
-            IGameCell target = context.Level.Cells.Where(c => !c.HasObstacle).GetRandomElement(context.Randomizer);
+            GameCell target = context.Level.Cells.Where(c => !c.HasObstacle).GetRandomElement(context.Randomizer);
 
             // This should rarely ever happen, but is potentially possible
             if (target == null)

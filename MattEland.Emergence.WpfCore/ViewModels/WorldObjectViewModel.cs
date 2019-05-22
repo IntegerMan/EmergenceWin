@@ -17,7 +17,7 @@ namespace MattEland.Emergence.WpfCore.ViewModels
         private readonly GameViewModel _gameVM;
 
         [NotNull, UsedImplicitly]
-        public IGameObject Source { get; private set; }
+        public GameObjectBase Source { get; private set; }
 
         public int Size => 24;
 
@@ -38,7 +38,7 @@ namespace MattEland.Emergence.WpfCore.ViewModels
 
         public Guid Id => Source.Id;
 
-        public WorldObjectViewModel(IGameObject source, GameViewModel gameViewModel)
+        public WorldObjectViewModel(GameObjectBase source, GameViewModel gameViewModel)
         {
             _gameVM = gameViewModel;
             Source = source;

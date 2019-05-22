@@ -1,9 +1,10 @@
-﻿using MattEland.Emergence.Engine.Level;
+﻿using MattEland.Emergence.Engine.Entities;
+using MattEland.Emergence.Engine.Level;
 
 namespace MattEland.Emergence.Engine.Services
 {
     public interface IBrainProvider
     {
-        IBrain GetBrainForActor(IActor actor);
+        IBrain GetBrainForActor(Actor actor);
     }
 }

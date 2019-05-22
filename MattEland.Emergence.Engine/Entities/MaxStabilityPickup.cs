@@ -16,7 +16,7 @@ namespace MattEland.Emergence.Engine.Entities
         protected override string CustomName => $"Max Stability +{Potency}";
 
         /// <inheritdoc />
-        public override bool OnActorAttemptedEnter(CommandContext context, IActor actor)
+        public override bool OnActorAttemptedEnter(CommandContext context, Actor actor)
         {
             if (actor.IsPlayer)
             {

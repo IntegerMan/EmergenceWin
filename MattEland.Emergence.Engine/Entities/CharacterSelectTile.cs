@@ -39,7 +39,7 @@ namespace MattEland.Emergence.Engine.Entities
             UpdateIsHidden(context);
         }
 
-        public override bool OnActorAttemptedEnter(CommandContext context, IActor actor)
+        public override bool OnActorAttemptedEnter(CommandContext context, Actor actor)
         {
             if (!actor.IsPlayer)
             {

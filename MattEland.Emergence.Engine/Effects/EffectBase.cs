@@ -1,16 +1,17 @@
 ﻿using MattEland.Emergence.Engine.DTOs;
+using MattEland.Emergence.Engine.Entities;
 using MattEland.Emergence.Engine.Level;
 
 namespace MattEland.Emergence.Engine.Effects
 {
     public abstract class EffectBase
     {
-        protected EffectBase(IGameObject source)
+        protected EffectBase(GameObjectBase source)
         {
             Source = source;
         }
 
-        public IGameObject Source { get; set; }
+        public GameObjectBase Source { get; set; }
 
         public abstract EffectDto BuildDto();
     }

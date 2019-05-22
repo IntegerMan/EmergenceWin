@@ -1,4 +1,5 @@
 ﻿using MattEland.Emergence.Engine.DTOs;
+using MattEland.Emergence.Engine.Entities;
 using MattEland.Emergence.Engine.Level;
 using MattEland.Emergence.Engine.Services;
 
@@ -9,7 +10,7 @@ namespace MattEland.Emergence.Engine.Effects
         private readonly int _amount;
         private readonly DamageType _damageType;
 
-        public DamagedEffect(IGameObject source, int amount, DamageType damageType) : base(source)
+        public DamagedEffect(GameObjectBase source, int amount, DamageType damageType) : base(source)
         {
             _amount = amount;
             _damageType = damageType;

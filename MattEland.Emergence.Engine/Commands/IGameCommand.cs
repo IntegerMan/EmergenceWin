@@ -1,4 +1,5 @@
 ﻿using MattEland.Emergence.Engine.DTOs;
+using MattEland.Emergence.Engine.Entities;
 using MattEland.Emergence.Engine.Game;
 using MattEland.Emergence.Engine.Level;
 using MattEland.Emergence.Engine.Services;
@@ -52,7 +53,7 @@ namespace MattEland.Emergence.Engine.Commands
         /// <param name="context">The current command context.</param>
         /// <param name="executor">The actor executing the command.</param>
         /// <param name="pos">The targeted position for the command. For non-targeted commands, this will be <paramref name="executor"/>'s current position.</param>
-        bool Execute(CommandContext context, IActor executor, Pos2D pos, bool isCurrentlyActive);
+        bool Execute(CommandContext context, Actor executor, Pos2D pos, bool isCurrentlyActive);
 
         /// <summary>
         /// Builds a data transmission object based on this instance.
@@ -67,8 +68,8 @@ namespace MattEland.Emergence.Engine.Commands
         /// <param name="context">The command context.</param>
         /// <param name="executor">The actor executing the command.</param>
         /// <param name="pos">The command's targeted position, or <paramref name="executor"/>'s position.</param>
-        void ApplyEffect(CommandContext context, IActor executor, Pos2D pos);
+        void ApplyEffect(CommandContext context, Actor executor, Pos2D pos);
 
-        void ApplyPreActionEffect(CommandContext context, IActor executor, Pos2D playerPosition);
+        void ApplyPreActionEffect(CommandContext context, Actor executor, Pos2D playerPosition);
     }
 }

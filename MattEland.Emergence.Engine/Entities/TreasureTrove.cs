@@ -13,7 +13,7 @@ namespace MattEland.Emergence.Engine.Entities
         }
 
         /// <inheritdoc />
-        protected override void OnOpened(CommandContext context, IGameObject opener)
+        protected override void OnOpened(CommandContext context, GameObjectBase opener)
         {
             if (IsCorrupted)
             {
@@ -28,7 +28,7 @@ namespace MattEland.Emergence.Engine.Entities
 
         public override char AsciiChar => 't';
 
-        public override void OnDestroyed(CommandContext context, IGameObject attacker)
+        public override void OnDestroyed(CommandContext context, GameObjectBase attacker)
         {
             base.OnDestroyed(context, attacker);
 

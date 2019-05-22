@@ -1,6 +1,7 @@
 ﻿using System;
 using GeneticSharp.Domain.Randomizations;
 using JetBrains.Annotations;
+using MattEland.Emergence.Engine.Entities;
 using MattEland.Emergence.Engine.Level.Generation.Encounters;
 using MattEland.Emergence.Engine.Level.Generation.Prefabs;
 
@@ -12,7 +13,7 @@ namespace MattEland.Emergence.Engine.Level.Generation
     /// </summary>
     public sealed class LevelGenerationService
     {
-        private readonly IPrefabService _prefabService;
+        private readonly PrefabService _prefabService;
         private readonly EncountersService _encounterService;
         private readonly IRandomization _randomization;
 
@@ -21,7 +22,7 @@ namespace MattEland.Emergence.Engine.Level.Generation
         /// </summary>
         /// <param name="prefabService">The prefab service.</param>
         /// <param name="encounterService">The encounter service.</param>
-        public LevelGenerationService(IPrefabService prefabService, EncountersService encounterService, IRandomization randomization)
+        public LevelGenerationService(PrefabService prefabService, EncountersService encounterService, IRandomization randomization)
         {
             _prefabService = prefabService;
             _encounterService = encounterService;
@@ -33,8 +34,8 @@ namespace MattEland.Emergence.Engine.Level.Generation
         /// </summary>
         /// <param name="parameters">The level generation parameters.</param>
         /// <param name="player">The player object.</param>
-        /// <returns><see cref="ILevel"/> representing the structure of the generated level.</returns>
-        public ILevel GenerateLevel([NotNull] LevelGenerationParameters parameters, [CanBeNull] IPlayer player)
+        /// <returns><see cref="LevelData"/> representing the structure of the generated level.</returns>
+        public LevelData GenerateLevel([NotNull] LevelGenerationParameters parameters, [CanBeNull] Player player)
         {
             if (parameters == null)
             {

@@ -7,7 +7,7 @@ namespace MattEland.Emergence.Engine.Level.Generation.Prefabs
     /// <summary>
     ///     A service for interacting with prefabs and composing levels out of them.
     /// </summary>
-    public sealed class PrefabService : IPrefabService
+    public sealed class PrefabService
     {
         private readonly PrefabDataProvider _prefabProvider;
 
@@ -28,7 +28,7 @@ namespace MattEland.Emergence.Engine.Level.Generation.Prefabs
         /// <param name="flipX">if set to <c>true</c> the prefab will be flipped horizontally before being applied.</param>
         /// <param name="flipY">if set to <c>true</c> the prefab will be flipped vertically before being applied.</param>
         /// <returns>A unique identifier for the prefab, used for encounter generation.</returns>
-        public Guid AddPrefab(ILevelBuilder builder,
+        public Guid AddPrefab(LevelBuilder builder,
             Pos2D upperLeft,
             PrefabData prefab,
             bool flipX = false,
@@ -62,7 +62,7 @@ namespace MattEland.Emergence.Engine.Level.Generation.Prefabs
         /// <param name="prefabGuid">The prefab instance's unique identifier.</param>
         /// <param name="prefab">The prefab.</param>
         /// <param name="prefabDimensions">The prefab dimensions.</param>
-        private static void AddCellsFromPrefab(ILevelBuilder builder,
+        private static void AddCellsFromPrefab(LevelBuilder builder,
                                                Pos2D upperLeft,
                                                bool flipX,
                                                bool flipY,
@@ -162,7 +162,7 @@ namespace MattEland.Emergence.Engine.Level.Generation.Prefabs
         /// size - The Y size of a constructed room must be greater than zero.
         /// </exception>
         /// <exception cref="System.ArgumentOutOfRangeException">size - The X and Y sizes of a constructed room must each be greater than zero.</exception>
-        public Guid AddRectangularRoom(ILevelBuilder builder, Pos2D upperLeft, Pos2D size)
+        public Guid AddRectangularRoom(LevelBuilder builder, Pos2D upperLeft, Pos2D size)
         {
             // Validate
             if (size.X <= 0 || size.Y <= 0)

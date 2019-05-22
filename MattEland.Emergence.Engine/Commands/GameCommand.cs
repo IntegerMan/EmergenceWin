@@ -1,5 +1,6 @@
 ﻿using MattEland.Emergence.Engine.DTOs;
 using MattEland.Emergence.Engine.Effects;
+using MattEland.Emergence.Engine.Entities;
 using MattEland.Emergence.Engine.Game;
 using MattEland.Emergence.Engine.Level;
 using MattEland.Emergence.Engine.Services;
@@ -40,7 +41,7 @@ namespace MattEland.Emergence.Engine.Commands
         public virtual LevelType? MinLevel => null;
 
         /// <inheritdoc />
-        public bool Execute(CommandContext context, IActor executor, Pos2D pos, bool isCurrentlyActive)
+        public bool Execute(CommandContext context, Actor executor, Pos2D pos, bool isCurrentlyActive)
         {
             if (ActivationType == CommandActivationType.Active && isCurrentlyActive)
             {
@@ -103,11 +104,11 @@ namespace MattEland.Emergence.Engine.Commands
             return false;
         }
 
-        protected virtual void OnActivated(CommandContext context, IActor executor, Pos2D pos)
+        protected virtual void OnActivated(CommandContext context, Actor executor, Pos2D pos)
         {
         }
 
-        protected virtual void OnDeactivated(CommandContext context, IActor executor, Pos2D pos)
+        protected virtual void OnDeactivated(CommandContext context, Actor executor, Pos2D pos)
         {
         }
 
@@ -118,10 +119,10 @@ namespace MattEland.Emergence.Engine.Commands
         /// <param name="context">The command context.</param>
         /// <param name="executor">The actor executing the command.</param>
         /// <param name="pos">The command's targeted position, or <paramref name="executor"/>'s position.</param>
-        public abstract void ApplyEffect(CommandContext context, IActor executor, Pos2D pos);
+        public abstract void ApplyEffect(CommandContext context, Actor executor, Pos2D pos);
 
 
-        public virtual void ApplyPreActionEffect(CommandContext context, IActor executor, Pos2D pos)
+        public virtual void ApplyPreActionEffect(CommandContext context, Actor executor, Pos2D pos)
         {
 
         }

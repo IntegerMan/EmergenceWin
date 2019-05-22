@@ -17,7 +17,7 @@ namespace MattEland.Emergence.Engine.Entities
         public override char AsciiChar => 'd';
 
         /// <inheritdoc />
-        public override bool OnActorAttemptedEnter(CommandContext context, IActor actor)
+        public override bool OnActorAttemptedEnter(CommandContext context, Actor actor)
         {
             if (actor.IsPlayer)
             {

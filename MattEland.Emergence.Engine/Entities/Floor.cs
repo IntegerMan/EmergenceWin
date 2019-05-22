@@ -45,7 +45,7 @@ namespace MattEland.Emergence.Engine.Entities
             }
         }
 
-        public override bool OnActorAttemptedEnter(CommandContext context, IActor actor)
+        public override bool OnActorAttemptedEnter(CommandContext context, Actor actor)
         {
             context.MoveObject(actor, Pos);
 

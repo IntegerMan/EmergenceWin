@@ -1,4 +1,5 @@
 ﻿using MattEland.Emergence.Engine.DTOs;
+using MattEland.Emergence.Engine.Entities;
 using MattEland.Emergence.Engine.Level;
 
 namespace MattEland.Emergence.Engine.Effects
@@ -7,7 +8,7 @@ namespace MattEland.Emergence.Engine.Effects
     {
         private readonly Pos2D _endPos;
 
-        public ProjectileEffect(IGameObject source, Pos2D endPos) : base(source)
+        public ProjectileEffect(GameObjectBase source, Pos2D endPos) : base(source)
         {
             _endPos = endPos;
         }
