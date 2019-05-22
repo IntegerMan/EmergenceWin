@@ -45,6 +45,8 @@ namespace MattEland.Emergence.Engine.Entities
             }
         }
 
+        public override int ZIndex => 0;
+
         public override bool OnActorAttemptedEnter(CommandContext context, Actor actor)
         {
             context.MoveObject(actor, Pos);

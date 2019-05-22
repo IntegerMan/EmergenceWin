@@ -24,7 +24,7 @@ namespace MattEland.Emergence.Engine
             _loot = new LootProvider();
             var randomization = new BasicRandomization();
             _levelBuilder = new LevelGenerationService(new PrefabService(), new EncountersService(), randomization);
-            _service = new GameService(_levelBuilder, _combatManager, _loot, _entityService, new GameSimulationManager());
+            _service = new GameService(_levelBuilder, _combatManager, _loot, _entityService);
         }
 
         [NotNull]

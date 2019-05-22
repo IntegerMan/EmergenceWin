@@ -27,7 +27,10 @@ namespace MattEland.Emergence.Engine.Entities
         /// <inheritdoc />
         public override bool OnActorAttemptedEnter(CommandContext context, Actor actor)
         {
-            if (IsOpen || actor.Team == Alignment.SystemCore || actor.Team == Alignment.SystemSecurity || actor.Team == Alignment.SystemAntiVirus)
+            if (IsOpen || 
+                actor.Team == Alignment.SystemCore || 
+                actor.Team == Alignment.SystemSecurity || 
+                actor.Team == Alignment.SystemAntiVirus)
             {
                 context.MoveObject(actor, Pos);
                 return true;

@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using GeneticSharp.Domain.Randomizations;
+using MattEland.Emergence.Engine.DTOs;
 using MattEland.Emergence.Engine.Entities;
 using MattEland.Emergence.Engine.Level.Generation.Encounters;
 using MattEland.Emergence.Engine.Level.Generation.Prefabs;
 using MattEland.Emergence.Engine.Services;
+using MattEland.Shared.Collections;
 
 namespace MattEland.Emergence.Engine.Level.Generation
 {
@@ -219,18 +221,26 @@ namespace MattEland.Emergence.Engine.Level.Generation
             // Loop over all door cells and ensure that they have floors without walls on the other side of them.
             FinalizeDoors(level);
 
+            FinalizeFloors(level);
+
             GenerateActors(level);
 
             return level;
         }
 
-        private static void FinalizePlacedWalls(LevelData level)
+        private static void FinalizeFloors(LevelData level)
         {
-            foreach (var wall in level.Objects.Where(o => o.ObjectType == GameObjectType.Wall && level.IsPosExterior(o.Pos)))
+            foreach (var cell in level.Cells.Where(c => c.FloorType != FloorType.Void && !c.HasNonActorObstacle))
             {
-                wall.State = "External";
+                level.AddObject(new Floor(new GameObjectDto
+                {
+                    Pos = cell.Pos.SerializedValue
+                }, cell.FloorType));
             }
         }
+
+        private static void FinalizePlacedWalls(LevelData level) => 
+            level.Objects.Where(o => o.ObjectType == GameObjectType.Wall && level.IsPosExterior(o.Pos)).Each(w => w.State = "External");
 
         /// <summary>
         /// Generates actors for the level and places their contents inside of the level.
@@ -354,10 +364,7 @@ namespace MattEland.Emergence.Engine.Level.Generation
             return (IsOpenCell(west) && IsOpenCell(east)) || (IsOpenCell(north) && IsOpenCell(south));
         }
 
-        private static bool IsOpenCell(GameCell GameCell)
-        {
-            return GameCell != null && GameCell.Objects.All(c => c.ObjectType != GameObjectType.Wall);
-        }
+        private static bool IsOpenCell(GameCell GameCell) => GameCell != null && GameCell.Objects.All(c => c.ObjectType != GameObjectType.Wall);
 
         /// <summary>
         /// Gets the game object a given character on a terrain map

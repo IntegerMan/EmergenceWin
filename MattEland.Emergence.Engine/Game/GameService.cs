@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
 using MattEland.Emergence.Engine.DTOs;
 using MattEland.Emergence.Engine.Entities;
 using MattEland.Emergence.Engine.Level;
 using MattEland.Emergence.Engine.Level.Generation;
+using MattEland.Emergence.Engine.Level.Generation.Encounters;
 using MattEland.Emergence.Engine.Loot;
 using MattEland.Emergence.Engine.Model;
 using MattEland.Emergence.Engine.Model.Messages;
@@ -22,8 +22,7 @@ namespace MattEland.Emergence.Engine.Game
         [NotNull] private readonly LevelGenerationService _levelService;
         [NotNull] private readonly LootProvider _lootProvider;
         [NotNull] private readonly CombatManager _combatManager;
-        [NotNull] private readonly IEntityDefinitionService _entityProvider;
-        [NotNull] private readonly ISimulationManager _simManager;
+        [NotNull] private readonly EntityDefinitionService _entityProvider;
 
         private LevelData _level;
         private Player _player;
@@ -32,19 +31,16 @@ namespace MattEland.Emergence.Engine.Game
         /// Initializes a new instance of the <see cref="GameService"/> class.
         /// </summary>
         /// <param name="levelService">The level service.</param>
-        /// <param name="aiService">The artificial intelligence service.</param>
         /// <param name="combatManager">The combat manager</param>
         public GameService([NotNull] LevelGenerationService levelService, 
                            [NotNull] CombatManager combatManager,
                            [NotNull] LootProvider lootProvider,
-                           [NotNull] IEntityDefinitionService entityService,
-                           [NotNull] ISimulationManager simManager)
+                           [NotNull] EntityDefinitionService entityService)
         {
             _levelService = levelService ?? throw new ArgumentNullException(nameof(levelService));
             _combatManager = combatManager ?? throw new ArgumentNullException(nameof(combatManager));
             _lootProvider = lootProvider ?? throw new ArgumentNullException(nameof(lootProvider));
             _entityProvider = entityService ?? throw new ArgumentNullException(nameof(entityService));
-            _simManager = simManager ?? throw new ArgumentNullException(nameof(simManager));
 
             GameCreationConfigurator.ConfigureObjectCreation();
         }
@@ -74,9 +70,6 @@ namespace MattEland.Emergence.Engine.Game
             return context;
         }
 
-        private static IEnumerable<EffectDto> BuildEffects(CommandContext context) => 
-            context.Effects.Select(effect => effect.BuildDto());
-
         /// <inheritdoc />
         public CommandContext HandleGameMove(MoveDirection direction)
         {
@@ -90,9 +83,21 @@ namespace MattEland.Emergence.Engine.Game
                 obj.ApplyActiveEffects(context);
             }
 
-            // Allow objects to act
+            // Interact with all objects in the tile
             var targetPos = _player.Pos.GetNeighbor(direction);
-            // TODO: _simulator.SimulateGameTurn(context, _simManager);
+            foreach (var obj in context.Level.Objects.Where(o => o.Pos == targetPos).OrderByDescending(o => o.ZIndex))
+            {
+                if (obj.OnActorAttemptedEnter(context, _player))
+                {
+                    break;
+                }
+            }
+
+            // Give objects and actors a chance to react to the changed state
+            foreach (var obj in context.Level.Objects.ToList())
+            {
+                obj.MaintainActiveEffects(context);
+            }
 
             // Ensure that vision is accurate for the player before sending back to the client
             context.CalculateLineOfSight(context.Player);

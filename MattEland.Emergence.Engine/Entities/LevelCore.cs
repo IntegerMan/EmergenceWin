@@ -20,7 +20,7 @@ namespace MattEland.Emergence.Engine.Entities
         {
             context.CombatManager.HandleCapture(context, this, actor);
 
-            return false;
+            return true;
         }
 
         protected override string CustomName => "System Core";

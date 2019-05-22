@@ -3,7 +3,7 @@ using MattEland.Emergence.Engine.Services;
 
 namespace MattEland.Emergence.Engine.Level.Generation.Encounters
 {
-    public sealed class EntityDefinitionService : IEntityDefinitionService
+    public sealed class EntityDefinitionService
     {
         private readonly EntityDataProvider _entityDataProvider;
 

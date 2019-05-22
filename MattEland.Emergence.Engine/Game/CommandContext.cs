@@ -8,6 +8,7 @@ using MattEland.Emergence.Engine.DTOs;
 using MattEland.Emergence.Engine.Effects;
 using MattEland.Emergence.Engine.Entities;
 using MattEland.Emergence.Engine.Level;
+using MattEland.Emergence.Engine.Level.Generation.Encounters;
 using MattEland.Emergence.Engine.Loot;
 using MattEland.Emergence.Engine.Model.Messages;
 using MattEland.Emergence.Engine.Services;
@@ -23,7 +24,7 @@ namespace MattEland.Emergence.Engine.Game
 
         public CommandContext([NotNull] LevelData level,
                               [NotNull] GameService gameService,
-                              [NotNull] IEntityDefinitionService entityService,
+                              [NotNull] EntityDefinitionService entityService,
                               [NotNull] CombatManager combatManager,
                               [NotNull] LootProvider lootProvider)
         {
@@ -43,7 +44,7 @@ namespace MattEland.Emergence.Engine.Game
 
         public event EventHandler<ActorDamagedEventArgs> OnActorHurt;
 
-        public IEntityDefinitionService EntityService { get; set; }
+        public EntityDefinitionService EntityService { get; set; }
 
         public IEnumerable<GameCell> GetCellsVisibleFromPoint(Pos2D point, decimal radius)
         {

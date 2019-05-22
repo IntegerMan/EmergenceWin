@@ -61,6 +61,7 @@ namespace MattEland.Emergence.Engine.Entities
 
         public override string ForegroundColor => GameColors.LightGreen;
 
+        public override int ZIndex => 50;
 
         public override bool IsCorruptable => false;
     }

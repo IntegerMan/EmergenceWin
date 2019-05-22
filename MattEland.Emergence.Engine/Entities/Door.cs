@@ -17,6 +17,7 @@ namespace MattEland.Emergence.Engine.Entities
 
         public override string ForegroundColor => GameColors.Yellow;
 
+        /*
         public override void MaintainActiveEffects(CommandContext context)
         {
             base.MaintainActiveEffects(context);
@@ -37,6 +38,7 @@ namespace MattEland.Emergence.Engine.Entities
             }
 
         }
+        */
 
         public override bool OnActorAttemptedEnter(CommandContext context, Actor actor)
         {
