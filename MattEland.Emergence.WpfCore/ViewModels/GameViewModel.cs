@@ -25,8 +25,7 @@ namespace MattEland.Emergence.WpfCore.ViewModels
 
             GameCreationConfigurator.ConfigureObjectCreation();
 
-            var messages = _gameManager.Start();
-            ProcessMessages(messages);
+            ProcessMessages(_gameManager.Start());
         }
 
         private void ProcessMessages(IEnumerable<GameMessage> messages)
@@ -79,7 +78,16 @@ namespace MattEland.Emergence.WpfCore.ViewModels
 
         public void MovePlayer(MoveDirection direction) => ProcessMessages(_gameManager.MovePlayer(direction));
 
-        private void CenterOnPlayer() => CenterOn(WorldObjects.Select(o => o.Source).OfType<Player>().First().Pos);
+        private void CenterOnPlayer()
+        {
+            if (!WorldObjects.Any()) return;
+
+            var player = WorldObjects.Select(o => o.Source).OfType<Player>().FirstOrDefault();
+            if (player != null)
+            {
+                CenterOn(player.Pos);
+            }
+        }
 
         public void CenterOn(Pos2D pos)
         {

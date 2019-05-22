@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using GeneticSharp.Domain.Randomizations;
 using JetBrains.Annotations;
 using MattEland.Emergence.Engine.DTOs;
 using MattEland.Emergence.Engine.Level;
 using MattEland.Emergence.Engine.Level.Generation;
+using MattEland.Emergence.Engine.Model;
+using MattEland.Emergence.Engine.Model.Messages;
 using MattEland.Emergence.Engine.Services;
+using MattEland.Shared.Collections;
 
 namespace MattEland.Emergence.Engine.Game
 {
@@ -22,6 +24,7 @@ namespace MattEland.Emergence.Engine.Game
         [NotNull] private readonly ISimulationManager _simManager;
 
         private ILevel _level;
+        private IPlayer _player;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GameService"/> class.
@@ -44,8 +47,7 @@ namespace MattEland.Emergence.Engine.Game
             GameCreationConfigurator.ConfigureObjectCreation();
         }
 
-        /// <inheritdoc />
-        public GameResponse StartNewGame(NewGameParameters parameters)
+        public CommandContext StartNewGame(NewGameParameters parameters)
         {
             if (string.IsNullOrWhiteSpace(parameters.CharacterId))
             {
@@ -58,35 +60,23 @@ namespace MattEland.Emergence.Engine.Game
 
             // Set up the basic parameters
             var levelParameters = new LevelGenerationParameters { LevelType = LevelType.Tutorial };
-            var player = CreationService.CreatePlayer(parameters.CharacterId);
-            var levelData = _levelService.GenerateLevel(levelParameters, player);
-
-            var response = new GameResponse
-            {
-                UID = Guid.NewGuid(),
-                State = new GameState
-                {
-                    NumMoves = 0,
-                    UID = Guid.NewGuid()
-                }
-            };
+            _player = CreationService.CreatePlayer(parameters.CharacterId);
+            _level = _levelService.GenerateLevel(levelParameters, _player);
 
             // Ensure line of sight is calculated
-            var context = new CommandContext(levelData, this, _entityProvider, _combatManager, _lootProvider);
-            context.CalculateLineOfSight(player);
+            var context = new CommandContext(_level, this, _entityProvider, _combatManager, _lootProvider);
+            context.CalculateLineOfSight(_player);
 
-            // Set the level into the response now that the LoS has been calculated
-            response.State.Level = levelData.BuildLevelDto();
-            response.Effects = BuildEffects(context).ToList();
-            
-            return response;
+            _level.Objects.Each(o => context.CreatedObject(o));
+
+            return context;
         }
 
         private static IEnumerable<EffectDto> BuildEffects(CommandContext context) => 
             context.Effects.Select(effect => effect.BuildDto());
 
         /// <inheritdoc />
-        public CommandContext HandleGameMove(Pos2D targetPos)
+        public CommandContext HandleGameMove(MoveDirection direction)
         {
             NumMoves++;
 
@@ -98,6 +88,8 @@ namespace MattEland.Emergence.Engine.Game
                 obj.ApplyActiveEffects(context);
             }
 
+            // Allow objects to act
+            var targetPos = _player.Pos.GetNeighbor(direction);
             // TODO: _simulator.SimulateGameTurn(context, _simManager);
 
             // Ensure that vision is accurate for the player before sending back to the client

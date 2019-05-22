@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using GeneticSharp.Domain.Randomizations;
 using JetBrains.Annotations;
 using MattEland.Emergence.Engine.DTOs;
-using MattEland.Emergence.Engine.Entities;
 using MattEland.Emergence.Engine.Game;
 using MattEland.Emergence.Engine.Level;
 using MattEland.Emergence.Engine.Level.Generation;
@@ -14,39 +12,29 @@ using MattEland.Emergence.Engine.Loot;
 using MattEland.Emergence.Engine.Model;
 using MattEland.Emergence.Engine.Model.EngineDefinitions;
 using MattEland.Emergence.Engine.Model.Messages;
-using MattEland.Emergence.Engine.Services;
-using MattEland.Shared.Collections;
 
 namespace MattEland.Emergence.Engine
 {
-    public class GameManager : IGameManager
+    public class GameManager
     {
         public GameManager()
         {
             _entityService = new EntityDefinitionService();
             _combatManager = new CombatManager();
-            _randomization = new BasicRandomization();
             _loot = new LootProvider();
-            _levelBuilder = new LevelGenerationService(new PrefabService(), new EncountersService(), new BasicRandomization());
+            var randomization = new BasicRandomization();
+            _levelBuilder = new LevelGenerationService(new PrefabService(), new EncountersService(), randomization);
             _service = new GameService(_levelBuilder, _combatManager, _loot, _entityService, new GameSimulationManager());
-
-            _levels = new Queue<LevelType>();
         }
 
         [CanBeNull]
         private IPlayer _player;
 
-        private readonly List<IGameObject> _objects = new List<IGameObject>();
-
         [NotNull]
         private readonly LevelGenerationService _levelBuilder;
 
-        private ILevel _level;
-
-        private readonly Queue<LevelType> _levels;
         private readonly EntityDefinitionService _entityService;
         private readonly CombatManager _combatManager;
-        private readonly BasicRandomization _randomization;
         private readonly LootProvider _loot;
         private readonly GameService _service;
 
@@ -59,71 +47,14 @@ namespace MattEland.Emergence.Engine
 
             if (State != GameStatus.NotStarted) throw new InvalidOperationException("The game has already been started");
 
-            _levels.Clear();
-            _levels.Enqueue(LevelType.Tutorial);
-            _levels.Enqueue(LevelType.ClientWorkstation);
-            _levels.Enqueue(LevelType.SmartFridge);
-            _levels.Enqueue(LevelType.MessagingServer);
-            _levels.Enqueue(LevelType.Bastion);
-            _levels.Enqueue(LevelType.RouterGateway);
-            _levels.Enqueue(LevelType.Escaped);
-
-            return GenerateLevel();
-        }
-
-        public IEnumerable<GameMessage> GenerateLevel()
-        {
-            State = GameStatus.Executing;
-
-            const string PlayerId = "ACTOR_PLAYER_GAME";
-
-            if (_player == null)
+            var context = _service.StartNewGame(new NewGameParameters()
             {
-                _player = GameObjectFactory.CreatePlayer(PlayerId);
-            }
-
-            _level = _levelBuilder.GenerateLevel(new LevelGenerationParameters
-            {
-                LevelType = _levels.Dequeue(),
-                PlayerId = PlayerId
-
-            }, _player);
-
-            // Ready for new objects
-            _objects.Clear();
-
-            // Add the player
-            _player.Pos = _level.PlayerStart;
-            _objects.Add(_player);
-
-            // Add all objects
-            _level.Cells.Each(c => GetGameObjectForCell(c).Each(o => _objects.Add(o)));
+                CharacterId = null
+            });
 
             State = GameStatus.Ready;
 
-            return _objects.Select(o => new CreatedMessage(o));
-        }
-
-        private static IEnumerable<IGameObject> GetGameObjectForCell(IGameCell c)
-        {
-            bool hasObject = false;
-            foreach (var gameObject in c.Objects)
-            {
-                yield return gameObject;
-
-                if (!(gameObject is Actor))
-                {
-                    hasObject = true;
-                }
-            }
-
-            if (c.FloorType != FloorType.Void && !hasObject)
-            {
-                yield return new Floor(new GameObjectDto
-                {
-                    Pos = c.Pos.SerializedValue
-                }, c.FloorType);
-            }
+            return context.Messages;
         }
 
         public IEnumerable<GameMessage> MovePlayer(MoveDirection direction)
@@ -132,9 +63,7 @@ namespace MattEland.Emergence.Engine
 
             State = GameStatus.Executing;
 
-            var targetPos = _player.Pos.GetNeighbor(direction);
-
-            var context = _service.HandleGameMove(targetPos);
+            var context = _service.HandleGameMove(direction);
 
             State = GameStatus.Ready;
 

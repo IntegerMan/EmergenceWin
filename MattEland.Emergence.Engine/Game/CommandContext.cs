@@ -247,6 +247,8 @@ namespace MattEland.Emergence.Engine.Game
         public void MoveExecutingActor(Pos2D newPos) => MoveObject(Player, newPos);
         public void UpdateObject(IGameObject gameObject) => AddMessage(new ObjectUpdatedMessage(gameObject));
 
+        public void CreatedObject(IGameObject gameObject) => AddMessage(new CreatedMessage(gameObject));
+
         public void DisplayText(string text, ClientMessageType messageType = ClientMessageType.Generic) => AddMessage(new DisplayTextMessage(text, messageType));
 
         /// <inheritdoc />
