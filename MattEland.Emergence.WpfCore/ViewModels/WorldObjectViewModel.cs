@@ -3,7 +3,6 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Windows.Media;
-using JetBrains.Annotations;
 using MattEland.Emergence.Engine.Entities;
 using MattEland.Emergence.Engine.Level;
 using MattEland.Emergence.Engine.Model.Messages;
@@ -13,10 +12,8 @@ namespace MattEland.Emergence.WpfCore.ViewModels
     [DebuggerDisplay("{Source.GetType().Name} at ({Source.Pos.X}, {Source.Pos.Y}) rendering at ({X}, {Y})")]
     public class WorldObjectViewModel : INotifyPropertyChanged
     {
-        [NotNull]
         private readonly GameViewModel _gameVM;
 
-        [NotNull, UsedImplicitly]
         public GameObjectBase Source { get; private set; }
 
         public int Size => 24;
@@ -27,13 +24,10 @@ namespace MattEland.Emergence.WpfCore.ViewModels
 
         public string Content => Source.AsciiChar.ToString();
 
-        [UsedImplicitly] 
         public int X => (Source.Pos.X + _gameVM.XOffset) * Size;
         
-        [UsedImplicitly] 
         public int Y => (Source.Pos.Y + _gameVM.YOffset) * Size;
 
-        [UsedImplicitly]
         public int ZIndex => Source.ZIndex;
 
         public Guid Id => Source.Id;
@@ -44,7 +38,7 @@ namespace MattEland.Emergence.WpfCore.ViewModels
             Source = source;
         }
 
-        public void UpdateFrom([NotNull] ObjectUpdatedMessage message)
+        public void UpdateFrom(ObjectUpdatedMessage message)
         {
             if (message == null) throw new ArgumentNullException(nameof(message));
 
@@ -56,7 +50,6 @@ namespace MattEland.Emergence.WpfCore.ViewModels
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null) 
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 

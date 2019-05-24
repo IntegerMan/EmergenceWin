@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using JetBrains.Annotations;
 using MattEland.Emergence.Engine;
 using MattEland.Emergence.Engine.Entities;
 using MattEland.Emergence.Engine.Level;
@@ -16,7 +15,6 @@ namespace MattEland.Emergence.WpfCore.ViewModels
     {
         private readonly IDictionary<Guid, WorldObjectViewModel> _objects = new Dictionary<Guid, WorldObjectViewModel>();
 
-        [NotNull]
         private readonly GameManager _gameManager;
 
         public GameViewModel()
