@@ -16,8 +16,6 @@ namespace MattEland.Emergence.Engine
                 PlayerStart = pos
             };
 
-            CreationService.ObjectCreationFunction = GameObjectFactory.CreateFromObjectType;
-
             CreationService.WallCreationFunction = GameObjectFactory.CreateWall;
 
             CreationService.PlayerCreationFunction = GameObjectFactory.CreatePlayer;

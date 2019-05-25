@@ -28,7 +28,7 @@ namespace MattEland.Emergence.Engine.Entities
             Pos = Pos2D.FromString(dto.Pos);
             Stability = dto.MaxHP - dto.HPUsed;
             MaxStability = dto.MaxHP;
-            Name = dto.Name;
+            _name = dto.Name;
             Team = dto.Team;
             State = dto.State;
             IsHidden = dto.IsHidden;
@@ -106,16 +106,10 @@ namespace MattEland.Emergence.Engine.Entities
         }
 
         /// <summary>
-        /// Gets or sets the name of the object.
+        /// Gets the name of the object.
         /// </summary>
         /// <value>The name.</value>
-        public string Name
-        {
-            get => CustomName;
-            set => _name = value;
-        }
-
-        protected virtual string CustomName => _name;
+        public virtual string Name => _name;
 
         /// <summary>
         /// Gets a value indicating whether this actor is dead.

@@ -13,7 +13,7 @@ namespace MattEland.Emergence.Engine.Entities
 
         public override bool IsInteractive => true;
         public override char AsciiChar => 'p';
-        protected override string CustomName => $"Max Operations +{Potency}";
+        public override string Name => $"Max Operations +{Potency}";
 
         /// <inheritdoc />
         public override bool OnActorAttemptedEnter(CommandContext context, Actor actor)

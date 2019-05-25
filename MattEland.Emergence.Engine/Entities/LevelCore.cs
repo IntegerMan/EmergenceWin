@@ -23,7 +23,7 @@ namespace MattEland.Emergence.Engine.Entities
             return true;
         }
 
-        protected override string CustomName => "System Core";
+        public override string Name => "System Core";
 
         public override void OnCaptured(CommandContext context, [CanBeNull] GameObjectBase executor, Alignment oldTeam)
         {

@@ -224,7 +224,7 @@ namespace MattEland.Emergence.Engine.Game
             return dto;
         }
 
-        public static GameObjectBase CreateFromObjectType(string id, GameObjectType objectType, Pos2D position)
+        public static GameObjectBase CreateFromObjectType(string id, GameObjectType objectType, Pos2D position, Action<GameObjectDto> configure = null)
         {
 
             // Figure out which DTO to build
@@ -260,6 +260,8 @@ namespace MattEland.Emergence.Engine.Game
             dto.Pos = position.SerializedValue;
             dto.HPUsed = 0;
             dto.MaxHP = 10;
+
+            configure?.Invoke(dto);
 
             return CreateFromDto(dto);
         }

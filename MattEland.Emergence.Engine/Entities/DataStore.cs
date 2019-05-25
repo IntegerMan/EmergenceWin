@@ -11,7 +11,7 @@ namespace MattEland.Emergence.Engine.Entities
         {
         }
 
-        protected override string CustomName => "Data Store";
+        public override string Name => "Data Store";
 
         public override bool IsInteractive => true;
         public override char AsciiChar => 'd';

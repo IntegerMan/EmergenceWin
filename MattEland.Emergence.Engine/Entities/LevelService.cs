@@ -14,7 +14,7 @@ namespace MattEland.Emergence.Engine.Entities
         public override bool IsInteractive => true;
         public override char AsciiChar => '*';
 
-        protected override string CustomName => "Service";
+        public override string Name => "Service";
 
         /// <inheritdoc />
         public override bool OnActorAttemptedEnter(CommandContext context, Actor actor)

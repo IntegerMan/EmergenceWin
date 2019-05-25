@@ -13,7 +13,7 @@ namespace MattEland.Emergence.Engine.Entities
 
         public override bool IsInteractive => true;
         public override char AsciiChar => 'o';
-        protected override string CustomName => "Operations Restore";
+        public override string Name => "Operations Restore";
 
         /// <inheritdoc />
         public override bool OnActorAttemptedEnter(CommandContext context, Actor actor)

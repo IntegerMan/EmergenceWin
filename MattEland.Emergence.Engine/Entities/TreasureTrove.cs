@@ -54,7 +54,7 @@ namespace MattEland.Emergence.Engine.Entities
             }
         }
         
-        protected override string CustomName => IsOpen ? "Empty Cache" : "Cache";
+        public override string Name => IsOpen ? "Empty Cache" : "Cache";
 
         public override int ZIndex => 4;
     }

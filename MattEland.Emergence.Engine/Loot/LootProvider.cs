@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using MattEland.Emergence.Engine.Commands;
+using MattEland.Emergence.Engine.DTOs;
 using MattEland.Emergence.Engine.Entities;
 using MattEland.Emergence.Engine.Game;
 using MattEland.Emergence.Engine.Level;
@@ -86,12 +88,14 @@ namespace MattEland.Emergence.Engine.Loot
                 }
 
                 // Actually create the entry
-                var obj = CreationService.CreateObject(entry.ObjectId, entry.ObjectType, source.Pos);
-
-                if (!string.IsNullOrWhiteSpace(entry.Name))
+                var obj = CreationService.CreateObject(entry.ObjectId, entry.ObjectType, source.Pos, dto =>
                 {
-                    obj.Name = entry.Name;
-                }
+                    if (!string.IsNullOrWhiteSpace(entry.Name))
+                    {
+                        dto.Name = entry.Name;
+                    }
+                });
+
 
                 context.Level.AddObject(obj);
 

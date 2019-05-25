@@ -15,7 +15,7 @@ namespace MattEland.Emergence.Engine.Entities
         public override bool IsInvulnerable => Stability >= 1000 || State == "External";
         public override bool IsTargetable => true;
 
-        protected override string CustomName => IsInvulnerable ? "External Partition" : "Partition";
+        public override string Name => IsInvulnerable ? "External Partition" : "Partition";
 
         public override bool BlocksSight => true;
         public override char AsciiChar => '#';

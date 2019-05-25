@@ -17,7 +17,7 @@ namespace MattEland.Emergence.Engine.Entities
         public override bool IsInteractive => true;
         public override char AsciiChar => '@';
 
-        protected override string CustomName => "Select a Character";
+        public override string Name => "Select a Character";
 
         public override void MaintainActiveEffects(CommandContext context)
         {

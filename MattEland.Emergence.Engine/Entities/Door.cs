@@ -81,6 +81,6 @@ namespace MattEland.Emergence.Engine.Entities
 
         public override bool BlocksSight => !IsOpen;
 
-        protected override string CustomName => IsOpen ? "Open Access Port" : "Closed Access Port";
+        public override string Name => IsOpen ? "Open Access Port" : "Closed Access Port";
     }
 }

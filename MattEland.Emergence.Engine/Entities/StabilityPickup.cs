@@ -14,7 +14,7 @@ namespace MattEland.Emergence.Engine.Entities
         public override bool IsInteractive => true;
         public override char AsciiChar => 'p';
 
-        protected override string CustomName => "Stability Restore";
+        public override string Name => "Stability Restore";
 
         /// <inheritdoc />
         public override bool OnActorAttemptedEnter(CommandContext context, Actor actor)

@@ -16,7 +16,7 @@ namespace MattEland.Emergence.Engine.Entities
         public override char AsciiChar => '>';
         public override bool IsTargetable => true;
 
-        protected override string CustomName => "Incoming Port";
+        public override string Name => "Incoming Port";
 
         /// <inheritdoc />
         public override bool OnActorAttemptedEnter(CommandContext context, Actor actor)

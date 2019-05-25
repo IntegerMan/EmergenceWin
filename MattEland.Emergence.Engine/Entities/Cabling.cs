@@ -12,7 +12,7 @@ namespace MattEland.Emergence.Engine.Entities
         public override bool IsInvulnerable => true; // For now
         public override bool IsTargetable => false; // For now
 
-        protected override string CustomName => "Cabling";
+        public override string Name => "Cabling";
         public override char AsciiChar => '-';
         public override string ForegroundColor => GameColors.LightGray;
     }

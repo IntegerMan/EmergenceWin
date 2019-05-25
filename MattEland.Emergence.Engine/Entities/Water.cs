@@ -17,7 +17,7 @@ namespace MattEland.Emergence.Engine.Entities
         public override char AsciiChar => '~';
         public override bool IsCorruptable => true;
 
-        protected override string CustomName => "Thread Pool";
+        public override string Name => "Thread Pool";
 
         public override bool OnActorAttemptedEnter(CommandContext context, Actor actor)
         {

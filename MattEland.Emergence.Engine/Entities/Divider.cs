@@ -11,7 +11,7 @@ namespace MattEland.Emergence.Engine.Entities
         {
         }
 
-        protected override string CustomName => "Divider";
+        public override string Name => "Divider";
 
         /// <inheritdoc />
         public override bool OnActorAttemptedEnter(CommandContext context, Actor actor)

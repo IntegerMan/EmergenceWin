@@ -3,6 +3,7 @@ using JetBrains.Annotations;
 using MattEland.Emergence.Engine.Commands;
 using MattEland.Emergence.Engine.DTOs;
 using MattEland.Emergence.Engine.Entities;
+using MattEland.Emergence.Engine.Game;
 using MattEland.Emergence.Engine.Level;
 
 namespace MattEland.Emergence.Engine.Services
@@ -39,15 +40,8 @@ namespace MattEland.Emergence.Engine.Services
             return WallCreationFunction(pos, isExterior);
         }
 
-        public static GameObjectBase CreateObject(string id, GameObjectType objType, Pos2D pos)
-        {
-            if (ObjectCreationFunction == null)
-            {
-                throw new InvalidOperationException("ObjectCreationFunction was not configured.");
-            }
-
-            return ObjectCreationFunction(id, objType, pos);
-        }
+        public static GameObjectBase CreateObject(string id, GameObjectType objType, Pos2D pos, Action<GameObjectDto> configure = null) 
+            => GameObjectFactory.CreateFromObjectType(id, objType, pos, configure);
 
 
         public static IGameCommand CreateCommand(string commandId)

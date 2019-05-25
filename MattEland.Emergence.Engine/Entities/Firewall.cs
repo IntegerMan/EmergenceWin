@@ -22,7 +22,7 @@ namespace MattEland.Emergence.Engine.Entities
             IsOpen = context.Level.HasAdminAccess;
         }
 
-        protected override string CustomName => "Firewall";
+        public override string Name => "Firewall";
 
         /// <inheritdoc />
         public override bool OnActorAttemptedEnter(CommandContext context, Actor actor)

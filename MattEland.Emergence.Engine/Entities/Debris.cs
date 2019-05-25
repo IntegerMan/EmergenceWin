@@ -15,7 +15,7 @@ namespace MattEland.Emergence.Engine.Entities
         public override char AsciiChar => '_';
         public override bool IsCorruptable => false;
 
-        protected override string CustomName => "Metadata";
+        public override string Name => "Metadata";
 
         public override string ForegroundColor => GameColors.Brown;
     }
