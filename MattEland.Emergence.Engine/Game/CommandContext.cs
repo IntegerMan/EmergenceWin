@@ -214,7 +214,6 @@ namespace MattEland.Emergence.Engine.Game
             }
         }
 
-        /// <inheritdoc />
         public void AdvanceToNextLevel()
         {
             var levels = new List<LevelType>
@@ -244,7 +243,7 @@ namespace MattEland.Emergence.Engine.Game
         {
             var oldPos = obj.Pos;
 
-            obj.Pos = newPos;
+            Level.MoveObject(obj, newPos);
 
             AddMessage(new MovedMessage(obj, oldPos, newPos));
         }
@@ -338,6 +337,8 @@ namespace MattEland.Emergence.Engine.Game
             actor.MarkCellsAsKnown(fov.VisiblePositions);
         }
 
+        public void AddSoundEffect(OpenableGameObjectBase source, SoundEffects sound) 
+            => AddEffect(new SoundEffect(source, sound));
     }
 
 }

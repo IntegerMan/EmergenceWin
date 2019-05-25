@@ -6,7 +6,7 @@ namespace MattEland.Emergence.Engine.Entities
 {
     public abstract class OpenableGameObjectBase : GameObjectBase
     {
-        public bool IsOpen { get; set; }
+        public bool IsOpen { get; private set; }
 
         protected OpenableGameObjectBase(OpenableDto dto) : base(dto)
         {
@@ -39,7 +39,7 @@ namespace MattEland.Emergence.Engine.Entities
                 context.AddEffect(new SoundEffect(this, SoundEffects.DoorOpened));
                 IsOpen = true;
 
-                OnOpened(context, actor);
+                Open(context, actor);
 
                 // We want the open object action to count as the move
                 return false;
@@ -51,9 +51,21 @@ namespace MattEland.Emergence.Engine.Entities
         /// <summary>
         /// Called when the object is opened.
         /// </summary>
-        protected virtual void OnOpened(CommandContext context, GameObjectBase opener)
+        protected virtual void Open(CommandContext context, GameObjectBase opener)
         {
-            
+            IsOpen = true;
+            context.AddSoundEffect(this, SoundEffects.DoorOpened);
+            context.UpdateObject(this);
+        }
+
+        /// <summary>
+        /// Called when the object is closed.
+        /// </summary>
+        protected virtual void Close(CommandContext context, GameObjectBase opener)
+        {
+            IsOpen = false;
+            context.AddSoundEffect(this, SoundEffects.DoorClosed);
+            context.UpdateObject(this);
         }
     }
 }

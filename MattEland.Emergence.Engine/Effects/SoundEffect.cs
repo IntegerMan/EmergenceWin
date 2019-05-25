@@ -14,5 +14,7 @@ namespace MattEland.Emergence.Engine.Effects
         }
 
         public SoundEffects Sound { get; }
+
+        public override string ToString() => $"Sound Effect {Sound:G} at {Source?.Pos.SerializedValue}";
     }
 }

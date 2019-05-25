@@ -13,7 +13,7 @@ namespace MattEland.Emergence.Engine.Entities
         }
 
         /// <inheritdoc />
-        protected override void OnOpened(CommandContext context, GameObjectBase opener)
+        protected override void Open(CommandContext context, GameObjectBase opener)
         {
             if (IsCorrupted)
             {
@@ -34,7 +34,7 @@ namespace MattEland.Emergence.Engine.Entities
 
             if (!IsOpen)
             {
-                OnOpened(context, attacker);
+                Open(context, attacker);
             }
         }
 

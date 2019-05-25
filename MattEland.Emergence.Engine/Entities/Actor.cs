@@ -385,12 +385,9 @@ namespace MattEland.Emergence.Engine.Entities
             }
 
             // Kills should give the actor responsible an additional operations point
-            if (attacker is Actor actor)
+            if (attacker is Actor actor && actor.AdjustOperationsPoints(1) && attacker.IsPlayer)
             {
-                if (actor.AdjustOperationsPoints(1) && attacker.IsPlayer)
-                {
-                    context.AddEffect(new OpsChangedEffect(attacker, 1));
-                }
+                context.AddEffect(new OpsChangedEffect(attacker, 1));
             }
 
             // If the player did this and loot can be a thing, roll for loot

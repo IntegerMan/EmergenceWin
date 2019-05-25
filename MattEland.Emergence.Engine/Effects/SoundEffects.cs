@@ -2,6 +2,7 @@
 {
     public enum SoundEffects
     {
-        DoorOpened
+        DoorOpened,
+        DoorClosed
     }
 }

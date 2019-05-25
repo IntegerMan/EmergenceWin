@@ -69,7 +69,6 @@ namespace MattEland.Emergence.Engine.Game
             return context;
         }
 
-        /// <inheritdoc />
         public CommandContext HandleGameMove(MoveDirection direction)
         {
             NumMoves++;

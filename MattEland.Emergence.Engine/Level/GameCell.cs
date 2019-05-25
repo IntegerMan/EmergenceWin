@@ -10,7 +10,7 @@ namespace MattEland.Emergence.Engine.Level
     /// <summary>
     /// Contains information on a single cell within the level
     /// </summary>
-    [DebuggerDisplay("(Cell: Pos:{Pos.X},{Pos.Y} Floor:{FloorType})")]
+    [DebuggerDisplay("(Cell: {Pos} {FloorType}, Actor: {Actor})")]
     public class GameCell
     {
         [ItemNotNull] [NotNull]
@@ -156,7 +156,6 @@ namespace MattEland.Emergence.Engine.Level
             get { return _objects.Any(o => o.BlocksSight); }
         }
 
-        /// <inheritdoc />
         public int Corruption
         {
             get => _corruption;
