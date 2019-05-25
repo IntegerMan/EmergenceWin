@@ -1,4 +1,4 @@
-﻿namespace MattEland.Emergence.Engine.DTOs
+﻿namespace MattEland.Emergence.Engine.Effects
 {
     public enum EffectType
     {

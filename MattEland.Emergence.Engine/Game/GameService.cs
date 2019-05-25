@@ -8,7 +8,6 @@ using MattEland.Emergence.Engine.Level.Generation;
 using MattEland.Emergence.Engine.Level.Generation.Encounters;
 using MattEland.Emergence.Engine.Loot;
 using MattEland.Emergence.Engine.Model;
-using MattEland.Emergence.Engine.Model.Messages;
 using MattEland.Emergence.Engine.Services;
 using MattEland.Shared.Collections;
 

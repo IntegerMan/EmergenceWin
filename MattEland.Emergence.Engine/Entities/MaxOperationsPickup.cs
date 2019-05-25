@@ -1,7 +1,6 @@
 ﻿using MattEland.Emergence.Engine.DTOs;
 using MattEland.Emergence.Engine.Effects;
 using MattEland.Emergence.Engine.Game;
-using MattEland.Emergence.Engine.Level;
 
 namespace MattEland.Emergence.Engine.Entities
 {

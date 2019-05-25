@@ -1,23 +1,16 @@
-﻿using MattEland.Emergence.Engine.DTOs;
+﻿using System;
+using JetBrains.Annotations;
 using MattEland.Emergence.Engine.Entities;
-using MattEland.Emergence.Engine.Level;
 
 namespace MattEland.Emergence.Engine.Effects
 {
     public class SpawnEffect : EffectBase
     {
 
-        public SpawnEffect(GameObjectBase source) : base(source)
+        public SpawnEffect([NotNull] GameObjectBase source) : base(source)
         {
+            if (source == null) throw new ArgumentNullException(nameof(source));
         }
-
-        public override EffectDto BuildDto()
-        {
-            return new EffectDto {
-                Effect = EffectType.Spawn,
-                StartPos = Source.Pos.SerializedValue,
-                EndPos = Source.Pos.SerializedValue,
-            };
-        }        
+     
     }
 }

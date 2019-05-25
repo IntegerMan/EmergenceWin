@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using MattEland.Emergence.Engine.Commands;
-using MattEland.Emergence.Engine.DTOs;
 using MattEland.Emergence.Engine.Entities;
 using MattEland.Emergence.Engine.Game;
 using MattEland.Emergence.Engine.Level;

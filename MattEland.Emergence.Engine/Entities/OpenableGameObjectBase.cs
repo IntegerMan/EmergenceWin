@@ -1,7 +1,6 @@
 ﻿using MattEland.Emergence.Engine.DTOs;
+using MattEland.Emergence.Engine.Effects;
 using MattEland.Emergence.Engine.Game;
-using MattEland.Emergence.Engine.Level;
-using MattEland.Emergence.Engine.Services;
 
 namespace MattEland.Emergence.Engine.Entities
 {
@@ -37,7 +36,7 @@ namespace MattEland.Emergence.Engine.Entities
         {
             if (!IsOpen)
             {
-                // TODO: It'd be nice to queueueue up a sound effect here for this.
+                context.AddEffect(new SoundEffect(this, SoundEffects.DoorOpened));
                 IsOpen = true;
 
                 OnOpened(context, actor);

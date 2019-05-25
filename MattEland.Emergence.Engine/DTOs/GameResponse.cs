@@ -26,9 +26,5 @@ namespace MattEland.Emergence.Engine.DTOs
         /// <value>The messages.</value>
         public ICollection<GameMessage> Messages { get; set; } = new List<GameMessage>();
 
-        /// <summary>
-        /// Gets or sets the effects that took place this turn that should be rendered client-side
-        /// </summary>
-        public ICollection<EffectDto> Effects { get; set; } = new List<EffectDto>();
     }
 }

@@ -39,8 +39,7 @@ namespace MattEland.Emergence.Engine.Commands
 
             if (!Commands.ContainsKey(commandId.ToLowerInvariant()))
             {
-                // TODO: Logging this might be a good idea
-                return null;
+                throw new NotSupportedException($"{commandId} is not a supported command");
             }
 
             return Commands[commandId.ToLowerInvariant()];

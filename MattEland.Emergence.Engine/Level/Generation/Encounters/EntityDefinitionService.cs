@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using MattEland.Emergence.Engine.Services;
 
 namespace MattEland.Emergence.Engine.Level.Generation.Encounters
 {

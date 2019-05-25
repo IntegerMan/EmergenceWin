@@ -1,6 +1,5 @@
 ﻿using MattEland.Emergence.Engine.DTOs;
 using MattEland.Emergence.Engine.Game;
-using MattEland.Emergence.Engine.Level;
 using MattEland.Emergence.Engine.Model;
 
 namespace MattEland.Emergence.Engine.Entities

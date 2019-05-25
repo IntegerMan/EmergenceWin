@@ -1,26 +1,17 @@
-﻿using MattEland.Emergence.Engine.DTOs;
+﻿using System;
+using JetBrains.Annotations;
 using MattEland.Emergence.Engine.Entities;
-using MattEland.Emergence.Engine.Level;
 
 namespace MattEland.Emergence.Engine.Effects
 {
     public class HelpTextEffect : EffectBase
     {
-        private readonly string _helpText;
+        [NotNull] public string HelpText { get; }
 
-        public HelpTextEffect(GameObjectBase source, string helpText) : base(source)
+        public HelpTextEffect(GameObjectBase source, [NotNull] string helpText) : base(source)
         {
-            _helpText = helpText;
+            HelpText = helpText ?? throw new ArgumentNullException(nameof(helpText));
         }
 
-        public override EffectDto BuildDto()
-        {
-            return new EffectDto {
-                Effect = EffectType.HelpText,
-                StartPos = Source?.Pos.SerializedValue,
-                EndPos = Source?.Pos.SerializedValue,
-                Text = _helpText
-            };
-        }
     }
 }

@@ -1,6 +1,4 @@
-﻿using MattEland.Emergence.Engine.DTOs;
-using MattEland.Emergence.Engine.Entities;
-using MattEland.Emergence.Engine.Level;
+﻿using MattEland.Emergence.Engine.Entities;
 
 namespace MattEland.Emergence.Engine.Effects
 {
@@ -10,14 +8,5 @@ namespace MattEland.Emergence.Engine.Effects
         {
         }
 
-        public override EffectDto BuildDto()
-        {
-            return new EffectDto {
-                Effect = EffectType.NoDamage,
-                Text = "0",
-                StartPos = Source?.Pos.SerializedValue,
-                EndPos = Source?.Pos.SerializedValue,
-            };
-        }        
     }
 }

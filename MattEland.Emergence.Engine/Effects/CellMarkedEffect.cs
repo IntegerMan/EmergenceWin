@@ -1,25 +1,14 @@
-﻿using MattEland.Emergence.Engine.DTOs;
-using MattEland.Emergence.Engine.Level;
+﻿using MattEland.Emergence.Engine.Level;
 
 namespace MattEland.Emergence.Engine.Effects
 {
     public class CellMarkedEffect : EffectBase
     {
-        private readonly Pos2D _position;
+        public Pos2D Pos { get; }
 
-        public CellMarkedEffect(Pos2D position) : base(null)
+        public CellMarkedEffect(Pos2D pos) : base(null)
         {
-            _position = position;
+            Pos = pos;
         }
-
-        public override EffectDto BuildDto()
-        {
-            return new EffectDto {
-                Effect = EffectType.CellMarked,
-                Text = "Marked",
-                StartPos = _position.SerializedValue,
-                EndPos = _position.SerializedValue,
-            };
-        }        
     }
 }
