@@ -13,7 +13,7 @@ namespace MattEland.Emergence.Engine.Entities
     /// </summary>
     public abstract class GameObjectBase
     {
-        private string _name;
+        private readonly string _name;
         private int _corruption;
         private Alignment _team;
 

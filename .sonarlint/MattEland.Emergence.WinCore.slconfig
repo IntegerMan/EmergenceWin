@@ -1,0 +1,15 @@
+{
+  "ServerUri": "https://sonarcloud.io/",
+  "Organization": {
+    "Key": "integerman-github",
+    "Name": "Matt Eland"
+  },
+  "ProjectKey": "IntegerMan_Emergence-Core",
+  "ProjectName": "Emergence-Core",
+  "Profiles": {
+    "CSharp": {
+      "ProfileKey": "AWHLE01wm6Cp4If4XC5Y",
+      "ProfileTimestamp": "2019-05-07T11:01:40-04:00"
+    }
+  }
+}

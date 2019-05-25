@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RuleSet Name="SonarQube - Emergence-Core Sonar way" ToolsVersion="16.0">
+  <Include Path="..\.sonarlint\integerman_emergence-corecsharp.ruleset" Action="Default" />
+</RuleSet>
