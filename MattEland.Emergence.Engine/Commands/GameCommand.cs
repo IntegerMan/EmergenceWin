@@ -59,56 +59,57 @@ namespace MattEland.Emergence.Engine.Commands
         /// <param name="context">The current command context.</param>
         /// <param name="executor">The actor executing the command.</param>
         /// <param name="pos">The targeted position for the command. For non-targeted commands, this will be <paramref name="executor"/>'s current position.</param>
+        /// <param name="isCurrentlyActive">Whether or not the command is currently active</param>
         public bool Execute(CommandContext context, Actor executor, Pos2D pos, bool isCurrentlyActive)
         {
-            if (ActivationType == CommandActivationType.Active && isCurrentlyActive)
+            switch (ActivationType)
             {
-                if (executor.IsPlayer)
-                {
-                    context.AddMessage($"{Name} deactivated", ClientMessageType.Generic);
-                    context.AddEffect(new DeactivatedEffect(executor, Name));
-                }
+                case CommandActivationType.Active when isCurrentlyActive:
+                    return DeactivateCommand(context, executor, pos);
 
-                OnDeactivated(context, executor, pos);
-
-                return false;
-            }
-
-            // Don't let the player target things they can't see
-            if (ActivationType == CommandActivationType.Targeted && !executor.CanSee(pos))
-            {
-                if (executor.IsPlayer)
-                {
-                    context.AddMessage($"{executor.Name} tries to {Name} but cannot see the target",
-                                       ClientMessageType.Failure);
-                }
-
-                return false;
-            }
-
-            if (executor.Operations >= ActivationCost)
-            {
-                executor.Operations -= ActivationCost;
-
-                if (ActivationType == CommandActivationType.Active)
-                {
+                // Don't let the player target things they can't see
+                case CommandActivationType.Targeted when !executor.CanSee(pos):
                     if (executor.IsPlayer)
                     {
-                        context.AddMessage($"{Name} activated", ClientMessageType.Generic);
-                        context.AddEffect(new ActivatedEffect(executor, Name));
+                        context.AddMessage($"{executor.Name} tries to {Name} but cannot see the target",
+                            ClientMessageType.Failure);
                     }
 
-                    OnActivated(context, executor, pos);
-                }
-                else
+                    return false;
+
+                default:
+                    return executor.Operations >= ActivationCost
+                        ? HandleCommandActivation(context, executor, pos)
+                        : HandleInsufficientOperations(context, executor);
+
+            }
+        }
+
+        private bool HandleCommandActivation(CommandContext context, Actor executor, Pos2D pos)
+        {
+            executor.Operations -= ActivationCost;
+
+            if (ActivationType == CommandActivationType.Active)
+            {
+                if (executor.IsPlayer)
                 {
-                    context.AddEffect(new TauntEffect(executor, $"{Name}!"));
-                    ApplyEffect(context, executor, pos);
+                    context.AddMessage($"{Name} activated", ClientMessageType.Generic);
+                    context.AddEffect(new ActivatedEffect(executor, Name));
                 }
 
-                return ActivationType == CommandActivationType.Active;
+                OnActivated(context, executor, pos);
+            }
+            else
+            {
+                context.AddEffect(new TauntEffect(executor, $"{Name}!"));
+                ApplyEffect(context, executor, pos);
             }
 
+            return ActivationType == CommandActivationType.Active;
+        }
+
+        private bool HandleInsufficientOperations(CommandContext context, Actor executor)
+        {
             if (executor.IsPlayer)
             {
                 string opsPluralString = ActivationCost == 1 ? "operation" : "operations";
@@ -118,6 +119,19 @@ namespace MattEland.Emergence.Engine.Commands
 
                 context.AddMessage(message, ClientMessageType.Failure);
             }
+
+            return false;
+        }
+
+        private bool DeactivateCommand(CommandContext context, Actor executor, Pos2D pos)
+        {
+            if (executor.IsPlayer)
+            {
+                context.AddMessage($"{Name} deactivated", ClientMessageType.Generic);
+                context.AddEffect(new DeactivatedEffect(executor, Name));
+            }
+
+            OnDeactivated(context, executor, pos);
 
             return false;
         }
