@@ -76,7 +76,7 @@ namespace MattEland.Emergence.Engine.Level.Generation
         /// Gets the cells in the level thus far. This is a read-only collection.
         /// </summary>
         /// <value>The cells.</value>
-        public IReadOnlyCollection<GameCell> Cells => _cells.Values.ToList();
+        public IEnumerable<GameCell> Cells => _cells.Values;
 
         /// <summary>
         /// Gets or sets the player's starting position.
