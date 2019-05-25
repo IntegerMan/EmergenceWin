@@ -1,27 +1,38 @@
+using System;
 using System.Collections.Generic;
 using System.Windows.Media;
+using JetBrains.Annotations;
 
 namespace MattEland.Emergence.WpfCore
 {
     public static class BrushBuilder
     {
-        private static readonly IDictionary<string, Brush> Brushes = new Dictionary<string, Brush>();
+        [NotNull]
+        private static readonly IDictionary<string, Brush> CachedBrushes = new Dictionary<string, Brush>();
         
-        public static Brush BuildBrush(this string hexColor)
+        public static Brush BuildBrush([NotNull] this string hexColor)
         {
+            if (hexColor == null) throw new ArgumentNullException(nameof(hexColor));
+
             hexColor = hexColor.ToUpperInvariant();
             
-            if (Brushes.ContainsKey(hexColor))
+            if (CachedBrushes.ContainsKey(hexColor))
             {
-                return Brushes[hexColor];
+                return CachedBrushes[hexColor];
             }
-            
-            // TODO: This could be cached and shared
-            var brush = new SolidColorBrush((Color)ColorConverter.ConvertFromString(hexColor));
+
+            var color = ColorConverter.ConvertFromString(hexColor);
+
+            if (color == null)
+            {
+                return Brushes.Transparent;
+            }
+
+            var brush = new SolidColorBrush((Color) color);
             brush.Freeze();
 
-            Brushes[hexColor] = brush;
-            
+            CachedBrushes[hexColor] = brush;
+
             return brush;
         }
         

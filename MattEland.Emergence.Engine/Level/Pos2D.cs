@@ -130,12 +130,9 @@ namespace MattEland.Emergence.Engine.Level
             var yDiff = Math.Abs(_y - point._y);
 
             // Check to see if we have a cached value already
-            if (Calcs.TryGetValue(xDiff, out var yDict))
+            if (Calcs.TryGetValue(xDiff, out var yDict) && yDict.TryGetValue(yDiff, out var val))
             {
-                if (yDict.TryGetValue(yDiff, out var val))
-                {
-                    return val;
-                }
+                return val;
             }
 
             // Make the calculation

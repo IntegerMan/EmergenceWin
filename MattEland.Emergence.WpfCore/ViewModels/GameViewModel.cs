@@ -55,10 +55,6 @@ namespace MattEland.Emergence.WpfCore.ViewModels
                         _objects.Remove(destroyedMessage.Source.Id);
                         WorldObjects.Where(o => o.Id == destroyedMessage.Source.Id).ToList().Each(o => WorldObjects.Remove(o));
                         break;
-
-                    case DisplayTextMessage _:
-                        // MessageBox.Show(displayMessage.Text, "Display Message", MessageBoxButton.OK, MessageBoxImage.Information);
-                        break;
                 }
 
                 Messages.Add(new MessageViewModel(msg));
