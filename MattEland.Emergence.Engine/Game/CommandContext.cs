@@ -19,7 +19,6 @@ namespace MattEland.Emergence.Engine.Game
 
     public sealed class CommandContext
     {
-        private readonly IList<EffectBase> _effects;
         private readonly IList<GameMessage> _messages;
 
         public CommandContext([NotNull] LevelData level,
@@ -33,7 +32,6 @@ namespace MattEland.Emergence.Engine.Game
             CombatManager = combatManager ?? throw new ArgumentNullException(nameof(combatManager));
             LootProvider = lootProvider ?? throw new ArgumentNullException(nameof(lootProvider));
 
-            _effects = new List<EffectBase>();
             _messages = new List<GameMessage>();
 
             SetLevel(level);
@@ -84,9 +82,11 @@ namespace MattEland.Emergence.Engine.Game
             AddMessage(new DestroyedMessage(gameObj));
         }
 
-        public void AddEffect(EffectBase effect)
+        public void AddEffect([NotNull] EffectBase effect)
         {
-            _effects.Add(effect);
+            if (effect == null) throw new ArgumentNullException(nameof(effect));
+
+            AddMessage(effect);
         }
 
         public bool CanPlayerSee(GameObjectBase obj)
@@ -337,8 +337,6 @@ namespace MattEland.Emergence.Engine.Game
             actor.VisibleCells = fov.VisiblePositions;
             actor.MarkCellsAsKnown(fov.VisiblePositions);
         }
-
-        public IEnumerable<EffectBase> Effects => _effects;
 
     }
 

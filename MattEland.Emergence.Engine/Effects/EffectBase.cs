@@ -1,14 +1,16 @@
-﻿using MattEland.Emergence.Engine.Entities;
+﻿using JetBrains.Annotations;
+using MattEland.Emergence.Engine.Entities;
+using MattEland.Emergence.Engine.Model.Messages;
 
 namespace MattEland.Emergence.Engine.Effects
 {
-    public abstract class EffectBase
+    public abstract class EffectBase : GameMessage
     {
-        protected EffectBase(GameObjectBase source)
+        protected EffectBase([CanBeNull] GameObjectBase source)
         {
             Source = source;
         }
 
-        public GameObjectBase Source { get; set; }
+        [CanBeNull] public GameObjectBase Source { get; set; }
     }
 }
