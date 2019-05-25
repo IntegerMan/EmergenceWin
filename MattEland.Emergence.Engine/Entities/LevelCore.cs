@@ -14,7 +14,7 @@ namespace MattEland.Emergence.Engine.Entities
         {
         }
 
-        public override bool IsCapturable => true;
+        public override bool CanBeCaptured => true;
 
         public override bool OnActorAttemptedEnter(CommandContext context, Actor actor)
         {

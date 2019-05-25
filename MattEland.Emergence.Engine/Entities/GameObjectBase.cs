@@ -207,7 +207,7 @@ namespace MattEland.Emergence.Engine.Entities
             set => _corruption = Math.Max(Math.Min(3, value), 0);
         }
 
-        public virtual bool IsCapturable => false;
+        public virtual bool CanBeCaptured => false;
 
         public virtual void OnCaptured(CommandContext context, GameObjectBase executor, Alignment oldTeam)
         {

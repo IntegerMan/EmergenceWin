@@ -78,7 +78,7 @@ namespace MattEland.Emergence.Engine.Entities
             Strength = dto.Strength;
             Accuracy = dto.Accuracy;
             LineOfSightRadius = dto.LineOfSightRadius;
-            IsImmobile = dto.IsImmobile; // TODO: IsImmobile shouldn't be necessary to serialize
+            IsImmobile = dto.IsImmobile;
             KillCount = dto.KillCount;
             LootRarity = dto.LootRarity;
             DamageDealt = dto.DamageDealt;
@@ -220,7 +220,55 @@ namespace MattEland.Emergence.Engine.Entities
 
         public virtual DamageType AttackDamageType => DamageType.Normal;
 
-        public override char AsciiChar => 'a'; // TODO: Not this
+        public override char AsciiChar
+        {
+            get
+            {
+                switch (ActorType)
+                {
+                    case ActorType.Bit:
+                        return '1';
+                    case ActorType.Daemon:
+                        return 'd';
+                    case ActorType.AntiVirus:
+                        return 'V';
+                    case ActorType.SystemDefender:
+                        return 'D';
+                    case ActorType.Inspector:
+                        return 'i';
+                    case ActorType.SecurityAgent:
+                        return 's';
+                    case ActorType.GarbageCollector:
+                        return 'G';
+                    case ActorType.Helpy:
+                        return '?';
+                    case ActorType.QueryAgent:
+                        return 'q';
+                    case ActorType.KernelWorker:
+                        return 'k';
+                    case ActorType.LogicBomb:
+                        return 'l';
+                    case ActorType.Turret:
+                        return 'T';
+                    case ActorType.Core:
+                        return 'C';
+                    case ActorType.Player:
+                        return '@';
+                    case ActorType.Bug:
+                        return 'b';
+                    case ActorType.Feature:
+                        return 'f';
+                    case ActorType.Virus:
+                        return 'v';
+                    case ActorType.Worm:
+                        return 'w';
+                    case ActorType.Glitch:
+                        return 'g';
+                    default:
+                        return 'a';
+                }
+            }
+        }
 
         /// <inheritdoc />
         protected override GameObjectDto CreateDto()
@@ -301,7 +349,7 @@ namespace MattEland.Emergence.Engine.Entities
         protected virtual bool PersistKnown => false;
 
 
-        public override bool IsCapturable => ActorType == ActorType.Core;
+        public override bool CanBeCaptured => ActorType == ActorType.Core;
 
         /// <summary>
         /// Increases the actor's operations points by the specified <paramref name="amountToAdd"/>.
@@ -399,9 +447,6 @@ namespace MattEland.Emergence.Engine.Entities
             {
                 switch (Team)
                 {
-                    case Alignment.Neutral:
-                    case Alignment.SystemCore:
-                        return GameColors.Yellow;
                     case Alignment.SystemAntiVirus:
                         return GameColors.Orange;
                     case Alignment.SystemSecurity:
@@ -412,7 +457,7 @@ namespace MattEland.Emergence.Engine.Entities
                     case Alignment.Player:
                         return GameColors.Green;
                     default:
-                        throw new ArgumentOutOfRangeException();
+                        return GameColors.Yellow;
                 }
             }
         }

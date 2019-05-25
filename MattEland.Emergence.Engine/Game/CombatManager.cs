@@ -124,7 +124,7 @@ namespace MattEland.Emergence.Engine.Game
         /// <returns>The message to log</returns>
         public string HurtObject(CommandContext context, GameObjectBase defender, int damage, GameObjectBase attacker, string verb, DamageType damageType)
         {
-            if (defender.IsCapturable)
+            if (defender.CanBeCaptured)
             {
                 HandleCapture(context, defender, attacker);
                 return null;
