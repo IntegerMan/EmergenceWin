@@ -20,11 +20,6 @@ namespace MattEland.Emergence.Engine.Commands
         public override string ShortName => "SCAN";
         public override CommandActivationType ActivationType => CommandActivationType.Active;
 
-        public override void ApplyEffect(CommandContext context, Actor executor, Pos2D pos)
-        {
-            // This is handled pre-action
-        }
-
         protected override void OnActivated(CommandContext context, Actor executor, Pos2D pos)
         {
             executor.EffectiveLineOfSightRadius += 2;

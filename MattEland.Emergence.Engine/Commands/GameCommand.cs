@@ -137,7 +137,9 @@ namespace MattEland.Emergence.Engine.Commands
         /// <param name="context">The command context.</param>
         /// <param name="executor">The actor executing the command.</param>
         /// <param name="pos">The command's targeted position, or <paramref name="executor"/>'s position.</param>
-        public abstract void ApplyEffect(CommandContext context, Actor executor, Pos2D pos);
+        public virtual void ApplyEffect(CommandContext context, Actor executor, Pos2D pos)
+        {
+        }
 
 
         public virtual void ApplyPreActionEffect(CommandContext context, Actor executor, Pos2D pos)

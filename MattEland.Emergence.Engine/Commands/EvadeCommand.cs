@@ -20,11 +20,6 @@ namespace MattEland.Emergence.Engine.Commands
         public override string ShortName => "EVADE";
         public override CommandActivationType ActivationType => CommandActivationType.Active;
 
-        public override void ApplyEffect(CommandContext context, Actor executor, Pos2D pos)
-        {
-            // This is handled pre-action
-        }
-
         public override void ApplyPreActionEffect(CommandContext context, Actor executor, Pos2D pos)
         {
             executor.EffectiveEvasion += 1;

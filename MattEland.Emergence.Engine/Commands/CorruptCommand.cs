@@ -21,17 +21,9 @@ namespace MattEland.Emergence.Engine.Commands
 
         public override string IconId => "gradient";
 
-        public override void ApplyPreActionEffect(CommandContext context, Actor executor, Pos2D pos)
-        {
-        }
-
         protected override void OnActivated(CommandContext context, Actor executor, Pos2D pos)
         {
             CleanseNearby(context, executor, pos);
-        }
-
-        protected override void OnDeactivated(CommandContext context, Actor executor, Pos2D pos)
-        {
         }
 
         public override void ApplyEffect(CommandContext context, Actor executor, Pos2D pos)
