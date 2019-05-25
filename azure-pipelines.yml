@@ -21,11 +21,23 @@ steps:
   inputs:
     restoreSolution: '$(solution)'
 
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'MattEland'
+    organization: 'integerman-github'
+    scannerMode: 'MSBuild'
+    projectKey: 'Emergence-Core'
+    projectName: 'Emergence Core'
+
 - task: VSBuild@1
   inputs:
     solution: '$(solution)'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
+
+- task: SonarCloudPublish@1
+  inputs:
+    pollingTimeoutSec: '300'
 
 - task: VSTest@2
   inputs:
