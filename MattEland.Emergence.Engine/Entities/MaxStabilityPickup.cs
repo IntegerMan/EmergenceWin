@@ -24,7 +24,7 @@ namespace MattEland.Emergence.Engine.Entities
                 actor.Stability += Potency;
 
                 context.AddEffect(new HelpTextEffect(this, $"Max Stability +{Potency}"));
-                context.Level.RemoveObject(this);
+                context.RemoveObject(this);
             }
 
             return true;

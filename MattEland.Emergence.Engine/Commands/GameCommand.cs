@@ -10,37 +10,55 @@ namespace MattEland.Emergence.Engine.Commands
     /// <summary>
     /// An abstract class containing basic functionality around executing various types of game commands.
     /// </summary>
-    public abstract class GameCommand : IGameCommand
+    public abstract class GameCommand
     {
-        /// <inheritdoc />
+        /// <summary>
+        /// The unique Identifier of the command
+        /// </summary>
         public abstract string Id { get; }
 
-        /// <inheritdoc />
+        /// <summary>
+        /// The full name of the command.
+        /// </summary>
         public abstract string Name { get; }
 
-        /// <inheritdoc />
+        /// <summary>
+        /// An abbreviated version of the command's name, for use in a toolbar.
+        /// </summary>
         public virtual string ShortName => Name;
 
-        /// <inheritdoc />
+        /// <summary>
+        /// A detailed description of the command suitable for a details view or tooltip.
+        /// </summary>
         public abstract string Description { get; }
 
-        /// <inheritdoc />
+        /// <summary>
+        /// The type of command activation this command follows.
+        /// </summary>
         public virtual CommandActivationType ActivationType => CommandActivationType.Simple;
 
-        /// <inheritdoc />
+        /// <summary>
+        /// The cost to use a command or to switch an active command on.
+        /// </summary>
         public abstract int ActivationCost { get; }
 
-        /// <inheritdoc />
+        /// <summary>
+        /// The per-turn cost to keep an active command active.
+        /// </summary>
         public virtual int MaintenanceCost { get; } = 1;
 
-        /// <inheritdoc />
         public abstract string IconId { get; }
 
         public abstract Rarity Rarity { get; }
 
         public virtual LevelType? MinLevel => null;
 
-        /// <inheritdoc />
+        /// <summary>
+        /// Executes the command.
+        /// </summary>
+        /// <param name="context">The current command context.</param>
+        /// <param name="executor">The actor executing the command.</param>
+        /// <param name="pos">The targeted position for the command. For non-targeted commands, this will be <paramref name="executor"/>'s current position.</param>
         public bool Execute(CommandContext context, Actor executor, Pos2D pos, bool isCurrentlyActive)
         {
             if (ActivationType == CommandActivationType.Active && isCurrentlyActive)
@@ -127,6 +145,10 @@ namespace MattEland.Emergence.Engine.Commands
 
         }
 
+        /// <summary>
+        /// Builds a data transmission object based on this instance.
+        /// </summary>
+        /// <returns>An equivalent data transmission object</returns>
         public CommandInfoDto BuildDto(bool isActive) => new CommandInfoDto
         {
             Id = Id,

@@ -326,7 +326,7 @@ namespace MattEland.Emergence.Engine.Entities
             return Stability > oldStability;
         }
 
-        public virtual bool IsCommandActive(IGameCommand command) => false;
+        public virtual bool IsCommandActive(GameCommand command) => false;
 
         public override void OnDestroyed(CommandContext context, GameObjectBase attacker)
         {
@@ -354,7 +354,7 @@ namespace MattEland.Emergence.Engine.Entities
 
         public Rarity LootRarity { get; set; }
 
-        public virtual void SetCommandActiveState(IGameCommand command, bool isActive)
+        public virtual void SetCommandActiveState(GameCommand command, bool isActive)
         {
 
         }

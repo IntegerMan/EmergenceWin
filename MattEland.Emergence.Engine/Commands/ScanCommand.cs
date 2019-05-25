@@ -35,7 +35,7 @@ namespace MattEland.Emergence.Engine.Commands
             executor.EffectiveLineOfSightRadius -= 2;
         }
 
-        public override void ApplyPreActionEffect(CommandContext context, Actor executor, Pos2D playerPosition)
+        public override void ApplyPreActionEffect(CommandContext context, Actor executor, Pos2D pos)
         {
             executor.EffectiveLineOfSightRadius += 2;
         }

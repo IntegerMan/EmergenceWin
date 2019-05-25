@@ -70,9 +70,18 @@ namespace MattEland.Emergence.Engine.Game
             }
 
             // Make sure that it stays dead
-            Level.RemoveObject(defender);
+            RemoveObject(defender);
 
             defender.OnDestroyed(this, attacker);
+        }
+
+        public void RemoveObject([NotNull] GameObjectBase gameObj)
+        {
+            if (gameObj == null) throw new ArgumentNullException(nameof(gameObj));
+
+            Level.RemoveObject(gameObj);
+
+            AddMessage(new DestroyedMessage(gameObj));
         }
 
         public void AddEffect(EffectBase effect)
@@ -105,7 +114,7 @@ namespace MattEland.Emergence.Engine.Game
 
         public void ReplacePlayer(Player player, Pos2D position)
         {
-            Level.RemoveObject(Player);
+            RemoveObject(Player);
 
             player.Pos = position;
             Level.AddObject(player);

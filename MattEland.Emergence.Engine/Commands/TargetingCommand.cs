@@ -25,7 +25,7 @@ namespace MattEland.Emergence.Engine.Commands
             // This is handled pre-action
         }
 
-        public override void ApplyPreActionEffect(CommandContext context, Actor executor, Pos2D playerPosition)
+        public override void ApplyPreActionEffect(CommandContext context, Actor executor, Pos2D pos)
         {
             executor.EffectiveAccuracy += 1;
         }

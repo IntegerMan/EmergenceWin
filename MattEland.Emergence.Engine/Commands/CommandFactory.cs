@@ -14,9 +14,9 @@ namespace MattEland.Emergence.Engine.Commands
     /// </summary>
     public static class CommandFactory
     {
-        private static IDictionary<string, IGameCommand> _commands;
+        private static IDictionary<string, GameCommand> _commands;
 
-        public static IDictionary<string, IGameCommand> Commands
+        public static IDictionary<string, GameCommand> Commands
         {
             get
             {
@@ -30,7 +30,7 @@ namespace MattEland.Emergence.Engine.Commands
             }
         }
 
-        public static IGameCommand CreateCommand([NotNull] string commandId)
+        public static GameCommand CreateCommand([NotNull] string commandId)
         {
             if (string.IsNullOrWhiteSpace(commandId))
             {
@@ -46,17 +46,17 @@ namespace MattEland.Emergence.Engine.Commands
             return Commands[commandId.ToLowerInvariant()];
         }
 
-        private static IDictionary<string, IGameCommand> BuildCommandDictionary()
+        private static IDictionary<string, GameCommand> BuildCommandDictionary()
         {
-            var commandType = typeof(IGameCommand);
+            var commandType = typeof(GameCommand);
 
             var types = Assembly.GetExecutingAssembly().GetTypes()
                                 .Where(p => commandType.IsAssignableFrom(p) && !p.IsInterface && !p.IsAbstract);
 
-            var dict = new Dictionary<string, IGameCommand>();
+            var dict = new Dictionary<string, GameCommand>();
             foreach (var type in types)
             {
-                var instance = (IGameCommand)Activator.CreateInstance(type);
+                var instance = (GameCommand)Activator.CreateInstance(type);
                 dict[instance.Id.ToLowerInvariant()] = instance;
             }
 
@@ -65,7 +65,7 @@ namespace MattEland.Emergence.Engine.Commands
 
         public static ICommandInstance CreateCommandReference([CanBeNull] CommandInfoDto dto)
         {
-            IGameCommand command = null;
+            GameCommand command = null;
             bool isActive = false;
 
             if (dto != null)
@@ -77,6 +77,6 @@ namespace MattEland.Emergence.Engine.Commands
             return new CommandInstance(command, isActive);
         }
 
-        public static IEnumerable<IGameCommand> RegisteredCommands => Commands.Values;
+        public static IEnumerable<GameCommand> RegisteredCommands => Commands.Values;
     }
 }

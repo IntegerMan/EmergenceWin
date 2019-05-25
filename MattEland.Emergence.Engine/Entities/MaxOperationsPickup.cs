@@ -24,7 +24,7 @@ namespace MattEland.Emergence.Engine.Entities
                 actor.Operations += Potency;
 
                 context.AddEffect(new HelpTextEffect(this, $"Max Operations +{Potency}"));
-                context.Level.RemoveObject(this);
+                context.RemoveObject(this);
             }
 
             return true;

@@ -158,10 +158,10 @@ namespace MattEland.Emergence.Engine.Entities
         public override bool IsPlayer => true;
 
         /// <inheritdoc />
-        public override bool IsCommandActive(IGameCommand command) =>
+        public override bool IsCommandActive(GameCommand command) =>
             HotbarCommands.Any(c => c != null && c.IsActive && c.Command == command);
 
-        public override void SetCommandActiveState(IGameCommand command, bool isActive)
+        public override void SetCommandActiveState(GameCommand command, bool isActive)
         {
             if (command == null)
             {

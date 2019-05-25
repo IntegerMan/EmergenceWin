@@ -23,7 +23,7 @@ namespace MattEland.Emergence.Engine.Entities
             {
                 actor.Stability += Potency;
                 context.AddEffect(new StabilityRestoreEffect(this, Potency));
-                context.Level.RemoveObject(this);
+                context.RemoveObject(this);
             }
 
             return true;

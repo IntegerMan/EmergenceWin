@@ -22,7 +22,7 @@ namespace MattEland.Emergence.Engine.Entities
             if (ObjectId == null)
             {
                 context.LootProvider.SpawnLoot(context, this, Rarity.Uncommon);
-                context.Level.RemoveObject(this);
+                context.RemoveObject(this);
             }
 
         }
@@ -33,7 +33,7 @@ namespace MattEland.Emergence.Engine.Entities
             if (actor.IsPlayer)
             {
                 context.Player.AttemptPickupItem(context, this);
-                context.Level.RemoveObject(this);
+                context.RemoveObject(this);
             }
 
             return true;

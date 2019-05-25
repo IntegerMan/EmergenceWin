@@ -44,7 +44,7 @@ namespace MattEland.Emergence.Engine.Services
             => GameObjectFactory.CreateFromObjectType(id, objType, pos, configure);
 
 
-        public static IGameCommand CreateCommand(string commandId)
+        public static GameCommand CreateCommand(string commandId)
         {
             if (CommandCreationFunction == null)
             {
@@ -68,7 +68,7 @@ namespace MattEland.Emergence.Engine.Services
         public static Func<LevelType, string, Pos2D, LevelData> LevelCreationFunction { get; set; }
         public static Func<Pos2D, bool, GameObjectBase> WallCreationFunction { get; set; }
         public static Func<string, GameObjectType, Pos2D, GameObjectBase> ObjectCreationFunction { get; set; }
-        public static Func<string, IGameCommand> CommandCreationFunction { get; set; }
+        public static Func<string, GameCommand> CommandCreationFunction { get; set; }
         public static Func<CommandInfoDto, ICommandInstance> CommandReferenceCreationFunction { get; set; }
 
     }
