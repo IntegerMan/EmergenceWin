@@ -15,7 +15,7 @@ namespace MattEland.Emergence.Engine.Level
         public string Id { get; set; }
 
         public bool BlocksSight { get; set; }
-        public int HP { get; set; }
+        public int Hp { get; set; }
         public int Accuracy { get; set; }
         public int Evasion { get; set; }
         public int Strength { get; set; }
@@ -24,7 +24,7 @@ namespace MattEland.Emergence.Engine.Level
         public Alignment Team { get; set; }
         public string Name { get; set; }
         public IEnumerable<string> Commands { get; set; }
-        public int OP { get; set; }
+        public int Op { get; set; }
         public bool IsImmobile { get; set; }
         public string HelpText { get; set; }
         public Rarity LootRarity { get; set; }

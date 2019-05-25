@@ -13,7 +13,7 @@ namespace MattEland.Emergence.Engine.Level
     [DebuggerDisplay("{X},{Y}")]
     public struct Pos2D : IEquatable<Pos2D>
     {
-        private static readonly ConcurrentDictionary<int, ConcurrentDictionary<int, double>> _calcs =
+        private static readonly ConcurrentDictionary<int, ConcurrentDictionary<int, double>> Calcs =
             new ConcurrentDictionary<int, ConcurrentDictionary<int, double>>();
 
         private readonly int _x;
@@ -130,7 +130,7 @@ namespace MattEland.Emergence.Engine.Level
             var yDiff = Math.Abs(_y - point._y);
 
             // Check to see if we have a cached value already
-            if (_calcs.TryGetValue(xDiff, out var yDict))
+            if (Calcs.TryGetValue(xDiff, out var yDict))
             {
                 if (yDict.TryGetValue(yDiff, out var val))
                 {
@@ -144,7 +144,7 @@ namespace MattEland.Emergence.Engine.Level
             // Cache the result
             if (yDict == null)
             {
-                _calcs[xDiff] = new ConcurrentDictionary<int, double>
+                Calcs[xDiff] = new ConcurrentDictionary<int, double>
                 {
                     [yDiff] = distance
                 };

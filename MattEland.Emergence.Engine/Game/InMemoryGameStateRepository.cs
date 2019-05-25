@@ -25,16 +25,16 @@ namespace MattEland.Emergence.Engine.Game
 
                 if (response.State.IsGameOver)
                 {
-                    RemoveState(response.State.UID);
+                    RemoveState(response.State.Uid);
                 }
                 else
                 {
                     lock (_lock)
                     {
-                        _gameState[response.State.UID] = response.State;
+                        _gameState[response.State.Uid] = response.State;
                     }
 
-                    OnStateSet(response.State.UID, response.State);
+                    OnStateSet(response.State.Uid, response.State);
                 }
             }
         }

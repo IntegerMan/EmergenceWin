@@ -26,8 +26,8 @@ namespace MattEland.Emergence.Engine.Entities
             ObjectType = dto.Type;
             ObjectId = dto.ObjectId;
             Pos = Pos2D.FromString(dto.Pos);
-            Stability = dto.MaxHP - dto.HPUsed;
-            MaxStability = dto.MaxHP;
+            Stability = dto.MaxHp - dto.HpUsed;
+            MaxStability = dto.MaxHp;
             _name = dto.Name;
             Team = dto.Team;
             State = dto.State;
@@ -83,7 +83,7 @@ namespace MattEland.Emergence.Engine.Entities
         /// <summary>
         /// Gets whether or not this object has AI behind it.
         /// </summary>
-        public virtual bool HasAI => false;
+        public virtual bool HasAi => false;
 
         /// <summary>
         /// Sets the object to be in an invulnerable state.
@@ -179,8 +179,8 @@ namespace MattEland.Emergence.Engine.Entities
             dto.Pos = Pos.SerializedValue;
             dto.ObjectId = ObjectId;
             dto.Type = ObjectType;
-            dto.HPUsed = MaxStability - Stability;
-            dto.MaxHP = MaxStability;
+            dto.HpUsed = MaxStability - Stability;
+            dto.MaxHp = MaxStability;
             dto.Name = Name;
             dto.Team = _team; // Important to use field - don't want to lose track of it in round-tripping
             dto.State = State;

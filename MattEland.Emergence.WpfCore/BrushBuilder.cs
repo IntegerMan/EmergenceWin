@@ -5,22 +5,22 @@ namespace MattEland.Emergence.WpfCore
 {
     public static class BrushBuilder
     {
-        private static readonly IDictionary<string, Brush> _brushes = new Dictionary<string, Brush>();
+        private static readonly IDictionary<string, Brush> Brushes = new Dictionary<string, Brush>();
         
         public static Brush BuildBrush(this string hexColor)
         {
             hexColor = hexColor.ToUpperInvariant();
             
-            if (_brushes.ContainsKey(hexColor))
+            if (Brushes.ContainsKey(hexColor))
             {
-                return _brushes[hexColor];
+                return Brushes[hexColor];
             }
             
             // TODO: This could be cached and shared
             var brush = new SolidColorBrush((Color)ColorConverter.ConvertFromString(hexColor));
             brush.Freeze();
 
-            _brushes[hexColor] = brush;
+            Brushes[hexColor] = brush;
             
             return brush;
         }

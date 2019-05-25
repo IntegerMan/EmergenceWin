@@ -6,7 +6,7 @@ namespace MattEland.Emergence.Engine.DTOs
     /// <summary>
     /// Represents a command the player sends to the game engine.
     /// </summary>
-    public class GameCommandDTO
+    public class GameCommandDto
     {
         /// <summary>
         /// Gets or sets the type of command being executed.

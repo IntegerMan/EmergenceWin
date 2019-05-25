@@ -32,8 +32,8 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
                 Evasion = 20,
                 Strength = 2,
                 Defense = 1,
-                HP = 10,
-                OP = 10,
+                Hp = 10,
+                Op = 10,
                 HelpText = "The forecast AI is a flexible choice that is capable in many different roles",
                 LineOfSightRadius = 5.25m,
                 Commands = new List<string> { "SPIKE", "RESTORE", "BARRAGE"}
@@ -48,8 +48,8 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
                 Evasion = 20,
                 Strength = 2,
                 Defense = 1,
-                HP = 10,
-                OP = 10,
+                Hp = 10,
+                Op = 10,
                 HelpText = "The logistics hub excels at tactical movement, but is weaker than other AIs",
                 LineOfSightRadius = 5.25m,
                 Commands = new List<string> { "MARK", "RECALL", "SWAP" }
@@ -66,8 +66,8 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
                 Defense = 1,
                 LineOfSightRadius = 5.75m,
                 HelpText = "The search AI is geared towards gathering knowledge and avoiding encounters they can't handle",
-                HP = 10,
-                OP = 10,
+                Hp = 10,
+                Op = 10,
                 Commands = new List<string> { "SCAN", "ESCAPE", "SURGE" }
             };
             _items["ACTOR_PLAYER_ANTIVIRUS"] = new EntityData
@@ -80,8 +80,8 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
                 Evasion = 15,
                 Strength = 2,
                 Defense = 3,
-                HP = 10,
-                OP = 10,
+                Hp = 10,
+                Op = 10,
                 HelpText = "The anti-virus AI may not hit the hardest, but it can take on many threats at once",
                 LineOfSightRadius = 4.5m,
                 Commands = new List<string> { "ARMOR", "CLEANSE", "SWEEP"}
@@ -96,8 +96,8 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
                 Evasion = 20,
                 Strength = 3,
                 Defense = 2,
-                HP = 10,
-                OP = 10,
+                Hp = 10,
+                Op = 10,
                 HelpText = "The game AI is all about dishing out damage to specific targets",
                 LineOfSightRadius = 4.75m,
                 Commands = new List<string> { "TARGETING", "SPIKE", "BURST" }
@@ -112,8 +112,8 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
                 Evasion = 20,
                 Strength = 2,
                 Defense = 1,
-                HP = 10,
-                OP = 10,
+                Hp = 10,
+                Op = 10,
                 HelpText = "Malware aims to cause as much chaos as possible, laying waste to anything in its path",
                 LineOfSightRadius = 5.25m,
                 Commands = new List<string> { "OVERLOAD", "INFECT", "CORRUPT" }
@@ -130,8 +130,8 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
                 Defense = 5,
                 LineOfSightRadius = 5.25m,
                 HelpText = "The Debugger is intended to excise bugs and make things ready for release.",
-                HP = 50,
-                OP = 50,
+                Hp = 50,
+                Op = 50,
                 Commands = new List<string> { "INFECT", "ESCAPE", "SWAP", "RESTORE", "OVERLOAD", "BURST", "BARRAGE", "CLEANSE", "SWEEP"}
             };
             _items["ACTOR_ANTI_VIRUS"] = new EntityData
@@ -145,8 +145,8 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
                 Strength = 2,
                 Defense = 1,
                 LineOfSightRadius = 5,
-                HP = 3,
-                OP = 5,
+                Hp = 3,
+                Op = 5,
                 LootRarity = Rarity.Uncommon
             };
             _items["ACTOR_DAEMON"] = new EntityData
@@ -160,8 +160,8 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
                 Strength = 3,
                 Defense = 1,
                 LineOfSightRadius = 5,
-                HP = 3,
-                OP = 5,
+                Hp = 3,
+                Op = 5,
                 LootRarity = Rarity.Uncommon
             };
             _items["ACTOR_DEFENDER"] = new EntityData
@@ -175,8 +175,8 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
                 Strength = 3,
                 Defense = 2,
                 LineOfSightRadius = 5,
-                HP = 5,
-                OP = 15,
+                Hp = 5,
+                Op = 15,
                 LootRarity = Rarity.Uncommon
             };
             _items["ACTOR_INSPECTOR"] = new EntityData
@@ -190,8 +190,8 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
                 Strength = 1,
                 Defense = 0,
                 LineOfSightRadius = 5,
-                HP = 3,
-                OP = 5,
+                Hp = 3,
+                Op = 5,
                 LootRarity = Rarity.Common
             };
             _items["ACTOR_SEC_AGENT"] = new EntityData
@@ -205,8 +205,8 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
                 Strength = 1,
                 Defense = 0,
                 LineOfSightRadius = 5,
-                HP = 3,
-                OP = 3,
+                Hp = 3,
+                Op = 3,
                 LootRarity = Rarity.Common
             };
             _items["ACTOR_GARBAGE_COLLECTOR"] = new EntityData
@@ -220,8 +220,8 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
                 Strength = 5,
                 Defense = 1,
                 LineOfSightRadius = 7,
-                HP = 10,
-                OP = 10,
+                Hp = 10,
+                Op = 10,
                 LootRarity = Rarity.Epic
             };
             _items["ACTOR_BIT"] = new EntityData
@@ -235,8 +235,8 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
                 Strength = 0,
                 Defense = 0,
                 LineOfSightRadius = 5,
-                HP = 1,
-                OP = 1,
+                Hp = 1,
+                Op = 1,
                 LootRarity = Rarity.None
             };
             _items["ACTOR_TURRET"] = new EntityData
@@ -250,8 +250,8 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
                 Strength = 2,
                 Defense = 2,
                 LineOfSightRadius = 7,
-                HP = 3,
-                OP = 30,
+                Hp = 3,
+                Op = 30,
                 IsImmobile = true,
                 LootRarity = Rarity.Rare
             };
@@ -266,8 +266,8 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
                 Strength = 2,
                 LineOfSightRadius = 5,
                 Defense = 0,
-                HP = 5,
-                OP = 15,
+                Hp = 5,
+                Op = 15,
                 IsImmobile = true,
                 LootRarity = Rarity.None
             };
@@ -282,8 +282,8 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
                 Strength = 1,
                 Defense = 1,
                 LineOfSightRadius = 5,
-                HP = 2,
-                OP = 10,
+                Hp = 2,
+                Op = 10,
                 LootRarity = Rarity.Common
             };
             _items["ACTOR_SEARCH"] = new EntityData
@@ -297,8 +297,8 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
                 LineOfSightRadius = 7,
                 Strength = 0,
                 Defense = 0,
-                HP = 2,
-                OP = 10,
+                Hp = 2,
+                Op = 10,
                 LootRarity = Rarity.Common
             };
             _items["ACTOR_KERNEL_WORKER"] = new EntityData
@@ -312,8 +312,8 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
                 LineOfSightRadius = 5,
                 Strength = 0,
                 Defense = 0,
-                HP = 1,
-                OP = 1,
+                Hp = 1,
+                Op = 1,
                 LootRarity = Rarity.Common
             };
             _items["ACTOR_LOGIC_BOMB"] = new EntityData
@@ -327,8 +327,8 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
                 LineOfSightRadius = 5,
                 Strength = 3,
                 Defense = 0,
-                HP = 3,
-                OP = 5,
+                Hp = 3,
+                Op = 5,
                 LootRarity = Rarity.Uncommon
             };
             _items["ACTOR_VIRUS"] = new EntityData
@@ -342,8 +342,8 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
                 LineOfSightRadius = 5,
                 Strength = 2,
                 Defense = 1,
-                HP = 5,
-                OP = 10,
+                Hp = 5,
+                Op = 10,
                 LootRarity = Rarity.Common
             };
             _items["ACTOR_WORM"] = new EntityData
@@ -357,8 +357,8 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
                 LineOfSightRadius = 5,
                 Strength = 1,
                 Defense = 0,
-                HP = 3,
-                OP = 5,
+                Hp = 3,
+                Op = 5,
                 LootRarity = Rarity.Common
             };
             _items["ACTOR_FEATURE"] = new EntityData
@@ -372,8 +372,8 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
                 LineOfSightRadius = 5,
                 Strength = 2,
                 Defense = 1,
-                HP = 5,
-                OP = 10,
+                Hp = 5,
+                Op = 10,
                 LootRarity = Rarity.Uncommon
             };
             _items["ACTOR_BUG"] = new EntityData
@@ -387,8 +387,8 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
                 LineOfSightRadius = 5,
                 Strength = 1,
                 Defense = 1,
-                HP = 3,
-                OP = 5,
+                Hp = 3,
+                Op = 5,
                 LootRarity = Rarity.Common
             };
             _items["ACTOR_GLITCH"] = new EntityData
@@ -402,8 +402,8 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
                 LineOfSightRadius = 5,
                 Strength = 2,
                 Defense = 0,
-                HP = 5,
-                OP = 10,
+                Hp = 5,
+                Op = 10,
                 LootRarity = Rarity.None // Never reward glitch farming
             };
         }

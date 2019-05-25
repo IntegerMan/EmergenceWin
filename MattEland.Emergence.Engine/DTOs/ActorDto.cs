@@ -7,19 +7,19 @@ namespace MattEland.Emergence.Engine.DTOs
     /// <summary>
     /// A data transmission object representing an Actor in the game world.
     /// </summary>
-    [DebuggerDisplay("(Actor: Pos:{Pos} Type:{Type} Id:{ObjectId} Damage:{HPUsed} OP Spent:{OPUsed})")]
+    [DebuggerDisplay("(Actor: Pos:{Pos} Type:{Type} Id:{ObjectId} Damage:{HpUsed} OP Spent:{OpUsed})")]
     public class ActorDto : GameObjectDto
     {
         /// <summary>
         /// Gets or sets the ops points lost from the object's maximum ops. Typically this will be 0 until something uses operations,
         /// and we don't serialize 0 values, so this is a minor performance hack.
         /// </summary>
-        public int OPUsed { get; set; }
+        public int OpUsed { get; set; }
 
         /// <summary>
         /// The maximum number of operations points the actor can store.
         /// </summary>
-        public int MaxOP { get; set; }
+        public int MaxOp { get; set; }
 
         /// <summary>
         /// The number of kills the actor has accumulated.

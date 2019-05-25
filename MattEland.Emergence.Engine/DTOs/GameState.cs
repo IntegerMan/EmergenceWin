@@ -51,6 +51,6 @@ namespace MattEland.Emergence.Engine.DTOs
         /// <summary>
         /// Gets the unique identifier for the game
         /// </summary>
-        public Guid UID { get; set; }
+        public Guid Uid { get; set; }
     }
 }

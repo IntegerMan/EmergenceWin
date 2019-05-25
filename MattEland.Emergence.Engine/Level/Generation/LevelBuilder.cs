@@ -364,7 +364,7 @@ namespace MattEland.Emergence.Engine.Level.Generation
             return (IsOpenCell(west) && IsOpenCell(east)) || (IsOpenCell(north) && IsOpenCell(south));
         }
 
-        private static bool IsOpenCell(GameCell GameCell) => GameCell != null && GameCell.Objects.All(c => c.ObjectType != GameObjectType.Wall);
+        private static bool IsOpenCell(GameCell gameCell) => gameCell != null && gameCell.Objects.All(c => c.ObjectType != GameObjectType.Wall);
 
         /// <summary>
         /// Gets the game object a given character on a terrain map

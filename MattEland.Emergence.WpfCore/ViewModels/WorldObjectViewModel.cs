@@ -12,7 +12,7 @@ namespace MattEland.Emergence.WpfCore.ViewModels
     [DebuggerDisplay("{Source.GetType().Name} at ({Source.Pos.X}, {Source.Pos.Y}) rendering at ({X}, {Y})")]
     public class WorldObjectViewModel : INotifyPropertyChanged
     {
-        private readonly GameViewModel _gameVM;
+        private readonly GameViewModel _gameVm;
 
         public GameObjectBase Source { get; private set; }
 
@@ -24,9 +24,9 @@ namespace MattEland.Emergence.WpfCore.ViewModels
 
         public string Content => Source.AsciiChar.ToString();
 
-        public int X => (Source.Pos.X + _gameVM.XOffset) * Size;
+        public int X => (Source.Pos.X + _gameVm.XOffset) * Size;
         
-        public int Y => (Source.Pos.Y + _gameVM.YOffset) * Size;
+        public int Y => (Source.Pos.Y + _gameVm.YOffset) * Size;
 
         public int ZIndex => Source.ZIndex;
 
@@ -34,7 +34,7 @@ namespace MattEland.Emergence.WpfCore.ViewModels
 
         public WorldObjectViewModel(GameObjectBase source, GameViewModel gameViewModel)
         {
-            _gameVM = gameViewModel;
+            _gameVm = gameViewModel;
             Source = source;
         }
 
@@ -61,7 +61,7 @@ namespace MattEland.Emergence.WpfCore.ViewModels
 
             if (Source is Player)
             {
-                _gameVM.CenterOn(newPos);
+                _gameVm.CenterOn(newPos);
             }
         }
 

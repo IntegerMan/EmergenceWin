@@ -12,7 +12,7 @@ namespace MattEland.Emergence.Engine.DTOs
         /// <summary>
         /// Gets or sets the unique identifier for the response
         /// </summary>
-        public Guid UID { get; set; }
+        public Guid Uid { get; set; }
 
         /// <summary>
         /// Gets or sets the current state of the game.

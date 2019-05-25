@@ -52,7 +52,7 @@ namespace MattEland.Emergence.Engine.Entities
         public int Evasion { get; set; }
         public decimal LineOfSightRadius { get; set; }
 
-        public override bool HasAI => true;
+        public override bool HasAi => true;
 
         /// <summary>
         /// Gets or sets the number of kills the actor is responsible for.
@@ -68,10 +68,10 @@ namespace MattEland.Emergence.Engine.Entities
             ActorType = GetActorType(dto.ObjectId);
 
             // Max should always be set before current
-            MaxStability = dto.MaxHP;
-            Stability = dto.MaxHP - dto.HPUsed;
-            MaxOperations = dto.MaxOP;
-            Operations = dto.MaxOP - dto.OPUsed;
+            MaxStability = dto.MaxHp;
+            Stability = dto.MaxHp - dto.HpUsed;
+            MaxOperations = dto.MaxOp;
+            Operations = dto.MaxOp - dto.OpUsed;
 
             Defense = dto.Defense;
             Evasion = dto.Evasion;
@@ -234,8 +234,8 @@ namespace MattEland.Emergence.Engine.Entities
             base.ConfigureDto(dto);
 
             var actorDto = (ActorDto)dto;
-            actorDto.OPUsed = MaxOperations - Operations;
-            actorDto.MaxOP = MaxOperations;
+            actorDto.OpUsed = MaxOperations - Operations;
+            actorDto.MaxOp = MaxOperations;
             actorDto.Accuracy = Accuracy;
             actorDto.Evasion = Evasion;
             actorDto.Strength = Strength;

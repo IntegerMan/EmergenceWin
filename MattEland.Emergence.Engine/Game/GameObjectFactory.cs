@@ -206,10 +206,10 @@ namespace MattEland.Emergence.Engine.Game
             dto.Pos = position.SerializedValue;
 
             // Copy over basic stats
-            dto.MaxHP = definition.HP;
-            dto.HPUsed = 0;
-            dto.MaxOP = definition.OP;
-            dto.OPUsed = 0;
+            dto.MaxHp = definition.Hp;
+            dto.HpUsed = 0;
+            dto.MaxOp = definition.Op;
+            dto.OpUsed = 0;
             dto.Name = definition.Name;
             dto.BlocksSight = definition.BlocksSight;
             dto.Accuracy = definition.Accuracy;
@@ -258,8 +258,8 @@ namespace MattEland.Emergence.Engine.Game
             dto.Type = objectType;
             dto.ObjectId = id;
             dto.Pos = position.SerializedValue;
-            dto.HPUsed = 0;
-            dto.MaxHP = 10;
+            dto.HpUsed = 0;
+            dto.MaxHp = 10;
 
             configure?.Invoke(dto);
 
@@ -273,8 +273,8 @@ namespace MattEland.Emergence.Engine.Game
             {
                 Pos = pos.SerializedValue,
                 Type = GameObjectType.Wall,
-                MaxHP = hp,
-                HPUsed = 0,
+                MaxHp = hp,
+                HpUsed = 0,
                 ObjectId = null,
                 Team = Alignment.Neutral,
                 Name = "Wall",

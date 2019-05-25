@@ -5,7 +5,7 @@ namespace MattEland.Emergence.Engine.Level
 {
     public class PosRepository
     {
-        private static IDictionary<string, Pos2D> ValuesByString;
+        private static IDictionary<string, Pos2D> _valuesByString;
 
         public static Pos2D FromString(string input)
         {
@@ -17,11 +17,11 @@ namespace MattEland.Emergence.Engine.Level
             }
 
             // Try to grab the input from the cache
-            if (ValuesByString == null)
+            if (_valuesByString == null)
             {
-                ValuesByString = new ConcurrentDictionary<string, Pos2D>();
+                _valuesByString = new ConcurrentDictionary<string, Pos2D>();
             }
-            else if (ValuesByString.TryGetValue(input, out pos))
+            else if (_valuesByString.TryGetValue(input, out pos))
             {
                 return pos;
             }
@@ -30,7 +30,7 @@ namespace MattEland.Emergence.Engine.Level
             pos = CreatePos2DFromString(input);
 
             // Store the new value for next time
-            ValuesByString[input] = pos;
+            _valuesByString[input] = pos;
 
             return pos;
         }

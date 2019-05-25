@@ -32,13 +32,13 @@ namespace MattEland.Emergence.Engine.DTOs
         /// and we don't serialize 0 values, so this is a minor performance hack.
         /// </summary>
         /// <value>The health lost of the object.</value>
-        public int HPUsed { get; set; }
+        public int HpUsed { get; set; }
 
         /// <summary>
         /// Gets or sets the maximum health of the object.
         /// </summary>
         /// <value>The maximum health.</value>
-        public int MaxHP { get; set; }
+        public int MaxHp { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the object

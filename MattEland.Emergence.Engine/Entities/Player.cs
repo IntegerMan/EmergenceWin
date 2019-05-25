@@ -44,7 +44,7 @@ namespace MattEland.Emergence.Engine.Entities
             }
         }
 
-        public override bool HasAI => false;
+        public override bool HasAi => false;
 
         [ItemCanBeNull] public IList<ICommandInstance> HotbarCommands { get; }
 
