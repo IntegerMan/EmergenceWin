@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace MattEland.Emergence.Engine.Level
 {
-    public class PosRepository
+    public static class PosRepository
     {
         private static IDictionary<string, Pos2D> _valuesByString;
 
