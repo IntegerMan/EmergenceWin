@@ -21,6 +21,8 @@ namespace MattEland.Emergence.Engine.Game
         /// <param name="context">The command context.</param>
         /// <param name="attacker">The attacker.</param>
         /// <param name="defender">The defender.</param>
+        /// <param name="verb">The display name of the type of attack being used</param>
+        /// <param name="damageType">The type of damage to apply</param>
         public void HandleAttack(CommandContext context, GameObjectBase attacker, GameObjectBase defender, string verb, DamageType damageType)
         {
             // Figure out if the attack lands
@@ -34,35 +36,45 @@ namespace MattEland.Emergence.Engine.Game
                 return;
             }
 
+            ApplyDamageToActor(context, attacker, defender, verb, damageType);
+
+        }
+
+        private void ApplyDamageToActor(CommandContext context,
+            GameObjectBase attacker,
+            GameObjectBase defender,
+            string verb,
+            DamageType damageType)
+        {
             int damage = CalculateDamage(context, attacker, defender, verb);
 
-            // TODO: Log to an analytics framework
-
-            string message;
+            // If it was ineffective, handle that early and apply special effects as needed
             if (damage <= 0)
             {
-                message = defender.IsInvulnerable 
-                    ? $"{attacker.Name} {verb} {defender.Name} but it is impervious to all damage." 
-                    : $"{attacker.Name} {verb} {defender.Name} but deals no damage.";
+                ShowNoDamageMessage(context, attacker, defender, verb);
+                return;
             }
-            else
-            {
-                message = HurtObject(context, defender, damage, attacker, verb, damageType);
-            }
+
+            // Apply the damage and get a result
+            var message = HurtObject(context, defender, damage, attacker, verb, damageType);
 
             // Only add this message if it occurs somewhere within the player's line of sight or involves the player
-            if ((attacker.IsPlayer || defender.IsPlayer || context.CanPlayerSee(attacker) ||
-                 context.CanPlayerSee(defender)) && !string.IsNullOrWhiteSpace(message))
+            if (attacker.IsPlayer || defender.IsPlayer || context.CanPlayerSee(attacker) || context.CanPlayerSee(defender))
             {
                 var messageType = DetermineCombatMessageType(damage, defender.IsDead);
-
                 context.AddMessage(message, messageType);
-
-                if (damage <= 0)
-                {
-                    context.AddEffect(new NoDamageEffect(defender));
-                }
             }
+        }
+
+        private static void ShowNoDamageMessage(CommandContext context,
+            GameObjectBase attacker,
+            GameObjectBase defender,
+            string verb)
+        {
+            context.AddEffect(new NoDamageEffect(defender));
+            context.AddMessage(defender.IsInvulnerable
+                ? $"{attacker.Name} {verb} {defender.Name} but it is impervious to all damage."
+                : $"{attacker.Name} {verb} {defender.Name} but deals no damage.", DetermineCombatMessageType(0, false));
         }
 
         /// <summary>
@@ -135,29 +147,12 @@ namespace MattEland.Emergence.Engine.Game
 
             if (damageType == DamageType.Normal || damageType == DamageType.Combination)
             {
-
-                defender.Stability -= damage;
-
-                // Ensure the player's stats get updated
-                if (defender is Actor defendingActor)
-                {
-                    defendingActor.DamageReceived += damage;
-                }
-
-                if (attacker is Actor attackingActor)
-                {
-                    attackingActor.DamageDealt += damage;
-                }
+                ApplyStabilityDamage(attacker, defender, damage);
             }
 
             if ((damageType == DamageType.Corruption || damageType == DamageType.Combination) && defender.IsCorruptable)
             {
-                var originalCorruption = defender.Corruption;
-                defender.ApplyCorruptionDamage(context, attacker, damage);
-                if (attacker is Actor attackingActor)
-                {
-                    attackingActor.DamageDealt += Math.Abs(defender.Corruption - originalCorruption);
-                }
+                ApplyCorruptionDamage(context, attacker, defender, damage);
             }
 
             // Add the damage to the object
@@ -166,33 +161,58 @@ namespace MattEland.Emergence.Engine.Game
                 context.AddEffect(new DamagedEffect(defender, damage, damageType));
             }
 
-            var isDead = defender.Stability <= 0;
+            var message = $"{attacker.Name} {verb} {defender.Name} for {damage} {CalculateDamageTypeString(damageType)}";
+            if (defender.IsDead)
+            {
+                // Log the kill
+                message += ", terminating it";
 
-            string damageTypeString;
+                context.HandleObjectKilled(defender, attacker);
+            }
+
+            return message;
+        }
+
+        private static void ApplyStabilityDamage(GameObjectBase attacker, GameObjectBase defender, int damage)
+        {
+            defender.Stability -= damage;
+
+            // Ensure the player's stats get updated
+            if (defender is Actor defendingActor)
+            {
+                defendingActor.DamageReceived += damage;
+            }
+
+            if (attacker is Actor attackingActor)
+            {
+                attackingActor.DamageDealt += damage;
+            }
+        }
+
+        private static string CalculateDamageTypeString(DamageType damageType)
+        {
             switch (damageType)
             {
                 case DamageType.Corruption:
-                    damageTypeString = "Corruption";
-                    break;
+                    return "Corruption";
+
                 case DamageType.Combination:
-                    damageTypeString = "Corruption Damage";
-                    break;
+                    return "Corruption Damage";
+
                 default:
-                    damageTypeString = "Damage";
-                    break;
+                    return "Damage";
             }
+        }
 
-            var sb = new StringBuilder($"{attacker.Name} {verb} {defender.Name} for {damage} {damageTypeString}");
-            if (isDead)
+        private static void ApplyCorruptionDamage(CommandContext context, GameObjectBase attacker, GameObjectBase defender,
+            int damage)
+        {
+            var originalCorruption = defender.Corruption;
+            defender.ApplyCorruptionDamage(context, attacker, damage);
+            if (attacker is Actor attackingActor)
             {
-                // Log the kill
-                sb.Append(", terminating it");
-
-                context.HandleObjectKilled(defender, attacker);
-
+                attackingActor.DamageDealt += Math.Abs(defender.Corruption - originalCorruption);
             }
-
-            return sb.ToString();
         }
 
         public void HandleExplosion(CommandContext context, GameObjectBase executor, Pos2D epicenter, int strength, int radius, DamageType damageType)
