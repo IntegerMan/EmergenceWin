@@ -30,5 +30,23 @@ namespace MattEland.Emergence.Tests
             Context.Level.GetCell(targetPos).Actor.ShouldBe(Player);
             Context.Level.GetCell(oldPos).Actor.ShouldNotBe(Player);
         }
+
+        [Test]
+        public void TeleportActorIntoObstacleShouldFail()
+        {
+            // Arrange
+            var oldPos = Player.Pos;
+            var targetPos = oldPos.GetNeighbor(MoveDirection.Up);
+            var oldHealth = Player.Stability;
+
+            // Act
+            Context.TeleportActor(Player, targetPos);
+
+            // Assert
+            Player.Pos.ShouldBe(oldPos);
+            Context.Level.GetCell(targetPos).Actor.ShouldNotBe(Player);
+            Context.Level.GetCell(oldPos).Actor.ShouldBe(Player);
+            Player.Stability.ShouldBeLessThan(oldHealth);
+        }
     }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using MattEland.Emergence.Engine.Game;
+﻿using MattEland.Emergence.Engine.Game;
 using NUnit.Framework;
 using Shouldly;
 

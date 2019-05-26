@@ -1,6 +1,7 @@
 ﻿using MattEland.Emergence.Engine;
 using MattEland.Emergence.Engine.Entities;
 using MattEland.Emergence.Engine.Game;
+using MattEland.Emergence.Engine.Level;
 
 namespace MattEland.Emergence.Tests
 {
@@ -25,5 +26,7 @@ namespace MattEland.Emergence.Tests
             Player = GameService.Player;
         }
 
+        protected GameObjectBase CreateTurret() 
+            => GameObjectFactory.CreateFromObjectType("ACTOR_TURRET", GameObjectType.Actor, new Pos2D(-12, 42));
     }
 }

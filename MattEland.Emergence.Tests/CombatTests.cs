@@ -1,6 +1,4 @@
 ﻿using MattEland.Emergence.Engine.Entities;
-using MattEland.Emergence.Engine.Game;
-using MattEland.Emergence.Engine.Level;
 using MattEland.Emergence.Engine.Services;
 using NUnit.Framework;
 using Shouldly;
@@ -65,8 +63,5 @@ namespace MattEland.Emergence.Tests
             // Assert
             message.ShouldBe($"{Player.Name} {Verb} {Turret.Name} for {damage} Damage, terminating it");
         }
-
-        private static GameObjectBase CreateTurret() 
-            => GameObjectFactory.CreateFromObjectType("ACTOR_TURRET", GameObjectType.Actor, new Pos2D(-12, 42));
     }
 }
