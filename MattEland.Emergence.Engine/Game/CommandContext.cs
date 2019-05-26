@@ -31,6 +31,7 @@ namespace MattEland.Emergence.Engine.Game
             EntityService = entityService ?? throw new ArgumentNullException(nameof(entityService));
             CombatManager = combatManager ?? throw new ArgumentNullException(nameof(combatManager));
             LootProvider = lootProvider ?? throw new ArgumentNullException(nameof(lootProvider));
+            Randomizer = new BasicRandomization();
 
             _messages = new List<GameMessage>();
 
@@ -38,7 +39,7 @@ namespace MattEland.Emergence.Engine.Game
         }
 
         public IEnumerable<GameMessage> Messages => _messages;
-        public IRandomization Randomizer { get; set; }
+        public IRandomization Randomizer { get; }
 
         public event EventHandler<ActorDamagedEventArgs> OnActorHurt;
 
@@ -297,7 +298,7 @@ namespace MattEland.Emergence.Engine.Game
                     ClientMessageType.Failure);
             }
 
-            CombatManager.HurtObject(this, actor, damage, actor, "scrambles", DamageType.Normal);
+            CombatManager.HurtObject(this, actor, actor, damage, "scrambles", DamageType.Normal);
         }
 
         private void AddTeleportEffect(Actor actor, Pos2D pos)
@@ -323,7 +324,7 @@ namespace MattEland.Emergence.Engine.Game
             // Teleporting on top of another actor should always cause damage to that actor and swap it to your old location
             foreach (var target in telefragged)
             {
-                hurtMessage = CombatManager.HurtObject(this, target, damage, actor, "scrambles", DamageType.Normal);
+                hurtMessage = CombatManager.HurtObject(this, actor, target, damage, "scrambles", DamageType.Normal);
 
                 if (actor.IsPlayer || target.IsPlayer || CanPlayerSee(newPos))
                 {
@@ -334,7 +335,7 @@ namespace MattEland.Emergence.Engine.Game
             }
             
             // If any collisions occurred, also hurt the actor who triggered it
-            hurtMessage = CombatManager.HurtObject(this, actor, damage, actor, "scrambles", DamageType.Normal);
+            hurtMessage = CombatManager.HurtObject(this, actor, actor, damage, "scrambles", DamageType.Normal);
 
             if (actor.IsPlayer || Player.CanSee(newPos))
             {

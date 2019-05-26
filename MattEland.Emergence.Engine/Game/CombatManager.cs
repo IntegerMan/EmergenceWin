@@ -59,7 +59,7 @@ namespace MattEland.Emergence.Engine.Game
             }
 
             // Apply the damage and get a result
-            var message = HurtObject(context, defender, damage, attacker, verb, damageType);
+            var message = HurtObject(context, attacker, defender, damage, verb, damageType);
 
             // Only add this message if it occurs somewhere within the player's line of sight or involves the player
             if (attacker.IsPlayer || defender.IsPlayer || context.CanPlayerSee(attacker) || context.CanPlayerSee(defender))
@@ -132,15 +132,16 @@ namespace MattEland.Emergence.Engine.Game
         /// Hurts the <paramref name="defender"/> for <paramref name="damage"/> damage and outputs necessary events and messages.
         /// </summary>
         /// <param name="context">The context.</param>
+        /// <param name="attacker">The attacker.</param>
         /// <param name="defender">The defender.</param>
         /// <param name="damage">The damage.</param>
-        /// <param name="attacker">The attacker.</param>
         /// <param name="verb">A verb describing the action.</param>
+        /// <param name="damageType"></param>
         /// <returns>The message to log</returns>
         public string HurtObject(CommandContext context,
+            GameObjectBase attacker,
             GameObjectBase defender,
             int damage,
-            GameObjectBase attacker,
             string verb,
             DamageType damageType)
         {
@@ -256,7 +257,7 @@ namespace MattEland.Emergence.Engine.Game
             GameObjectBase obj,
             int damage)
         {
-            var harmResult = HurtObject(context, obj, damage, executor, "damages", damageType);
+            var harmResult = HurtObject(context, executor, obj, damage, "damages", damageType);
 
             var isVisible = obj.IsPlayer || executor.IsPlayer || context.CanPlayerSee(obj.Pos);
             bool showMessage = obj is Actor && isVisible;

@@ -79,7 +79,7 @@ namespace MattEland.Emergence.Engine.Entities
             if (item.IsCorrupted)
             {
                 context.AddMessage($"{Name} picks up the corrupted item and is struck by a virus!", ClientMessageType.Failure);
-                var message = context.CombatManager.HurtObject(context, this, 3, item, "infects", DamageType.Combination);
+                var message = context.CombatManager.HurtObject(context, item, this, 3, "infects", DamageType.Combination);
                 context.AddMessage(message, ClientMessageType.Failure);
                 return true;
             }

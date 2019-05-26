@@ -32,7 +32,7 @@ namespace MattEland.Emergence.Engine.Entities
         {
             if (damage < 0)
             {
-                var message = context.CombatManager.HurtObject(context, this, -damage, source, "cleanses", DamageType.Normal);
+                var message = context.CombatManager.HurtObject(context, source, this, -damage, "cleanses", DamageType.Normal);
                 if (context.CanPlayerSee(Pos))
                 {
                     context.AddMessage(message, ClientMessageType.Generic);
