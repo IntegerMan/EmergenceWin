@@ -108,17 +108,63 @@ namespace MattEland.Emergence.Engine.Game
 
         public void ReplacePlayer(Player player, Pos2D position)
         {
+            // Set values on new player object
+            player.Id = Player.Id;
+            player.Pos = position;
+
             RemoveObject(Player);
 
-            player.Pos = position;
             Level.AddObject(player);
             Player = player;
 
+            UpdateObject(player);
         }
 
         public void DisplayHelp(GameObjectBase source, string helpTopic)
         {
+            string message = GetMessageForTopic(helpTopic);
+
+            if (string.IsNullOrWhiteSpace(message)) return;
+
+            // If the source of the message is corrupt, randomize the casing
+            if (source != null && source.IsCorrupted)
+            {
+                var noiseChars = "!@#$%&?,";
+                var sb = new StringBuilder();
+                foreach (var c in message.ToLowerInvariant())
+                {
+                    // Ignore spaces
+                    if (c == ' ')
+                    {
+                        sb.Append(c);
+                        continue;
+                    }
+
+                    var rng = Randomizer.GetInt(0, 2);
+                    switch (rng)
+                    {
+                        case 0: // Lower Case
+                            sb.Append(c);
+                            break;
+                        case 1: // Upper Case
+                            sb.Append(c.ToString().ToUpperInvariant());
+                            break;
+                        default: // Random noise character
+                            sb.Append(noiseChars.GetRandomElement(Randomizer));
+                            break;
+                    }
+                }
+
+                message = sb.ToString();
+            }
+
+            AddEffect(new HelpTextEffect(source, message));
+        }
+
+        private string GetMessageForTopic(string helpTopic)
+        {
             var topic = helpTopic.ToLowerInvariant();
+
             string message = null;
 
             if (topic.StartsWith("help_actor_"))
@@ -143,47 +189,11 @@ namespace MattEland.Emergence.Engine.Game
                         break;
 
                     default:
-                        AddMessage($"No help found for topic '{helpTopic}'.", ClientMessageType.Assertion);
-                        return;
+                        throw new NotSupportedException($"Topic {helpTopic} is not implemented");
                 }
             }
 
-            if (!string.IsNullOrWhiteSpace(message))
-            {
-                // If the source of the message is corrupt, randomize the casing
-                if (source != null && source.IsCorrupted)
-                {
-                    var noiseChars = "!@#$%&?,";
-                    var sb = new StringBuilder();
-                    foreach (var c in message.ToLowerInvariant())
-                    {
-                        // Ignore spaces
-                        if (c == ' ')
-                        {
-                            sb.Append(c);
-                            continue;
-                        }
-
-                        var rng = Randomizer.GetInt(0, 2);
-                        switch (rng)
-                        {
-                            case 0: // Lower Case
-                                sb.Append(c);
-                                break;
-                            case 1: // Upper Case
-                                sb.Append(c.ToString().ToUpperInvariant());
-                                break;
-                            default: // Random noise character
-                                sb.Append(noiseChars.GetRandomElement(Randomizer));
-                                break;
-                        }
-                    }
-
-                    message = sb.ToString();
-                }
-
-                AddEffect(new HelpTextEffect(source, message));
-            }
+            return message;
         }
 
         public CombatManager CombatManager { get; }
