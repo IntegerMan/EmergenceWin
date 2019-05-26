@@ -229,6 +229,8 @@ namespace MattEland.Emergence.Engine.Level
 
         public IEnumerable<GameCell> GetBorderCellsInSquare(Pos2D pos, int radius)
         {
+            if (radius <= 1) throw new ArgumentOutOfRangeException(nameof(radius), "Radius must be greater than 1");
+
             int minX = pos.X - radius;
             int maxX = pos.X + radius;
             int minY = pos.Y - radius;
@@ -236,19 +238,15 @@ namespace MattEland.Emergence.Engine.Level
 
             for (int y = minY; y < maxY; y++)
             {
-                for (int x = minX; x < maxX; x++)
-                {
-                    // TODO: There's a more efficient way of doing this
-                    if (x == minX || x == maxX || y == minY || y == maxY)
-                    {
-                        var cell = GetCell(new Pos2D(x, y));
+                yield return GetCell(new Pos2D(minX, y));
+                yield return GetCell(new Pos2D(maxX, y));
+            }
 
-                        if (cell != null)
-                        {
-                            yield return cell;
-                        }
-                    }
-                }
+            // The 1 buffer here is to avoid duplicating corner slots as the y cases handle that already
+            for (int x = minX + 1; x < maxX - 1; x++)
+            {
+                yield return GetCell(new Pos2D(x, minY));
+                yield return GetCell(new Pos2D(x, maxY));
             }
         }
 

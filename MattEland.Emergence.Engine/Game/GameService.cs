@@ -24,7 +24,6 @@ namespace MattEland.Emergence.Engine.Game
         [NotNull] private readonly EntityDefinitionService _entityProvider;
 
         private LevelData _level;
-        private Player _player;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GameService"/> class.
@@ -57,12 +56,12 @@ namespace MattEland.Emergence.Engine.Game
 
             // Set up the basic parameters
             var levelParameters = new LevelGenerationParameters { LevelType = LevelType.Tutorial };
-            _player = CreationService.CreatePlayer(parameters.CharacterId);
-            _level = _levelService.GenerateLevel(levelParameters, _player);
+            Player = CreationService.CreatePlayer(parameters.CharacterId);
+            _level = _levelService.GenerateLevel(levelParameters, Player);
 
             // Ensure line of sight is calculated
             var context = new CommandContext(_level, this, _entityProvider, _combatManager, _lootProvider);
-            context.CalculateLineOfSight(_player);
+            context.CalculateLineOfSight(Player);
 
             _level.Objects.Each(o => context.CreatedObject(o));
 
@@ -82,10 +81,10 @@ namespace MattEland.Emergence.Engine.Game
             }
 
             // Interact with all objects in the tile
-            var targetPos = _player.Pos.GetNeighbor(direction);
+            var targetPos = Player.Pos.GetNeighbor(direction);
             foreach (var obj in context.Level.Objects.Where(o => o.Pos == targetPos).OrderByDescending(o => o.ZIndex))
             {
-                if (obj.OnActorAttemptedEnter(context, _player))
+                if (obj.OnActorAttemptedEnter(context, Player))
                 {
                     break;
                 }
@@ -104,6 +103,7 @@ namespace MattEland.Emergence.Engine.Game
         }
 
         public int NumMoves { get; set; }
+        public Player Player { get; private set; }
 
         private static void EndGame(GameState state, bool isVictory, CommandContext context)
         {

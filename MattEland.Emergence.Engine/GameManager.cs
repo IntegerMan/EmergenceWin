@@ -39,13 +39,10 @@ namespace MattEland.Emergence.Engine
 
         public GameStatus State { get; private set; }
 
-        [CanBeNull]
-        public Player Player { get; }
+        public Player Player => _service.Player;
 
         public IEnumerable<GameMessage> Start()
         {
-            // TODO: Should this be static and create a new instance of a GameManager instead?
-
             if (State != GameStatus.NotStarted) throw new InvalidOperationException("The game has already been started");
 
             var context = _service.StartNewGame(new NewGameParameters()

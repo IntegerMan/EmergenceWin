@@ -185,8 +185,6 @@ namespace MattEland.Emergence.Engine.Level.Generation.Prefabs
 
                     char terrain = isOnEdge ? '#' : '.';
 
-                    // TODO: We'll want to add doors to the edges too
-
                     var cell = builder.BuildCell(terrain, new Pos2D(x, y));
                     builder.AddCell(cell, roomGuid);
                 }
