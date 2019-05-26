@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Text;
 using GeneticSharp.Domain.Randomizations;
 using MattEland.Emergence.Engine.DTOs;
 using MattEland.Emergence.Engine.Effects;
@@ -217,22 +216,18 @@ namespace MattEland.Emergence.Engine.Game
 
         public void HandleExplosion(CommandContext context, GameObjectBase executor, Pos2D epicenter, int strength, int radius, DamageType damageType)
         {
-            var candidates = context.GetCellsVisibleFromPoint(epicenter, radius).ToList();
-            foreach (var cell in candidates)
+            bool isCorruptionDamage = (damageType == DamageType.Corruption || damageType == DamageType.Combination);
+
+            foreach (var cell in context.GetCellsVisibleFromPoint(epicenter, radius).ToList())
             {
                 // Spread corruption as needed
-                if ((damageType == DamageType.Corruption || damageType == DamageType.Combination) && context.Randomizer.GetDouble() > 0.3) // TODO: Distance / falloff might be nice here too
+                if (isCorruptionDamage && context.Randomizer.GetDouble() > 0.3)
                 {
                     cell.Corruption++;
                 }
 
-                foreach (var obj in cell.Objects.ToList())
+                foreach (var obj in cell.Objects.Where(o => o.IsTargetable && !o.IsDead).ToList())
                 {
-                    if (!obj.IsTargetable || obj.IsDead)
-                    {
-                        continue;
-                    }
-
                     int resistance = CalculateDamageResistance(obj, damageType, context.Randomizer);
                     int damage = Math.Max(0, strength - resistance);
 
@@ -241,43 +236,50 @@ namespace MattEland.Emergence.Engine.Game
                         damage = 0;
                     }
 
-                    var isVisible = obj.IsPlayer || executor.IsPlayer || context.CanPlayerSee(obj.Pos);
-                    bool showMessage = obj is Actor && isVisible;
-
                     if (damage <= 0)
                     {
-                        if (showMessage)
-                        {
-                            if (obj.IsInvulnerable)
-                            {
-                                context.AddMessage($"{obj.Name} is impervious to all damage", ClientMessageType.Math);
-                            }
-                            else
-                            {
-                                context.AddMessage(
-                                    $"{obj.Name} resists all damage ({resistance} resistance vs {strength} strength)",
-                                    ClientMessageType.Math);
-                            }
-                        }
-
-                        if (isVisible)
-                        {
-                            context.AddEffect(new NoDamageEffect(obj));
-                        }
-
+                        AddNoExplosionDamageEffects(context, executor, strength, obj, resistance);
                     }
                     else
                     {
-                        var harmResult = HurtObject(context, obj, damage, executor, "damages", damageType);
-
-                        if (showMessage)
-                        {
-                            context.AddMessage(harmResult, ClientMessageType.Generic);
-                        }
+                        ApplyExplosionDamageAndAddEffects(context, executor, damageType, obj, damage);
                     }
                 }
             }
 
+        }
+
+        private void ApplyExplosionDamageAndAddEffects(CommandContext context, GameObjectBase executor, DamageType damageType,
+            GameObjectBase obj, int damage)
+        {
+            var harmResult = HurtObject(context, obj, damage, executor, "damages", damageType);
+
+            var isVisible = obj.IsPlayer || executor.IsPlayer || context.CanPlayerSee(obj.Pos);
+            bool showMessage = obj is Actor && isVisible;
+
+            if (showMessage)
+            {
+                context.AddMessage(harmResult, ClientMessageType.Generic);
+            }
+        }
+
+        private static void AddNoExplosionDamageEffects(CommandContext context, GameObjectBase executor, int strength,
+            GameObjectBase obj, int resistance)
+        {
+            var isVisible = obj.IsPlayer || executor.IsPlayer || context.CanPlayerSee(obj.Pos);
+            bool showMessage = obj is Actor && isVisible;
+            if (showMessage)
+            {
+                context.AddMessage(obj.IsInvulnerable
+                        ? $"{obj.Name} is impervious to all damage"
+                        : $"{obj.Name} resists all damage ({resistance} resistance vs {strength} strength)",
+                    ClientMessageType.Math);
+            }
+
+            if (isVisible)
+            {
+                context.AddEffect(new NoDamageEffect(obj));
+            }
         }
 
         private static int CalculateDamageResistance(GameObjectBase gameObject, DamageType damageType, IRandomization random)

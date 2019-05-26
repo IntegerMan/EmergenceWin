@@ -68,38 +68,11 @@ namespace MattEland.Emergence.Engine.Vision
             // portions of the *next* column are visible from the origin.
 
             // Start at the top of the column portion and work down.
-
-            int topY;
-            if (x == 0)
-                topY = 0;
-            else
-            {
-                int quotient = (2 * x + 1) * topVector.Y / (2 * topVector.X);
-                int remainder = (2 * x + 1) * topVector.Y % (2 * topVector.X);
-
-                if (remainder > topVector.X)
-                    topY = quotient + 1;
-                else
-                    topY = quotient;
-            }
+            var topY = CalculateTopY(x, topVector);
 
             // Note that this can find a top cell that is actually entirely blocked by
             // the cell below it; consider detecting and eliminating that.
-
-
-            int bottomY;
-            if (x == 0)
-                bottomY = 0;
-            else
-            {
-                int quotient = (2 * x - 1) * bottomVector.Y / (2 * bottomVector.X);
-                int remainder = (2 * x - 1) * bottomVector.Y % (2 * bottomVector.X);
-
-                if (remainder >= bottomVector.X)
-                    bottomY = quotient + 1;
-                else
-                    bottomY = quotient;
-            }
+            var bottomY = CalculateBottomY(x, bottomVector);
 
             // A more sophisticated algorithm would say that a cell is visible if there is 
             // *any* straight line segment that passes through *any* portion of the origin cell
@@ -157,7 +130,48 @@ namespace MattEland.Emergence.Engine.Vision
 
             // Make a note of the lowest opaque-->transparent transition, if there is one. 
             if (wasLastCellOpaque != null && !wasLastCellOpaque.Value)
+            {
                 queue.Enqueue(new ColumnPortion(x + 1, bottomVector, topVector));
+            }
+        }
+
+        private static int CalculateTopY(int x, DirectionVector topVector)
+        {
+            switch (x)
+            {
+                case 0:
+                    return 0;
+
+                default:
+                {
+                    int quotient = (2 * x + 1) * topVector.Y / (2 * topVector.X);
+                    int remainder = (2 * x + 1) * topVector.Y % (2 * topVector.X);
+
+                    return remainder > topVector.X
+                        ? quotient + 1
+                        : quotient;
+
+                }
+            }
+        }
+
+        private static int CalculateBottomY(int x, DirectionVector bottomVector)
+        {
+            switch (x)
+            {
+                case 0:
+                    return 0;
+
+                default:
+                {
+                    int quotient = (2 * x - 1) * bottomVector.Y / (2 * bottomVector.X);
+                    int remainder = (2 * x - 1) * bottomVector.Y % (2 * bottomVector.X);
+
+                    return remainder >= bottomVector.X
+                        ? quotient + 1
+                        : quotient;
+                }
+            }
         }
 
         private struct ColumnPortion

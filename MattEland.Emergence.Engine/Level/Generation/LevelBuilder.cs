@@ -267,7 +267,7 @@ namespace MattEland.Emergence.Engine.Level.Generation
 
                 // Grab the encounter set identifier
                 string encounterSetId = null;
-                if (_roomInstructions.ContainsKey(roomKvp.Key)) // TODO: Rectangle rooms will never have a key in here
+                if (_roomInstructions.ContainsKey(roomKvp.Key))
                 {
                     var instruction = _roomInstructions[roomKvp.Key];
 
@@ -444,7 +444,7 @@ namespace MattEland.Emergence.Engine.Level.Generation
 
             var cell = new GameCell
             {
-                FloorType = FloorType.Normal, // TODO: This may need to go on the mapping as well
+                FloorType = FloorType.Normal,
                 Pos = point
             };
 

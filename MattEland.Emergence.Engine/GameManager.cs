@@ -19,23 +19,26 @@ namespace MattEland.Emergence.Engine
     {
         public GameManager()
         {
-            _entityService = new EntityDefinitionService();
-            _combatManager = new CombatManager();
-            _loot = new LootProvider();
-            var randomization = new BasicRandomization();
-            _levelBuilder = new LevelGenerationService(new PrefabService(), new EncountersService(), randomization);
-            _service = new GameService(_levelBuilder, _combatManager, _loot, _entityService);
+            _service = CreateService();
         }
 
         [NotNull]
-        private readonly LevelGenerationService _levelBuilder;
+        private static GameService CreateService()
+        {
+            var entityService = new EntityDefinitionService();
+            var combatManager = new CombatManager();
+            var loot = new LootProvider();
+            var randomization = new BasicRandomization();
+            var levelBuilder = new LevelGenerationService(new PrefabService(), new EncountersService(), randomization);
 
-        private readonly EntityDefinitionService _entityService;
-        private readonly CombatManager _combatManager;
-        private readonly LootProvider _loot;
+            return new GameService(levelBuilder, combatManager, loot, entityService);
+        }
+
+        [NotNull]
         private readonly GameService _service;
 
         public GameStatus State { get; private set; }
+
         [CanBeNull]
         public Player Player { get; }
 
