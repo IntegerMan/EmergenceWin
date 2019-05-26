@@ -89,15 +89,9 @@ namespace MattEland.Emergence.Engine.Game
             AddMessage(effect);
         }
 
-        public bool CanPlayerSee(GameObjectBase obj)
-        {
-            return obj != null && CanPlayerSee(obj.Pos);
-        }
+        public bool CanPlayerSee(GameObjectBase obj) => obj != null && CanPlayerSee(obj.Pos);
 
-        public bool CanPlayerSee(Pos2D pos)
-        {
-            return Player != null && Player.CanSee(pos);
-        }
+        public bool CanPlayerSee(Pos2D pos) => Player != null && Player.CanSee(pos);
 
         public CommandContext Clone() => new CommandContext(Level, GameService, EntityService, CombatManager, LootProvider);
 
@@ -122,7 +116,6 @@ namespace MattEland.Emergence.Engine.Game
 
         }
 
-        /// <inheritdoc />
         public void DisplayHelp(GameObjectBase source, string helpTopic)
         {
             var topic = helpTopic.ToLowerInvariant();
@@ -142,13 +135,11 @@ namespace MattEland.Emergence.Engine.Game
                 switch (topic)
                 {
                     case "help_firewalls":
-                        message =
-                            "Exits are protected by a firewall. Capture every core on a machine in order to move on.";
+                        message = "Exits are protected by a firewall. Capture every core on a machine in order to move on.";
                         break;
 
                     case "help_welcome":
-                        message =
-                            "You're an AI inside of a computer network. Travel between systems and escape to the Internet.";
+                        message = "You're an AI inside of a computer network. Travel between systems and escape to the Internet.";
                         break;
 
                     default:
@@ -233,11 +224,7 @@ namespace MattEland.Emergence.Engine.Game
             GameService.MoveToLevel(levels[levelIndex + 1], this);
         }
 
-        public void AddError(string message)
-        {
-            // TODO: Logging this would be good.
-            AddMessage(message, ClientMessageType.Assertion);
-        }
+        public void AddError(string message) => AddMessage(message, ClientMessageType.Assertion);
 
         public void MoveObject([NotNull] GameObjectBase obj, Pos2D newPos)
         {
@@ -260,72 +247,89 @@ namespace MattEland.Emergence.Engine.Game
 
         public void CreatedObject(GameObjectBase gameObject) => AddMessage(new CreatedMessage(gameObject));
 
-        public void DisplayText(string text, ClientMessageType messageType = ClientMessageType.Generic) => AddMessage(new DisplayTextMessage(text, messageType));
-
-        /// <inheritdoc />
         public void TeleportActor(Actor actor, Pos2D pos)
         {
-
             const int damage = 1;
 
             // Ensure that the teleport is allowed to happen - don't allow teleporting into walls
             var targetCell = Level.GetCell(pos);
             if (targetCell == null || targetCell.HasNonActorObstacle)
             {
-                if (actor.IsPlayer || CanPlayerSee(pos))
-                {
-                    AddMessage($"{actor.Name} tries to teleport but is blocked, causing {damage} scramble damage.",
-                               ClientMessageType.Failure);
-                }
-
-                CombatManager.HurtObject(this, actor, damage, actor, "scrambles", DamageType.Normal); // Ignoring this is fine
+                HandleFailedTeleport(actor, pos, damage);
                 return;
             }
 
-            // See who else is here
+            // See who else is here before the action occurs
             var telefragged = Level.Actors.Where(a => a.Pos == pos).ToList();
             var oldPos = actor.Pos;
 
             // Add an effect for the teleportation
             if (CanPlayerSee(actor.Pos) || CanPlayerSee(pos) || actor.IsPlayer)
             {
-                // Don't give the client-application an unfair idea of where the target teleported to if they can't see it
-                var endPos = pos;
-                if (!actor.IsPlayer && !CanPlayerSee(pos))
-                {
-                    endPos = new Pos2D(-500, -500);
-                }
-
-                AddEffect(new TeleportEffect(actor.Pos, endPos));
+                AddTeleportEffect(actor, pos);
             }
 
             // Actually move the actor
             Level.MoveObject(actor, pos);
 
+            if (telefragged.Any())
+            {
+                HandleTelefragged(actor, telefragged, oldPos, pos, damage);
+            }
+
+        }
+
+        private void HandleFailedTeleport(Actor actor, Pos2D pos, int damage)
+        {
+            if (actor.IsPlayer || CanPlayerSee(pos))
+            {
+                AddMessage($"{actor.Name} tries to teleport but is blocked, causing {damage} scramble damage.",
+                    ClientMessageType.Failure);
+            }
+
+            CombatManager.HurtObject(this, actor, damage, actor, "scrambles", DamageType.Normal);
+        }
+
+        private void AddTeleportEffect(Actor actor, Pos2D pos)
+        {
+            // Don't give the client-application an unfair idea of where the target teleported to if they can't see it
+            var endPos = pos;
+            if (!actor.IsPlayer && !CanPlayerSee(pos))
+            {
+                endPos = new Pos2D(-500, -500);
+            }
+
+            AddEffect(new TeleportEffect(actor.Pos, endPos));
+        }
+
+        private void HandleTelefragged(Actor actor,
+            IEnumerable<Actor> telefragged,
+            Pos2D oldPos,
+            Pos2D newPos,
+            int damage)
+        {
+            string hurtMessage;
+
             // Teleporting on top of another actor should always cause damage to that actor and swap it to your old location
             foreach (var target in telefragged)
             {
-                var hurtMessage = CombatManager.HurtObject(this, target, damage, actor, "scrambles", DamageType.Normal);
+                hurtMessage = CombatManager.HurtObject(this, target, damage, actor, "scrambles", DamageType.Normal);
 
-                if (actor.IsPlayer || target.IsPlayer || CanPlayerSee(pos))
+                if (actor.IsPlayer || target.IsPlayer || CanPlayerSee(newPos))
                 {
                     AddMessage(hurtMessage, ClientMessageType.Generic);
                 }
 
                 Level.MoveObject(target, oldPos);
             }
-
+            
             // If any collisions occurred, also hurt the actor who triggered it
-            if (telefragged.Any())
+            hurtMessage = CombatManager.HurtObject(this, actor, damage, actor, "scrambles", DamageType.Normal);
+
+            if (actor.IsPlayer || Player.CanSee(newPos))
             {
-                var hurtMessage = CombatManager.HurtObject(this, actor, damage, actor, "scrambles", DamageType.Normal);
-
-                if (actor.IsPlayer || Player.CanSee(pos))
-                {
-                    AddMessage(hurtMessage, ClientMessageType.Generic);
-                }
+                AddMessage(hurtMessage, ClientMessageType.Generic);
             }
-
         }
 
         public void CalculateLineOfSight(Actor actor)
@@ -337,8 +341,7 @@ namespace MattEland.Emergence.Engine.Game
             actor.MarkCellsAsKnown(fov.VisiblePositions);
         }
 
-        public void AddSoundEffect(OpenableGameObjectBase source, SoundEffects sound) 
-            => AddEffect(new SoundEffect(source, sound));
+        public void AddSoundEffect(OpenableGameObjectBase source, SoundEffects sound) => AddEffect(new SoundEffect(source, sound));
     }
 
 }
