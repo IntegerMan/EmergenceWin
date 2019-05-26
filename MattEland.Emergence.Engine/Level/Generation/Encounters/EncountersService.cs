@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using GeneticSharp.Domain.Randomizations;
 using MattEland.Emergence.Engine.Entities;
@@ -52,41 +53,34 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
         {
             var elements = new List<EncounterElement>();
 
-            foreach (EncounterEntityData contentElement in encounter.Entities)
+            foreach (var contentElement in encounter.Entities)
             {
                 decimal chance = contentElement.Chance;
 
-                if (chance >= 1.0m ||
-                    chance >= (decimal) randomization.GetDouble())
+                if (chance < 1.0m && chance < (decimal) randomization.GetDouble()) continue;
+
+                // Some encounters can have varying quantities of actors in them.
+                var quantity = GetEntityQuantity(randomization, contentElement);
+
+                // Generate the required number of entries
+                for (int i = 0; i < quantity; i++)
                 {
-
-                    // Cleanse the entity in case we get bad JSON
-                    if (contentElement.MinQuantity <= 0)
-                    {
-                        contentElement.MinQuantity = 1;
-                    }
-                    if (contentElement.MaxQuantity < contentElement.MinQuantity)
-                    {
-                        contentElement.MaxQuantity = contentElement.MinQuantity;
-                    }
-
-                    // Some encounters can have varying quantities of actors in them.
-                    int quantity = contentElement.MinQuantity;
-                    if (contentElement.MaxQuantity > contentElement.MinQuantity)
-                    {
-                        quantity = randomization.GetInt(contentElement.MinQuantity, contentElement.MaxQuantity);
-                    }
-
-                    // Generate the required number of entries
-                    for (int i = 0; i < quantity; i++)
-                    {
-                        elements.Add(new EncounterElement { ObjectType = GameObjectType.Actor, ObjectId = contentElement.Id });
-                    }
-
+                    elements.Add(new EncounterElement { ObjectType = GameObjectType.Actor, ObjectId = contentElement.Id });
                 }
             }
 
             return elements;
+        }
+
+        private static int GetEntityQuantity(IRandomization randomization, EncounterEntityData contentElement)
+        {
+            int quantity = Math.Max(0, contentElement.MinQuantity);
+            if (contentElement.MaxQuantity > contentElement.MinQuantity)
+            {
+                quantity = randomization.GetInt(contentElement.MinQuantity, contentElement.MaxQuantity);
+            }
+
+            return quantity;
         }
 
         /// <summary>
