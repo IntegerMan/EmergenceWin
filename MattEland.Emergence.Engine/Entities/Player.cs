@@ -232,10 +232,5 @@ namespace MattEland.Emergence.Engine.Entities
 
         public override string ForegroundColor => GameColors.Green;
 
-        public override int Corruption
-        {
-            get => 0; // Players are not corruptable but should still take corruption damage effects
-            set { /* Do nothing */ }
-        }
     }
 }

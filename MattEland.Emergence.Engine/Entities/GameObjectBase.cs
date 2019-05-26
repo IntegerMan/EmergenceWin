@@ -13,9 +13,7 @@ namespace MattEland.Emergence.Engine.Entities
     /// </summary>
     public abstract class GameObjectBase
     {
-        private readonly string _name;
         private int _corruption;
-        private Alignment _team;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GameObjectBase"/> class.
@@ -28,7 +26,7 @@ namespace MattEland.Emergence.Engine.Entities
             Pos = Pos2D.FromString(dto.Pos);
             Stability = dto.MaxHp - dto.HpUsed;
             MaxStability = dto.MaxHp;
-            _name = dto.Name;
+            Name = dto.Name;
             Team = dto.Team;
             State = dto.State;
             IsHidden = dto.IsHidden;
@@ -109,7 +107,7 @@ namespace MattEland.Emergence.Engine.Entities
         /// Gets the name of the object.
         /// </summary>
         /// <value>The name.</value>
-        public virtual string Name => _name;
+        public virtual string Name { get; }
 
         /// <summary>
         /// Gets a value indicating whether this actor is dead.
@@ -145,15 +143,11 @@ namespace MattEland.Emergence.Engine.Entities
         /// </summary>
         public Alignment Team
         {
-            get => IsCorrupted ? Alignment.Bug : _team;
-            set => _team = value;
+            get => IsCorrupted ? Alignment.Bug : ActualTeam;
+            set => ActualTeam = value;
         }
 
-        public Alignment ActualTeam
-        {
-            get => _team;
-            set => _team = value;
-        }
+        public Alignment ActualTeam { get; set; }
 
         public bool IsCorrupted => Corruption > 1;
         public virtual bool IsInteractive => false;
@@ -182,7 +176,7 @@ namespace MattEland.Emergence.Engine.Entities
             dto.HpUsed = MaxStability - Stability;
             dto.MaxHp = MaxStability;
             dto.Name = Name;
-            dto.Team = _team; // Important to use field - don't want to lose track of it in round-tripping
+            dto.Team = ActualTeam; // Important to use field - don't want to lose track of it in round-tripping
             dto.State = State;
             dto.IsHidden = IsHidden;
             dto.Corruption = Corruption;
@@ -195,13 +189,16 @@ namespace MattEland.Emergence.Engine.Entities
 
         public virtual void ApplyCorruptionDamage(CommandContext context, [CanBeNull] GameObjectBase source, int damage)
         {
-            Corruption += damage;
+            if (IsCorruptable)
+            {
+                Corruption += damage;
+            }
         }
 
         /// <summary>
         /// Gets or sets the corruption amount present on the object.
         /// </summary>
-        public virtual int Corruption
+        public int Corruption
         {
             get => _corruption;
             set => _corruption = Math.Max(Math.Min(3, value), 0);
