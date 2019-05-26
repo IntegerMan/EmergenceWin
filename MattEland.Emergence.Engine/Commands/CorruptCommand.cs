@@ -23,31 +23,13 @@ namespace MattEland.Emergence.Engine.Commands
 
         protected override void OnActivated(CommandContext context, Actor executor, Pos2D pos)
         {
-            CleanseNearby(context, executor, pos);
+            CorruptionHelper.CorruptNearby(pos, context, executor);
         }
 
         public override void ApplyEffect(CommandContext context, Actor executor, Pos2D pos)
         {
-            CleanseNearby(context, executor, pos);
+            CorruptionHelper.CorruptNearby(pos, context, executor);
         }
 
-        private static void CleanseNearby(CommandContext context, Actor executor, Pos2D pos)
-        {
-            const int strength = 1;
-
-            var cells = context.Level.GetCellsInSquare(pos, 1);
-            foreach (var cell in cells)
-            {
-                // Apply base corruption
-                cell.Corruption += strength;
-
-                // Also cleanse any objects on the cell
-                foreach (var obj in cell.Objects.Where(o => o.IsCorruptable && o != executor).ToList())
-                {
-                    obj.ApplyCorruptionDamage(context, executor, strength);
-                }
-
-            }
-        }
     }
 }

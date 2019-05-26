@@ -1,4 +1,5 @@
-﻿using MattEland.Emergence.Engine.DTOs;
+﻿using System.Linq;
+using MattEland.Emergence.Engine.DTOs;
 using MattEland.Emergence.Engine.Effects;
 using MattEland.Emergence.Engine.Entities;
 using MattEland.Emergence.Engine.Game;
@@ -177,5 +178,6 @@ namespace MattEland.Emergence.Engine.Commands
             Description = Description,
             IsActive = isActive
         };
+
     }
 }

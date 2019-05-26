@@ -9,13 +9,13 @@ namespace MattEland.Emergence.Engine.Vision
         // can tell whether a given cell is opaque. Calls the setFoV action on
         // every cell that is both within the radius and visible from the center. 
 
-        public static void ComputeFieldOfViewWithShadowCasting(
+        public static void ComputeFieldOfViewWithShadowCasting<T>(
             int x, int y, decimal radius,
             Func<int, int, bool> isOpaque,
-            Action<int, int> setFoV)
+            Func<int, int, T> setFoV)
         {
-            Func<int, int, bool> opaque = TranslateOrigin(isOpaque, x, y);
-            Action<int, int> fov = TranslateOrigin(setFoV, x, y);
+            var opaque = TranslateOrigin(isOpaque, x, y);
+            var fov = TranslateOrigin(setFoV, x, y);
 
             for (int octant = 0; octant < 8; ++octant)
             {
@@ -26,9 +26,9 @@ namespace MattEland.Emergence.Engine.Vision
             }
         }
 
-        private static void ComputeFieldOfViewInOctantZero(
+        private static void ComputeFieldOfViewInOctantZero<T>(
             Func<int, int, bool> isOpaque,
-            Action<int, int> setFieldOfView,
+            Func<int, int, T> setFieldOfView,
             decimal radius)
         {
             var queue = new Queue<ColumnPortion>();
@@ -54,12 +54,12 @@ namespace MattEland.Emergence.Engine.Vision
         // portion that are within the radius as in the field of view, and 
         // (2) it computes which portions of the following column are in the 
         // field of view, and puts them on a work queue for later processing. 
-        private static void ComputeFoVForColumnPortion(
+        private static void ComputeFoVForColumnPortion<T>(
             int x,
             DirectionVector topVector,
             DirectionVector bottomVector,
             Func<int, int, bool> isOpaque,
-            Action<int, int> setFieldOfView,
+            Func<int, int, T> setFieldOfView,
             decimal radius,
             Queue<ColumnPortion> queue)
         {
@@ -130,7 +130,7 @@ namespace MattEland.Emergence.Engine.Vision
             }
         }
 
-        private static bool CheckInRadiusAndSetFieldOfViewAsNeeded(int x, int y, Action<int, int> setFieldOfView, decimal radius)
+        private static bool CheckInRadiusAndSetFieldOfViewAsNeeded<T>(int x, int y, Func<int, int, T> setFieldOfView, decimal radius)
         {
             if (!IsInRadius(x, y, radius))
             {
@@ -182,39 +182,9 @@ namespace MattEland.Emergence.Engine.Vision
             }
         }
 
-        private struct ColumnPortion
-        {
-            public int X { get; }
-            public DirectionVector BottomVector { get; }
-            public DirectionVector TopVector { get; }
-
-            public ColumnPortion(int x, DirectionVector bottom, DirectionVector top)
-                : this()
-            {
-                X = x;
-                BottomVector = bottom;
-                TopVector = top;
-            }
-        }
-
         // Is the lower-left corner of cell (x,y) within the radius?
-        private static bool IsInRadius(int x, int y, decimal length)
-        {
-            return (2 * x - 1) * (2 * x - 1) + (2 * y - 1) * (2 * y - 1) <= 4 * length * length;
-        }
-
-        private struct DirectionVector
-        {
-            public int X { get; }
-            public int Y { get; }
-
-            public DirectionVector(int x, int y)
-                : this()
-            {
-                X = x;
-                Y = y;
-            }
-        }
+        private static bool IsInRadius(int x, int y, decimal length) 
+            => (2 * x - 1) * (2 * x - 1) + (2 * y - 1) * (2 * y - 1) <= 4 * length * length;
 
         // Octant helpers
         //
@@ -227,15 +197,7 @@ namespace MattEland.Emergence.Engine.Vision
         //
         // 
 
-        private static Func<int, int, T> TranslateOrigin<T>(Func<int, int, T> f, int x, int y)
-        {
-            return (a, b) => f(a + x, b + y);
-        }
-
-        private static Action<int, int> TranslateOrigin(Action<int, int> f, int x, int y)
-        {
-            return (a, b) => f(a + x, b + y);
-        }
+        private static Func<int, int, T> TranslateOrigin<T>(Func<int, int, T> f, int x, int y) => (a, b) => f(a + x, b + y);
 
         private static Func<int, int, T> TranslateOctant<T>(Func<int, int, T> f, int octant)
         {
@@ -252,19 +214,5 @@ namespace MattEland.Emergence.Engine.Vision
             }
         }
 
-        private static Action<int, int> TranslateOctant(Action<int, int> f, int octant)
-        {
-            switch (octant)
-            {
-                default: return f;
-                case 1: return (x, y) => f(y, x);
-                case 2: return (x, y) => f(-y, x);
-                case 3: return (x, y) => f(-x, y);
-                case 4: return (x, y) => f(-x, -y);
-                case 5: return (x, y) => f(-y, -x);
-                case 6: return (x, y) => f(y, -x);
-                case 7: return (x, y) => f(x, -y);
-            }
-        }
     }
 }

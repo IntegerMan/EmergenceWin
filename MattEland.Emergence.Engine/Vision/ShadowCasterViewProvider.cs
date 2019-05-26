@@ -23,6 +23,7 @@ namespace MattEland.Emergence.Engine.Vision
         public ISet<Pos2D> ComputeFov(Pos2D origin, decimal radius)
         {
             _visible.Clear();
+
             ShadowCaster.ComputeFieldOfViewWithShadowCasting(origin.X, origin.Y, radius.ToInt(), IsOpaque, SetFoV);
 
             return _visible;
@@ -30,9 +31,11 @@ namespace MattEland.Emergence.Engine.Vision
 
         private bool IsOpaque(int x, int y) => _level.HasSightBlocker(new Pos2D(x, y));
 
-        private void SetFoV(int x, int y)
+        private Pos2D SetFoV(int x, int y)
         {
-            _visible.Add(new Pos2D(x, y));
+            var pos = new Pos2D(x, y);
+            _visible.Add(pos);
+            return pos;
         }
     }
 }

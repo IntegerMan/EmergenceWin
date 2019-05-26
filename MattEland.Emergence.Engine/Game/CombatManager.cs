@@ -22,7 +22,11 @@ namespace MattEland.Emergence.Engine.Game
         /// <param name="defender">The defender.</param>
         /// <param name="verb">The display name of the type of attack being used</param>
         /// <param name="damageType">The type of damage to apply</param>
-        public void HandleAttack(CommandContext context, GameObjectBase attacker, GameObjectBase defender, string verb, DamageType damageType)
+        public void HandleAttack(CommandContext context,
+            GameObjectBase attacker,
+            GameObjectBase defender,
+            string verb,
+            DamageType damageType)
         {
             // Figure out if the attack lands
             if (!DetermineIfAttackHits(context, attacker, defender))
@@ -133,7 +137,12 @@ namespace MattEland.Emergence.Engine.Game
         /// <param name="attacker">The attacker.</param>
         /// <param name="verb">A verb describing the action.</param>
         /// <returns>The message to log</returns>
-        public string HurtObject(CommandContext context, GameObjectBase defender, int damage, GameObjectBase attacker, string verb, DamageType damageType)
+        public string HurtObject(CommandContext context,
+            GameObjectBase defender,
+            int damage,
+            GameObjectBase attacker,
+            string verb,
+            DamageType damageType)
         {
             if (defender.CanBeCaptured)
             {
@@ -151,7 +160,7 @@ namespace MattEland.Emergence.Engine.Game
 
             if ((damageType == DamageType.Corruption || damageType == DamageType.Combination) && defender.IsCorruptable)
             {
-                ApplyCorruptionDamage(context, attacker, defender, damage);
+                CorruptionHelper.ApplyCorruptionDamage(context, attacker, defender, damage);
             }
 
             // Add the damage to the object
@@ -203,25 +212,17 @@ namespace MattEland.Emergence.Engine.Game
             }
         }
 
-        private static void ApplyCorruptionDamage(CommandContext context, GameObjectBase attacker, GameObjectBase defender,
-            int damage)
+        public void HandleExplosion(CommandContext context,
+            GameObjectBase executor,
+            Pos2D epicenter,
+            int strength,
+            int radius,
+            DamageType damageType)
         {
-            var originalCorruption = defender.Corruption;
-            defender.ApplyCorruptionDamage(context, attacker, damage);
-            if (attacker is Actor attackingActor)
-            {
-                attackingActor.DamageDealt += Math.Abs(defender.Corruption - originalCorruption);
-            }
-        }
-
-        public void HandleExplosion(CommandContext context, GameObjectBase executor, Pos2D epicenter, int strength, int radius, DamageType damageType)
-        {
-            bool isCorruptionDamage = (damageType == DamageType.Corruption || damageType == DamageType.Combination);
-
             foreach (var cell in context.GetCellsVisibleFromPoint(epicenter, radius).ToList())
             {
                 // Spread corruption as needed
-                if (isCorruptionDamage && context.Randomizer.GetDouble() > 0.3)
+                if (damageType.IsCorruptionDamageType() && context.Randomizer.GetDouble() > 0.3)
                 {
                     cell.Corruption++;
                 }
@@ -249,8 +250,11 @@ namespace MattEland.Emergence.Engine.Game
 
         }
 
-        private void ApplyExplosionDamageAndAddEffects(CommandContext context, GameObjectBase executor, DamageType damageType,
-            GameObjectBase obj, int damage)
+        private void ApplyExplosionDamageAndAddEffects(CommandContext context,
+            GameObjectBase executor,
+            DamageType damageType,
+            GameObjectBase obj,
+            int damage)
         {
             var harmResult = HurtObject(context, obj, damage, executor, "damages", damageType);
 
@@ -263,8 +267,11 @@ namespace MattEland.Emergence.Engine.Game
             }
         }
 
-        private static void AddNoExplosionDamageEffects(CommandContext context, GameObjectBase executor, int strength,
-            GameObjectBase obj, int resistance)
+        private static void AddNoExplosionDamageEffects(CommandContext context,
+            GameObjectBase executor,
+            int strength,
+            GameObjectBase obj,
+            int resistance)
         {
             var isVisible = obj.IsPlayer || executor.IsPlayer || context.CanPlayerSee(obj.Pos);
             bool showMessage = obj is Actor && isVisible;

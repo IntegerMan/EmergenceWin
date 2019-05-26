@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using MattEland.Emergence.Engine.Effects;
+using MattEland.Emergence.Engine.Entities;
 using MattEland.Emergence.Engine.Level;
 using MattEland.Emergence.Engine.Services;
 
@@ -8,12 +10,47 @@ namespace MattEland.Emergence.Engine.Game
 {
     public static class CorruptionHelper
     {
+        public static void ApplyCorruptionDamage(CommandContext context,
+            GameObjectBase attacker,
+            GameObjectBase defender,
+            int damage)
+        {
+            var originalCorruption = defender.Corruption;
+
+            defender.ApplyCorruptionDamage(context, attacker, damage);
+
+            if (attacker is Actor attackingActor)
+            {
+                attackingActor.DamageDealt += Math.Abs(defender.Corruption - originalCorruption);
+            }
+        }
+
+        public static void CorruptNearby(this Pos2D pos, CommandContext context, Actor executor)
+        {
+            const int strength = 1;
+
+            var cells = context.Level.GetCellsInSquare(pos, 1);
+            foreach (var cell in cells)
+            {
+                // Apply base corruption
+                cell.Corruption += strength;
+
+                // Also cleanse any objects on the cell
+                foreach (var obj in cell.Objects.Where(o => o.IsCorruptable && o != executor).ToList())
+                {
+                    obj.ApplyCorruptionDamage(context, executor, strength);
+                }
+
+            }
+        }
+
+
         /// <summary>
         /// Spreads corruption on the cell, if it already contains corruption.
         /// </summary>
-        /// <param name="context">The command context for the game</param>
         /// <param name="cell">The cell in question</param>
-        public static void SpreadCorruptionOnCell(CommandContext context, GameCell cell)
+        /// <param name="context">The command context for the game</param>
+        public static void SpreadCorruptionOnCell(this GameCell cell, CommandContext context)
         {
             // Do nothing if there's no corruption already
             if (cell.Corruption <= 0)
@@ -86,9 +123,39 @@ namespace MattEland.Emergence.Engine.Game
             // Spread corruption to the cells in question
             foreach (var candidate in cells)
             {
-                SpreadCorruptionOnCell(context, candidate);
+                SpreadCorruptionOnCell(candidate, context);
             }
 
+        }
+
+        public static bool IsCorruptionDamageType(this DamageType damageType) 
+            => damageType == DamageType.Corruption || damageType == DamageType.Combination;
+
+        public static void CleanseNearby(CommandContext context, Actor executor, Pos2D pos)
+        {
+            const int strength = 1;
+
+            var cells = context.Level.GetCellsInSquare(pos, 1);
+            foreach (var cell in cells)
+            {
+                var isCellVisible = context.CanPlayerSee(cell.Pos);
+
+                // Add the effect for the cell
+                if (isCellVisible && cell.Corruption > 0)
+                {
+                    context.AddEffect(new CleanseEffect(cell.Pos, strength));
+                }
+
+                // Reduce base corruption
+                cell.Corruption -= strength;
+
+                // Also cleanse any objects on the cell
+                foreach (var obj in cell.Objects.Where(o => o.IsCorruptable || o.Team == Alignment.Bug || o.Team == Alignment.Virus).ToList())
+                {
+                    obj.ApplyCorruptionDamage(context, executor, -strength);
+                }
+
+            }
         }
     }
 }
