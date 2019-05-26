@@ -4,9 +4,8 @@ using JetBrains.Annotations;
 using MattEland.Emergence.Engine.DTOs;
 using MattEland.Emergence.Engine.Entities;
 using MattEland.Emergence.Engine.Game;
+using MattEland.Emergence.Engine.Messages;
 using MattEland.Emergence.Engine.Model;
-using MattEland.Emergence.Engine.Model.EngineDefinitions;
-using MattEland.Emergence.Engine.Model.Messages;
 
 namespace MattEland.Emergence.Engine
 {

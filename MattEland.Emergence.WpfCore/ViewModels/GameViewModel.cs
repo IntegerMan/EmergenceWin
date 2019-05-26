@@ -5,8 +5,8 @@ using System.Linq;
 using MattEland.Emergence.Engine;
 using MattEland.Emergence.Engine.Entities;
 using MattEland.Emergence.Engine.Level;
+using MattEland.Emergence.Engine.Messages;
 using MattEland.Emergence.Engine.Model;
-using MattEland.Emergence.Engine.Model.Messages;
 using MattEland.Shared.Collections;
 
 namespace MattEland.Emergence.WpfCore.ViewModels

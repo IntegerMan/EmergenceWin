@@ -1,4 +1,4 @@
-﻿namespace MattEland.Emergence.Engine.Model.EngineDefinitions
+﻿namespace MattEland.Emergence.Engine.Model
 {
     public enum GameStatus
     {

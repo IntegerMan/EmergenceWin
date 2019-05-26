@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using MattEland.Emergence.Engine.DTOs;
 using MattEland.Emergence.Engine.Entities;
-using MattEland.Emergence.Engine.Game;
 using MattEland.Emergence.Engine.Services;
 
 namespace MattEland.Emergence.Engine.Level
@@ -57,10 +55,7 @@ namespace MattEland.Emergence.Engine.Level
         /// </summary>
         /// <param name="pos">The position.</param>
         /// <returns>The cell.</returns>
-        public GameCell GetCell(Pos2D pos)
-        {
-            return !CellsDictionary.ContainsKey(pos) ? null : _cells[pos];
-        }
+        public GameCell GetCell(Pos2D pos) => !CellsDictionary.ContainsKey(pos) ? null : _cells[pos];
 
         private IDictionary<Pos2D, GameCell> CellsDictionary
         {
@@ -85,7 +80,6 @@ namespace MattEland.Emergence.Engine.Level
 
         public bool HasAdminAccess { get; set; }
 
-        /// <inheritdoc />
         public Pos2D MarkedPos { get; set; }
 
         /// <summary>
@@ -123,24 +117,9 @@ namespace MattEland.Emergence.Engine.Level
             ClearVisibilityCache();
         }
 
-        public void ClearVisibilityCache()
-        {
-            _sightBlockerCache.Clear();
-        }
+        public void ClearVisibilityCache() => _sightBlockerCache.Clear();
 
-        /// <summary>
-        /// Gets a <see cref="LevelDto"/> instance from this instance.
-        /// </summary>
-        /// <returns>A <see cref="LevelDto"/> representation of this object.</returns>
-        public LevelDto ToDto()
-        {
-            return this.BuildLevelDto();
-        }
-
-        public bool IsPosExterior(Pos2D pos)
-        {
-            return pos.X == UpperLeft.X || pos.X == LowerRight.X || pos.Y == LowerRight.Y || pos.Y == UpperLeft.Y;
-        }
+        public bool IsPosExterior(Pos2D pos) => pos.X == UpperLeft.X || pos.X == LowerRight.X || pos.Y == LowerRight.Y || pos.Y == UpperLeft.Y;
 
         public IEnumerable<GameCell> GetCellsInSquare(Pos2D pos, int radius)
         {
@@ -208,7 +187,7 @@ namespace MattEland.Emergence.Engine.Level
         {
             foreach (var cell in Cells)
             {
-                cell.RemoveAllObjects(d => true);
+                cell.RemoveAllObjects(matcherFunc);
             }
         }
 

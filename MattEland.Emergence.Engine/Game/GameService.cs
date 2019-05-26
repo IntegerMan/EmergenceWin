@@ -110,35 +110,6 @@ namespace MattEland.Emergence.Engine.Game
         public int NumMoves { get; set; }
         public Player Player { get; private set; }
 
-        private static void EndGame(GameState state, bool isVictory, CommandContext context)
-        {
-            state.IsGameOver = true;
-            state.IsVictory = isVictory;
-            state.Score = CalculateScore(state, context);
-        }
-
-        private static int CalculateScore(GameState state, CommandContext context)
-        {
-            if (state.NumMoves < 1)
-            {
-                state.NumMoves = 1;
-            }
-
-            // Give credit for doing more damage than you received
-            state.Score = (context.Player.DamageDealt - context.Player.DamageReceived) * 5;
-
-            // Give credit per kill, but try to encourage the user to go quickly
-            state.Score += (int)Math.Round(context.Player.KillCount / (state.NumMoves * 100m));
-
-            // Also give credit for staying alive
-            state.Score += state.NumMoves;
-
-            // Winning is bonus points for sure
-            state.Score += ((int)context.Level.Id - 1) * 1000;
-
-            return state.Score;
-        }
-
         public void MoveToLevel(LevelType nextLevelType, CommandContext commandContext)
         {
             var levelParams = new LevelGenerationParameters

@@ -2,7 +2,7 @@
 using JetBrains.Annotations;
 using MattEland.Emergence.Engine.DTOs;
 
-namespace MattEland.Emergence.Engine.Model.Messages
+namespace MattEland.Emergence.Engine.Messages
 {
     public class DisplayTextMessage : GameMessage
     {

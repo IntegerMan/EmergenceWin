@@ -1,6 +1,6 @@
 ﻿using JetBrains.Annotations;
 using MattEland.Emergence.Engine.Entities;
-using MattEland.Emergence.Engine.Model.Messages;
+using MattEland.Emergence.Engine.Messages;
 
 namespace MattEland.Emergence.Engine.Effects
 {

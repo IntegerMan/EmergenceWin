@@ -2,7 +2,7 @@
 using JetBrains.Annotations;
 using MattEland.Emergence.Engine.Entities;
 
-namespace MattEland.Emergence.Engine.Model.Messages
+namespace MattEland.Emergence.Engine.Messages
 {
     public class CreatedMessage : GameMessage
     {

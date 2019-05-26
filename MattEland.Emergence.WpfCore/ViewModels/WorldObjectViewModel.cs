@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Windows.Media;
 using MattEland.Emergence.Engine.Entities;
 using MattEland.Emergence.Engine.Level;
-using MattEland.Emergence.Engine.Model.Messages;
+using MattEland.Emergence.Engine.Messages;
 
 namespace MattEland.Emergence.WpfCore.ViewModels
 {

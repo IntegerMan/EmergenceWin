@@ -2,7 +2,7 @@ using JetBrains.Annotations;
 using MattEland.Emergence.Engine.Entities;
 using MattEland.Emergence.Engine.Level;
 
-namespace MattEland.Emergence.Engine.Model.Messages
+namespace MattEland.Emergence.Engine.Messages
 {
     public class MovedMessage : GameMessage
     {

@@ -1,4 +1,4 @@
-﻿namespace MattEland.Emergence.Engine.Model.Messages
+﻿namespace MattEland.Emergence.Engine.Messages
 {
     public abstract class GameMessage
     {
