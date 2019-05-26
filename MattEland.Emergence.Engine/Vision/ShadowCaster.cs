@@ -83,12 +83,7 @@ namespace MattEland.Emergence.Engine.Vision
             bool? wasLastCellOpaque = null;
             for (int y = topY; y >= bottomY; --y)
             {
-                bool inRadius = IsInRadius(x, y, radius);
-                if (inRadius)
-                {
-                    // The current cell is in the field of view.
-                    setFieldOfView(x, y);
-                }
+                bool inRadius = CheckInRadiusAndSetFieldOfViewAsNeeded(x, y, setFieldOfView, radius);
 
                 // A cell that was too far away to be seen is effectively
                 // an opaque cell; nothing "above" it is going to be visible
@@ -133,6 +128,19 @@ namespace MattEland.Emergence.Engine.Vision
             {
                 queue.Enqueue(new ColumnPortion(x + 1, bottomVector, topVector));
             }
+        }
+
+        private static bool CheckInRadiusAndSetFieldOfViewAsNeeded(int x, int y, Action<int, int> setFieldOfView, decimal radius)
+        {
+            if (!IsInRadius(x, y, radius))
+            {
+                return false;
+            }
+
+            // The current cell is in the field of view.
+            setFieldOfView(x, y);
+
+            return true;
         }
 
         private static int CalculateTopY(int x, DirectionVector topVector)
