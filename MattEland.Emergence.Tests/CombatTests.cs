@@ -1,4 +1,5 @@
 ﻿using MattEland.Emergence.Engine.Entities;
+using MattEland.Emergence.Engine.Level;
 using MattEland.Emergence.Engine.Services;
 using NUnit.Framework;
 using Shouldly;
@@ -15,7 +16,7 @@ namespace MattEland.Emergence.Tests
         {
             InitializeGameService();
 
-            Turret = CreateTurret();
+            Turret = CreateTurret(new Pos2D(-12, 42));
 
             Context.ClearMessages();
         }

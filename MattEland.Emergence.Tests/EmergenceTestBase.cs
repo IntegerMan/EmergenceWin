@@ -26,7 +26,13 @@ namespace MattEland.Emergence.Tests
             Player = GameService.Player;
         }
 
-        protected GameObjectBase CreateTurret() 
-            => GameObjectFactory.CreateFromObjectType("ACTOR_TURRET", GameObjectType.Actor, new Pos2D(-12, 42));
+        protected GameObjectBase CreateTurret(Pos2D pos)
+        {
+            var turret = GameObjectFactory.CreateFromObjectType("ACTOR_TURRET", GameObjectType.Actor, pos);
+
+            Context.Level.AddObject(turret);
+
+            return turret;
+        }
     }
 }
