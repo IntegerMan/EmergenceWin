@@ -231,6 +231,11 @@ namespace MattEland.Emergence.Engine.Level
         {
             if (radius <= 1) throw new ArgumentOutOfRangeException(nameof(radius), "Radius must be greater than 1");
 
+            return GetBorderCellsInSquarePrivate(pos, radius);
+        }
+
+        private IEnumerable<GameCell> GetBorderCellsInSquarePrivate(Pos2D pos, int radius)
+        {
             int minX = pos.X - radius;
             int maxX = pos.X + radius;
             int minY = pos.Y - radius;
