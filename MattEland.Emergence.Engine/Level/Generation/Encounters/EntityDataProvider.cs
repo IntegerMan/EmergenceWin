@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using JetBrains.Annotations;
 using MattEland.Emergence.Engine.Services;
 
 namespace MattEland.Emergence.Engine.Level.Generation.Encounters
@@ -22,118 +24,68 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
 
         private void LoadData()
         {
-            _items["ACTOR_PLAYER_FORECAST"] = new EntityData
-            {
-                Id = "ACTOR_PLAYER_FORECAST",
-                Name = "Forecaster AI",
-                Team = Alignment.Player,
-                BlocksSight = false,
-                Accuracy = 90,
-                Evasion = 20,
-                Strength = 2,
-                Defense = 1,
-                Hp = 10,
-                Op = 10,
-                HelpText = "The forecast AI is a flexible choice that is capable in many different roles",
-                LineOfSightRadius = 5.25m,
-                Commands = new List<string> { "SPIKE", "RESTORE", "BARRAGE"}
-            };
-            _items["ACTOR_PLAYER_LOGISTICS"] = new EntityData
-            {
-                Id = "ACTOR_PLAYER_LOGISTICS",
-                Name = "Logistics Hub",
-                Team = Alignment.Player,
-                BlocksSight = false,
-                Accuracy = 90,
-                Evasion = 20,
-                Strength = 2,
-                Defense = 1,
-                Hp = 10,
-                Op = 10,
-                HelpText = "The logistics hub excels at tactical movement, but is weaker than other AIs",
-                LineOfSightRadius = 5.25m,
-                Commands = new List<string> { "MARK", "RECALL", "SWAP" }
-            };
-            _items["ACTOR_PLAYER_SEARCH"] = new EntityData
-            {
-                Id = "ACTOR_PLAYER_SEARCH",
-                Name = "Search AI",
-                Team = Alignment.Player,
-                BlocksSight = false,
-                Accuracy = 90,
-                Evasion = 20,
-                Strength = 2,
-                Defense = 1,
-                LineOfSightRadius = 5.75m,
-                HelpText = "The search AI is geared towards gathering knowledge and avoiding encounters they can't handle",
-                Hp = 10,
-                Op = 10,
-                Commands = new List<string> { "SCAN", "ESCAPE", "SURGE" }
-            };
-            _items["ACTOR_PLAYER_ANTIVIRUS"] = new EntityData
-            {
-                Id = "ACTOR_PLAYER_ANTIVIRUS",
-                Name = "Anti-Virus AI",
-                Team = Alignment.Player,
-                BlocksSight = false,
-                Accuracy = 95,
-                Evasion = 15,
-                Strength = 2,
-                Defense = 3,
-                Hp = 10,
-                Op = 10,
-                HelpText = "The anti-virus AI may not hit the hardest, but it can take on many threats at once",
-                LineOfSightRadius = 4.5m,
-                Commands = new List<string> { "ARMOR", "CLEANSE", "SWEEP"}
-            };
-            _items["ACTOR_PLAYER_GAME"] = new EntityData
-            {
-                Id = "ACTOR_PLAYER_GAME",
-                Name = "Game AI",
-                Team = Alignment.Player,
-                BlocksSight = false,
-                Accuracy = 90,
-                Evasion = 20,
-                Strength = 3,
-                Defense = 2,
-                Hp = 10,
-                Op = 10,
-                HelpText = "The game AI is all about dishing out damage to specific targets",
-                LineOfSightRadius = 4.75m,
-                Commands = new List<string> { "TARGETING", "SPIKE", "BURST" }
-            };
-            _items["ACTOR_PLAYER_MALWARE"] = new EntityData
-            {
-                Id = "ACTOR_PLAYER_MALWARE",
-                Name = "Malware AI",
-                Team = Alignment.Player,
-                BlocksSight = false,
-                Accuracy = 90,
-                Evasion = 20,
-                Strength = 2,
-                Defense = 1,
-                Hp = 10,
-                Op = 10,
-                HelpText = "Malware aims to cause as much chaos as possible, laying waste to anything in its path",
-                LineOfSightRadius = 5.25m,
-                Commands = new List<string> { "OVERLOAD", "INFECT", "CORRUPT" }
-            };
-            _items["ACTOR_PLAYER_DEBUGGER"] = new EntityData
-            {
-                Id = "ACTOR_PLAYER_DEBUGGER",
-                Name = "Debugging AI",
-                Team = Alignment.Player,
-                BlocksSight = false,
-                Accuracy = 100,
-                Evasion = 20,
-                Strength = 25,
-                Defense = 5,
-                LineOfSightRadius = 5.25m,
-                HelpText = "The Debugger is intended to excise bugs and make things ready for release.",
-                Hp = 50,
-                Op = 50,
-                Commands = new List<string> { "INFECT", "ESCAPE", "SWAP", "RESTORE", "OVERLOAD", "BURST", "BARRAGE", "CLEANSE", "SWEEP"}
-            };
+            DefinePlayer("ACTOR_PLAYER_FORECAST", "Forecaster AI",  
+                         e =>
+                         {
+                             e.Commands = new List<string> {"SPIKE", "RESTORE", "BARRAGE"};
+                             e.HelpText = "The forecast AI is a flexible choice that is capable in many different roles";
+                         });
+
+            DefinePlayer("ACTOR_PLAYER_LOGISTICS", "Logistics Hub",  
+                         e =>
+                         {
+                             e.Commands = new List<string> { "MARK", "RECALL", "SWAP" };
+                             e.HelpText = "The logistics hub excels at tactical movement, but is weaker than other AIs";
+                         });
+
+            DefinePlayer("ACTOR_PLAYER_SEARCH", "Search AI",  
+                         e =>
+                         {
+                             e.Commands = new List<string> { "SCAN", "ESCAPE", "SURGE" };
+                             e.HelpText = "The search AI is geared towards gathering knowledge and avoiding encounters they can't handle";
+                             e.LineOfSightRadius = 5.75m;
+                         });
+
+            DefinePlayer("ACTOR_PLAYER_ANTIVIRUS", "Anti-Virus AI",  
+                         e =>
+                         {
+                             e.Commands = new List<string> { "ARMOR", "CLEANSE", "SWEEP" };
+                             e.HelpText = "The anti-virus AI may not hit the hardest, but it can take on many threats at once";
+                             e.LineOfSightRadius = 4.5m;
+                             e.Defense = 3;
+                             e.Accuracy = 95;
+                             e.Evasion = 15;
+                         });
+
+            DefinePlayer("ACTOR_PLAYER_GAME", "Game AI",  
+                         e =>
+                         {
+                             e.Commands = new List<string> { "TARGETING", "SPIKE", "BURST" };
+                             e.HelpText = "The game AI is all about dishing out damage to specific targets";
+                             e.LineOfSightRadius = 4.75m;
+                             e.Strength = 3;
+                         });
+
+            DefinePlayer("ACTOR_PLAYER_MALWARE", "Malware AI",  
+                         e =>
+                         {
+                             e.Commands = new List<string> { "OVERLOAD", "INFECT", "CORRUPT" };
+                             e.HelpText = "Malware aims to cause as much chaos as possible, laying waste to anything in its path";
+                         });
+
+            DefinePlayer("ACTOR_PLAYER_DEBUGGER", "Debugging AI",  
+                         e =>
+                         {
+                             e.Commands = new List<string> { "INFECT", "ESCAPE", "SWAP", "RESTORE", "OVERLOAD", "BURST", "BARRAGE", "CLEANSE", "SWEEP" };
+                             e.HelpText = "The Debugger is intended to excise bugs and make things ready for release.";
+                             e.Accuracy = 100;
+                             e.Strength = 25;
+                             e.Defense = 5;
+                             e.Hp = 50;
+                             e.Op = 50;
+                         });
+
+
             _items["ACTOR_ANTI_VIRUS"] = new EntityData
             {
                 Id = "ACTOR_ANTI_VIRUS",
@@ -408,11 +360,35 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
             };
         }
 
+        private void DefinePlayer(string id, string name, Action<EntityData> configureAction = null)
+        {
+            var data = new EntityData
+            {
+                Id = id,
+                Name = name,
+                Team = Alignment.Player,
+                BlocksSight = false,
+                Accuracy = 90,
+                Evasion = 20,
+                Strength = 2,
+                Defense = 1,
+                Hp = 10,
+                Op = 10,
+                LineOfSightRadius = 5.25m,
+                Commands = new List<string> {"SPIKE", "RESTORE", "BARRAGE"}
+            };
+
+            configureAction?.Invoke(data);
+
+            _items[id] = data;
+        }
+
+        [NotNull]
         public EntityData GetItem(string id)
         {
             if (!_items.ContainsKey(id))
             {
-                return null;
+                throw new NotSupportedException($"The entity {id} was not defined in the database");
             }
 
             return _items[id];
