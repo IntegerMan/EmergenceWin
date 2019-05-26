@@ -353,6 +353,11 @@ namespace MattEland.Emergence.Engine.Game
         }
 
         public void AddSoundEffect(OpenableGameObjectBase source, SoundEffects sound) => AddEffect(new SoundEffect(source, sound));
+
+        /// <summary>
+        /// Clears all messages in the collection.
+        /// </summary>
+        public void ClearMessages() => _messages.Clear();
     }
 
 }
