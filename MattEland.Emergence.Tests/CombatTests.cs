@@ -7,42 +7,37 @@ using Shouldly;
 
 namespace MattEland.Emergence.Tests
 {
-    public class CombatTests
+    public class CombatTests : EmergenceTestBase
     {
-        private GameService _gameService;
-        private CommandContext _context;
-        private Player _attacker;
-        private GameObjectBase _defender;
+        public GameObjectBase Turret { get; private set; }
         private const string Verb = "whacks";
 
         [SetUp]
         public void Initialize()
         {
-            _gameService = new GameService();
-            _context = _gameService.StartNewGame();
-            _attacker = _gameService.Player;
+            InitializeGameService();
 
-            _defender = CreateTurret();
+            Turret = CreateTurret();
 
-            _context.ClearMessages();
+            Context.ClearMessages();
         }
 
         [Test]
         public void HandleHit()
         {
             // Arrange
-            _attacker.Accuracy = 100;
-            _attacker.EffectiveStrength = 3;
-            _attacker.EffectiveAccuracy = 100;
-            _defender.EffectiveEvasion = 0;
-            _defender.EffectiveDefense = 0;
+            Player.Accuracy = 100;
+            Player.EffectiveStrength = 3;
+            Player.EffectiveAccuracy = 100;
+            Turret.EffectiveEvasion = 0;
+            Turret.EffectiveDefense = 0;
 
             // Act
-            _context.CombatManager.HandleAttack(_context, _attacker, _defender, Verb, DamageType.Normal);
+            Context.CombatManager.HandleAttack(Context, Player, Turret, Verb, DamageType.Normal);
 
             // Assert
-            _context.Messages.ShouldNotBeEmpty();
-            _defender.Stability.ShouldBeLessThan(_defender.MaxStability);
+            Context.Messages.ShouldNotBeEmpty();
+            Turret.Stability.ShouldBeLessThan(Turret.MaxStability);
         }
 
         [Test]
@@ -52,28 +47,26 @@ namespace MattEland.Emergence.Tests
             var damage = 1;
 
             // Act
-            var message = _context.CombatManager.HurtObject(_context, _attacker, _defender, damage, Verb, DamageType.Normal);
+            var message = Context.CombatManager.HurtObject(Context, Player, Turret, damage, Verb, DamageType.Normal);
 
             // Assert
-            message.ShouldBe($"{_attacker.Name} {Verb} {_defender.Name} for {damage} Damage");
+            message.ShouldBe($"{Player.Name} {Verb} {Turret.Name} for {damage} Damage");
         }
 
         [Test]
         public void LethalShouldGenerateExpectedMessages()
         {
             // Arrange
-            var damage = _defender.Stability;
+            var damage = Turret.Stability;
 
             // Act
-            var message = _context.CombatManager.HurtObject(_context, _attacker, _defender, damage, Verb, DamageType.Normal);
+            var message = Context.CombatManager.HurtObject(Context, Player, Turret, damage, Verb, DamageType.Normal);
 
             // Assert
-            message.ShouldBe($"{_attacker.Name} {Verb} {_defender.Name} for {damage} Damage, terminating it");
+            message.ShouldBe($"{Player.Name} {Verb} {Turret.Name} for {damage} Damage, terminating it");
         }
 
-        private static GameObjectBase CreateTurret()
-        {
-            return GameObjectFactory.CreateFromObjectType("ACTOR_TURRET", GameObjectType.Actor, new Pos2D(-12, 42));
-        }
+        private static GameObjectBase CreateTurret() 
+            => GameObjectFactory.CreateFromObjectType("ACTOR_TURRET", GameObjectType.Actor, new Pos2D(-12, 42));
     }
 }

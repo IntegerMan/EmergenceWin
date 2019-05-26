@@ -67,9 +67,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CombatTests.cs" />
+    <Compile Include="EmergenceTestBase.cs" />
     <Compile Include="GameManagerTests.cs" />
     <Compile Include="GameServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TeleportationTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

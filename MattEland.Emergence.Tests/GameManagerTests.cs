@@ -6,7 +6,7 @@ using Shouldly;
 
 namespace MattEland.Emergence.Tests
 {
-    public class GameManagerTests
+    public class GameManagerTests : EmergenceTestBase
     {
         [Test]
         public void StartingGameManagerShouldReturnMessages()
@@ -25,11 +25,8 @@ namespace MattEland.Emergence.Tests
         [Test]
         public void StartingGameManagerShouldResultInStartedState()
         {
-            // Arrange
-            var manager = new GameManager();
-
-            // Act
-            manager.Start();
+            // Arrange / Act
+            var manager = GetStartedGameManager();
 
             // Assert
             manager.State.ShouldBe(GameStatus.Ready);
@@ -43,8 +40,7 @@ namespace MattEland.Emergence.Tests
         public void GameManagerShouldRespondToMovesWithMessages(MoveDirection direction)
         {
             // Arrange
-            var manager = new GameManager();
-            manager.Start();
+            var manager = GetStartedGameManager();
 
             // Act
             var messages = manager.MovePlayer(direction);
@@ -53,6 +49,7 @@ namespace MattEland.Emergence.Tests
             messages.ShouldNotBeNull();
             messages.ShouldNotBeEmpty();
         }
+
 
         [Test]
         public void GameManagerShouldStartNotStarted()

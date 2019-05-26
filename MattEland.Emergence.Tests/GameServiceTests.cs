@@ -5,7 +5,7 @@ using Shouldly;
 
 namespace MattEland.Emergence.Tests
 {
-    public class GameServiceTests
+    public class GameServiceTests : EmergenceTestBase
     {
         [Test]
         public void StartingTheGameShouldReturnMessages()
