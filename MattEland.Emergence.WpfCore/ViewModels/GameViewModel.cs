@@ -53,7 +53,7 @@ namespace MattEland.Emergence.WpfCore.ViewModels
 
                     case DestroyedMessage destroyedMessage:
                         _objects.Remove(destroyedMessage.Source.Id);
-                        WorldObjects.Where(o => o.Id == destroyedMessage.Source.Id).ToList().Each(o => WorldObjects.Remove(o));
+                        WorldObjects.Where(o => o.Id == destroyedMessage.Source.Id).EachSafe(o => WorldObjects.Remove(o));
                         break;
                 }
 

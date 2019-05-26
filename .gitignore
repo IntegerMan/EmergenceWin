@@ -339,3 +339,7 @@ ASALocalRun/
 # BeatPulse healthcheck temp database
 healthchecksdb
 \.sonarqube/
+
+NUnitResults\.xml
+
+opencover\.xml

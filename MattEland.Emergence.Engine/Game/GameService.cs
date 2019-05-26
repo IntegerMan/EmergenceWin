@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Linq;
+using GeneticSharp.Domain.Randomizations;
 using JetBrains.Annotations;
 using MattEland.Emergence.Engine.DTOs;
 using MattEland.Emergence.Engine.Entities;
 using MattEland.Emergence.Engine.Level;
 using MattEland.Emergence.Engine.Level.Generation;
 using MattEland.Emergence.Engine.Level.Generation.Encounters;
+using MattEland.Emergence.Engine.Level.Generation.Prefabs;
 using MattEland.Emergence.Engine.Loot;
 using MattEland.Emergence.Engine.Model;
 using MattEland.Emergence.Engine.Services;
@@ -28,31 +30,34 @@ namespace MattEland.Emergence.Engine.Game
         /// <summary>
         /// Initializes a new instance of the <see cref="GameService"/> class.
         /// </summary>
-        /// <param name="levelService">The level service.</param>
-        /// <param name="combatManager">The combat manager</param>
-        public GameService([NotNull] LevelGenerationService levelService, 
-                           [NotNull] CombatManager combatManager,
-                           [NotNull] LootProvider lootProvider,
-                           [NotNull] EntityDefinitionService entityService)
+        public GameService()
         {
-            _levelService = levelService ?? throw new ArgumentNullException(nameof(levelService));
-            _combatManager = combatManager ?? throw new ArgumentNullException(nameof(combatManager));
-            _lootProvider = lootProvider ?? throw new ArgumentNullException(nameof(lootProvider));
-            _entityProvider = entityService ?? throw new ArgumentNullException(nameof(entityService));
+            _entityProvider = new EntityDefinitionService();
+            _combatManager = new CombatManager();
+            _lootProvider = new LootProvider();
+            _levelService = new LevelGenerationService(new PrefabService(), new EncountersService(), new BasicRandomization());
 
             GameCreationConfigurator.ConfigureObjectCreation();
         }
 
-        public CommandContext StartNewGame(NewGameParameters parameters)
+        public CommandContext StartNewGame([CanBeNull] NewGameParameters parameters = null)
         {
-            if (string.IsNullOrWhiteSpace(parameters.CharacterId))
-            {
-                parameters.CharacterId = "ACTOR_PLAYER_ANTIVIRUS";
-            }
-
 #if DEBUG
-            parameters.CharacterId = "ACTOR_PLAYER_DEBUGGER";
+            const string defaultPlayerId = "ACTOR_PLAYER_DEBUGGER";
+#else
+            const string defaultPlayerId = "ACTOR_PLAYER_ANTIVIRUS";
 #endif
+
+            if (parameters == null)
+            {
+                parameters = new NewGameParameters
+                {
+                    CharacterId = defaultPlayerId
+                };
+            } else if (string.IsNullOrWhiteSpace(parameters.CharacterId))
+            {
+                parameters.CharacterId = defaultPlayerId;
+            }
 
             // Set up the basic parameters
             var levelParameters = new LevelGenerationParameters { LevelType = LevelType.Tutorial };

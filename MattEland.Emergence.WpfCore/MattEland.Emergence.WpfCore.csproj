@@ -59,8 +59,8 @@
     <Reference Include="MattEland.Emergence.LevelGen">
       <HintPath>..\MattEland.Emergence.LevelGen\bin\Debug\netstandard2.0\MattEland.Emergence.LevelGen.dll</HintPath>
     </Reference>
-    <Reference Include="MattEland.Shared, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MattEland.Shared.1.0.3\lib\netstandard2.0\MattEland.Shared.dll</HintPath>
+    <Reference Include="MattEland.Shared, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MattEland.Shared.1.0.4\lib\netstandard2.0\MattEland.Shared.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>

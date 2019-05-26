@@ -12,6 +12,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Sonar.bat = Sonar.bat
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MattEland.Emergence.Tests", "MattEland.Emergence.Tests\MattEland.Emergence.Tests.csproj", "{5283333A-ED2E-44E4-954C-5757289E8C75}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,6 +28,10 @@ Global
 		{220FF354-1743-435C-AFF5-79C714598AD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{220FF354-1743-435C-AFF5-79C714598AD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{220FF354-1743-435C-AFF5-79C714598AD7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5283333A-ED2E-44E4-954C-5757289E8C75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5283333A-ED2E-44E4-954C-5757289E8C75}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5283333A-ED2E-44E4-954C-5757289E8C75}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5283333A-ED2E-44E4-954C-5757289E8C75}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
