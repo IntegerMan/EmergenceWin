@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using JetBrains.Annotations;
 using MattEland.Emergence.Engine.Commands;
 using MattEland.Emergence.Engine.DTOs;
@@ -86,36 +85,6 @@ namespace MattEland.Emergence.Engine.Entities
             CoresCaptured = dto.CoresCaptured;
 
             ResetEffectiveValues();
-        }
-
-        private static HashSet<Pos2D> ConvertStringCollectionToPointCollection(IEnumerable<string> rows, LevelData level)
-        {
-            var set = new HashSet<Pos2D>();
-
-            if (rows != null)
-            {
-                int y = level.UpperLeft.Y;
-
-                foreach (var row in rows)
-                {
-                    int x = level.UpperLeft.X;
-
-                    foreach(var c in row)
-                    {
-                        if (c == '1')
-                        {
-                            set.Add(new Pos2D(x, y));
-                        }
-
-                        x++;
-                    }
-
-                    y++;
-
-                }
-            }
-
-            return set;
         }
 
         public ISet<Pos2D> VisibleCells { get; set; }
@@ -271,10 +240,7 @@ namespace MattEland.Emergence.Engine.Entities
         }
 
         /// <inheritdoc />
-        protected override GameObjectDto CreateDto()
-        {
-            return new ActorDto();
-        }
+        protected override GameObjectDto CreateDto() => new ActorDto();
 
         /// <inheritdoc />
         protected override void ConfigureDto(GameObjectDto dto)
@@ -297,12 +263,6 @@ namespace MattEland.Emergence.Engine.Entities
             actorDto.DamageReceived = DamageReceived;
             actorDto.CoresCaptured = CoresCaptured;
         }
-        
-        public void CopyCellCollectionsFromDto(ActorDto dto, LevelData level)
-        {
-            KnownCells = ConvertStringCollectionToPointCollection(dto.Known, level);
-            VisibleCells = ConvertStringCollectionToPointCollection(dto.Visible, level);
-        }
 
         public virtual void OnWaited(CommandContext context)
         {
@@ -311,43 +271,6 @@ namespace MattEland.Emergence.Engine.Entities
         public int CoresCaptured { get; set; }
         public int DamageDealt { get; set; }
         public int DamageReceived { get; set; }
-
-        public void CopyCellCollectionsToDto(ActorDto actorDto, LevelData level)
-        {
-            if (VisibleCells != null && VisibleCells.Any() && PersistVisible)
-            {
-                actorDto.Visible = ConvertPosCollectionToStringCollection(VisibleCells, level);
-            }
-
-            if (KnownCells != null && KnownCells.Any() && PersistKnown)
-            {
-                actorDto.Known = ConvertPosCollectionToStringCollection(KnownCells, level);
-            }
-        }
-
-        private static IEnumerable<string> ConvertPosCollectionToStringCollection(ISet<Pos2D> collection, LevelData level)
-        {
-            var rows = new List<string>();
-            var sb = new StringBuilder();
-
-            for (int y = level.UpperLeft.Y; y <= level.LowerRight.Y; y++)
-            {
-                sb.Clear();
-
-                for (int x = level.UpperLeft.X; x <= level.LowerRight.X; x++)
-                {
-                    sb.Append(collection.Contains(new Pos2D(x, y)) ? "1" : "0");
-                }
-
-                rows.Add(sb.ToString());
-            }
-
-            return rows;
-        }
-
-        protected virtual bool PersistVisible => false;
-        protected virtual bool PersistKnown => false;
-
 
         public override bool CanBeCaptured => ActorType == ActorType.Core;
 

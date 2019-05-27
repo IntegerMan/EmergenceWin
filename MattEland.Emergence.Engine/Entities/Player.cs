@@ -118,9 +118,6 @@ namespace MattEland.Emergence.Engine.Entities
             return new PlayerDto();
         }
 
-        protected override bool PersistVisible => true;
-        protected override bool PersistKnown => true;
-
         protected override void ConfigureDto(GameObjectDto dto)
         {
             base.ConfigureDto(dto);
