@@ -43,6 +43,20 @@ namespace MattEland.Emergence.Tests
             // Assert
             Context.Level.GetCellsInSquare(Player.Pos, 1).Each(c => c.Corruption.ShouldBeGreaterThan(0));
         }
+        
+        [Test]
+        public void CleanseNearbyShouldCleanseNearbyTiles()
+        {
+            // Arrange
+            var cell = Context.Level.GetCell(Player.Pos);
+            cell.Corruption = 1;
+
+            // Act
+            CorruptionHelper.CleanseNearby(Context, Player, Player.Pos);
+
+            // Assert
+            cell.Corruption.ShouldBe(0);
+        }
 
         [Test]
         public void SpreadCorruptionShouldCauseCorruptionToSpread()
