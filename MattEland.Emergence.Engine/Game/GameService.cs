@@ -103,7 +103,10 @@ namespace MattEland.Emergence.Engine.Game
 
             // Ensure that vision is accurate for the player before sending back to the client
             context.CalculateLineOfSight(context.Player);
-            
+
+            // The player can change so make sure we keep a reference to the correct player object
+            Player = context.Player;
+
             return context;
         }
 

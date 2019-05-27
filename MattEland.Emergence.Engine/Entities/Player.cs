@@ -7,6 +7,7 @@ using MattEland.Emergence.Engine.Effects;
 using MattEland.Emergence.Engine.Game;
 using MattEland.Emergence.Engine.Model;
 using MattEland.Emergence.Engine.Services;
+using MattEland.Shared.Collections;
 
 namespace MattEland.Emergence.Engine.Entities
 {
@@ -19,16 +20,12 @@ namespace MattEland.Emergence.Engine.Entities
 
             StoredCommands = new List<ICommandInstance>();
             CreateCommandReferences(dto.StoredCommands, StoredCommands);
-
         }
 
         private static void CreateCommandReferences([CanBeNull] IEnumerable<CommandInfoDto> commandDtos,
             [NotNull] ICollection<ICommandInstance> commandRefCollection)
         {
-            if (commandDtos == null)
-            {
-                return;
-            }
+            if (commandDtos == null) return;
 
             foreach (var commandInfoDto in commandDtos)
             {
@@ -164,31 +161,16 @@ namespace MattEland.Emergence.Engine.Entities
 
         public override void ApplyActiveEffects(CommandContext context)
         {
-            var commands = HotbarCommands.Where(c => c?.Command != null && c.IsActive &&
-                                                     c.Command.ActivationType == CommandActivationType.Active);
-            foreach (var cmd in commands)
-            {
-                cmd.Command.ApplyPreActionEffect(context, this, Pos);
-            }
+            HotbarCommands.Where(c => c?.Command != null && 
+                                 c.IsActive &&
+                                 c.Command.ActivationType == CommandActivationType.Active)
+                          .Each(c => c.Command.ApplyPreActionEffect(context, this, Pos));
 
             if (ObjectId == "ACTOR_ANTI_VIRUS")
             {
-                var neighbors = context.Level.GetCellsInSquare(Pos, 1).ToList();
-                foreach (var cell in neighbors)
-                {
-                    if (cell.Pos == Pos)
-                    {
-                        cell.Corruption -= 2;
-                    }
-                    else
-                    {
-                        cell.Corruption -= 1;
-                    }
-                }
+                CorruptionHelper.CleanseNearby(context, this, Pos);
             }
         }
-
-        public override char AsciiChar => '@';
 
         public override string ForegroundColor => GameColors.Green;
 
