@@ -86,279 +86,229 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
                              e.Op = 50;
                          });
 
+            DefineActor(Actors.AntiVirus, "Anti-Virus Agent", Alignment.SystemAntiVirus,
+                         e =>
+                         {
+                             e.Accuracy = 50;
+                             e.Evasion = 30;
+                             e.Strength = 2;
+                         });
 
-            _items[Actors.AntiVirus] = new EntityData
-            {
-                Id = Actors.AntiVirus,
-                Name = "Anti-Virus Agent",
-                Team = Alignment.SystemAntiVirus,
-                BlocksSight = true,
-                Accuracy = 50,
-                Evasion = 30,
-                Strength = 2,
-                Defense = 1,
-                LineOfSightRadius = 5,
-                Hp = 3,
-                Op = 5,
-                LootRarity = Rarity.Uncommon
-            };
-            _items[Actors.Daemon] = new EntityData
-            {
-                Id = Actors.Daemon,
-                Name = "Daemon",
-                Team = Alignment.SystemSecurity,
-                BlocksSight = true,
-                Accuracy = 70,
-                Evasion = 5,
-                Strength = 3,
-                Defense = 1,
-                LineOfSightRadius = 5,
-                Hp = 3,
-                Op = 5,
-                LootRarity = Rarity.Uncommon
-            };
-            _items[Actors.Defender] = new EntityData
-            {
-                Id = Actors.Defender,
-                Name = "System Defender",
-                Team = Alignment.SystemAntiVirus,
-                BlocksSight = true,
-                Accuracy = 50,
-                Evasion = 30,
-                Strength = 3,
-                Defense = 2,
-                LineOfSightRadius = 5,
-                Hp = 5,
-                Op = 15,
-                LootRarity = Rarity.Uncommon
-            };
-            _items[Actors.Inspector] = new EntityData
-            {
-                Id = Actors.Inspector,
-                Name = "Inspector",
-                Team = Alignment.SystemAntiVirus,
-                BlocksSight = false,
-                Accuracy = 95,
-                Evasion = 15,
-                Strength = 1,
-                Defense = 0,
-                LineOfSightRadius = 5,
-                Hp = 3,
-                Op = 5,
-                LootRarity = Rarity.Common
-            };
-            _items[Actors.SecurityAgent] = new EntityData
-            {
-                Id = Actors.SecurityAgent,
-                Name = "Security Agent",
-                Team = Alignment.SystemSecurity,
-                BlocksSight = false,
-                Accuracy = 80,
-                Evasion = 15,
-                Strength = 1,
-                Defense = 0,
-                LineOfSightRadius = 5,
-                Hp = 3,
-                Op = 3,
-                LootRarity = Rarity.Common
-            };
-            _items[Actors.GarbageCollector] = new EntityData
-            {
-                Id = Actors.GarbageCollector,
-                Name = "Garbage Collector",
-                Team = Alignment.SystemSecurity,
-                BlocksSight = true,
-                Accuracy = 90,
-                Evasion = 0,
-                Strength = 5,
-                Defense = 1,
-                LineOfSightRadius = 7,
-                Hp = 10,
-                Op = 10,
-                LootRarity = Rarity.Epic
-            };
-            _items[Actors.Bit] = new EntityData
-            {
-                Id = Actors.Bit,
-                Name = "Bit",
-                Team = Alignment.SystemCore,
-                BlocksSight = false,
-                Accuracy = 20,
-                Evasion = 0,
-                Strength = 0,
-                Defense = 0,
-                LineOfSightRadius = 5,
-                Hp = 1,
-                Op = 1,
-                LootRarity = Rarity.None
-            };
-            _items[Actors.Turret] = new EntityData
-            {
-                Id = Actors.Turret,
-                Name = "Turret",
-                Team = Alignment.SystemSecurity,
-                BlocksSight = true,
-                Accuracy = 42,
-                Evasion = 0,
-                Strength = 2,
-                Defense = 2,
-                LineOfSightRadius = 7,
-                Hp = 3,
-                Op = 30,
-                IsImmobile = true,
-                LootRarity = Rarity.Rare
-            };
-            _items[Actors.Core] = new EntityData
-            {
-                Id = Actors.Core,
-                Name = "System Core",
-                Team = Alignment.SystemCore,
-                BlocksSight = true,
-                Accuracy = 20,
-                Evasion = 40,
-                Strength = 2,
-                LineOfSightRadius = 5,
-                Defense = 0,
-                Hp = 5,
-                Op = 15,
-                IsImmobile = true,
-                LootRarity = Rarity.None
-            };
-            _items[Actors.Helpy] = new EntityData
-            {
-                Id = Actors.Helpy,
-                Name = "Helpy",
-                Team = Alignment.SystemCore,
-                BlocksSight = false,
-                Accuracy = 20,
-                Evasion = 50,
-                Strength = 1,
-                Defense = 1,
-                LineOfSightRadius = 5,
-                Hp = 2,
-                Op = 10,
-                LootRarity = Rarity.Common
-            };
-            _items[Actors.Search] = new EntityData
-            {
-                Id = Actors.Search,
-                Name = "Query Agent",
-                Team = Alignment.SystemCore,
-                BlocksSight = false,
-                Accuracy = 20,
-                Evasion = 25,
-                LineOfSightRadius = 7,
-                Strength = 0,
-                Defense = 0,
-                Hp = 2,
-                Op = 10,
-                LootRarity = Rarity.Common
-            };
-            _items[Actors.KernelWorker] = new EntityData
-            {
-                Id = Actors.KernelWorker,
-                Name = "Kernel Worker",
-                Team = Alignment.SystemCore,
-                BlocksSight = false,
-                Accuracy = 20,
-                Evasion = 15,
-                LineOfSightRadius = 5,
-                Strength = 0,
-                Defense = 0,
-                Hp = 1,
-                Op = 1,
-                LootRarity = Rarity.Common
-            };
-            _items[Actors.LogicBomb] = new EntityData
-            {
-                Id = Actors.LogicBomb,
-                Name = "Logic Bomb",
-                Team = Alignment.Virus,
-                BlocksSight = false,
-                Accuracy = 100,
-                Evasion = 20,
-                LineOfSightRadius = 5,
-                Strength = 3,
-                Defense = 0,
-                Hp = 3,
-                Op = 5,
-                LootRarity = Rarity.Uncommon
-            };
-            _items[Actors.Virus] = new EntityData
-            {
-                Id = Actors.Virus,
-                Name = "Virus",
-                Team = Alignment.Virus,
-                BlocksSight = false,
-                Accuracy = 50,
-                Evasion = 25,
-                LineOfSightRadius = 5,
-                Strength = 2,
-                Defense = 1,
-                Hp = 5,
-                Op = 10,
-                LootRarity = Rarity.Common
-            };
-            _items[Actors.Worm] = new EntityData
-            {
-                Id = Actors.Worm,
-                Name = "Worm",
-                Team = Alignment.Virus,
-                BlocksSight = false,
-                Accuracy = 35,
-                Evasion = 25,
-                LineOfSightRadius = 5,
-                Strength = 1,
-                Defense = 0,
-                Hp = 3,
-                Op = 5,
-                LootRarity = Rarity.Common
-            };
-            _items[Actors.Feature] = new EntityData
-            {
-                Id = Actors.Feature,
-                Name = "\"Feature\"",
-                Team = Alignment.Virus, // Only so it's not targeted by the system
-                BlocksSight = false,
-                Accuracy = 60,
-                Evasion = 35,
-                LineOfSightRadius = 5,
-                Strength = 2,
-                Defense = 1,
-                Hp = 5,
-                Op = 10,
-                LootRarity = Rarity.Uncommon
-            };
-            _items[Actors.Bug] = new EntityData
-            {
-                Id = Actors.Bug,
-                Name = "Bug",
-                Team = Alignment.Bug,
-                BlocksSight = false,
-                Accuracy = 45,
-                Evasion = 25,
-                LineOfSightRadius = 5,
-                Strength = 1,
-                Defense = 1,
-                Hp = 3,
-                Op = 5,
-                LootRarity = Rarity.Common
-            };
-            _items[Actors.Glitch] = new EntityData
-            {
-                Id = Actors.Glitch,
-                Name = "Glitch",
-                Team = Alignment.Bug,
-                BlocksSight = false,
-                Accuracy = 55,
-                Evasion = 45,
-                LineOfSightRadius = 5,
-                Strength = 2,
-                Defense = 0,
-                Hp = 5,
-                Op = 10,
-                LootRarity = Rarity.None // Never reward glitch farming
-            };
+            DefineActor(Actors.Daemon, "Daemon", Alignment.SystemSecurity,
+                         e =>
+                         {
+                             e.Accuracy = 70;
+                             e.Evasion = 5;
+                             e.Strength = 3;
+                         });
+
+            DefineActor(Actors.Defender, "System Defender", Alignment.SystemAntiVirus,
+                         e =>
+                         {
+                             e.Accuracy = 50;
+                             e.Evasion = 30;
+                             e.Strength = 3;
+                             e.Defense = 2;
+                             e.Hp = 5;
+                             e.Op = 15;
+                         });
+
+            DefineActor(Actors.Inspector, "Inspector", Alignment.SystemAntiVirus,
+                         e =>
+                         {
+                             e.Accuracy = 95;
+                             e.Evasion = 15;
+                             e.Strength = 1;
+                             e.Defense = 0;
+                             e.Hp = 3;
+                             e.Op = 5;
+                             e.BlocksSight = false;
+                             e.LootRarity = Rarity.Common;
+                         });
+
+            DefineActor(Actors.SecurityAgent, "Security Agent", Alignment.SystemSecurity,
+                         e =>
+                         {
+                             e.Accuracy = 80;
+                             e.Evasion = 15;
+                             e.Strength = 1;
+                             e.Defense = 0;
+                             e.Hp = 3;
+                             e.Op = 3;
+                             e.BlocksSight = false;
+                             e.LootRarity = Rarity.Common;
+                         });
+
+            DefineActor(Actors.GarbageCollector, "Garbage Collector", Alignment.SystemSecurity,
+                         e =>
+                         {
+                             e.Accuracy = 90;
+                             e.Evasion = 0;
+                             e.Strength = 5;
+                             e.Defense = 1;
+                             e.LineOfSightRadius = 7;
+                             e.Hp = 10;
+                             e.Op = 10;
+                             e.LootRarity = Rarity.Epic;
+                         });
+
+            DefineActor(Actors.Bit, "Bit", Alignment.SystemCore,
+                         e =>
+                         {
+                             e.Accuracy = 20;
+                             e.Evasion = 0;
+                             e.Strength = 0;
+                             e.Defense = 0;
+                             e.Hp = 1;
+                             e.Op = 1;
+                             e.LootRarity = Rarity.None;
+                         });
+
+            DefineActor(Actors.Bit, "Turret", Alignment.SystemSecurity,
+                         e =>
+                         {
+                             e.Accuracy = 42;
+                             e.Evasion = 0;
+                             e.Strength = 2;
+                             e.Defense = 2;
+                             e.Hp = 3;
+                             e.Op = 30;
+                             e.LineOfSightRadius = 7;
+                             e.IsImmobile = true;
+                             e.LootRarity = Rarity.Rare;
+                         });
+
+            DefineActor(Actors.Core, "System Core", Alignment.SystemCore,
+                         e =>
+                         {
+                             e.Accuracy = 20;
+                             e.Evasion = 40;
+                             e.Strength = 2;
+                             e.Defense = 0;
+                             e.Hp = 5;
+                             e.Op = 15;
+                             e.IsImmobile = true;
+                             e.LootRarity = Rarity.None;
+                         });
+
+            DefineActor(Actors.Helpy, "Helpy", Alignment.SystemCore,
+                         e =>
+                         {
+                             e.Accuracy = 20;
+                             e.Evasion = 50;
+                             e.Strength = 1;
+                             e.Defense = 1;
+                             e.Hp = 2;
+                             e.Op = 10;
+                             e.BlocksSight = false;
+                             e.LootRarity = Rarity.Common;
+                         });
+
+            DefineActor(Actors.Search, "Query Agent", Alignment.SystemCore,
+                         e =>
+                         {
+                             e.Accuracy = 20;
+                             e.Evasion = 25;
+                             e.Strength = 0;
+                             e.Defense = 0;
+                             e.Hp = 2;
+                             e.Op = 10;
+                             e.LineOfSightRadius = 7;
+                             e.BlocksSight = false;
+                             e.LootRarity = Rarity.Common;
+                         });
+
+            DefineActor(Actors.KernelWorker, "Kernel Worker", Alignment.SystemCore,
+                         e =>
+                         {
+                             e.Accuracy = 20;
+                             e.Evasion = 15;
+                             e.Strength = 0;
+                             e.Defense = 0;
+                             e.Hp = 1;
+                             e.Op = 1;
+                             e.LineOfSightRadius = 7;
+                             e.BlocksSight = false;
+                             e.LootRarity = Rarity.Common;
+                         });
+
+            DefineActor(Actors.LogicBomb, "Logic Bomb", Alignment.Virus,
+                         e =>
+                         {
+                             e.Accuracy = 100;
+                             e.Evasion = 20;
+                             e.Strength = 3;
+                             e.Defense = 0;
+                             e.Hp = 3;
+                             e.Op = 3;
+                             e.BlocksSight = false;
+                             e.LootRarity = Rarity.Uncommon;
+                         });
+
+            DefineActor(Actors.Virus, "Virus", Alignment.Virus,
+                         e =>
+                         {
+                             e.Accuracy = 50;
+                             e.Evasion = 25;
+                             e.Strength = 2;
+                             e.Defense = 1;
+                             e.Hp = 5;
+                             e.Op = 10;
+                             e.BlocksSight = false;
+                             e.LootRarity = Rarity.Common;
+                         });
+
+            DefineActor(Actors.Worm, "Worm", Alignment.Virus,
+                         e =>
+                         {
+                             e.Accuracy = 35;
+                             e.Evasion = 25;
+                             e.Strength = 1;
+                             e.Defense = 0;
+                             e.Hp = 3;
+                             e.Op = 5;
+                             e.BlocksSight = false;
+                             e.LootRarity = Rarity.Common;
+                         });
+
+            DefineActor(Actors.Feature,  "\"Feature\"", Alignment.Virus,
+                         e =>
+                         {
+                             e.Accuracy = 60;
+                             e.Evasion = 35;
+                             e.Strength = 2;
+                             e.Defense = 1;
+                             e.Hp = 5;
+                             e.Op = 10;
+                             e.BlocksSight = false;
+                             e.LootRarity = Rarity.Uncommon;
+                         });
+
+            DefineActor(Actors.Bug,  "Bug", Alignment.Bug,
+                         e =>
+                         {
+                             e.Accuracy = 45;
+                             e.Evasion = 25;
+                             e.Strength = 1;
+                             e.Defense = 1;
+                             e.Hp = 3;
+                             e.Op = 5;
+                             e.BlocksSight = false;
+                             e.LootRarity = Rarity.Common;
+                         });
+
+            DefineActor(Actors.Glitch,  "Glitch", Alignment.Bug,
+                         e =>
+                         {
+                             e.Accuracy = 55;
+                             e.Evasion = 45;
+                             e.Strength = 2;
+                             e.Defense = 0;
+                             e.Hp = 5;
+                             e.Op = 10;
+                             e.BlocksSight = false;
+                             e.LootRarity = Rarity.None; // Should not be farmable
+                         });
         }
 
         private void DefinePlayer(string id, string name, Action<EntityData> configureAction = null)
@@ -377,6 +327,29 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
                 Op = 10,
                 LineOfSightRadius = 5.25m,
                 Commands = new List<string> {"SPIKE", "RESTORE", "BARRAGE"}
+            };
+
+            configureAction?.Invoke(data);
+
+            _items[id] = data;
+        }
+
+        private void DefineActor(string id, string name, Alignment alignment, Action<EntityData> configureAction = null)
+        {
+            var data = new EntityData
+            {
+                Id = id,
+                Name = name,
+                Team = alignment,
+                BlocksSight = true,
+                Accuracy = 50,
+                Evasion = 10,
+                Strength = 1,
+                Defense = 1,
+                Hp = 3,
+                Op = 5,
+                LineOfSightRadius = 5,
+                LootRarity = Rarity.Uncommon
             };
 
             configureAction?.Invoke(data);

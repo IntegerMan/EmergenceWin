@@ -13,5 +13,6 @@ namespace MattEland.Emergence.Engine.Effects
             HelpText = helpText ?? throw new ArgumentNullException(nameof(helpText));
         }
 
+        public override string ToString() => $"Help: {HelpText}";
     }
 }
