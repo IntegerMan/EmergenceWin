@@ -91,6 +91,7 @@ namespace MattEland.Emergence.Engine.Game
         public CommandContext HandleCommand([NotNull] GameCommand command, Pos2D pos)
         {
             if (command == null) throw new ArgumentNullException(nameof(command));
+            if (State == GameStatus.GameOver) throw new InvalidOperationException("The game is over. Start a new game to play again.");
             if (State != GameStatus.Ready) throw new InvalidOperationException("The game is not ready for input");
 
             State = GameStatus.Executing;
