@@ -21,7 +21,7 @@ namespace MattEland.Emergence.Engine.Game
         /// <param name="dto">The data transmission object.</param>
         /// <returns>The constructed level object.</returns>
         /// <exception cref="ArgumentException">Thrown if the algorithm does not support the type of object that <paramref name="dto"/> is.</exception>
-        public static GameObjectBase CreateFromDto(GameObjectDto dto)
+        private static GameObjectBase CreateFromDto(GameObjectDto dto)
         {
             switch (dto.Type)
             {
