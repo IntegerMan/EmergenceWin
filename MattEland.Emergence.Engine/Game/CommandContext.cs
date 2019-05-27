@@ -94,8 +94,6 @@ namespace MattEland.Emergence.Engine.Game
 
         public bool CanPlayerSee(Pos2D pos) => Player != null && Player.CanSee(pos);
 
-        public CommandContext Clone() => new CommandContext(Level, GameService, EntityService, CombatManager, LootProvider);
-
         public void PreviewObjectHurt(GameObjectBase attacker, GameObjectBase defender, int damage, DamageType damageType)
         {
             OnActorHurt?.Invoke(this, new ActorDamagedEventArgs(attacker, defender, damage, damageType));
@@ -130,36 +128,44 @@ namespace MattEland.Emergence.Engine.Game
             // If the source of the message is corrupt, randomize the casing
             if (source != null && source.IsCorrupted)
             {
-                var noiseChars = "!@#$%&?,";
-                var sb = new StringBuilder();
-                foreach (var c in message.ToLowerInvariant())
-                {
-                    // Ignore spaces
-                    if (c == ' ')
-                    {
-                        sb.Append(c);
-                        continue;
-                    }
-
-                    var rng = Randomizer.GetInt(0, 2);
-                    switch (rng)
-                    {
-                        case 0: // Lower Case
-                            sb.Append(c);
-                            break;
-                        case 1: // Upper Case
-                            sb.Append(c.ToString().ToUpperInvariant());
-                            break;
-                        default: // Random noise character
-                            sb.Append(noiseChars.GetRandomElement(Randomizer));
-                            break;
-                    }
-                }
-
-                message = sb.ToString();
+                message = GetCorruptedHelpMessage(message);
             }
 
             AddEffect(new HelpTextEffect(source, message));
+        }
+
+        private string GetCorruptedHelpMessage(string message)
+        {
+            const string noiseChars = "!@#$%&?,";
+
+            var sb = new StringBuilder();
+
+            foreach (var c in message.ToLowerInvariant())
+            {
+                // Ignore spaces
+                if (c == ' ')
+                {
+                    sb.Append(c);
+                    continue;
+                }
+
+                switch (Randomizer.GetInt(0, 2))
+                {
+                    case 0: // Lower Case
+                        sb.Append(c);
+                        break;
+
+                    case 1: // Upper Case
+                        sb.Append(c.ToString().ToUpperInvariant());
+                        break;
+
+                    default: // Random noise character
+                        sb.Append(noiseChars.GetRandomElement(Randomizer));
+                        break;
+                }
+            }
+
+            return sb.ToString();
         }
 
         private string GetMessageForTopic(string helpTopic)
@@ -253,7 +259,6 @@ namespace MattEland.Emergence.Engine.Game
             _messages.Add(message);
         }
 
-        public void MoveExecutingActor(Pos2D newPos) => MoveObject(Player, newPos);
         public void UpdateObject(GameObjectBase gameObject) => AddMessage(new ObjectUpdatedMessage(gameObject));
 
         public void CreatedObject(GameObjectBase gameObject) => AddMessage(new CreatedMessage(gameObject));
@@ -353,11 +358,6 @@ namespace MattEland.Emergence.Engine.Game
         }
 
         public void AddSoundEffect(OpenableGameObjectBase source, SoundEffects sound) => AddEffect(new SoundEffect(source, sound));
-
-        /// <summary>
-        /// Clears all messages in the collection.
-        /// </summary>
-        public void ClearMessages() => _messages.Clear();
     }
 
 }

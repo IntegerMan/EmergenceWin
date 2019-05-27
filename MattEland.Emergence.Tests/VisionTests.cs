@@ -7,15 +7,6 @@ namespace MattEland.Emergence.Tests
 {
     public class VisionTests : EmergenceTestBase
     {
-
-        [SetUp]
-        public void Initialize()
-        {
-            base.InitializeGameService();
-
-            Context.ClearMessages();
-        }
-
         [Test]
         public void PlayerShouldBeAbleToSeeTheirOwnTile()
         {

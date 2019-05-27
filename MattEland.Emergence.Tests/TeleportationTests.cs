@@ -8,14 +8,6 @@ namespace MattEland.Emergence.Tests
     public class TeleportationTests : EmergenceTestBase
     {
 
-        [SetUp]
-        public void Initialize()
-        {
-            InitializeGameService();
-
-            Context.ClearMessages();
-        }
-
         [Test]
         public void TeleportActorShouldMoveThem()
         {

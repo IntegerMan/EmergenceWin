@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using MattEland.Emergence.Engine.Game;
-using MattEland.Emergence.Engine.Level;
 using MattEland.Emergence.Engine.Model;
 using MattEland.Emergence.Engine.Services;
 using MattEland.Shared.Collections;
@@ -11,14 +10,6 @@ namespace MattEland.Emergence.Tests
 {
     public class CorruptionTests : EmergenceTestBase
     {
-        [SetUp]
-        public void Initialize()
-        {
-            base.InitializeGameService();
-
-            Context.ClearMessages();
-        }
-
         [Test]
         public void CorruptionDamageShouldCauseCorruption()
         {

@@ -11,14 +11,11 @@ namespace MattEland.Emergence.Tests
         public GameObjectBase Turret { get; private set; }
         private const string Verb = "whacks";
 
-        [SetUp]
-        public void Initialize()
+        protected override void Initialize()
         {
-            InitializeGameService();
+            base.Initialize();
 
             Turret = CreateTurret(new Pos2D(-12, 42));
-
-            Context.ClearMessages();
         }
 
         [Test]

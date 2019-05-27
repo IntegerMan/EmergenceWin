@@ -6,16 +6,6 @@ namespace MattEland.Emergence.Tests
 {
     public class PlayerTests : EmergenceTestBase
     {
-
-        [SetUp]
-        public void Initialize()
-        {
-            base.InitializeGameService();
-
-            Context.ClearMessages();
-        }
-
-
         [Test]
         public void PlayerShouldUseAGreenAtSign()
         {
