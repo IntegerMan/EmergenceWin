@@ -19,5 +19,6 @@ namespace MattEland.Emergence.Tests
             context.ShouldNotBeNull();
             context.Messages.ShouldNotBeEmpty();
         }
+
     }
 }

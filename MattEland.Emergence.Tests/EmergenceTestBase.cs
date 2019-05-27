@@ -19,6 +19,7 @@ namespace MattEland.Emergence.Tests
         {
             GameService = new GameService();
             Context = GameService.StartNewGame();
+            Context.ClearMessages();
         }
 
         [NotNull]

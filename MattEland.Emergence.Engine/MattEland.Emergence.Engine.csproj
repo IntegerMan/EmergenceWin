@@ -20,7 +20,7 @@
   <ItemGroup>
     <PackageReference Include="GeneticSharp" Version="2.5.1" />
     <PackageReference Include="JetBrains.Annotations" Version="2019.1.1" />
-    <PackageReference Include="MattEland.Shared" Version="1.0.3" />
+    <PackageReference Include="MattEland.Shared" Version="1.0.4" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
   </ItemGroup>
 

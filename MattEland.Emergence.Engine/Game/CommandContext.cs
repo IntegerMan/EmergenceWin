@@ -8,6 +8,7 @@ using MattEland.Emergence.Engine.DTOs;
 using MattEland.Emergence.Engine.Effects;
 using MattEland.Emergence.Engine.Entities;
 using MattEland.Emergence.Engine.Level;
+using MattEland.Emergence.Engine.Level.Generation;
 using MattEland.Emergence.Engine.Level.Generation.Encounters;
 using MattEland.Emergence.Engine.Loot;
 using MattEland.Emergence.Engine.Messages;
@@ -246,7 +247,25 @@ namespace MattEland.Emergence.Engine.Game
 
             // If we've reached the end of the series of levels, it's time to win.
             int levelIndex = levels.IndexOf(levelType);
-            GameService.MoveToLevel(levels[levelIndex + 1], this);
+
+            Player.ClearKnownCells();
+
+            var nextLevel = GameService.GenerateLevel(new LevelGenerationParameters
+            {
+                LevelType = levels[levelIndex + 1],
+                PlayerId = Player.ObjectId
+            }, Player);
+
+            // Generate messages for the level pieces that need to go away
+            Level.Objects.Where(o => !o.IsPlayer).EachSafe(RemoveObject);
+
+            SetLevel(nextLevel);
+
+            // Generate messages for the level pieces that were just created
+            Level.Objects.Where(o => !o.IsPlayer).EachSafe(CreatedObject);
+
+            // Generate an update message on the player
+            UpdateObject(Player);
         }
 
         public void AddError(string message) => AddMessage(message, ClientMessageType.Assertion);
@@ -366,6 +385,8 @@ namespace MattEland.Emergence.Engine.Game
         }
 
         public void AddSoundEffect(OpenableGameObjectBase source, SoundEffects sound) => AddEffect(new SoundEffect(source, sound));
+
+        public void ClearMessages() => _messages.Clear();
     }
 
 }

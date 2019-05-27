@@ -112,20 +112,6 @@ namespace MattEland.Emergence.Engine.Game
         public int NumMoves { get; set; }
         public Player Player { get; private set; }
 
-        public void MoveToLevel(LevelType nextLevelType, CommandContext commandContext)
-        {
-            var levelParams = new LevelGenerationParameters
-            {
-                LevelType = nextLevelType,
-                PlayerId = commandContext.Player.ObjectId
-            };
-
-            commandContext.Player.ClearKnownCells();
-
-            var nextLevel = _levelService.GenerateLevel(levelParams, commandContext.Player);
-            commandContext.SetLevel(nextLevel);
-        }
-
         public CommandContext MovePlayer(MoveDirection direction)
         {
             var moveCommand = new MoveCommand();
@@ -133,5 +119,7 @@ namespace MattEland.Emergence.Engine.Game
 
             return HandleCommand(moveCommand, targetPos);
         }
+
+        public LevelData GenerateLevel(LevelGenerationParameters levelParams, Player player) => _levelService.GenerateLevel(levelParams, player);
     }
 }
