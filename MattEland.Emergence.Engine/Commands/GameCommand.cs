@@ -101,12 +101,18 @@ namespace MattEland.Emergence.Engine.Commands
             }
             else
             {
-                context.AddEffect(new TauntEffect(executor, $"{Name}!"));
+                if (!IsSilent)
+                {
+                    context.AddEffect(new TauntEffect(executor, $"{Name}!"));
+                }
+
                 ApplyEffect(context, executor, pos);
             }
 
             return ActivationType == CommandActivationType.Active;
         }
+
+        public virtual bool IsSilent => false;
 
         private bool HandleInsufficientOperations(CommandContext context, Actor executor)
         {

@@ -1,11 +1,10 @@
 ﻿using MattEland.Emergence.Engine.DTOs;
-using MattEland.Emergence.Engine.Game;
 using MattEland.Emergence.Engine.Level;
 using MattEland.Emergence.Engine.Model;
 
 namespace MattEland.Emergence.Engine.Entities
 {
-    public class Floor : GameObjectBase
+    public class Floor : WalkableObject
     {
         public Floor(GameObjectDto dto, FloorType floorType) : base(dto)
         {
@@ -47,13 +46,5 @@ namespace MattEland.Emergence.Engine.Entities
             }
         }
 
-        public override int ZIndex => 0;
-
-        public override bool OnActorAttemptedEnter(CommandContext context, Actor actor)
-        {
-            context.MoveObject(actor, Pos);
-
-            return true;
-        }
     }
 }

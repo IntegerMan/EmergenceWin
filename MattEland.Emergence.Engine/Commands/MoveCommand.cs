@@ -15,6 +15,8 @@ namespace MattEland.Emergence.Engine.Commands
         public override string IconId => string.Empty;
         public override Rarity Rarity => Rarity.None;
 
+        public override bool IsSilent => true;
+
         public override CommandActivationType ActivationType => CommandActivationType.Simple;
         public override void ApplyEffect(CommandContext context, Actor executor, Pos2D pos)
         {

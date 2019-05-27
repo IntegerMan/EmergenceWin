@@ -1,5 +1,4 @@
 ﻿using JetBrains.Annotations;
-using MattEland.Emergence.Engine;
 using MattEland.Emergence.Engine.DTOs;
 using MattEland.Emergence.Engine.Entities;
 using MattEland.Emergence.Engine.Game;
@@ -23,10 +22,10 @@ namespace MattEland.Emergence.Tests
         }
 
         [NotNull]
-        protected GameManager GetStartedGameManager()
+        protected GameService GetStartedGameManager()
         {
-            var manager = BuildGameManager();
-            manager.Start();
+            var manager = BuildGameService();
+            manager.StartNewGame();
 
             return manager;
         }
@@ -42,6 +41,6 @@ namespace MattEland.Emergence.Tests
         }
 
         [NotNull]
-        protected static GameManager BuildGameManager() => new GameManager(new TestRandomizer(0));
+        protected static GameService BuildGameService() => new GameService(new TestRandomizer(0));
     }
 }

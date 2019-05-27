@@ -11,14 +11,14 @@ namespace MattEland.Emergence.Tests
         public void StartingGameManagerShouldReturnMessages()
         {
             // Arrange
-            var manager = BuildGameManager();
+            var manager = BuildGameService();
 
             // Act
-            var messages = manager.Start();
+            var context = manager.StartNewGame();
 
             // Assert
-            messages.ShouldNotBeNull();
-            messages.ShouldNotBeEmpty();
+            context.ShouldNotBeNull();
+            context.Messages.ShouldNotBeEmpty();
         }
 
         [Test]
@@ -42,11 +42,11 @@ namespace MattEland.Emergence.Tests
             var manager = GetStartedGameManager();
 
             // Act
-            var messages = manager.MovePlayer(direction);
+            var context = manager.MovePlayer(direction);
 
             // Assert
-            messages.ShouldNotBeNull();
-            messages.ShouldNotBeEmpty();
+            context.ShouldNotBeNull();
+            context.Messages.ShouldNotBeEmpty();
         }
 
 
@@ -54,10 +54,10 @@ namespace MattEland.Emergence.Tests
         public void GameManagerShouldStartNotStarted()
         {
             // Arrange
-            var manager = new GameManager();
+            var service = BuildGameService();
 
             // Assert
-            manager.State.ShouldBe(GameStatus.NotStarted);
+            service.State.ShouldBe(GameStatus.NotStarted);
         }
 
     }

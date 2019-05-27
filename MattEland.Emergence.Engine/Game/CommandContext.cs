@@ -239,11 +239,16 @@ namespace MattEland.Emergence.Engine.Game
                 LevelType.SmartFridge,
                 LevelType.MessagingServer,
                 LevelType.Bastion,
-                LevelType.RouterGateway,
-                LevelType.Escaped
+                LevelType.RouterGateway
             };
 
             var levelType = Level.Id;
+
+            if (levelType == levels.Last())
+            {
+                EndGame();
+                return;
+            }
 
             // If we've reached the end of the series of levels, it's time to win.
             int levelIndex = levels.IndexOf(levelType);
@@ -267,6 +272,14 @@ namespace MattEland.Emergence.Engine.Game
             // Generate an update message on the player
             UpdateObject(Player);
         }
+
+        private void EndGame()
+        {
+            Level.Objects.Where(o => !o.IsPlayer).EachSafe(RemoveObject);
+            IsGameOver = true;
+        }
+
+        public bool IsGameOver { get; set; }
 
         public void AddError(string message) => AddMessage(message, ClientMessageType.Assertion);
 

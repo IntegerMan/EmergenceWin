@@ -21,8 +21,6 @@ namespace MattEland.Emergence.Engine
             CreationService.PlayerCreationFunction = GameObjectFactory.CreatePlayer;
 
             CreationService.CommandCreationFunction = CommandFactory.CreateCommand;
-
-            CreationService.CommandReferenceCreationFunction = CommandFactory.CreateCommandReference;
         }
     }
 }

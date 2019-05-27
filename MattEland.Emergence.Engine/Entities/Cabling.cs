@@ -3,7 +3,7 @@ using MattEland.Emergence.Engine.Model;
 
 namespace MattEland.Emergence.Engine.Entities
 {
-    public class Cabling : GameObjectBase
+    public class Cabling : WalkableObject
     {
         public Cabling(GameObjectDto dto) : base(dto)
         {
@@ -11,6 +11,8 @@ namespace MattEland.Emergence.Engine.Entities
 
         public override bool IsInvulnerable => true; // For now
         public override bool IsTargetable => false; // For now
+
+        public override int ZIndex => 1;
 
         public override string Name => "Cabling";
         public override char AsciiChar => '-';

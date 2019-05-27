@@ -42,8 +42,7 @@
         /// The router's gateway. The final level of the game.
         /// </summary>
         RouterGateway = 6,
-        Escaped = 100,
-
+        
         /// <summary>
         /// A simple door testing level
         /// </summary>

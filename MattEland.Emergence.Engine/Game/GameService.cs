@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using GeneticSharp.Domain.Randomizations;
 using JetBrains.Annotations;
@@ -10,6 +11,7 @@ using MattEland.Emergence.Engine.Level.Generation;
 using MattEland.Emergence.Engine.Level.Generation.Encounters;
 using MattEland.Emergence.Engine.Level.Generation.Prefabs;
 using MattEland.Emergence.Engine.Loot;
+using MattEland.Emergence.Engine.Messages;
 using MattEland.Emergence.Engine.Model;
 using MattEland.Emergence.Engine.Services;
 using MattEland.Shared.Collections;
@@ -26,7 +28,9 @@ namespace MattEland.Emergence.Engine.Game
         [NotNull] private readonly CombatManager _combatManager;
         [NotNull] private readonly EntityDefinitionService _entityProvider;
 
-        private LevelData _level;
+        public GameStatus State { get; private set; } = GameStatus.NotStarted;
+
+        public LevelData Level { get; private set; }
 
         [NotNull]
         private readonly IRandomization _randomizer;
@@ -47,6 +51,10 @@ namespace MattEland.Emergence.Engine.Game
 
         public CommandContext StartNewGame([CanBeNull] NewGameParameters parameters = null)
         {
+            if (State != GameStatus.NotStarted && State != GameStatus.GameOver) throw new InvalidOperationException("The game has already been started");
+
+            State = GameStatus.Executing;
+
 #if DEBUG
             const string defaultPlayerId = Actors.PlayerDebugger;
 #else
@@ -67,13 +75,15 @@ namespace MattEland.Emergence.Engine.Game
             // Set up the basic parameters
             var levelParameters = new LevelGenerationParameters { LevelType = LevelType.Tutorial };
             Player = CreationService.CreatePlayer(parameters.CharacterId);
-            _level = _levelService.GenerateLevel(levelParameters, Player);
+            Level = _levelService.GenerateLevel(levelParameters, Player);
 
             // Ensure line of sight is calculated
-            var context = new CommandContext(_level, this, _entityProvider, _combatManager, _lootProvider, _randomizer);
+            var context = new CommandContext(Level, this, _entityProvider, _combatManager, _lootProvider, _randomizer);
             context.CalculateLineOfSight(Player);
 
-            _level.Objects.Each(o => context.CreatedObject(o));
+            Level.Objects.Each(o => context.CreatedObject(o));
+
+            State = GameStatus.Ready;
 
             return context;
         }
@@ -81,10 +91,13 @@ namespace MattEland.Emergence.Engine.Game
         public CommandContext HandleCommand([NotNull] GameCommand command, Pos2D pos)
         {
             if (command == null) throw new ArgumentNullException(nameof(command));
+            if (State != GameStatus.Ready) throw new InvalidOperationException("The game is not ready for input");
+
+            State = GameStatus.Executing;
 
             NumMoves++;
 
-            var context = new CommandContext(_level, this, _entityProvider, _combatManager, _lootProvider, _randomizer);
+            var context = new CommandContext(Level, this, _entityProvider, _combatManager, _lootProvider, _randomizer);
 
             // Give objects and actors a chance to react to the current game state
             foreach (var obj in context.Level.Objects.ToList())
@@ -106,6 +119,9 @@ namespace MattEland.Emergence.Engine.Game
             // The player can change so make sure we keep a reference to the correct player object
             Player = context.Player;
 
+            // Update the game state
+            State = context.IsGameOver ? GameStatus.GameOver : GameStatus.Ready;
+
             return context;
         }
 
@@ -120,6 +136,6 @@ namespace MattEland.Emergence.Engine.Game
             return HandleCommand(moveCommand, targetPos);
         }
 
-        public LevelData GenerateLevel(LevelGenerationParameters levelParams, Player player) => _levelService.GenerateLevel(levelParams, player);
+        public LevelData GenerateLevel(LevelGenerationParameters levelParams, Player player) => Level = _levelService.GenerateLevel(levelParams, player);
     }
 }

@@ -4,6 +4,7 @@
     {
         NotStarted,
         Ready,
-        Executing
+        Executing,
+        GameOver
     }
 }

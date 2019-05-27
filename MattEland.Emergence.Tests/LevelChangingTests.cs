@@ -34,5 +34,18 @@ namespace MattEland.Emergence.Tests
             Context.Messages.OfType<CreatedMessage>().Count().ShouldBeGreaterThan(0);
         }
 
+        [Test]
+        public void ChangingLevelsShouldKeepTheSamePlayerInstance()
+        {
+            // Arrange
+            var player = Player;
+
+            // Act
+            Context.AdvanceToNextLevel();
+
+            // Assert
+            Player.ShouldBe(player);
+        }
+
     }
 }

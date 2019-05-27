@@ -71,7 +71,6 @@
     <Compile Include="EmergenceTestBase.cs" />
     <Compile Include="ExplosionTests.cs" />
     <Compile Include="GameManagerTests.cs" />
-    <Compile Include="GameServiceTests.cs" />
     <Compile Include="HelpTests.cs" />
     <Compile Include="LevelChangingTests.cs" />
     <Compile Include="PlayerTests.cs" />

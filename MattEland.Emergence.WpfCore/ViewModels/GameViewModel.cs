@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using MattEland.Emergence.Engine;
 using MattEland.Emergence.Engine.Entities;
+using MattEland.Emergence.Engine.Game;
 using MattEland.Emergence.Engine.Level;
 using MattEland.Emergence.Engine.Messages;
 using MattEland.Emergence.Engine.Model;
@@ -15,15 +16,17 @@ namespace MattEland.Emergence.WpfCore.ViewModels
     {
         private readonly IDictionary<Guid, WorldObjectViewModel> _objects = new Dictionary<Guid, WorldObjectViewModel>();
 
-        private readonly GameManager _gameManager;
+        private readonly GameService _gameManager;
 
         public GameViewModel()
         {
-            _gameManager = new GameManager();
+            _gameManager = new GameService();
 
             GameCreationConfigurator.ConfigureObjectCreation();
 
-            ProcessMessages(_gameManager.Start());
+            var context = _gameManager.StartNewGame();
+
+            ProcessMessages(context.Messages);
         }
 
         private void ProcessMessages(IEnumerable<GameMessage> messages)
@@ -70,7 +73,11 @@ namespace MattEland.Emergence.WpfCore.ViewModels
 
         public int YOffset { get; set; } = -35;
 
-        public void MovePlayer(MoveDirection direction) => ProcessMessages(_gameManager.MovePlayer(direction));
+        public void MovePlayer(MoveDirection direction)
+        {
+            var context = _gameManager.MovePlayer(direction);
+            ProcessMessages(context.Messages);
+        }
 
         private void CenterOnPlayer()
         {

@@ -19,7 +19,7 @@ namespace MattEland.Emergence.Engine.Entities
 
         public override void MaintainActiveEffects(CommandContext context)
         {
-            IsOpen = context.Level.HasAdminAccess;
+            IsOpen = context.Level.HasAdminAccess || context.Player.ObjectId == Actors.PlayerDebugger;
         }
 
         public override string Name => "Firewall";
