@@ -5,7 +5,7 @@
     /// </summary>
     public class NewGameParameters
     {
-        public string CharacterId { get; set; } = "ACTOR_PLAYER_LOGISTICS";
+        public string CharacterId { get; set; } = Actors.PlayerLogistics;
 
     }
 }

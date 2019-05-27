@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using MattEland.Emergence.Engine.DTOs;
 using MattEland.Emergence.Engine.Effects;
 using MattEland.Emergence.Engine.Entities;
 using MattEland.Emergence.Engine.Level;
@@ -86,7 +87,7 @@ namespace MattEland.Emergence.Engine.Game
 
         private static void SpawnGlitch(CommandContext context, GameCell cell)
         {
-            var glitch = CreationService.CreateObject("ACTOR_GLITCH", GameObjectType.Actor, cell.Pos);
+            var glitch = CreationService.CreateObject(Actors.Glitch, GameObjectType.Actor, cell.Pos);
             context.AddObject(glitch);
             if (context.CanPlayerSee(cell.Pos))
             {

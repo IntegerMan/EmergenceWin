@@ -1,5 +1,4 @@
-﻿using System.Globalization;
-using MattEland.Emergence.Engine.Entities;
+﻿using MattEland.Emergence.Engine.Entities;
 
 namespace MattEland.Emergence.Engine.Effects
 {

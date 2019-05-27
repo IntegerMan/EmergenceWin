@@ -1,4 +1,4 @@
-﻿using MattEland.Emergence.Engine.Entities;
+﻿using MattEland.Emergence.Engine.DTOs;
 using MattEland.Emergence.Engine.Game;
 using MattEland.Emergence.Engine.Model;
 using NUnit.Framework;
@@ -26,7 +26,7 @@ namespace MattEland.Emergence.Tests
         {
             // Arrange
             var oldPlayer = Player;
-            var newPlayer = GameObjectFactory.CreatePlayer("ACTOR_PLAYER_SEARCH");
+            var newPlayer = GameObjectFactory.CreatePlayer(Actors.PlayerSearch);
 
             // Act
             Context.ReplacePlayer(newPlayer);

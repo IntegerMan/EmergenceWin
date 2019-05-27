@@ -166,7 +166,7 @@ namespace MattEland.Emergence.Engine.Entities
                                  c.Command.ActivationType == CommandActivationType.Active)
                           .Each(c => c.Command.ApplyPreActionEffect(context, this, Pos));
 
-            if (ObjectId == "ACTOR_ANTI_VIRUS")
+            if (ObjectId == Actors.AntiVirus)
             {
                 CorruptionHelper.CleanseNearby(context, this, Pos);
             }

@@ -1,4 +1,5 @@
 ﻿using MattEland.Emergence.Engine;
+using MattEland.Emergence.Engine.DTOs;
 using MattEland.Emergence.Engine.Entities;
 using MattEland.Emergence.Engine.Game;
 using MattEland.Emergence.Engine.Level;
@@ -29,7 +30,7 @@ namespace MattEland.Emergence.Tests
 
         protected GameObjectBase CreateTurret(Pos2D pos)
         {
-            var turret = GameObjectFactory.CreateFromObjectType("ACTOR_TURRET", GameObjectType.Actor, pos);
+            var turret = GameObjectFactory.CreateFromObjectType(Actors.Turret, GameObjectType.Actor, pos);
 
             Context.AddObject(turret);
 

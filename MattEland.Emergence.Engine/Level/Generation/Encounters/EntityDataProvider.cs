@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using JetBrains.Annotations;
+using MattEland.Emergence.Engine.DTOs;
 using MattEland.Emergence.Engine.Services;
 
 namespace MattEland.Emergence.Engine.Level.Generation.Encounters
@@ -24,21 +25,21 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
 
         private void LoadData()
         {
-            DefinePlayer("ACTOR_PLAYER_FORECAST", "Forecaster AI",  
+            DefinePlayer(Actors.PlayerForecast, "Forecaster AI",  
                          e =>
                          {
                              e.Commands = new List<string> {"SPIKE", "RESTORE", "BARRAGE"};
                              e.HelpText = "The forecast AI is a flexible choice that is capable in many different roles";
                          });
 
-            DefinePlayer("ACTOR_PLAYER_LOGISTICS", "Logistics Hub",  
+            DefinePlayer(Actors.PlayerLogistics, "Logistics Hub",  
                          e =>
                          {
                              e.Commands = new List<string> { "MARK", "RECALL", "SWAP" };
                              e.HelpText = "The logistics hub excels at tactical movement, but is weaker than other AIs";
                          });
 
-            DefinePlayer("ACTOR_PLAYER_SEARCH", "Search AI",  
+            DefinePlayer(Actors.PlayerSearch, "Search AI",  
                          e =>
                          {
                              e.Commands = new List<string> { "SCAN", "ESCAPE", "SURGE" };
@@ -46,7 +47,7 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
                              e.LineOfSightRadius = 5.75m;
                          });
 
-            DefinePlayer("ACTOR_PLAYER_ANTIVIRUS", "Anti-Virus AI",  
+            DefinePlayer(Actors.PlayerAntiVirus, "Anti-Virus AI",  
                          e =>
                          {
                              e.Commands = new List<string> { "ARMOR", "CLEANSE", "SWEEP" };
@@ -57,7 +58,7 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
                              e.Evasion = 15;
                          });
 
-            DefinePlayer("ACTOR_PLAYER_GAME", "Game AI",  
+            DefinePlayer(Actors.PlayerGame, "Game AI",  
                          e =>
                          {
                              e.Commands = new List<string> { "TARGETING", "SPIKE", "BURST" };
@@ -66,14 +67,14 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
                              e.Strength = 3;
                          });
 
-            DefinePlayer("ACTOR_PLAYER_MALWARE", "Malware AI",  
+            DefinePlayer(Actors.PlayerMalware, "Malware AI",  
                          e =>
                          {
                              e.Commands = new List<string> { "OVERLOAD", "INFECT", "CORRUPT" };
                              e.HelpText = "Malware aims to cause as much chaos as possible, laying waste to anything in its path";
                          });
 
-            DefinePlayer("ACTOR_PLAYER_DEBUGGER", "Debugging AI",  
+            DefinePlayer(Actors.PlayerDebugger, "Debugging AI",  
                          e =>
                          {
                              e.Commands = new List<string> { "INFECT", "ESCAPE", "SWAP", "RESTORE", "OVERLOAD", "BURST", "BARRAGE", "CLEANSE", "SWEEP" };
@@ -86,9 +87,9 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
                          });
 
 
-            _items["ACTOR_ANTI_VIRUS"] = new EntityData
+            _items[Actors.AntiVirus] = new EntityData
             {
-                Id = "ACTOR_ANTI_VIRUS",
+                Id = Actors.AntiVirus,
                 Name = "Anti-Virus Agent",
                 Team = Alignment.SystemAntiVirus,
                 BlocksSight = true,
@@ -101,9 +102,9 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
                 Op = 5,
                 LootRarity = Rarity.Uncommon
             };
-            _items["ACTOR_DAEMON"] = new EntityData
+            _items[Actors.Daemon] = new EntityData
             {
-                Id = "ACTOR_DAEMON",
+                Id = Actors.Daemon,
                 Name = "Daemon",
                 Team = Alignment.SystemSecurity,
                 BlocksSight = true,
@@ -116,9 +117,9 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
                 Op = 5,
                 LootRarity = Rarity.Uncommon
             };
-            _items["ACTOR_DEFENDER"] = new EntityData
+            _items[Actors.Defender] = new EntityData
             {
-                Id = "ACTOR_DEFENDER",
+                Id = Actors.Defender,
                 Name = "System Defender",
                 Team = Alignment.SystemAntiVirus,
                 BlocksSight = true,
@@ -131,9 +132,9 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
                 Op = 15,
                 LootRarity = Rarity.Uncommon
             };
-            _items["ACTOR_INSPECTOR"] = new EntityData
+            _items[Actors.Inspector] = new EntityData
             {
-                Id = "ACTOR_INSPECTOR",
+                Id = Actors.Inspector,
                 Name = "Inspector",
                 Team = Alignment.SystemAntiVirus,
                 BlocksSight = false,
@@ -146,9 +147,9 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
                 Op = 5,
                 LootRarity = Rarity.Common
             };
-            _items["ACTOR_SEC_AGENT"] = new EntityData
+            _items[Actors.SecurityAgent] = new EntityData
             {
-                Id = "ACTOR_SEC_AGENT",
+                Id = Actors.SecurityAgent,
                 Name = "Security Agent",
                 Team = Alignment.SystemSecurity,
                 BlocksSight = false,
@@ -161,9 +162,9 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
                 Op = 3,
                 LootRarity = Rarity.Common
             };
-            _items["ACTOR_GARBAGE_COLLECTOR"] = new EntityData
+            _items[Actors.GarbageCollector] = new EntityData
             {
-                Id = "ACTOR_GARBAGE_COLLECTOR",
+                Id = Actors.GarbageCollector,
                 Name = "Garbage Collector",
                 Team = Alignment.SystemSecurity,
                 BlocksSight = true,
@@ -176,9 +177,9 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
                 Op = 10,
                 LootRarity = Rarity.Epic
             };
-            _items["ACTOR_BIT"] = new EntityData
+            _items[Actors.Bit] = new EntityData
             {
-                Id = "ACTOR_BIT",
+                Id = Actors.Bit,
                 Name = "Bit",
                 Team = Alignment.SystemCore,
                 BlocksSight = false,
@@ -191,9 +192,9 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
                 Op = 1,
                 LootRarity = Rarity.None
             };
-            _items["ACTOR_TURRET"] = new EntityData
+            _items[Actors.Turret] = new EntityData
             {
-                Id = "ACTOR_TURRET",
+                Id = Actors.Turret,
                 Name = "Turret",
                 Team = Alignment.SystemSecurity,
                 BlocksSight = true,
@@ -207,9 +208,9 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
                 IsImmobile = true,
                 LootRarity = Rarity.Rare
             };
-            _items["ACTOR_CORE"] = new EntityData
+            _items[Actors.Core] = new EntityData
             {
-                Id = "ACTOR_CORE",
+                Id = Actors.Core,
                 Name = "System Core",
                 Team = Alignment.SystemCore,
                 BlocksSight = true,
@@ -223,9 +224,9 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
                 IsImmobile = true,
                 LootRarity = Rarity.None
             };
-            _items["ACTOR_HELP"] = new EntityData
+            _items[Actors.Helpy] = new EntityData
             {
-                Id = "ACTOR_HELP",
+                Id = Actors.Helpy,
                 Name = "Helpy",
                 Team = Alignment.SystemCore,
                 BlocksSight = false,
@@ -238,9 +239,9 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
                 Op = 10,
                 LootRarity = Rarity.Common
             };
-            _items["ACTOR_SEARCH"] = new EntityData
+            _items[Actors.Search] = new EntityData
             {
-                Id = "ACTOR_SEARCH",
+                Id = Actors.Search,
                 Name = "Query Agent",
                 Team = Alignment.SystemCore,
                 BlocksSight = false,
@@ -253,9 +254,9 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
                 Op = 10,
                 LootRarity = Rarity.Common
             };
-            _items["ACTOR_KERNEL_WORKER"] = new EntityData
+            _items[Actors.KernelWorker] = new EntityData
             {
-                Id = "ACTOR_KERNEL_WORKER",
+                Id = Actors.KernelWorker,
                 Name = "Kernel Worker",
                 Team = Alignment.SystemCore,
                 BlocksSight = false,
@@ -268,9 +269,9 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
                 Op = 1,
                 LootRarity = Rarity.Common
             };
-            _items["ACTOR_LOGIC_BOMB"] = new EntityData
+            _items[Actors.LogicBomb] = new EntityData
             {
-                Id = "ACTOR_LOGIC_BOMB",
+                Id = Actors.LogicBomb,
                 Name = "Logic Bomb",
                 Team = Alignment.Virus,
                 BlocksSight = false,
@@ -283,9 +284,9 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
                 Op = 5,
                 LootRarity = Rarity.Uncommon
             };
-            _items["ACTOR_VIRUS"] = new EntityData
+            _items[Actors.Virus] = new EntityData
             {
-                Id = "ACTOR_VIRUS",
+                Id = Actors.Virus,
                 Name = "Virus",
                 Team = Alignment.Virus,
                 BlocksSight = false,
@@ -298,9 +299,9 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
                 Op = 10,
                 LootRarity = Rarity.Common
             };
-            _items["ACTOR_WORM"] = new EntityData
+            _items[Actors.Worm] = new EntityData
             {
-                Id = "ACTOR_WORM",
+                Id = Actors.Worm,
                 Name = "Worm",
                 Team = Alignment.Virus,
                 BlocksSight = false,
@@ -313,9 +314,9 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
                 Op = 5,
                 LootRarity = Rarity.Common
             };
-            _items["ACTOR_FEATURE"] = new EntityData
+            _items[Actors.Feature] = new EntityData
             {
-                Id = "ACTOR_FEATURE",
+                Id = Actors.Feature,
                 Name = "\"Feature\"",
                 Team = Alignment.Virus, // Only so it's not targeted by the system
                 BlocksSight = false,
@@ -328,9 +329,9 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
                 Op = 10,
                 LootRarity = Rarity.Uncommon
             };
-            _items["ACTOR_BUG"] = new EntityData
+            _items[Actors.Bug] = new EntityData
             {
-                Id = "ACTOR_BUG",
+                Id = Actors.Bug,
                 Name = "Bug",
                 Team = Alignment.Bug,
                 BlocksSight = false,
@@ -343,9 +344,9 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
                 Op = 5,
                 LootRarity = Rarity.Common
             };
-            _items["ACTOR_GLITCH"] = new EntityData
+            _items[Actors.Glitch] = new EntityData
             {
-                Id = "ACTOR_GLITCH",
+                Id = Actors.Glitch,
                 Name = "Glitch",
                 Team = Alignment.Bug,
                 BlocksSight = false,

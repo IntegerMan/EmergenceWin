@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using GeneticSharp.Domain.Randomizations;
 using JetBrains.Annotations;
 using MattEland.Emergence.Engine.DTOs;
@@ -43,9 +42,9 @@ namespace MattEland.Emergence.Engine.Game
         public CommandContext StartNewGame([CanBeNull] NewGameParameters parameters = null)
         {
 #if DEBUG
-            const string defaultPlayerId = "ACTOR_PLAYER_DEBUGGER";
+            const string defaultPlayerId = Actors.PlayerDebugger;
 #else
-            const string defaultPlayerId = "ACTOR_PLAYER_ANTIVIRUS";
+            const string defaultPlayerId = Actors.PlayerAntiVirus;
 #endif
 
             if (parameters == null)

@@ -126,49 +126,49 @@ namespace MattEland.Emergence.Engine.Entities
 
             switch (id)
             {
-                case "ACTOR_BIT":
+                case Actors.Bit:
                     return ActorType.Bit;
-                case "ACTOR_DAEMON":
+                case Actors.Daemon:
                     return ActorType.Daemon;
-                case "ACTOR_ANTI_VIRUS":
+                case Actors.AntiVirus:
                     return ActorType.AntiVirus;
-                case "ACTOR_DEFENDER":
+                case Actors.Defender:
                     return ActorType.SystemDefender;
-                case "ACTOR_INSPECTOR":
+                case Actors.Inspector:
                     return ActorType.Inspector;
-                case "ACTOR_SEC_AGENT":
+                case Actors.SecurityAgent:
                     return ActorType.SecurityAgent;
-                case "ACTOR_GARBAGE_COLLECTOR":
+                case Actors.GarbageCollector:
                     return ActorType.GarbageCollector;
-                case "ACTOR_HELP":
+                case Actors.Helpy:
                     return ActorType.Helpy;
-                case "ACTOR_SEARCH":
+                case Actors.Search:
                     return ActorType.QueryAgent;
-                case "ACTOR_KERNEL_WORKER":
+                case Actors.KernelWorker:
                     return ActorType.KernelWorker;
-                case "ACTOR_LOGIC_BOMB":
+                case Actors.LogicBomb:
                     return ActorType.LogicBomb;
-                case "ACTOR_TURRET":
+                case Actors.Turret:
                     return ActorType.Turret;
-                case "ACTOR_CORE":
+                case Actors.Core:
                     return ActorType.Core;
-                case "ACTOR_BUG":
+                case Actors.Bug:
                     return ActorType.Bug;
-                case "ACTOR_WORM":
+                case Actors.Worm:
                     return ActorType.Worm;
-                case "ACTOR_FEATURE":
+                case Actors.Feature:
                     return ActorType.Feature;
-                case "ACTOR_GLITCH":
+                case Actors.Glitch:
                     return ActorType.Glitch;
-                case "ACTOR_VIRUS":
+                case Actors.Virus:
                     return ActorType.Virus;
-                case "ACTOR_PLAYER_LOGISTICS":
-                case "ACTOR_PLAYER_MALWARE":
-                case "ACTOR_PLAYER_GAME":
-                case "ACTOR_PLAYER_ANTIVIRUS":
-                case "ACTOR_PLAYER_SEARCH":
-                case "ACTOR_PLAYER_FORECAST":
-                case "ACTOR_PLAYER_DEBUGGER":
+                case Actors.PlayerLogistics:
+                case Actors.PlayerMalware:
+                case Actors.PlayerGame:
+                case Actors.PlayerAntiVirus:
+                case Actors.PlayerSearch:
+                case Actors.PlayerForecast:
+                case Actors.PlayerDebugger:
                     return ActorType.Player;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(id), $"{id} is not supported for getting an actor type");

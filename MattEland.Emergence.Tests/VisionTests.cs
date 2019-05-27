@@ -1,5 +1,4 @@
-﻿using MattEland.Emergence.Engine.Level;
-using MattEland.Emergence.Engine.Model;
+﻿using MattEland.Emergence.Engine.Model;
 using NUnit.Framework;
 using Shouldly;
 

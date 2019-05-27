@@ -108,24 +108,24 @@ namespace MattEland.Emergence.Engine.Game
         {
             switch (dto.ObjectId)
             {
-                case "ACTOR_ANTI_VIRUS":
+                case Actors.AntiVirus:
                    return new AntiVirus(dto);
 
-                case "ACTOR_VIRUS":
+                case Actors.Virus:
                    return new Virus(dto);
 
-                case "ACTOR_WORM":
+                case Actors.Worm:
                    return new Worm(dto);
 
-                case "ACTOR_TURRET":
+                case Actors.Turret:
                    return new Turret(dto);
 
-                case "ACTOR_LOGIC_BOMB":
+                case Actors.LogicBomb:
                    return new LogicBomb(dto);
 
-                case "ACTOR_BUG":
-                case "ACTOR_FEATURE":
-                case "ACTOR_GLITCH":
+                case Actors.Bug:
+                case Actors.Feature:
+                case Actors.Glitch:
                     return new Bug(dto);
 
                 default:
@@ -236,10 +236,10 @@ namespace MattEland.Emergence.Engine.Game
                     break;
 
                 case GameObjectType.Turret:
-                    return CreateFromDto(SetEntityStats(new ActorDto(), "ACTOR_TURRET", objectType, position));
+                    return CreateFromDto(SetEntityStats(new ActorDto(), Actors.Turret, objectType, position));
 
                 case GameObjectType.Core:
-                    return CreateFromDto(SetEntityStats(new ActorDto(), "ACTOR_CORE", objectType, position));
+                    return CreateFromDto(SetEntityStats(new ActorDto(), Actors.Core, objectType, position));
 
                 case GameObjectType.Actor:
                     return CreateFromDto(SetEntityStats(new ActorDto(), id, objectType, position));

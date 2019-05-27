@@ -287,7 +287,7 @@ namespace MattEland.Emergence.Engine.Level.Generation
                 var elements = new List<EncounterElement>(numCores);
                 for (int i = 0; i < numCores; i++)
                 {
-                    elements.Add(new EncounterElement { ObjectType = GameObjectType.Core, ObjectId = "ACTOR_CORE" });
+                    elements.Add(new EncounterElement { ObjectType = GameObjectType.Core, ObjectId = Actors.Core });
                 }
 
 
