@@ -184,7 +184,7 @@ namespace MattEland.Emergence.Engine.Game
 
         private static void ApplyStabilityDamage(GameObjectBase attacker, GameObjectBase defender, int damage)
         {
-            defender.Stability -= damage;
+            defender.AdjustStability(-damage);
 
             // Ensure the player's stats get updated
             if (defender is Actor defendingActor)

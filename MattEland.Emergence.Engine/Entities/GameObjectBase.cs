@@ -198,5 +198,17 @@ namespace MattEland.Emergence.Engine.Entities
         public virtual int ZIndex => 5;
 
         public string State { get; set; }
+
+        /// <summary>
+        /// Increases the actor's stability points by the specified <paramref name="amountToAdd"/>.
+        /// </summary>
+        /// <param name="amountToAdd">The amount of stability to add.</param>
+        public bool AdjustStability(int amountToAdd)
+        {
+            var oldStability = Stability;
+            Stability = Math.Min(Stability + amountToAdd, MaxStability);
+
+            return Stability > oldStability;
+        }
     }
 }

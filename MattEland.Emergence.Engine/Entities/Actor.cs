@@ -260,18 +260,6 @@ namespace MattEland.Emergence.Engine.Entities
             return Operations > oldOps;
         }
 
-        /// <summary>
-        /// Increases the actor's stability points by the specified <paramref name="amountToAdd"/>.
-        /// </summary>
-        /// <param name="amountToAdd">The amount of stability to add.</param>
-        public bool AdjustStability(int amountToAdd)
-        {
-            var oldStability = Stability;
-            Stability = Math.Min(Stability + amountToAdd, MaxStability);
-
-            return Stability > oldStability;
-        }
-
         public virtual bool IsCommandActive(GameCommand command) => false;
 
         public override void OnDestroyed(CommandContext context, GameObjectBase attacker)
