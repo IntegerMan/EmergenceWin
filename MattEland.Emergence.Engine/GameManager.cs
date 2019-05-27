@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using GeneticSharp.Domain.Randomizations;
 using JetBrains.Annotations;
 using MattEland.Emergence.Engine.Entities;
 using MattEland.Emergence.Engine.Game;
@@ -10,9 +11,9 @@ namespace MattEland.Emergence.Engine
 {
     public class GameManager
     {
-        public GameManager()
+        public GameManager([CanBeNull] IRandomization randomizer = null)
         {
-            _service = new GameService();
+            _service = new GameService(randomizer);
         }
 
         [NotNull]
@@ -39,7 +40,7 @@ namespace MattEland.Emergence.Engine
 
             State = GameStatus.Executing;
 
-            var context = _service.HandleGameMove(direction);
+            var context = _service.MovePlayer(direction);
 
             State = GameStatus.Ready;
 

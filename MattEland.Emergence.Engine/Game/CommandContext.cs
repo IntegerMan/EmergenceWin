@@ -26,13 +26,14 @@ namespace MattEland.Emergence.Engine.Game
                               [NotNull] GameService gameService,
                               [NotNull] EntityDefinitionService entityService,
                               [NotNull] CombatManager combatManager,
-                              [NotNull] LootProvider lootProvider)
+                              [NotNull] LootProvider lootProvider, 
+                              [NotNull] IRandomization randomizer)
         {
             GameService = gameService ?? throw new ArgumentNullException(nameof(gameService));
             EntityService = entityService ?? throw new ArgumentNullException(nameof(entityService));
             CombatManager = combatManager ?? throw new ArgumentNullException(nameof(combatManager));
             LootProvider = lootProvider ?? throw new ArgumentNullException(nameof(lootProvider));
-            Randomizer = new BasicRandomization();
+            Randomizer = randomizer  ?? throw new ArgumentNullException(nameof(randomizer));
 
             _messages = new List<GameMessage>();
 

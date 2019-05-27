@@ -1,6 +1,8 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using GeneticSharp.Domain.Randomizations;
 using JetBrains.Annotations;
+using MattEland.Emergence.Engine.Commands;
 using MattEland.Emergence.Engine.DTOs;
 using MattEland.Emergence.Engine.Entities;
 using MattEland.Emergence.Engine.Level;
@@ -26,15 +28,19 @@ namespace MattEland.Emergence.Engine.Game
 
         private LevelData _level;
 
+        [NotNull]
+        private readonly IRandomization _randomizer;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="GameService"/> class.
         /// </summary>
-        public GameService()
+        public GameService([CanBeNull] IRandomization randomizer = null)
         {
             _entityProvider = new EntityDefinitionService();
             _combatManager = new CombatManager();
             _lootProvider = new LootProvider();
             _levelService = new LevelGenerationService(new PrefabService(), new EncountersService(), new BasicRandomization());
+            _randomizer = randomizer ?? new BasicRandomization();
 
             GameCreationConfigurator.ConfigureObjectCreation();
         }
@@ -64,7 +70,7 @@ namespace MattEland.Emergence.Engine.Game
             _level = _levelService.GenerateLevel(levelParameters, Player);
 
             // Ensure line of sight is calculated
-            var context = new CommandContext(_level, this, _entityProvider, _combatManager, _lootProvider);
+            var context = new CommandContext(_level, this, _entityProvider, _combatManager, _lootProvider, _randomizer);
             context.CalculateLineOfSight(Player);
 
             _level.Objects.Each(o => context.CreatedObject(o));
@@ -72,11 +78,13 @@ namespace MattEland.Emergence.Engine.Game
             return context;
         }
 
-        public CommandContext HandleGameMove(MoveDirection direction)
+        public CommandContext HandleCommand([NotNull] GameCommand command, Pos2D pos)
         {
+            if (command == null) throw new ArgumentNullException(nameof(command));
+
             NumMoves++;
 
-            var context = new CommandContext(_level, this, _entityProvider, _combatManager, _lootProvider);
+            var context = new CommandContext(_level, this, _entityProvider, _combatManager, _lootProvider, _randomizer);
 
             // Give objects and actors a chance to react to the current game state
             foreach (var obj in context.Level.Objects.ToList())
@@ -84,15 +92,7 @@ namespace MattEland.Emergence.Engine.Game
                 obj.ApplyActiveEffects(context);
             }
 
-            // Interact with all objects in the tile
-            var targetPos = Player.Pos.GetNeighbor(direction);
-            foreach (var obj in context.Level.Objects.Where(o => o.Pos == targetPos).OrderByDescending(o => o.ZIndex))
-            {
-                if (obj.OnActorAttemptedEnter(context, Player))
-                {
-                    break;
-                }
-            }
+            command.Execute(context, Player, pos, false);
 
             // Give objects and actors a chance to react to the changed state
             foreach (var obj in context.Level.Objects.ToList())
@@ -126,5 +126,12 @@ namespace MattEland.Emergence.Engine.Game
             commandContext.SetLevel(nextLevel);
         }
 
+        public CommandContext MovePlayer(MoveDirection direction)
+        {
+            var moveCommand = new MoveCommand();
+            var targetPos = Player.Pos.GetNeighbor(direction);
+
+            return HandleCommand(moveCommand, targetPos);
+        }
     }
 }

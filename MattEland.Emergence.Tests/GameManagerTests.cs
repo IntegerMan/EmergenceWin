@@ -11,7 +11,7 @@ namespace MattEland.Emergence.Tests
         public void StartingGameManagerShouldReturnMessages()
         {
             // Arrange
-            var manager = new GameManager();
+            var manager = BuildGameManager();
 
             // Act
             var messages = manager.Start();

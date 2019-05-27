@@ -59,7 +59,7 @@ namespace MattEland.Emergence.Tests
             int initialCorruption = Context.Level.Cells.Sum(c => c.Corruption);
 
             // Act
-            CorruptionHelper.SpreadCorruption(Context, numCells ^ 2);
+            CorruptionHelper.SpreadCorruption(Context, numCells ^ 5);
 
             // Assert
             Context.Level.Cells.Sum(c => c.Corruption).ShouldBeGreaterThan(initialCorruption);

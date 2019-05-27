@@ -1,4 +1,5 @@
-﻿using MattEland.Emergence.Engine;
+﻿using JetBrains.Annotations;
+using MattEland.Emergence.Engine;
 using MattEland.Emergence.Engine.DTOs;
 using MattEland.Emergence.Engine.Entities;
 using MattEland.Emergence.Engine.Game;
@@ -20,14 +21,16 @@ namespace MattEland.Emergence.Tests
             Context = GameService.StartNewGame();
         }
 
+        [NotNull]
         protected GameManager GetStartedGameManager()
         {
-            var manager = new GameManager();
+            var manager = BuildGameManager();
             manager.Start();
 
             return manager;
         }
 
+        [NotNull]
         protected GameObjectBase CreateTurret(Pos2D pos)
         {
             var turret = GameObjectFactory.CreateFromObjectType(Actors.Turret, GameObjectType.Actor, pos);
@@ -36,5 +39,8 @@ namespace MattEland.Emergence.Tests
 
             return turret;
         }
+
+        [NotNull]
+        protected static GameManager BuildGameManager() => new GameManager(new TestRandomizer(0));
     }
 }
