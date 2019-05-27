@@ -1,4 +1,6 @@
 ﻿using System.Linq;
+using JetBrains.Annotations;
+using MattEland.Emergence.Engine.DTOs;
 using MattEland.Emergence.Engine.Effects;
 using MattEland.Emergence.Engine.Entities;
 using NUnit.Framework;
@@ -16,7 +18,7 @@ namespace MattEland.Emergence.Tests
         public void DisplayStandardHelpShouldWork(int corruption)
         {
             // Arrange
-            var source = Context.Level.Objects.OfType<HelpTile>().First();
+            var source = GetHelpTile();
             source.Corruption = corruption;
 
             // Act
@@ -24,6 +26,25 @@ namespace MattEland.Emergence.Tests
 
             // Assert
             Context.Messages.ShouldContain(c => c is HelpTextEffect);
+        }
+
+        [Test]
+        public void DisplayHelpOnActorShouldWork()
+        {
+            // Arrange
+            var source = GetHelpTile();
+
+            // Act
+            Context.DisplayHelp(source, $"help_{Actors.PlayerAntiVirus}");
+
+            // Assert
+            Context.Messages.ShouldContain(c => c is HelpTextEffect);
+        }
+
+        [NotNull]
+        private HelpTile GetHelpTile()
+        {
+            return Context.Level.Objects.OfType<HelpTile>().First();
         }
     }
 }
