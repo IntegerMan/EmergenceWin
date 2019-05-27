@@ -164,7 +164,7 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
                              e.LootRarity = Rarity.None;
                          });
 
-            DefineActor(Actors.Bit, "Turret", Alignment.SystemSecurity,
+            DefineActor(Actors.Turret, "Turret", Alignment.SystemSecurity,
                          e =>
                          {
                              e.Accuracy = 42;
@@ -331,6 +331,12 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
 
             configureAction?.Invoke(data);
 
+            DefineEntity(id, data);
+        }
+
+        private void DefineEntity(string id, EntityData data)
+        {
+            if (_items.ContainsKey(id)) throw new InvalidOperationException($"Entity {id} has already been defined");
             _items[id] = data;
         }
 
@@ -354,16 +360,13 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
 
             configureAction?.Invoke(data);
 
-            _items[id] = data;
+            DefineEntity(id, data);
         }
 
         [NotNull]
         public EntityData GetItem(string id)
         {
-            if (!_items.ContainsKey(id))
-            {
-                throw new NotSupportedException($"The entity {id} was not defined in the database");
-            }
+            if (!_items.ContainsKey(id)) throw new NotSupportedException($"The entity {id} was not defined in the database");
 
             return _items[id];
         }
