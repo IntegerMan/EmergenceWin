@@ -69,6 +69,7 @@
     <Compile Include="CombatTests.cs" />
     <Compile Include="CorruptionTests.cs" />
     <Compile Include="EmergenceTestBase.cs" />
+    <Compile Include="ExplosionTests.cs" />
     <Compile Include="GameManagerTests.cs" />
     <Compile Include="GameServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

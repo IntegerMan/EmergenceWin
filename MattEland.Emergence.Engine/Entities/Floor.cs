@@ -12,6 +12,8 @@ namespace MattEland.Emergence.Engine.Entities
             FloorType = floorType;
         }
 
+        public override bool IsInvulnerable => true;
+
         public FloorType FloorType { get; }
 
         public override char AsciiChar
