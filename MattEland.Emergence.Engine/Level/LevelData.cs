@@ -242,10 +242,7 @@ namespace MattEland.Emergence.Engine.Level
         public void AddObject(GameObjectBase gameObject)
         {
             var cell = GetCell(gameObject.Pos);
-            if (cell == null)
-            {
-                throw new InvalidOperationException($"Could not find a cell at {gameObject.Pos.ToString()} to add an object to");
-            }
+            if (cell == null)  throw new InvalidOperationException($"Could not find a cell at {gameObject.Pos.ToString()} to add an object to");
 
             cell.AddObject(gameObject);
         }
@@ -254,7 +251,7 @@ namespace MattEland.Emergence.Engine.Level
         /// Finds the player and returns it.
         /// </summary>
         /// <returns>The player object.</returns>
-        public Player FindPlayer() => (Player)Cells.Where(c => c.Actor != null).Select(c => c.Actor).FirstOrDefault(o => o.IsPlayer);
+        public Player FindPlayer() => (Player)Cells.Where(c => c.Actor != null).Select(c => c.Actor).SingleOrDefault(o => o.IsPlayer);
 
     }
 }

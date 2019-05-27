@@ -10,14 +10,13 @@ namespace MattEland.Emergence.Tests
     {
         public GameService GameService { get; set; }
         public CommandContext Context { get; set; }
-        public Player Player { get; set; }
+        public Player Player => Context.Player;
 
         [SetUp]
         protected virtual void Initialize()
         {
             GameService = new GameService();
             Context = GameService.StartNewGame();
-            Player = GameService.Player;
         }
 
         protected GameManager GetStartedGameManager()
@@ -32,7 +31,7 @@ namespace MattEland.Emergence.Tests
         {
             var turret = GameObjectFactory.CreateFromObjectType("ACTOR_TURRET", GameObjectType.Actor, pos);
 
-            Context.Level.AddObject(turret);
+            Context.AddObject(turret);
 
             return turret;
         }

@@ -27,8 +27,13 @@ namespace MattEland.Emergence.Engine.Entities
 
         private void UpdateIsHidden(CommandContext context)
         {
-            // Don't show this if the player is currently that object type
-            IsHidden = context.Player.ObjectId == ObjectId;
+            var isHidden = context.Player.ObjectId == ObjectId;
+
+            if (IsHidden != isHidden)
+            {
+                IsHidden = isHidden;
+                context.UpdateObject(this);
+            }
         }
 
         public override void ApplyActiveEffects(CommandContext context)
@@ -45,20 +50,16 @@ namespace MattEland.Emergence.Engine.Entities
                 return false;
             }
 
-            UpdateIsHidden(context);
-
             // Swap the player with the new actor and position it at the tile's location
             if (!IsHidden)
             {
-                context.ReplacePlayer(CreationService.CreatePlayer(ObjectId), Pos);
+                context.ReplacePlayer(CreationService.CreatePlayer(ObjectId));
             }
-
-            UpdateIsHidden(context);
 
             return true;
         }
 
-        public override string ForegroundColor => GameColors.LightGreen;
+        public override string ForegroundColor => IsHidden ? GameColors.Gray : GameColors.LightGreen;
 
         public override int ZIndex => 50;
 

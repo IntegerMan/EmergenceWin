@@ -95,9 +95,8 @@ namespace MattEland.Emergence.Engine.Loot
                         dto.Name = entry.Name;
                     }
                 });
-
-
-                context.Level.AddObject(obj);
+                
+                context.AddObject(obj);
 
                 return;
             }

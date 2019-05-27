@@ -180,7 +180,7 @@ namespace MattEland.Emergence.Engine.Entities
         {
             var debris = CreationService.CreateObject(ObjectId, GameObjectType.Debris, Pos);
 
-            context.Level.AddObject(debris);
+            context.AddObject(debris);
         }
 
         public Guid Id { get; set; } = Guid.NewGuid();

@@ -13,6 +13,7 @@ using MattEland.Emergence.Engine.Loot;
 using MattEland.Emergence.Engine.Messages;
 using MattEland.Emergence.Engine.Services;
 using MattEland.Emergence.Engine.Vision;
+using MattEland.Shared.Collections;
 
 namespace MattEland.Emergence.Engine.Game
 {
@@ -83,6 +84,19 @@ namespace MattEland.Emergence.Engine.Game
             AddMessage(new DestroyedMessage(gameObj));
         }
 
+        public void ReplaceObject([NotNull] GameObjectBase oldObj, [NotNull] GameObjectBase newObj)
+        {
+            if (oldObj == null) throw new ArgumentNullException(nameof(oldObj));
+
+            newObj.Pos = oldObj.Pos;
+            newObj.Id = oldObj.Id;
+
+            Level.RemoveObject(oldObj);
+            Level.AddObject(newObj);
+
+            AddMessage(new ObjectUpdatedMessage(newObj));
+        }
+
         public void AddEffect([NotNull] EffectBase effect)
         {
             if (effect == null) throw new ArgumentNullException(nameof(effect));
@@ -105,18 +119,19 @@ namespace MattEland.Emergence.Engine.Game
             Player = Level.FindPlayer();
         }
 
-        public void ReplacePlayer(Player player, Pos2D position)
+        public void ReplacePlayer(Player newPlayer)
         {
-            // Set values on new player object
-            player.Id = Player.Id;
-            player.Pos = position;
+            ReplaceObject(Player, newPlayer);
 
-            RemoveObject(Player);
+            Player = newPlayer;
 
-            Level.AddObject(player);
-            Player = player;
+            Level.Objects.OfType<CharacterSelectTile>().Each(UpdateObject);
+        }
 
-            UpdateObject(player);
+        public void AddObject(GameObjectBase obj)
+        {
+            Level.AddObject(obj);
+            AddMessage(new CreatedMessage(obj));
         }
 
         public void DisplayHelp(GameObjectBase source, string helpTopic)
@@ -172,35 +187,27 @@ namespace MattEland.Emergence.Engine.Game
         {
             var topic = helpTopic.ToLowerInvariant();
 
-            string message = null;
-
             if (topic.StartsWith("help_actor_"))
             {
                 var definition = EntityService.GetEntity(helpTopic.Substring(5));
 
                 if (definition != null && !string.IsNullOrWhiteSpace(definition.HelpText))
                 {
-                    message = definition.HelpText;
+                    return definition.HelpText;
                 }
             }
-            else
+
+            switch (topic)
             {
-                switch (topic)
-                {
-                    case "help_firewalls":
-                        message = "Exits are protected by a firewall. Capture every core on a machine in order to move on.";
-                        break;
+                case "help_firewalls":
+                    return "Exits are protected by a firewall. Capture every core on a machine in order to move on.";
 
-                    case "help_welcome":
-                        message = "You're an AI inside of a computer network. Travel between systems and escape to the Internet.";
-                        break;
+                case "help_welcome":
+                    return "You're an AI inside of a computer network. Travel between systems and escape to the Internet.";
 
-                    default:
-                        throw new NotSupportedException($"Topic {helpTopic} is not implemented");
-                }
+                default:
+                    throw new NotSupportedException($"Topic {helpTopic} is not implemented");
             }
-
-            return message;
         }
 
         public CombatManager CombatManager { get; }

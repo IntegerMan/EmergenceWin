@@ -87,7 +87,7 @@ namespace MattEland.Emergence.Engine.Game
         private static void SpawnGlitch(CommandContext context, GameCell cell)
         {
             var glitch = CreationService.CreateObject("ACTOR_GLITCH", GameObjectType.Actor, cell.Pos);
-            context.Level.AddObject(glitch);
+            context.AddObject(glitch);
             if (context.CanPlayerSee(cell.Pos))
             {
                 context.AddEffect(new SpawnEffect(glitch));
