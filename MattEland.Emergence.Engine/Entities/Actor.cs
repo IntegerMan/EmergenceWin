@@ -239,31 +239,6 @@ namespace MattEland.Emergence.Engine.Entities
             }
         }
 
-        /// <inheritdoc />
-        protected override GameObjectDto CreateDto() => new ActorDto();
-
-        /// <inheritdoc />
-        protected override void ConfigureDto(GameObjectDto dto)
-        {
-            base.ConfigureDto(dto);
-
-            var actorDto = (ActorDto)dto;
-            actorDto.OpUsed = MaxOperations - Operations;
-            actorDto.MaxOp = MaxOperations;
-            actorDto.Accuracy = Accuracy;
-            actorDto.Evasion = Evasion;
-            actorDto.Strength = Strength;
-            actorDto.Defense = Defense;
-            actorDto.LineOfSightRadius = LineOfSightRadius;
-            actorDto.BlocksSight = BlocksSight;
-            actorDto.KillCount = KillCount;
-            actorDto.IsImmobile = IsImmobile;
-            actorDto.LootRarity = LootRarity;
-            actorDto.DamageDealt = DamageDealt;
-            actorDto.DamageReceived = DamageReceived;
-            actorDto.CoresCaptured = CoresCaptured;
-        }
-
         public virtual void OnWaited(CommandContext context)
         {
         }

@@ -30,8 +30,10 @@ namespace MattEland.Emergence.Engine.Loot
 
             foreach (var command in CommandFactory.RegisteredCommands)
             {
-                var entry = new LootEntry(LootType.Command, GameObjectType.CommandPickup, command.Id, command.Rarity, command.MinLevel);
-                entry.Name = command.Name;
+                var entry = new LootEntry(LootType.Command, GameObjectType.CommandPickup, command.Id, command.Rarity, command.MinLevel)
+                {
+                    Name = command.Name
+                };
 
                 _entries.Add(entry);
             }

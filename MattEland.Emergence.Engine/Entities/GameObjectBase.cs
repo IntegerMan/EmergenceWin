@@ -128,17 +128,6 @@ namespace MattEland.Emergence.Engine.Entities
         public virtual bool BlocksSight => false;
 
         /// <summary>
-        /// Builds a data transmission object from this object.
-        /// </summary>
-        /// <returns>A data transmission object.</returns>
-        public GameObjectDto BuildDto()
-        {
-            var dto = CreateDto();
-            ConfigureDto(dto);
-            return dto;
-        }
-
-        /// <summary>
         /// Represents which team the object is currently on. Certain actions can change which team an actor is on.
         /// </summary>
         public Alignment Team
@@ -154,33 +143,6 @@ namespace MattEland.Emergence.Engine.Entities
         public abstract char AsciiChar { get; }
         public virtual string ForegroundColor => GameColors.LightGray;
         public virtual string BackgroundColor => GameColors.Black;
-
-        /// <summary>
-        /// Creates an empty data transmission object to represent this instance.
-        /// </summary>
-        /// <returns>An empty data transmission object.</returns>
-        protected virtual GameObjectDto CreateDto()
-        {
-            return new GameObjectDto();
-        }
-
-        /// <summary>
-        /// Configures a data transmission object based on the properties of this object.
-        /// </summary>
-        /// <param name="dto">The data transmission object.</param>
-        protected virtual void ConfigureDto(GameObjectDto dto)
-        {
-            dto.Pos = Pos.SerializedValue;
-            dto.ObjectId = ObjectId;
-            dto.Type = ObjectType;
-            dto.HpUsed = MaxStability - Stability;
-            dto.MaxHp = MaxStability;
-            dto.Name = Name;
-            dto.Team = ActualTeam; // Important to use field - don't want to lose track of it in round-tripping
-            dto.State = State;
-            dto.IsHidden = IsHidden;
-            dto.Corruption = Corruption;
-        }
 
         /// <summary>
         /// Gets a value indicating whether or not this object can be corrupted.

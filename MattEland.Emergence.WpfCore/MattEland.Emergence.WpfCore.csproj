@@ -53,12 +53,6 @@
     <Reference Include="JetBrains.Annotations">
       <HintPath>C:\Users\MattE\.nuget\packages\jetbrains.annotations\2019.1.1\lib\netstandard2.0\JetBrains.Annotations.dll</HintPath>
     </Reference>
-    <Reference Include="LanguageExt.Core">
-      <HintPath>C:\Users\Matt\.nuget\packages\languageext.core\3.1.21\lib\netstandard2.0\LanguageExt.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="MattEland.Emergence.LevelGen">
-      <HintPath>..\MattEland.Emergence.LevelGen\bin\Debug\netstandard2.0\MattEland.Emergence.LevelGen.dll</HintPath>
-    </Reference>
     <Reference Include="MattEland.Shared, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MattEland.Shared.1.0.4\lib\netstandard2.0\MattEland.Shared.dll</HintPath>
     </Reference>

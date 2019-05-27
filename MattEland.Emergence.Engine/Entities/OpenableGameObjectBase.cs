@@ -16,22 +16,6 @@ namespace MattEland.Emergence.Engine.Entities
         public override bool IsInteractive => true;
 
         /// <inheritdoc />
-        protected override GameObjectDto CreateDto()
-        {
-            return new OpenableDto();
-        }
-
-        /// <inheritdoc />
-        protected override void ConfigureDto(GameObjectDto dto)
-        {
-            base.ConfigureDto(dto);
-
-            var openableDto = (OpenableDto) dto;
-
-            openableDto.IsOpen = IsOpen;
-        }
-
-        /// <inheritdoc />
         public override bool OnActorAttemptedEnter(CommandContext context, Actor actor)
         {
             if (!IsOpen)

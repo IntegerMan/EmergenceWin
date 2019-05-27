@@ -113,43 +113,6 @@ namespace MattEland.Emergence.Engine.Entities
             return false;
         }
 
-        protected override GameObjectDto CreateDto()
-        {
-            return new PlayerDto();
-        }
-
-        protected override void ConfigureDto(GameObjectDto dto)
-        {
-            base.ConfigureDto(dto);
-
-            var playerDto = (PlayerDto)dto;
-
-            playerDto.Hotbar = BuildCommandInfoDtos(HotbarCommands);
-            playerDto.StoredCommands = BuildCommandInfoDtos(StoredCommands);
-        }
-
-        private static List<CommandInfoDto> BuildCommandInfoDtos([NotNull] IEnumerable<ICommandInstance> instances)
-        {
-            var commandInfoDtos = new List<CommandInfoDto>();
-            foreach (var commandInstance in instances)
-            {
-                if (commandInstance == null)
-                {
-                    commandInfoDtos.Add(null);
-                    continue;
-                }
-
-
-                var infoDto = commandInstance.Command != null
-                    ? commandInstance.Command.BuildDto(commandInstance.IsActive)
-                    : new CommandInfoDto { IsActive = commandInstance.IsActive };
-
-                commandInfoDtos.Add(infoDto);
-            }
-
-            return commandInfoDtos;
-        }
-
         /// <inheritdoc />
         public override bool IsPlayer => true;
 
