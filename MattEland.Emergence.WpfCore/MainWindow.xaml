@@ -4,21 +4,31 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModels="clr-namespace:MattEland.Emergence.WpfCore.ViewModels"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        WindowStartupLocation="CenterScreen"
         mc:Ignorable="d"
-        Title="Emergence Test Client"
+        Title="Emergence Client"
+        Height="800" Width="1480" 
         KeyDown="MainWindow_OnKeyDown"
-        Width="1024" Height="600"
         Loaded="OnWindowLoaded"
         d:DataContext="{d:DesignInstance viewModels:GameViewModel}">
-  <Grid>
+
+  <Grid Margin="8">
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="*" />
       <ColumnDefinition Width="5" />
       <ColumnDefinition Width="300" />
     </Grid.ColumnDefinitions>
 
-    <Border Background="Black" ClipToBounds="True">
-      <ItemsControl ItemsSource="{Binding WorldObjects}" Margin="4">
+    <Border ClipToBounds="True" Background="Black">
+      <ItemsControl ItemsSource="{Binding WorldObjects}" >
         <ItemsControl.ItemsPanel>
           <ItemsPanelTemplate>
             <Canvas />
@@ -49,13 +59,26 @@
       </ItemsControl>
     </Border>
 
-    <TabControl Grid.Column="2">
-      <TabItem Header="Messages">
-        <ListBox ItemsSource="{Binding Messages}" DisplayMemberPath="Text" />
-      </TabItem>
-      <TabItem Header="Objects">
-        <ListBox ItemsSource="{Binding WorldObjects}" DisplayMemberPath="Tag" />
-      </TabItem>
-    </TabControl>
+    <Grid Grid.Column="2">
+      <Grid.RowDefinitions>
+        <RowDefinition></RowDefinition>
+        <RowDefinition Height="8"></RowDefinition>
+        <RowDefinition></RowDefinition>
+      </Grid.RowDefinitions>
+
+      <materialDesign:Card VerticalAlignment="Stretch">
+        <DockPanel>
+          <TextBlock Text="Messages" DockPanel.Dock="Top" Margin="8" Style="{StaticResource MaterialDesignTitleTextBlock}"></TextBlock>
+          <ListBox ItemsSource="{Binding Messages}" DisplayMemberPath="Text" />
+        </DockPanel>
+      </materialDesign:Card>
+
+      <materialDesign:Card Grid.Row="2">
+        <DockPanel>
+          <TextBlock Text="Objects" DockPanel.Dock="Top" Margin="8" Style="{StaticResource MaterialDesignTitleTextBlock}"></TextBlock>
+          <ListBox ItemsSource="{Binding WorldObjects}" DisplayMemberPath="Tag" />
+        </DockPanel>
+      </materialDesign:Card>
+    </Grid>
   </Grid>
 </Window>

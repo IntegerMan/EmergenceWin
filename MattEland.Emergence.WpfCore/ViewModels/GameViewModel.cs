@@ -92,8 +92,8 @@ namespace MattEland.Emergence.WpfCore.ViewModels
 
         public void CenterOn(Pos2D pos)
         {
-            XOffset = -(pos.X - 15);
-            YOffset = -(pos.Y - 10);
+            XOffset = -(pos.X - 25);
+            YOffset = -(pos.Y - 15);
 
             WorldObjects.Each(o => { o.NotifyOffsetChanged(); });
         }

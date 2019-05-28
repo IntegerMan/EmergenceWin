@@ -124,25 +124,24 @@ namespace MattEland.Emergence.Engine.Level
             if (Actor != null && matcherFunc(Actor))
             {
                 Actor = null;
-            }
 
-            if (Core != null && matcherFunc(Core))
-            {
-                Core = null;
+                if (Core != null && matcherFunc(Core))
+                {
+                    Core = null;
+                }
             }
-            
         }
 
         public bool RemoveObject(GameObjectBase gameObject)
         {
-            if (Core == gameObject)
-            {
-                Core = null;
-            }
-
             if (Actor == gameObject)
             {
                 Actor = null;
+
+                if (Core == gameObject)
+                {
+                    Core = null;
+                }
             }
 
             return _objects.Remove(gameObject);
