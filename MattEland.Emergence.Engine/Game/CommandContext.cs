@@ -279,11 +279,7 @@ namespace MattEland.Emergence.Engine.Game
             UpdateObject(Player);
         }
 
-        private void EndGame()
-        {
-            Level.Objects.Where(o => !o.IsPlayer).EachSafe(RemoveObject);
-            IsGameOver = true;
-        }
+        private void EndGame() => IsGameOver = true;
 
         public bool IsGameOver { get; set; }
 
