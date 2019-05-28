@@ -70,7 +70,7 @@ namespace MattEland.Emergence.Tests
         {
             // Arrange
             var pos = Player.Pos.GetNeighbor(MoveDirection.Left);
-            var target = Context.AddObject(GameObjectFactory.CreateFromObjectType(Actors.Bit, GameObjectType.Actor, pos));
+            var target = Context.AddObject(GameObjectFactory.CreateActor(Actors.Bit, pos));
 
             // Act
             GameService.MovePlayer(MoveDirection.Left);
@@ -86,7 +86,7 @@ namespace MattEland.Emergence.Tests
             // Arrange
             var oldPos = Player.Pos;
             var pos = Player.Pos.GetNeighbor(MoveDirection.Left);
-            Context.AddObject(GameObjectFactory.CreateFromObjectType(Actors.Bit, GameObjectType.Actor, pos));
+            Context.AddObject(GameObjectFactory.CreateActor(Actors.Bit, pos));
 
             // Act
             GameService.MovePlayer(MoveDirection.Left);

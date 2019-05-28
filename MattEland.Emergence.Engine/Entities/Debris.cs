@@ -3,7 +3,7 @@ using MattEland.Emergence.Engine.Model;
 
 namespace MattEland.Emergence.Engine.Entities
 {
-    public class Debris : GameObjectBase
+    public class Debris : WalkableObject
     {
         public Debris(GameObjectDto dto) : base(dto)
         {

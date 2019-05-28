@@ -22,7 +22,7 @@ namespace MattEland.Emergence.Engine.Entities
         {
             ObjectType = dto.Type;
             ObjectId = dto.ObjectId;
-            Pos = Pos2D.FromString(dto.Pos);
+            Pos = dto.Pos;
             Stability = dto.MaxHp - dto.HpUsed;
             MaxStability = dto.MaxHp;
             Name = dto.Name;

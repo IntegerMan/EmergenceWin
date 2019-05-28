@@ -33,7 +33,7 @@ namespace MattEland.Emergence.Tests
         [NotNull]
         protected GameObjectBase CreateTurret(Pos2D pos)
         {
-            var turret = GameObjectFactory.CreateFromObjectType(Actors.Turret, GameObjectType.Actor, pos);
+            var turret = GameObjectFactory.CreateActor(Actors.Turret, pos);
 
             Context.AddObject(turret);
 

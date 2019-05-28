@@ -176,17 +176,6 @@ namespace MattEland.Emergence.Engine.Level.Generation
         }
 
         /// <summary>
-        /// Adds a rectangular room to the level.
-        /// </summary>
-        /// <param name="upperLeft">The upper left corner for the room.</param>
-        /// <param name="size">The size of the room.</param>
-        /// <returns>The unique identifier of the room, for encounter generation.</returns>
-        public Guid AddRectangularRoom(Pos2D upperLeft, Pos2D size)
-        {
-            return _prefabService.AddRectangularRoom(this, upperLeft, size);
-        }
-
-        /// <summary>
         /// Creates a level out of the current state and returns that <see cref="LevelData"/> instance.
         /// </summary>
         /// <returns>LevelData.</returns>
@@ -239,7 +228,7 @@ namespace MattEland.Emergence.Engine.Level.Generation
             {
                 level.AddObject(new Floor(new GameObjectDto
                 {
-                    Pos = cell.Pos.SerializedValue,
+                    Pos = cell.Pos,
                     Type = GameObjectType.Floor
                 }, cell.FloorType));
             }

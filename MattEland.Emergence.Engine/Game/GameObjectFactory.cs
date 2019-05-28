@@ -36,7 +36,7 @@ namespace MattEland.Emergence.Engine.Game
                     return BuildActor((ActorDto) dto);
 
                 case GameObjectType.Wall:
-                    return new Wall(dto);
+                    return CreateWall(dto.Pos, false);
 
                 case GameObjectType.Door:
                     return new Door((OpenableDto)dto);
@@ -203,7 +203,7 @@ namespace MattEland.Emergence.Engine.Game
             // Set the basic properties
             dto.ObjectId = definition.Id;
             dto.Type = objectType;
-            dto.Pos = position.SerializedValue;
+            dto.Pos = position;
 
             // Copy over basic stats
             dto.MaxHp = definition.Hp;
@@ -222,48 +222,6 @@ namespace MattEland.Emergence.Engine.Game
             dto.LootRarity = definition.LootRarity;
 
             return dto;
-        }
-
-        public static GameObjectBase CreateFromObjectType(string id, GameObjectType objectType, Pos2D position, Action<GameObjectDto> configure = null)
-        {
-
-            // Figure out which DTO to build
-            GameObjectDto dto;
-            switch (objectType)
-            {
-                case GameObjectType.Player:
-                    dto = new PlayerDto();
-                    break;
-
-                case GameObjectType.Turret:
-                    return CreateFromDto(SetEntityStats(new ActorDto(ActorType.Turret), Actors.Turret, objectType, position));
-
-                case GameObjectType.Core:
-                    return CreateFromDto(SetEntityStats(new ActorDto(ActorType.Core), Actors.Core, objectType, position));
-
-                case GameObjectType.Actor:
-                    return CreateFromDto(SetEntityStats(new ActorDto(GetActorType(id)), id, objectType, position));
-
-                case GameObjectType.Door:
-                case GameObjectType.Treasure:
-                    dto = new OpenableDto();
-                    break;
-
-                default:
-                    dto = new GameObjectDto();
-                    break;
-            }
-
-            // Set common properties on dto
-            dto.Type = objectType;
-            dto.ObjectId = id;
-            dto.Pos = position.SerializedValue;
-            dto.HpUsed = 0;
-            dto.MaxHp = 10;
-
-            configure?.Invoke(dto);
-
-            return CreateFromDto(dto);
         }
 
         private static ActorType GetActorType(string id)
@@ -302,8 +260,46 @@ namespace MattEland.Emergence.Engine.Game
             }
         }
 
-        public static GameObjectBase CreateObject(string id, GameObjectType objType, Pos2D pos, Action<GameObjectDto> configure = null) 
-            => GameObjectFactory.CreateFromObjectType(id, objType, pos, configure);
+        public static GameObjectBase CreateObject(string id, GameObjectType objType, Pos2D pos, Action<GameObjectDto> configure = null)
+        {
+            // Figure out which DTO to build
+            GameObjectDto dto;
+            switch (objType)
+            {
+                case GameObjectType.Player:
+                    dto = new PlayerDto();
+                    break;
+
+                case GameObjectType.Turret:
+                    return CreateFromDto(SetEntityStats(new ActorDto(ActorType.Turret), Actors.Turret, objType, pos));
+
+                case GameObjectType.Core:
+                    return CreateCore(pos);
+
+                case GameObjectType.Actor:
+                    return CreateFromDto(SetEntityStats(new ActorDto(GetActorType(id)), id, objType, pos));
+
+                case GameObjectType.Door:
+                case GameObjectType.Treasure:
+                    dto = new OpenableDto();
+                    break;
+
+                default:
+                    dto = new GameObjectDto();
+                    break;
+            }
+
+            // Set common properties on dto
+            dto.Type = objType;
+            dto.ObjectId = id;
+            dto.Pos = pos;
+            dto.HpUsed = 0;
+            dto.MaxHp = 10;
+
+            configure?.Invoke(dto);
+
+            return CreateFromDto(dto);
+        }
 
 
         public static GameObjectBase CreateWall(Pos2D pos, bool isExterior)
@@ -311,7 +307,7 @@ namespace MattEland.Emergence.Engine.Game
             var hp = 3;
             var dto = new GameObjectDto
             {
-                Pos = pos.SerializedValue,
+                Pos = pos,
                 Type = GameObjectType.Wall,
                 MaxHp = hp,
                 HpUsed = 0,
@@ -329,5 +325,10 @@ namespace MattEland.Emergence.Engine.Game
 
             return wall;
         }
+
+        public static GameObjectBase CreateCore(Pos2D pos) 
+            => CreateFromDto(SetEntityStats(new ActorDto(ActorType.Core), Actors.Core, GameObjectType.Core, pos));
+
+        public static GameObjectBase CreateActor(string id, Pos2D pos) => CreateObject(id, GameObjectType.Actor, pos);
     }
 }

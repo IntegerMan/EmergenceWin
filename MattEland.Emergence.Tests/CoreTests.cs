@@ -16,7 +16,7 @@ namespace MattEland.Emergence.Tests
             // Arrange
             var direction = MoveDirection.Left;
             var targetPos = Player.Pos.GetNeighbor(direction);
-            var core = GameObjectFactory.CreateFromObjectType(Actors.Core, GameObjectType.Core, targetPos);
+            var core = GameObjectFactory.CreateCore(targetPos);
             Context.AddObject(core);
             Context.ClearMessages();
 

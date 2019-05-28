@@ -13,7 +13,7 @@ namespace MattEland.Emergence.Engine.DTOs
         /// Gets the position of the object within the game world.
         /// </summary>
         /// <value>The position of the object.</value>
-        public string Pos { get; set; }
+        public Pos2D Pos { get; set; }
 
         /// <summary>
         /// Gets the type of the game object.
