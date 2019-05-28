@@ -11,9 +11,9 @@ namespace MattEland.Emergence.Tests
     public class HelpTests : EmergenceTestBase
     {
         [Theory]
-        [TestCase(0, "help_firewall")]
+        [TestCase(0, "help_firewalls")]
         [TestCase(1, "help_welcome")]
-        [TestCase(2, "help_firewall")]
+        [TestCase(2, "help_firewalls")]
         [TestCase(3, "help_welcome")]
         public void DisplayStandardHelpShouldWork(int corruption, string topic)
         {
