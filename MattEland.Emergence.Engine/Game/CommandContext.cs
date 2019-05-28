@@ -244,25 +244,31 @@ namespace MattEland.Emergence.Engine.Game
 
             var levelType = Level.Id;
 
+            // If we've reached the end of the series of levels, it's time to win.
             if (levelType == levels.Last())
             {
                 EndGame();
                 return;
             }
 
-            // If we've reached the end of the series of levels, it's time to win.
             int levelIndex = levels.IndexOf(levelType);
+            levelType = levels[levelIndex + 1];
 
+            SwitchToLevel(levelType);
+        }
+
+        public void SwitchToLevel(LevelType levelType)
+        {
             Player.ClearKnownCells();
-
-            var nextLevel = GameService.GenerateLevel(new LevelGenerationParameters
-            {
-                LevelType = levels[levelIndex + 1],
-                PlayerId = Player.ObjectId
-            }, Player);
 
             // Generate messages for the level pieces that need to go away
             Level.Objects.Where(o => !o.IsPlayer).EachSafe(RemoveObject);
+
+            var nextLevel = GameService.GenerateLevel(new LevelGenerationParameters
+            {
+                LevelType = levelType,
+                PlayerId = Player.ObjectId
+            }, Player);
 
             SetLevel(nextLevel);
 

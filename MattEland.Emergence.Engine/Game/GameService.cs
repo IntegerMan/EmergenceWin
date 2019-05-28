@@ -137,6 +137,6 @@ namespace MattEland.Emergence.Engine.Game
             return HandleCommand(moveCommand, targetPos);
         }
 
-        public LevelData GenerateLevel(LevelGenerationParameters levelParams, Player player) => Level = _levelService.GenerateLevel(levelParams, player);
+        internal LevelData GenerateLevel(LevelGenerationParameters levelParams, Player player) => Level = _levelService.GenerateLevel(levelParams, player);
     }
 }

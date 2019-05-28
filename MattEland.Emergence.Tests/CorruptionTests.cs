@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using MattEland.Emergence.Engine.Game;
+using MattEland.Emergence.Engine.Level;
 using MattEland.Emergence.Engine.Model;
 using MattEland.Emergence.Engine.Services;
 using MattEland.Shared.Collections;
@@ -53,13 +54,12 @@ namespace MattEland.Emergence.Tests
         public void SpreadCorruptionShouldCauseCorruptionToSpread()
         {
             // Arrange
-            int numCells = Context.Level.Cells.Count;
-            var cell = Context.Level.GetCell(Player.Pos);
-            cell.Corruption = 1;
+            Context.SwitchToLevel(LevelType.TestDoors);
+            Context.Level.Cells.Each(c => c.Corruption = 1);
             int initialCorruption = Context.Level.Cells.Sum(c => c.Corruption);
 
             // Act
-            CorruptionHelper.SpreadCorruption(Context, numCells ^ 5);
+            CorruptionHelper.SpreadCorruption(Context, 1);
 
             // Assert
             Context.Level.Cells.Sum(c => c.Corruption).ShouldBeGreaterThan(initialCorruption);
