@@ -86,6 +86,7 @@
     <Compile Include="TeleportationTests.cs" />
     <Compile Include="TestRandomizer.cs" />
     <Compile Include="ViewModels\CommandViewModelTests.cs" />
+    <Compile Include="ViewModels\GameViewModelTests.cs" />
     <Compile Include="ViewModels\MessageViewModelTests.cs" />
     <Compile Include="VisionTests.cs" />
     <Compile Include="WallTests.cs" />
