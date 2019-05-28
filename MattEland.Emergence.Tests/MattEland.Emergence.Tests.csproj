@@ -68,6 +68,7 @@
   <ItemGroup>
     <Compile Include="CombatTests.cs" />
     <Compile Include="Commands\EscapeCommandTests.cs" />
+    <Compile Include="Commands\OverloadCommandTests.cs" />
     <Compile Include="CoreTests.cs" />
     <Compile Include="CorruptionTests.cs" />
     <Compile Include="DoorTests.cs" />
@@ -83,6 +84,7 @@
     <Compile Include="ViewModels\CommandViewModelTests.cs" />
     <Compile Include="ViewModels\MessageViewModelTests.cs" />
     <Compile Include="VisionTests.cs" />
+    <Compile Include="WallTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
