@@ -78,6 +78,7 @@
         /// A block used to select a specific character on the character selection screen.
         /// </summary>
         CharacterSelect = 18,
-        GenericPickup = 19
+        GenericPickup = 19,
+        Floor
     }
 }

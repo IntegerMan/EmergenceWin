@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using MattEland.Emergence.Engine.Model;
 using MattEland.Emergence.WpfCore.ViewModels;
@@ -50,6 +51,14 @@ namespace MattEland.Emergence.WpfCore
                     break;
 
             }
+        }
+
+        private void OnCommandClicked(object sender, RoutedEventArgs e)
+        {
+            Button b = (Button) e.Source;
+            CommandViewModel vm = (CommandViewModel) b.DataContext;
+
+            vm.Execute();
         }
     }
 }

@@ -82,6 +82,7 @@ namespace MattEland.Emergence.Engine.Level
                 case GameObjectType.Help:
                     return true;
 
+                case GameObjectType.Floor:
                 default:
                     return false;
             }

@@ -37,7 +37,7 @@
           </ItemsControl.ItemsPanel>
           <ItemsControl.ItemTemplate>
             <DataTemplate>
-              <Button Style="{DynamicResource MaterialDesignRaisedButton}" Margin="8 8 0 8" Content="{Binding Content}"></Button>
+              <Button Style="{DynamicResource MaterialDesignRaisedButton}" Margin="8 8 0 8" Content="{Binding Content}" Click="OnCommandClicked"></Button>
             </DataTemplate>
           </ItemsControl.ItemTemplate>
         </ItemsControl>

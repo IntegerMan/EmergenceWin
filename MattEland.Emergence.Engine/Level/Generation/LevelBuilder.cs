@@ -234,7 +234,8 @@ namespace MattEland.Emergence.Engine.Level.Generation
             {
                 level.AddObject(new Floor(new GameObjectDto
                 {
-                    Pos = cell.Pos.SerializedValue
+                    Pos = cell.Pos.SerializedValue,
+                    Type = GameObjectType.Floor
                 }, cell.FloorType));
             }
         }

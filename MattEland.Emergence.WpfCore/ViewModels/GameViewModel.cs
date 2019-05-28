@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using MattEland.Emergence.Engine;
+using MattEland.Emergence.Engine.Commands;
 using MattEland.Emergence.Engine.Entities;
 using MattEland.Emergence.Engine.Game;
 using MattEland.Emergence.Engine.Level;
@@ -24,11 +25,7 @@ namespace MattEland.Emergence.WpfCore.ViewModels
 
             GameCreationConfigurator.ConfigureObjectCreation();
 
-            var context = _gameManager.StartNewGame();
-
-            ProcessMessages(context.Messages);
-
-            UpdateCommands(context);
+            Update(_gameManager.StartNewGame());
         }
 
         private void ProcessMessages(IEnumerable<GameMessage> messages)
@@ -72,7 +69,7 @@ namespace MattEland.Emergence.WpfCore.ViewModels
         {
             Commands.Clear();
 
-            context.Player.Commands.Each(c => Commands.Add(new CommandViewModel(c)));
+            context.Player.Commands.Each(c => Commands.Add(new CommandViewModel(c, this)));
 
         }
 
@@ -84,9 +81,10 @@ namespace MattEland.Emergence.WpfCore.ViewModels
 
         public int YOffset { get; set; } = -35;
 
-        public void MovePlayer(MoveDirection direction)
+        public void MovePlayer(MoveDirection direction) => Update(_gameManager.MovePlayer(direction));
+
+        private void Update(CommandContext context)
         {
-            var context = _gameManager.MovePlayer(direction);
             ProcessMessages(context.Messages);
             UpdateCommands(context);
         }
@@ -109,5 +107,7 @@ namespace MattEland.Emergence.WpfCore.ViewModels
 
             WorldObjects.Each(o => { o.NotifyOffsetChanged(); });
         }
+
+        public void HandleCommand(GameCommand command) => Update(_gameManager.HandleCommand(command, _gameManager.Player.Pos));
     }
 }

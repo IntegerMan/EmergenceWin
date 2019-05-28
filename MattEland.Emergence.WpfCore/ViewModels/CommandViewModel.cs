@@ -8,10 +8,12 @@ namespace MattEland.Emergence.WpfCore.ViewModels
 {
     public class CommandViewModel : INotifyPropertyChanged
     {
+        private readonly GameViewModel _game;
         public CommandInstance CommandInstance { get; }
 
-        public CommandViewModel([NotNull] CommandInstance commandInstance)
+        public CommandViewModel([NotNull] CommandInstance commandInstance, GameViewModel game)
         {
+            _game = game;
             CommandInstance = commandInstance ?? throw new ArgumentNullException(nameof(commandInstance));
         }
 
@@ -23,6 +25,14 @@ namespace MattEland.Emergence.WpfCore.ViewModels
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public void Execute()
+        {
+            if (CommandInstance.Command != null)
+            {
+                _game.HandleCommand(CommandInstance.Command);
+            }
         }
     }
 }

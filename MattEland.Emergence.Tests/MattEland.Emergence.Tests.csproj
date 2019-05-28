@@ -67,6 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CombatTests.cs" />
+    <Compile Include="Commands\EscapeCommandTests.cs" />
     <Compile Include="CoreTests.cs" />
     <Compile Include="CorruptionTests.cs" />
     <Compile Include="DoorTests.cs" />

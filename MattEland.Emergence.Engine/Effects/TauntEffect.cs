@@ -13,5 +13,6 @@ namespace MattEland.Emergence.Engine.Effects
             Text = text ?? throw new ArgumentNullException(nameof(text));
         }
 
+        public override string ToString() => $"Taunt: {Text}";
     }
 }

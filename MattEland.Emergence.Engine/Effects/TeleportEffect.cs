@@ -12,6 +12,7 @@ namespace MattEland.Emergence.Engine.Effects
             StartPos = startPos;
             EndPos = endPos;
         }
-     
+
+        public override string ToString() => $"Teleport from {StartPos} to {EndPos}";
     }
 }
