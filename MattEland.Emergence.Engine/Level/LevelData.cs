@@ -142,7 +142,6 @@ namespace MattEland.Emergence.Engine.Level
             }
         }
 
-
         public bool HasSightBlocker(Pos2D pos)
         {
             // Attempt to grab from cache
@@ -183,14 +182,6 @@ namespace MattEland.Emergence.Engine.Level
             
         }
 
-        public void RemoveAllObjects(Func<GameObjectBase, bool> matcherFunc)
-        {
-            foreach (var cell in Cells)
-            {
-                cell.RemoveAllObjects(matcherFunc);
-            }
-        }
-
         public IEnumerable<GameObjectBase> GetTargetsAtPos(Pos2D pos)
         {
             var cell = GetCell(pos);
@@ -203,34 +194,6 @@ namespace MattEland.Emergence.Engine.Level
             foreach (var obj in cell.Objects.Where(o => o.IsTargetable))
             {
                 yield return obj;
-            }
-        }
-
-        public IEnumerable<GameCell> GetBorderCellsInSquare(Pos2D pos, int radius)
-        {
-            if (radius <= 1) throw new ArgumentOutOfRangeException(nameof(radius), "Radius must be greater than 1");
-
-            return GetBorderCellsInSquarePrivate(pos, radius);
-        }
-
-        private IEnumerable<GameCell> GetBorderCellsInSquarePrivate(Pos2D pos, int radius)
-        {
-            int minX = pos.X - radius;
-            int maxX = pos.X + radius;
-            int minY = pos.Y - radius;
-            int maxY = pos.Y + radius;
-
-            for (int y = minY; y < maxY; y++)
-            {
-                yield return GetCell(new Pos2D(minX, y));
-                yield return GetCell(new Pos2D(maxX, y));
-            }
-
-            // The 1 buffer here is to avoid duplicating corner slots as the y cases handle that already
-            for (int x = minX + 1; x < maxX - 1; x++)
-            {
-                yield return GetCell(new Pos2D(x, minY));
-                yield return GetCell(new Pos2D(x, maxY));
             }
         }
 
