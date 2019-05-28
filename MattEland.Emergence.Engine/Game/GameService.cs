@@ -32,6 +32,8 @@ namespace MattEland.Emergence.Engine.Game
         [NotNull]
         private readonly IRandomization _randomizer;
 
+        private readonly GameCommand _moveCommand;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="GameService"/> class.
         /// </summary>
@@ -42,6 +44,7 @@ namespace MattEland.Emergence.Engine.Game
             _lootProvider = new LootProvider();
             _levelService = new LevelGenerationService(new PrefabService(), new EncountersService(), new BasicRandomization());
             _randomizer = randomizer ?? new BasicRandomization();
+            _moveCommand = new MoveCommand();
         }
 
         public CommandContext StartNewGame([CanBeNull] NewGameParameters parameters = null)
@@ -83,7 +86,22 @@ namespace MattEland.Emergence.Engine.Game
             return context;
         }
 
-        public CommandContext HandleCommand([NotNull] GameCommand command, Pos2D pos)
+        public CommandContext HandleCommand([NotNull] CommandInstance slot, Pos2D pos)
+        {
+            if (slot?.Command == null) throw new ArgumentNullException(nameof(slot));
+
+            var context = HandleCommand(slot.Command, pos, slot.IsActive);
+
+            if (slot.Command.ActivationType == CommandActivationType.Active)
+            {
+                // TODO: This should really come from context or be set by context
+                slot.IsActive = !slot.IsActive;
+            }
+
+            return context;
+        }
+
+        public CommandContext HandleCommand([NotNull] GameCommand command, Pos2D pos, bool isActive = false)
         {
             if (command == null) throw new ArgumentNullException(nameof(command));
             if (State == GameStatus.GameOver) throw new InvalidOperationException("The game is over. Start a new game to play again.");
@@ -101,7 +119,7 @@ namespace MattEland.Emergence.Engine.Game
                 obj.ApplyActiveEffects(context);
             }
 
-            command.Execute(context, Player, pos, false);
+            command.Execute(context, Player, pos, isActive);
 
             // Give objects and actors a chance to react to the changed state
             foreach (var obj in context.Level.Objects.ToList())
@@ -124,13 +142,7 @@ namespace MattEland.Emergence.Engine.Game
         public int NumMoves { get; set; }
         public Player Player { get; private set; }
 
-        public CommandContext MovePlayer(MoveDirection direction)
-        {
-            var moveCommand = new MoveCommand();
-            var targetPos = Player.Pos.GetNeighbor(direction);
-
-            return HandleCommand(moveCommand, targetPos);
-        }
+        public CommandContext MovePlayer(MoveDirection direction) => HandleCommand(_moveCommand, Player.Pos.GetNeighbor(direction));
 
         internal LevelData GenerateLevel(LevelGenerationParameters levelParams, Player player) => Level = _levelService.GenerateLevel(levelParams, player);
     }

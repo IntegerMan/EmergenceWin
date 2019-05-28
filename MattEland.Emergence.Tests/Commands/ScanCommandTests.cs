@@ -10,7 +10,7 @@ namespace MattEland.Emergence.Tests.Commands
         public void ScanCommandShouldIncreaseVisibleAreaWhenActive()
         {
             // Arrange
-            var command = new ScanCommand();
+            var command = new CommandInstance(new ScanCommand(), false);
             var los = Player.EffectiveLineOfSightRadius;
 
             // Act
@@ -18,6 +18,21 @@ namespace MattEland.Emergence.Tests.Commands
 
             // Assert
             Player.EffectiveLineOfSightRadius.ShouldBeGreaterThan(los);
+        }        
+        
+        [Test]
+        public void ScanCommandActivateAndDeactivateShouldRestoreToOriginalSightRadius()
+        {
+            // Arrange
+            var command = new CommandInstance(new ScanCommand(), false);
+            var los = Player.EffectiveLineOfSightRadius;
+
+            // Act
+            GameService.HandleCommand(command, Player.Pos);
+            GameService.HandleCommand(command, Player.Pos);
+
+            // Assert
+            Player.EffectiveLineOfSightRadius.ShouldBe(los);
         }
     }
 }

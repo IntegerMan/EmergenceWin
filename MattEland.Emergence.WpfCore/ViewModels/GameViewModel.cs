@@ -104,8 +104,12 @@ namespace MattEland.Emergence.WpfCore.ViewModels
             WorldObjects.Each(o => { o.NotifyOffsetChanged(); });
         }
 
-        public void HandleCommand(GameCommand command)
+        public void HandleCommand(CommandInstance slot)
         {
+            var command = slot.Command;
+
+            if (command == null) throw new InvalidOperationException("Cannot execute an empty command");
+
             switch (command.ActivationType)
             {
                 case CommandActivationType.Simple:

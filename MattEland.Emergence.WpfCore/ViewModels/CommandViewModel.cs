@@ -29,10 +29,7 @@ namespace MattEland.Emergence.WpfCore.ViewModels
 
         public void Execute()
         {
-            if (CommandInstance.Command != null)
-            {
-                _game.HandleCommand(CommandInstance.Command);
-            }
+            _game.HandleCommand(CommandInstance);
         }
     }
 }
