@@ -14,25 +14,25 @@ namespace MattEland.Emergence.Engine.Entities
     {
         public Player(PlayerDto dto) : base(dto)
         {
-            HotbarCommands = new List<ICommandInstance>();
+            HotbarCommands = new List<CommandInstance>();
             CreateCommandReferences(dto.Hotbar, HotbarCommands);
 
-            StoredCommands = new List<ICommandInstance>();
+            StoredCommands = new List<CommandInstance>();
             CreateCommandReferences(dto.StoredCommands, StoredCommands);
         }
 
         private static void CreateCommandReferences([CanBeNull] IEnumerable<CommandInfoDto> commandDtos,
-            [NotNull] ICollection<ICommandInstance> commandRefCollection)
+            [NotNull] ICollection<CommandInstance> commandRefCollection)
         {
             if (commandDtos == null) return;
 
             foreach (var commandInfoDto in commandDtos)
             {
-                ICommandInstance reference = null;
+                CommandInstance reference = null;
 
                 if (commandInfoDto != null)
                 {
-                    reference = CreationService.CreateCommandReference(commandInfoDto);
+                    reference = CommandFactory.CreateCommandReference(commandInfoDto);
                 }
 
                 commandRefCollection.Add(reference);
@@ -41,12 +41,12 @@ namespace MattEland.Emergence.Engine.Entities
 
         public override bool HasAi => false;
 
-        [ItemCanBeNull] public IList<ICommandInstance> HotbarCommands { get; }
+        [ItemCanBeNull] public IList<CommandInstance> HotbarCommands { get; }
 
-        [ItemCanBeNull] public IList<ICommandInstance> StoredCommands { get; }
+        [ItemCanBeNull] public IList<CommandInstance> StoredCommands { get; }
 
         [ItemNotNull]
-        public IEnumerable<ICommandInstance> Commands
+        public IEnumerable<CommandInstance> Commands
         {
             get
             {
@@ -91,7 +91,7 @@ namespace MattEland.Emergence.Engine.Entities
             int index = HotbarCommands.IndexOf(null);
             if (index >= 0)
             {
-                HotbarCommands[index] = CreationService.CreateCommandReference(dto);
+                HotbarCommands[index] = CommandFactory.CreateCommandReference(dto);
                 context.AddMessage($"{Name} picks up {command.Name}", ClientMessageType.Success);
                 return true;
             }
@@ -99,7 +99,7 @@ namespace MattEland.Emergence.Engine.Entities
             index = StoredCommands.IndexOf(null);
             if (index >= 0)
             {
-                StoredCommands[index] = CreationService.CreateCommandReference(dto);
+                StoredCommands[index] = CommandFactory.CreateCommandReference(dto);
                 context.AddMessage($"{Name} picks up {command.Name} and stores it", ClientMessageType.Success);
                 return true;
             }

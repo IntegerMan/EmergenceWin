@@ -54,8 +54,6 @@ namespace MattEland.Emergence.Engine.Services
             return CommandCreationFunction(commandId);
         }
 
-        public static ICommandInstance CreateCommandReference(CommandInfoDto dto) => CommandFactory.CreateCommandReference(dto);
-
         public static Func<string, Player> PlayerCreationFunction { get; set; }
         public static Func<LevelType, string, Pos2D, LevelData> LevelCreationFunction { get; set; }
         public static Func<Pos2D, bool, GameObjectBase> WallCreationFunction { get; set; }

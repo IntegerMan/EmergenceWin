@@ -2,7 +2,7 @@
 
 namespace MattEland.Emergence.Engine.Commands
 {
-    public class CommandInstance : ICommandInstance
+    public class CommandInstance
     {
         public CommandInstance([CanBeNull] GameCommand command = null, bool isActive = false)
         {

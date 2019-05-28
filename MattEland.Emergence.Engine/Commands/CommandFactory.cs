@@ -62,7 +62,7 @@ namespace MattEland.Emergence.Engine.Commands
             return dict;
         }
 
-        public static ICommandInstance CreateCommandReference([CanBeNull] CommandInfoDto dto)
+        public static CommandInstance CreateCommandReference([CanBeNull] CommandInfoDto dto)
         {
             GameCommand command = null;
             bool isActive = false;

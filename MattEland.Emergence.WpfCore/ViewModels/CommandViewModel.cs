@@ -8,9 +8,9 @@ namespace MattEland.Emergence.WpfCore.ViewModels
 {
     public class CommandViewModel : INotifyPropertyChanged
     {
-        public ICommandInstance CommandInstance { get; }
+        public CommandInstance CommandInstance { get; }
 
-        public CommandViewModel([NotNull] ICommandInstance commandInstance)
+        public CommandViewModel([NotNull] CommandInstance commandInstance)
         {
             CommandInstance = commandInstance ?? throw new ArgumentNullException(nameof(commandInstance));
         }
