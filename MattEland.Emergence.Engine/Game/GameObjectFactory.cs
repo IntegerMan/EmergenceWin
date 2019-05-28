@@ -286,6 +286,8 @@ namespace MattEland.Emergence.Engine.Game
                 case Actors.KernelWorker: return ActorType.KernelWorker;
                 case Actors.LogicBomb: return ActorType.LogicBomb;
                 case Actors.Virus: return ActorType.Virus;
+                case Actors.Search: return ActorType.QueryAgent;
+                case Actors.SecurityAgent: return ActorType.SecurityAgent;
 
                 case Actors.PlayerAntiVirus:
                 case Actors.PlayerDebugger:
