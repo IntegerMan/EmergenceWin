@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
+using MattEland.Emergence.Engine.Level;
 using MattEland.Emergence.Engine.Services;
 
 namespace MattEland.Emergence.Engine.DTOs
@@ -10,6 +11,11 @@ namespace MattEland.Emergence.Engine.DTOs
     [DebuggerDisplay("(Actor: Pos:{Pos} Type:{Type} Id:{ObjectId} Damage:{HpUsed} OP Spent:{OpUsed})")]
     public class ActorDto : GameObjectDto
     {
+        public ActorDto(ActorType actorType)
+        {
+            ActorType = actorType;
+        }
+
         /// <summary>
         /// Gets or sets the ops points lost from the object's maximum ops. Typically this will be 0 until something uses operations,
         /// and we don't serialize 0 values, so this is a minor performance hack.
@@ -72,5 +78,6 @@ namespace MattEland.Emergence.Engine.DTOs
         public int DamageReceived { get; set; }
         public int CoresCaptured { get; set; }
         public string LastPos { get; set; }
+        public ActorType ActorType { get; set; }
     }
 }

@@ -64,7 +64,7 @@ namespace MattEland.Emergence.Engine.Entities
         /// </summary>
         public Actor(ActorDto dto) : base(dto)
         {
-            ActorType = GetActorType(dto.ObjectId);
+            ActorType = dto.ActorType;
 
             // Max should always be set before current
             MaxStability = dto.MaxHp;
@@ -111,70 +111,6 @@ namespace MattEland.Emergence.Engine.Entities
         /// Gets or sets a value indicating whether or not this object can move.
         /// </summary>
         public bool IsImmobile { get; set; }
-
-        /// <summary>
-        /// Gets the type of the actor from an actor <paramref name="id"/>.
-        /// </summary>
-        /// <param name="id">The actor identifier.</param>
-        /// <returns>The type of actor.</returns>
-        protected static ActorType GetActorType(string id)
-        {
-            if (string.IsNullOrWhiteSpace(id))
-            {
-                throw new ArgumentException("id cannot be null or whitespace", nameof(id));
-            }
-
-            switch (id)
-            {
-                case Actors.Bit:
-                    return ActorType.Bit;
-                case Actors.Daemon:
-                    return ActorType.Daemon;
-                case Actors.AntiVirus:
-                    return ActorType.AntiVirus;
-                case Actors.Defender:
-                    return ActorType.SystemDefender;
-                case Actors.Inspector:
-                    return ActorType.Inspector;
-                case Actors.SecurityAgent:
-                    return ActorType.SecurityAgent;
-                case Actors.GarbageCollector:
-                    return ActorType.GarbageCollector;
-                case Actors.Helpy:
-                    return ActorType.Helpy;
-                case Actors.Search:
-                    return ActorType.QueryAgent;
-                case Actors.KernelWorker:
-                    return ActorType.KernelWorker;
-                case Actors.LogicBomb:
-                    return ActorType.LogicBomb;
-                case Actors.Turret:
-                    return ActorType.Turret;
-                case Actors.Core:
-                    return ActorType.Core;
-                case Actors.Bug:
-                    return ActorType.Bug;
-                case Actors.Worm:
-                    return ActorType.Worm;
-                case Actors.Feature:
-                    return ActorType.Feature;
-                case Actors.Glitch:
-                    return ActorType.Glitch;
-                case Actors.Virus:
-                    return ActorType.Virus;
-                case Actors.PlayerLogistics:
-                case Actors.PlayerMalware:
-                case Actors.PlayerGame:
-                case Actors.PlayerAntiVirus:
-                case Actors.PlayerSearch:
-                case Actors.PlayerForecast:
-                case Actors.PlayerDebugger:
-                    return ActorType.Player;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(id), $"{id} is not supported for getting an actor type");
-            }
-
-        }
 
         /// <inheritdoc />
         public override bool OnActorAttemptedEnter(CommandContext context, Actor actor)

@@ -5,7 +5,6 @@ using MattEland.Emergence.Engine.Commands;
 using MattEland.Emergence.Engine.DTOs;
 using MattEland.Emergence.Engine.Effects;
 using MattEland.Emergence.Engine.Game;
-using MattEland.Emergence.Engine.Model;
 using MattEland.Emergence.Engine.Services;
 using MattEland.Shared.Collections;
 
@@ -171,8 +170,6 @@ namespace MattEland.Emergence.Engine.Entities
                 CorruptionHelper.CleanseNearby(context, this, Pos);
             }
         }
-
-        public override string ForegroundColor => GameColors.Green;
 
     }
 }

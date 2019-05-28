@@ -236,13 +236,13 @@ namespace MattEland.Emergence.Engine.Game
                     break;
 
                 case GameObjectType.Turret:
-                    return CreateFromDto(SetEntityStats(new ActorDto(), Actors.Turret, objectType, position));
+                    return CreateFromDto(SetEntityStats(new ActorDto(ActorType.Turret), Actors.Turret, objectType, position));
 
                 case GameObjectType.Core:
-                    return CreateFromDto(SetEntityStats(new ActorDto(), Actors.Core, objectType, position));
+                    return CreateFromDto(SetEntityStats(new ActorDto(ActorType.Core), Actors.Core, objectType, position));
 
                 case GameObjectType.Actor:
-                    return CreateFromDto(SetEntityStats(new ActorDto(), id, objectType, position));
+                    return CreateFromDto(SetEntityStats(new ActorDto(GetActorType(id)), id, objectType, position));
 
                 case GameObjectType.Door:
                 case GameObjectType.Treasure:
@@ -264,6 +264,40 @@ namespace MattEland.Emergence.Engine.Game
             configure?.Invoke(dto);
 
             return CreateFromDto(dto);
+        }
+
+        private static ActorType GetActorType(string id)
+        {
+            switch (id)
+            {
+                case Actors.Glitch: return ActorType.Glitch;
+                case Actors.Core: return ActorType.Core;
+                case Actors.Feature: return ActorType.Feature;
+                case Actors.Turret: return ActorType.Turret;
+                case Actors.Worm: return ActorType.Worm;
+                case Actors.AntiVirus: return ActorType.AntiVirus;
+                case Actors.Bit: return ActorType.Bit;
+                case Actors.Daemon: return ActorType.Daemon;
+                case Actors.Defender: return ActorType.SystemDefender;
+                case Actors.GarbageCollector: return ActorType.GarbageCollector;
+                case Actors.Helpy: return ActorType.Helpy;
+                case Actors.Inspector: return ActorType.Inspector;
+                case Actors.Bug: return ActorType.Bug;
+                case Actors.KernelWorker: return ActorType.KernelWorker;
+                case Actors.LogicBomb: return ActorType.LogicBomb;
+                case Actors.Virus: return ActorType.Virus;
+
+                case Actors.PlayerAntiVirus:
+                case Actors.PlayerDebugger:
+                case Actors.PlayerLogistics:
+                case Actors.PlayerSearch:
+                case Actors.PlayerMalware:
+                case Actors.PlayerForecast:
+                case Actors.PlayerGame: 
+                    return ActorType.Player;
+
+                default: throw new NotSupportedException($"ActorType mapping not found for actor {id}");
+            }
         }
 
         public static GameObjectBase CreateWall(Pos2D pos, bool isExterior)
