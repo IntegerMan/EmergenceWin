@@ -7,6 +7,7 @@ using JetBrains.Annotations;
 using MattEland.Emergence.Engine.Entities;
 using MattEland.Emergence.Engine.Level;
 using MattEland.Emergence.Engine.Messages;
+using MattEland.Shared.WPF;
 
 namespace MattEland.Emergence.WpfCore.ViewModels
 {
