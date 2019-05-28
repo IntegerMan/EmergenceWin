@@ -23,41 +23,58 @@
   <Grid Margin="8">
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="*" />
-      <ColumnDefinition Width="5" />
+      <ColumnDefinition Width="8" />
       <ColumnDefinition Width="300" />
     </Grid.ColumnDefinitions>
 
-    <Border ClipToBounds="True" Background="Black">
-      <ItemsControl ItemsSource="{Binding WorldObjects}" >
-        <ItemsControl.ItemsPanel>
-          <ItemsPanelTemplate>
-            <Canvas />
-          </ItemsPanelTemplate>
-        </ItemsControl.ItemsPanel>
-        <ItemsControl.ItemTemplate>
-          <DataTemplate>
-            <Border Background="{Binding BackgroundBrush}"
+    <DockPanel>
+      <materialDesign:Card DockPanel.Dock="Bottom" Margin="0 8 0 0">
+        <ItemsControl ItemsSource="{Binding Commands}">
+          <ItemsControl.ItemsPanel>
+            <ItemsPanelTemplate>
+              <StackPanel Orientation="Horizontal"></StackPanel>
+            </ItemsPanelTemplate>
+          </ItemsControl.ItemsPanel>
+          <ItemsControl.ItemTemplate>
+            <DataTemplate>
+              <Button Style="{DynamicResource MaterialDesignRaisedButton}" Margin="8 8 0 8" Content="{Binding Content}"></Button>
+            </DataTemplate>
+          </ItemsControl.ItemTemplate>
+        </ItemsControl>
+      </materialDesign:Card>
+
+      <Border ClipToBounds="True" Background="Black">
+        <ItemsControl ItemsSource="{Binding WorldObjects}" >
+          <ItemsControl.ItemsPanel>
+            <ItemsPanelTemplate>
+              <Canvas />
+            </ItemsPanelTemplate>
+          </ItemsControl.ItemsPanel>
+          <ItemsControl.ItemTemplate>
+            <DataTemplate>
+              <Border Background="{Binding BackgroundBrush}"
                                 Width="{Binding Size}"
                                 Height="{Binding Size}">
-              <TextBlock Text="{Binding Content}"
+                <TextBlock Text="{Binding Content}"
                                        Foreground="{Binding ForegroundBrush}"
                                        FontFamily="Lucida Console"
                                        FontSize="24"
                                        HorizontalAlignment="Center"
                                        VerticalAlignment="Center" />
-            </Border>
-          </DataTemplate>
-        </ItemsControl.ItemTemplate>
-        <ItemsControl.ItemContainerStyle>
-          <Style TargetType="ContentPresenter">
-            <Setter Property="Tag" Value="{Binding Path=Tag}" />
-            <Setter Property="Canvas.Left" Value="{Binding Path=X}" />
-            <Setter Property="Canvas.Top" Value="{Binding Path=Y}" />
-            <Setter Property="Canvas.ZIndex" Value="{Binding Path=ZIndex}" />
-          </Style>
-        </ItemsControl.ItemContainerStyle>
-      </ItemsControl>
-    </Border>
+              </Border>
+            </DataTemplate>
+          </ItemsControl.ItemTemplate>
+          <ItemsControl.ItemContainerStyle>
+            <Style TargetType="ContentPresenter">
+              <Setter Property="Tag" Value="{Binding Path=Tag}" />
+              <Setter Property="Canvas.Left" Value="{Binding Path=X}" />
+              <Setter Property="Canvas.Top" Value="{Binding Path=Y}" />
+              <Setter Property="Canvas.ZIndex" Value="{Binding Path=ZIndex}" />
+            </Style>
+          </ItemsControl.ItemContainerStyle>
+        </ItemsControl>
+      </Border>
+    </DockPanel>
 
     <Grid Grid.Column="2">
       <Grid.RowDefinitions>

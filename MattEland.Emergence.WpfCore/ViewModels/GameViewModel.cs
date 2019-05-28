@@ -27,6 +27,8 @@ namespace MattEland.Emergence.WpfCore.ViewModels
             var context = _gameManager.StartNewGame();
 
             ProcessMessages(context.Messages);
+
+            UpdateCommands(context);
         }
 
         private void ProcessMessages(IEnumerable<GameMessage> messages)
@@ -62,11 +64,20 @@ namespace MattEland.Emergence.WpfCore.ViewModels
 
                 Messages.Add(new MessageViewModel(msg));
             });
-            
+
             CenterOnPlayer();
         }
 
+        private void UpdateCommands(CommandContext context)
+        {
+            Commands.Clear();
+
+            context.Player.Commands.Each(c => Commands.Add(new CommandViewModel(c)));
+
+        }
+
         public IList<WorldObjectViewModel> WorldObjects { get; } = new ObservableCollection<WorldObjectViewModel>();
+        public IList<CommandViewModel> Commands { get; } = new ObservableCollection<CommandViewModel>();
         public IList<MessageViewModel> Messages { get; } = new ObservableCollection<MessageViewModel>();
         
         public int XOffset { get; set; } = 40;
@@ -77,6 +88,7 @@ namespace MattEland.Emergence.WpfCore.ViewModels
         {
             var context = _gameManager.MovePlayer(direction);
             ProcessMessages(context.Messages);
+            UpdateCommands(context);
         }
 
         private void CenterOnPlayer()

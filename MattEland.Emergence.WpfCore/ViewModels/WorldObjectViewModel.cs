@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Windows.Media;
+using JetBrains.Annotations;
 using MattEland.Emergence.Engine.Entities;
 using MattEland.Emergence.Engine.Level;
 using MattEland.Emergence.Engine.Messages;
@@ -50,7 +51,8 @@ namespace MattEland.Emergence.WpfCore.ViewModels
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null) 
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
         public void UpdatePosition(Pos2D newPos)
