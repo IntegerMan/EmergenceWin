@@ -403,6 +403,30 @@ namespace MattEland.Emergence.Engine.Game
         public void AddSoundEffect(OpenableGameObjectBase source, SoundEffects sound) => AddEffect(new SoundEffect(source, sound));
 
         public void ClearMessages() => _messages.Clear();
+
+
+        public void GenerateFillerWallsAsNeeded(Pos2D position)
+        {
+            var borderingPositions = new List<Pos2D>
+            {
+                position.Add(0, 1),
+                position.Add(1, 0),
+                position.Add(0, -1),
+                position.Add(-1, 0)
+            };
+
+            foreach (var borderingPosition in borderingPositions)
+            {
+                if (Level.GetCell(borderingPosition) == null)
+                {
+                    var wall = GameObjectFactory.CreateWall(borderingPosition, Level.IsPosExterior(borderingPosition));
+                    Level.AddCell(new GameCell { Pos = borderingPosition});
+                    AddObject(wall);
+                }
+            }
+            
+        }
+
     }
 
 }

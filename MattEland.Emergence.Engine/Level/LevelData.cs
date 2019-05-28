@@ -160,28 +160,6 @@ namespace MattEland.Emergence.Engine.Level
             return hasSightBlocker;
         }
 
-        public void GenerateFillerWallsAsNeeded(Pos2D position)
-        {
-            var borderingPositions = new List<Pos2D>
-            {
-                position.Add(0, 1),
-                position.Add(1, 0),
-                position.Add(0, -1),
-                position.Add(-1, 0)
-            };
-
-            foreach (var borderingPosition in borderingPositions)
-            {
-                if (GetCell(borderingPosition) == null)
-                {
-                    var wall = GameObjectFactory.CreateWall(borderingPosition, IsPosExterior(borderingPosition));
-                    AddCell(new GameCell { Pos = borderingPosition});
-                    AddObject(wall);
-                }
-            }
-            
-        }
-
         public IEnumerable<GameObjectBase> GetTargetsAtPos(Pos2D pos)
         {
             var cell = GetCell(pos);

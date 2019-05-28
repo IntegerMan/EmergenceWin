@@ -36,7 +36,7 @@ namespace MattEland.Emergence.Engine.Entities
         {
             base.OnDestroyed(context, attacker);
 
-            context.Level.GenerateFillerWallsAsNeeded(Pos);
+            context.GenerateFillerWallsAsNeeded(Pos);
         }
     }
 }
