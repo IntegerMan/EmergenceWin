@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using MattEland.Emergence.Engine.Messages;
+using MattEland.Emergence.Engine.Model;
 using NUnit.Framework;
 using Shouldly;
 
@@ -45,6 +46,22 @@ namespace MattEland.Emergence.Tests
 
             // Assert
             Player.ShouldBe(player);
+        }
+
+        [Test]
+        public void ChangingLevelRepeatedlyShouldEndGame()
+        {
+            // Arrange
+            int numLevels = 6;
+
+            // Act
+            for (int i = 0; i < numLevels; i++)
+            {
+                Context.AdvanceToNextLevel();
+            }
+
+            // Assert
+            Context.IsGameOver.ShouldBeTrue();
         }
 
     }

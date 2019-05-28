@@ -11,18 +11,18 @@ namespace MattEland.Emergence.Tests
     public class HelpTests : EmergenceTestBase
     {
         [Theory]
-        [TestCase(0)]
-        [TestCase(1)]
-        [TestCase(2)]
-        [TestCase(3)]
-        public void DisplayStandardHelpShouldWork(int corruption)
+        [TestCase(0, "help_firewall")]
+        [TestCase(1, "help_welcome")]
+        [TestCase(2, "help_firewall")]
+        [TestCase(3, "help_welcome")]
+        public void DisplayStandardHelpShouldWork(int corruption, string topic)
         {
             // Arrange
             var source = GetHelpTile();
             source.Corruption = corruption;
 
             // Act
-            Context.DisplayHelp(source, "help_welcome");
+            Context.DisplayHelp(source, topic);
 
             // Assert
             Context.Messages.ShouldContain(c => c is HelpTextEffect);
