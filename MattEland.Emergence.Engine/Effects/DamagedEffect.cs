@@ -13,6 +13,7 @@ namespace MattEland.Emergence.Engine.Effects
             Amount = amount;
             DamageType = damageType;
         }
- 
+
+        public override string ToString() => $"Damaged: {Amount} {DamageType:G}";
     }
 }

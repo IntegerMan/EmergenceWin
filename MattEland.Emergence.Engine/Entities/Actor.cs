@@ -115,12 +115,11 @@ namespace MattEland.Emergence.Engine.Entities
         /// <inheritdoc />
         public override bool OnActorAttemptedEnter(CommandContext context, Actor actor)
         {
-            if (actor != this)
-            {
-                context.CombatManager.HandleAttack(context, actor, this, "attacks", actor.AttackDamageType);
-            }
+            if (actor == this) return false;
 
-            return false;
+            context.CombatManager.HandleAttack(context, actor, this, "attacks", actor.AttackDamageType);
+
+            return true;
         }
 
         public virtual DamageType AttackDamageType => DamageType.Normal;

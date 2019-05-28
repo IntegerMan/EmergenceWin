@@ -1,5 +1,8 @@
-﻿using MattEland.Emergence.Engine.Entities;
+﻿using MattEland.Emergence.Engine.DTOs;
+using MattEland.Emergence.Engine.Entities;
+using MattEland.Emergence.Engine.Game;
 using MattEland.Emergence.Engine.Level;
+using MattEland.Emergence.Engine.Model;
 using MattEland.Emergence.Engine.Services;
 using NUnit.Framework;
 using Shouldly;
@@ -61,5 +64,36 @@ namespace MattEland.Emergence.Tests
             // Assert
             message.ShouldBe($"{Player.Name} {Verb} {Turret.Name} for {damage} Damage, terminating it");
         }
+
+        [Test]
+        public void AttackingAWeakActorShouldKillIt()
+        {
+            // Arrange
+            var pos = Player.Pos.GetNeighbor(MoveDirection.Left);
+            var target = Context.AddObject(GameObjectFactory.CreateFromObjectType(Actors.Bit, GameObjectType.Actor, pos));
+
+            // Act
+            GameService.MovePlayer(MoveDirection.Left);
+
+            // Assert
+            target.IsDead.ShouldBeTrue();
+        }
+
+
+        [Test]
+        public void AttackingAWeakActorShouldNotEnterItsCell()
+        {
+            // Arrange
+            var oldPos = Player.Pos;
+            var pos = Player.Pos.GetNeighbor(MoveDirection.Left);
+            Context.AddObject(GameObjectFactory.CreateFromObjectType(Actors.Bit, GameObjectType.Actor, pos));
+
+            // Act
+            GameService.MovePlayer(MoveDirection.Left);
+
+            // Assert
+            Player.Pos.ShouldBe(oldPos);
+        }
+
     }
 }

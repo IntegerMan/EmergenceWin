@@ -130,10 +130,11 @@ namespace MattEland.Emergence.Engine.Game
             Level.Objects.OfType<CharacterSelectTile>().Each(UpdateObject);
         }
 
-        public void AddObject(GameObjectBase obj)
+        public GameObjectBase AddObject(GameObjectBase obj)
         {
             Level.AddObject(obj);
             AddMessage(new CreatedMessage(obj));
+            return obj;
         }
 
         public void DisplayHelp(GameObjectBase source, string helpTopic)

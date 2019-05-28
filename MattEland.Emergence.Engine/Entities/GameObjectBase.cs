@@ -95,7 +95,6 @@ namespace MattEland.Emergence.Engine.Entities
         /// </summary>
         /// <param name="context">The command context.</param>
         /// <param name="actor">The actor entering the cell.</param>
-        /// <param name="cell">The cell.</param>
         /// <returns><c>true</c> if the action is allowable, <c>false</c> if the action was handled and should be prevented.</returns>
         public virtual bool OnActorAttemptedEnter(CommandContext context, Actor actor)
         {
