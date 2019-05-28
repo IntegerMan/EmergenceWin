@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using MattEland.Emergence.Engine.Level;
 using MattEland.Emergence.Engine.Messages;
-using MattEland.Emergence.Engine.Model;
 using NUnit.Framework;
 using Shouldly;
 

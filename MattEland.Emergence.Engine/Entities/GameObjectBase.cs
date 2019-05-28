@@ -4,7 +4,6 @@ using MattEland.Emergence.Engine.DTOs;
 using MattEland.Emergence.Engine.Game;
 using MattEland.Emergence.Engine.Level;
 using MattEland.Emergence.Engine.Model;
-using MattEland.Emergence.Engine.Services;
 
 namespace MattEland.Emergence.Engine.Entities
 {
@@ -178,7 +177,7 @@ namespace MattEland.Emergence.Engine.Entities
 
         public virtual void OnDestroyed(CommandContext context, GameObjectBase attacker)
         {
-            var debris = CreationService.CreateObject(ObjectId, GameObjectType.Debris, Pos);
+            var debris = GameObjectFactory.CreateObject(ObjectId, GameObjectType.Debris, Pos);
 
             context.AddObject(debris);
         }

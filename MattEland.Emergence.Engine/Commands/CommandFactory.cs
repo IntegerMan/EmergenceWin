@@ -4,7 +4,6 @@ using System.Linq;
 using System.Reflection;
 using JetBrains.Annotations;
 using MattEland.Emergence.Engine.DTOs;
-using MattEland.Emergence.Engine.Services;
 
 namespace MattEland.Emergence.Engine.Commands
 {

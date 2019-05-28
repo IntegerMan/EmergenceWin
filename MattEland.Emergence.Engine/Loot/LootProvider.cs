@@ -88,7 +88,7 @@ namespace MattEland.Emergence.Engine.Loot
                 }
 
                 // Actually create the entry
-                var obj = CreationService.CreateObject(entry.ObjectId, entry.ObjectType, source.Pos, dto =>
+                var obj = GameObjectFactory.CreateObject(entry.ObjectId, entry.ObjectType, source.Pos, dto =>
                 {
                     if (!string.IsNullOrWhiteSpace(entry.Name))
                     {

@@ -1,6 +1,5 @@
 ﻿using MattEland.Emergence.Engine.DTOs;
 using MattEland.Emergence.Engine.Effects;
-using MattEland.Emergence.Engine.Entities;
 using MattEland.Emergence.Engine.Game;
 using MattEland.Emergence.WpfCore.ViewModels;
 using NUnit.Framework;

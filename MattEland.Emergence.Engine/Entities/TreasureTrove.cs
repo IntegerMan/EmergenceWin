@@ -43,13 +43,13 @@ namespace MattEland.Emergence.Engine.Entities
             switch (context.Randomizer.GetInt(0, 2))
             {
                 case 0:
-                    context.AddObject(CreationService.CreateObject(Actors.LogicBomb, GameObjectType.Actor, Pos));
+                    context.AddObject(GameObjectFactory.CreateObject(Actors.LogicBomb, GameObjectType.Actor, Pos));
                     break;
                 case 1:
-                    context.AddObject(CreationService.CreateObject(Actors.Bug, GameObjectType.Actor, Pos));
+                    context.AddObject(GameObjectFactory.CreateObject(Actors.Bug, GameObjectType.Actor, Pos));
                     break;
                 case 2:
-                    context.AddObject(CreationService.CreateObject(Actors.Feature, GameObjectType.Actor, Pos));
+                    context.AddObject(GameObjectFactory.CreateObject(Actors.Feature, GameObjectType.Actor, Pos));
                     break;
             }
         }

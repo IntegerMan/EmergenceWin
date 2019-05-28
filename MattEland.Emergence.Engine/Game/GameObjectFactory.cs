@@ -6,7 +6,6 @@ using MattEland.Emergence.Engine.DTOs;
 using MattEland.Emergence.Engine.Entities;
 using MattEland.Emergence.Engine.Level;
 using MattEland.Emergence.Engine.Level.Generation.Encounters;
-using MattEland.Emergence.Engine.Services;
 
 namespace MattEland.Emergence.Engine.Game
 {
@@ -302,6 +301,10 @@ namespace MattEland.Emergence.Engine.Game
                 default: throw new NotSupportedException($"ActorType mapping not found for actor {id}");
             }
         }
+
+        public static GameObjectBase CreateObject(string id, GameObjectType objType, Pos2D pos, Action<GameObjectDto> configure = null) 
+            => GameObjectFactory.CreateFromObjectType(id, objType, pos, configure);
+
 
         public static GameObjectBase CreateWall(Pos2D pos, bool isExterior)
         {

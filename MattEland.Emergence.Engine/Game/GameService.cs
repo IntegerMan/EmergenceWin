@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using GeneticSharp.Domain.Randomizations;
 using JetBrains.Annotations;
@@ -11,9 +10,7 @@ using MattEland.Emergence.Engine.Level.Generation;
 using MattEland.Emergence.Engine.Level.Generation.Encounters;
 using MattEland.Emergence.Engine.Level.Generation.Prefabs;
 using MattEland.Emergence.Engine.Loot;
-using MattEland.Emergence.Engine.Messages;
 using MattEland.Emergence.Engine.Model;
-using MattEland.Emergence.Engine.Services;
 using MattEland.Shared.Collections;
 
 namespace MattEland.Emergence.Engine.Game
@@ -45,8 +42,6 @@ namespace MattEland.Emergence.Engine.Game
             _lootProvider = new LootProvider();
             _levelService = new LevelGenerationService(new PrefabService(), new EncountersService(), new BasicRandomization());
             _randomizer = randomizer ?? new BasicRandomization();
-
-            GameCreationConfigurator.ConfigureObjectCreation();
         }
 
         public CommandContext StartNewGame([CanBeNull] NewGameParameters parameters = null)
@@ -74,7 +69,7 @@ namespace MattEland.Emergence.Engine.Game
 
             // Set up the basic parameters
             var levelParameters = new LevelGenerationParameters { LevelType = LevelType.Tutorial };
-            Player = CreationService.CreatePlayer(parameters.CharacterId);
+            Player = GameObjectFactory.CreatePlayer(parameters.CharacterId);
             Level = _levelService.GenerateLevel(levelParameters, Player);
 
             // Ensure line of sight is calculated

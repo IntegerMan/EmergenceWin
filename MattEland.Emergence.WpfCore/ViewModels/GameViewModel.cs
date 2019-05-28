@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using MattEland.Emergence.Engine;
 using MattEland.Emergence.Engine.Commands;
 using MattEland.Emergence.Engine.Entities;
 using MattEland.Emergence.Engine.Game;
@@ -22,8 +21,6 @@ namespace MattEland.Emergence.WpfCore.ViewModels
         public GameViewModel()
         {
             _gameManager = new GameService();
-
-            GameCreationConfigurator.ConfigureObjectCreation();
 
             Update(_gameManager.StartNewGame());
         }

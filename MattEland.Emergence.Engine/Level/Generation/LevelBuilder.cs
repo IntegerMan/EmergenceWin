@@ -4,9 +4,9 @@ using System.Linq;
 using GeneticSharp.Domain.Randomizations;
 using MattEland.Emergence.Engine.DTOs;
 using MattEland.Emergence.Engine.Entities;
+using MattEland.Emergence.Engine.Game;
 using MattEland.Emergence.Engine.Level.Generation.Encounters;
 using MattEland.Emergence.Engine.Level.Generation.Prefabs;
-using MattEland.Emergence.Engine.Services;
 using MattEland.Shared.Collections;
 
 namespace MattEland.Emergence.Engine.Level.Generation
@@ -200,7 +200,12 @@ namespace MattEland.Emergence.Engine.Level.Generation
             }
 
             // Build out the level object
-            var level = CreationService.CreateLevel(LevelId, LevelName, PlayerStart);
+            var level = new LevelData
+            {
+                Id = LevelId,
+                Name = LevelName,
+                PlayerStart = PlayerStart
+            };
 
             // Copy over the cells into the level
             foreach (var cell in Cells)
@@ -339,7 +344,7 @@ namespace MattEland.Emergence.Engine.Level.Generation
                 cell.RemoveAllObjects(Finder);
 
                 // Replace the door placeholder with a wall
-                cell.AddObject(CreationService.CreateWall(cell.Pos, level.IsPosExterior(cell.Pos)));
+                cell.AddObject(GameObjectFactory.CreateWall(cell.Pos, level.IsPosExterior(cell.Pos)));
 
                 if (cell.FloorType == FloorType.CautionMarker)
                 {
@@ -382,8 +387,8 @@ namespace MattEland.Emergence.Engine.Level.Generation
 
             var objType = _terrainObjects[terrain];
             return objType == GameObjectType.Wall 
-                ? CreationService.CreateWall(pos, false) 
-                : CreationService.CreateObject(null, objType, pos);
+                ? GameObjectFactory.CreateWall(pos, false) 
+                : GameObjectFactory.CreateObject(null, objType, pos);
         }
 
         /// <summary>
@@ -455,7 +460,7 @@ namespace MattEland.Emergence.Engine.Level.Generation
                 cell.FloorType = FloorType.DecorativeTile;
             }
 
-            var obj = CreationService.CreateObject(mapping.ObjId, mapping.ObjType, point);
+            var obj = GameObjectFactory.CreateObject(mapping.ObjId, mapping.ObjType, point);
             cell.AddObject(obj);
 
             return cell;

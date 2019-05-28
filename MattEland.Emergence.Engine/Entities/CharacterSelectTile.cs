@@ -1,7 +1,6 @@
 ﻿using MattEland.Emergence.Engine.DTOs;
 using MattEland.Emergence.Engine.Game;
 using MattEland.Emergence.Engine.Model;
-using MattEland.Emergence.Engine.Services;
 
 namespace MattEland.Emergence.Engine.Entities
 {
@@ -53,7 +52,7 @@ namespace MattEland.Emergence.Engine.Entities
             // Swap the player with the new actor and position it at the tile's location
             if (!IsHidden)
             {
-                context.ReplacePlayer(CreationService.CreatePlayer(ObjectId));
+                context.ReplacePlayer(GameObjectFactory.CreatePlayer(ObjectId));
             }
 
             return true;

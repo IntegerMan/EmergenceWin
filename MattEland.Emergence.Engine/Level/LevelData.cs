@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using MattEland.Emergence.Engine.Entities;
-using MattEland.Emergence.Engine.Services;
+using MattEland.Emergence.Engine.Game;
 
 namespace MattEland.Emergence.Engine.Level
 {
@@ -174,7 +174,7 @@ namespace MattEland.Emergence.Engine.Level
             {
                 if (GetCell(borderingPosition) == null)
                 {
-                    var wall = CreationService.CreateWall(borderingPosition, IsPosExterior(borderingPosition));
+                    var wall = GameObjectFactory.CreateWall(borderingPosition, IsPosExterior(borderingPosition));
                     AddCell(new GameCell { Pos = borderingPosition});
                     AddObject(wall);
                 }

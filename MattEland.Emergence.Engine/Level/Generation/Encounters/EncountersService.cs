@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using GeneticSharp.Domain.Randomizations;
 using MattEland.Emergence.Engine.Entities;
-using MattEland.Emergence.Engine.Services;
+using MattEland.Emergence.Engine.Game;
 
 namespace MattEland.Emergence.Engine.Level.Generation.Encounters
 {
@@ -118,7 +118,7 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
 
                 remainingCells.Remove(matchedCell);
 
-                var gameObject = CreationService.CreateObject(element.ObjectId, element.ObjectType, matchedCell.Pos);
+                var gameObject = GameObjectFactory.CreateObject(element.ObjectId, element.ObjectType, matchedCell.Pos);
                 matchedCell.AddObject(gameObject);
 
                 entities.Add(gameObject);
