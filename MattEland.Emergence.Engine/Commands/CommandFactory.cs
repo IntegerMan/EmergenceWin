@@ -69,7 +69,7 @@ namespace MattEland.Emergence.Engine.Commands
 
             if (dto != null)
             {
-                command = CreationService.CreateCommand(dto.Id);
+                command = CreateCommand(dto.Id);
                 isActive = dto.IsActive;
             }
 

@@ -70,7 +70,7 @@ namespace MattEland.Emergence.Engine.Entities
 
         public bool AttemptPickupItem(CommandContext context, GameObjectBase item)
         {
-            var command = CreationService.CreateCommand(item.ObjectId);
+            var command = CommandFactory.CreateCommand(item.ObjectId);
 
             if (item.IsCorrupted)
             {

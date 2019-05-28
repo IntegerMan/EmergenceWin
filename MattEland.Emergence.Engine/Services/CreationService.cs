@@ -1,6 +1,5 @@
 ﻿using System;
 using JetBrains.Annotations;
-using MattEland.Emergence.Engine.Commands;
 using MattEland.Emergence.Engine.DTOs;
 using MattEland.Emergence.Engine.Entities;
 using MattEland.Emergence.Engine.Game;
@@ -43,21 +42,9 @@ namespace MattEland.Emergence.Engine.Services
         public static GameObjectBase CreateObject(string id, GameObjectType objType, Pos2D pos, Action<GameObjectDto> configure = null) 
             => GameObjectFactory.CreateFromObjectType(id, objType, pos, configure);
 
-
-        public static GameCommand CreateCommand(string commandId)
-        {
-            if (CommandCreationFunction == null)
-            {
-                throw new InvalidOperationException("CommandCreationFunction was not configured.");
-            }
-
-            return CommandCreationFunction(commandId);
-        }
-
         public static Func<string, Player> PlayerCreationFunction { get; set; }
         public static Func<LevelType, string, Pos2D, LevelData> LevelCreationFunction { get; set; }
         public static Func<Pos2D, bool, GameObjectBase> WallCreationFunction { get; set; }
-        public static Func<string, GameCommand> CommandCreationFunction { get; set; }
-
+        
     }
 }

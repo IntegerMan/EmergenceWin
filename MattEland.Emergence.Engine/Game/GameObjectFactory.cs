@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using JetBrains.Annotations;
+using MattEland.Emergence.Engine.Commands;
 using MattEland.Emergence.Engine.DTOs;
 using MattEland.Emergence.Engine.Entities;
 using MattEland.Emergence.Engine.Level;
@@ -162,7 +163,7 @@ namespace MattEland.Emergence.Engine.Game
 
                 if (command != null)
                 {
-                    var commandDef = CreationService.CreateCommand(command);
+                    var commandDef = CommandFactory.CreateCommand(command);
 
                     commandInfoDto = commandDef?.BuildDto(false);
                 }
