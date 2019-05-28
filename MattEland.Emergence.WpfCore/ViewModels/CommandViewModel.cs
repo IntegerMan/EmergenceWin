@@ -8,12 +8,12 @@ namespace MattEland.Emergence.WpfCore.ViewModels
 {
     public class CommandViewModel : INotifyPropertyChanged
     {
-        private readonly GameViewModel _game;
+        [NotNull] private readonly GameViewModel _game;
         public CommandInstance CommandInstance { get; }
 
-        public CommandViewModel([NotNull] CommandInstance commandInstance, GameViewModel game)
+        public CommandViewModel([NotNull] CommandInstance commandInstance, [NotNull] GameViewModel game)
         {
-            _game = game;
+            _game = game ?? throw new ArgumentNullException(nameof(game));
             CommandInstance = commandInstance ?? throw new ArgumentNullException(nameof(commandInstance));
         }
 

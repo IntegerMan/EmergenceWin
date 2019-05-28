@@ -67,7 +67,6 @@ namespace MattEland.Emergence.WpfCore.ViewModels
             Commands.Clear();
 
             context.Player.Commands.Each(c => Commands.Add(new CommandViewModel(c, this)));
-
         }
 
         public IList<WorldObjectViewModel> WorldObjects { get; } = new ObservableCollection<WorldObjectViewModel>();
@@ -105,6 +104,22 @@ namespace MattEland.Emergence.WpfCore.ViewModels
             WorldObjects.Each(o => { o.NotifyOffsetChanged(); });
         }
 
-        public void HandleCommand(GameCommand command) => Update(_gameManager.HandleCommand(command, _gameManager.Player.Pos));
+        public void HandleCommand(GameCommand command)
+        {
+            switch (command.ActivationType)
+            {
+                case CommandActivationType.Simple:
+                case CommandActivationType.Active:
+                    Update(_gameManager.HandleCommand(command, _gameManager.Player.Pos));
+                    break;
+
+                case CommandActivationType.Targeted:
+                    // TODO: Not implemented
+                    break;
+
+                default:
+                    throw new NotSupportedException($"{command.ActivationType:G} commands are not supported from the UI");
+            }
+        }
     }
 }

@@ -19,9 +19,9 @@ namespace MattEland.Emergence.WpfCore.ViewModels
 
         public int Size => 24;
 
-        public Brush ForegroundBrush => Source.ForegroundColor.BuildBrush();
+        public Brush ForegroundBrush => Source.ForegroundColor.GetBrushForHexColor();
         
-        public Brush BackgroundBrush => Source.BackgroundColor.BuildBrush();
+        public Brush BackgroundBrush => Source.BackgroundColor.GetBrushForHexColor();
 
         public string Content => Source.AsciiChar.ToString();
 
