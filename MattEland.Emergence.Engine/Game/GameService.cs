@@ -92,12 +92,6 @@ namespace MattEland.Emergence.Engine.Game
 
             var context = HandleCommand(slot.Command, pos, slot.IsActive);
 
-            if (slot.Command.ActivationType == CommandActivationType.Active)
-            {
-                // TODO: This should really come from context or be set by context
-                slot.IsActive = !slot.IsActive;
-            }
-
             return context;
         }
 
@@ -120,6 +114,12 @@ namespace MattEland.Emergence.Engine.Game
             }
 
             command.Execute(context, Player, pos, isActive);
+
+            if (command.ActivationType == CommandActivationType.Active)
+            {
+                var activeState = !isActive; // TODO: This should really come from context or be set by context
+                Player.SetCommandActiveState(command, activeState);
+            }
 
             // Give objects and actors a chance to react to the changed state
             foreach (var obj in context.Level.Objects.ToList())

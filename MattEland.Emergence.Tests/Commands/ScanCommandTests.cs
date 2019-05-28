@@ -11,12 +11,14 @@ namespace MattEland.Emergence.Tests.Commands
         {
             // Arrange
             var command = new CommandInstance(new ScanCommand(), false);
+            Player.HotbarCommands.Add(command);
             var los = Player.EffectiveLineOfSightRadius;
 
             // Act
             GameService.HandleCommand(command, Player.Pos);
 
             // Assert
+            command.IsActive.ShouldBeTrue();
             Player.EffectiveLineOfSightRadius.ShouldBeGreaterThan(los);
         }        
         
@@ -25,6 +27,7 @@ namespace MattEland.Emergence.Tests.Commands
         {
             // Arrange
             var command = new CommandInstance(new ScanCommand(), false);
+            Player.HotbarCommands.Add(command);
             var los = Player.EffectiveLineOfSightRadius;
 
             // Act
@@ -32,6 +35,7 @@ namespace MattEland.Emergence.Tests.Commands
             GameService.HandleCommand(command, Player.Pos);
 
             // Assert
+            command.IsActive.ShouldBeFalse();
             Player.EffectiveLineOfSightRadius.ShouldBe(los);
         }
     }

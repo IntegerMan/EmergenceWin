@@ -12,7 +12,7 @@ using MattEland.Shared.Collections;
 
 namespace MattEland.Emergence.WpfCore.ViewModels
 {
-    public class GameViewModel
+    public class GameViewModel : ViewModelBase
     {
         private readonly IDictionary<Guid, WorldObjectViewModel> _objects = new Dictionary<Guid, WorldObjectViewModel>();
 
@@ -66,7 +66,7 @@ namespace MattEland.Emergence.WpfCore.ViewModels
         {
             Commands.Clear();
 
-            context.Player.Commands.Each(c => Commands.Add(new CommandViewModel(c, this)));
+            context.Player.HotbarCommands.Each(c => Commands.Add(new CommandViewModel(c, this)));
         }
 
         public IList<WorldObjectViewModel> WorldObjects { get; } = new ObservableCollection<WorldObjectViewModel>();

@@ -240,6 +240,16 @@ namespace MattEland.Emergence.Engine.Entities
             }
         }
 
+        public override void ApplyActiveEffects(CommandContext context)
+        {
+            base.ApplyActiveEffects(context);
+
+            if (ObjectId == Actors.AntiVirus)
+            {
+                CorruptionHelper.CleanseNearby(context, this, Pos);
+            }
+        }
+
         public bool CanSee(Pos2D pos) => VisibleCells != null && VisibleCells.Any(c => c == pos);
 
         public override int ZIndex => 25;

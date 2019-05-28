@@ -6,7 +6,6 @@ using MattEland.Emergence.Engine.DTOs;
 using MattEland.Emergence.Engine.Effects;
 using MattEland.Emergence.Engine.Game;
 using MattEland.Emergence.Engine.Services;
-using MattEland.Shared.Collections;
 
 namespace MattEland.Emergence.Engine.Entities
 {
@@ -118,14 +117,16 @@ namespace MattEland.Emergence.Engine.Entities
 
         public override void SetCommandActiveState(GameCommand command, bool isActive)
         {
+            base.SetCommandActiveState(command, isActive);
+
             if (command == null)
             {
                 return;
             }
 
-            var match = HotbarCommands.FirstOrDefault(c => c?.Command == command);
+            var match = HotbarCommands.FirstOrDefault(c => c?.Command?.Id == command.Id);
 
-            if (match != null)
+            if (match != null && command?.Id != null)
             {
                 match.IsActive = isActive;
             }
@@ -155,19 +156,6 @@ namespace MattEland.Emergence.Engine.Entities
                 AdjustOperationsPoints(-cmd.Command.MaintenanceCost);
 
                 cmd.Command.ApplyEffect(context, this, Pos);
-            }
-        }
-
-        public override void ApplyActiveEffects(CommandContext context)
-        {
-            HotbarCommands.Where(c => c?.Command != null && 
-                                 c.IsActive &&
-                                 c.Command.ActivationType == CommandActivationType.Active)
-                          .Each(c => c.Command.ApplyPreActionEffect(context, this, Pos));
-
-            if (ObjectId == Actors.AntiVirus)
-            {
-                CorruptionHelper.CleanseNearby(context, this, Pos);
             }
         }
 

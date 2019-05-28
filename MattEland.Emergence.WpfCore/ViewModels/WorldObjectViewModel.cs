@@ -1,9 +1,6 @@
 using System;
-using System.ComponentModel;
 using System.Diagnostics;
-using System.Runtime.CompilerServices;
 using System.Windows.Media;
-using JetBrains.Annotations;
 using MattEland.Emergence.Engine.Entities;
 using MattEland.Emergence.Engine.Level;
 using MattEland.Emergence.Engine.Messages;
@@ -12,7 +9,7 @@ using MattEland.Shared.WPF;
 namespace MattEland.Emergence.WpfCore.ViewModels
 {
     [DebuggerDisplay("{Source.GetType().Name} at ({Source.Pos.X}, {Source.Pos.Y}) rendering at ({X}, {Y})")]
-    public class WorldObjectViewModel : INotifyPropertyChanged
+    public class WorldObjectViewModel : ViewModelBase
     {
         private readonly GameViewModel _gameVm;
 
@@ -49,12 +46,6 @@ namespace MattEland.Emergence.WpfCore.ViewModels
             // Notify all properties changed
             OnPropertyChanged(string.Empty);
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
         public void UpdatePosition(Pos2D newPos)
         {

@@ -2,7 +2,7 @@
 
 namespace MattEland.Emergence.WpfCore.ViewModels
 {
-    public class MessageViewModel
+    public class MessageViewModel : ViewModelBase
     {
         public MessageViewModel(GameMessage msg)
         {

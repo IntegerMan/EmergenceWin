@@ -20,11 +20,6 @@ namespace MattEland.Emergence.Engine.Commands
         public override string ShortName => "OVRCLK";
         public override CommandActivationType ActivationType => CommandActivationType.Active;
 
-        public override void ApplyPreActionEffect(CommandContext context, Actor executor, Pos2D pos)
-        {
-            executor.EffectiveStrength += 1;
-        }
-
         protected override void OnActivated(CommandContext context, Actor executor, Pos2D pos)
         {
             executor.EffectiveStrength += 1;

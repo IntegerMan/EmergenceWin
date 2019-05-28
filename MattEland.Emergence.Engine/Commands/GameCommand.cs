@@ -162,11 +162,6 @@ namespace MattEland.Emergence.Engine.Commands
         }
 
 
-        public virtual void ApplyPreActionEffect(CommandContext context, Actor executor, Pos2D pos)
-        {
-
-        }
-
         /// <summary>
         /// Builds a data transmission object based on this instance.
         /// </summary>
