@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using MattEland.Emergence.Engine.Entities;
 using MattEland.Emergence.Engine.Model;
 using MattEland.Emergence.Engine.Services;
@@ -65,7 +61,6 @@ namespace MattEland.Emergence.Tests
             behindCell = Context.Level.GetCell(behindPos);
             behindCell.ShouldNotBeNull();
             behindCell.Objects.OfType<Wall>().Count().ShouldBe(1);
-            
         }
     }
 }
