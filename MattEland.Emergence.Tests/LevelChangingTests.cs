@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using MattEland.Emergence.Engine.Level;
 using MattEland.Emergence.Engine.Messages;
 using MattEland.Emergence.Engine.Model;
 using NUnit.Framework;
@@ -52,13 +53,10 @@ namespace MattEland.Emergence.Tests
         public void ChangingLevelRepeatedlyShouldEndGame()
         {
             // Arrange
-            int numLevels = 6;
+            Context.SwitchToLevel(LevelType.RouterGateway);
 
             // Act
-            for (int i = 0; i < numLevels; i++)
-            {
-                Context.AdvanceToNextLevel();
-            }
+            Context.AdvanceToNextLevel();
 
             // Assert
             Context.IsGameOver.ShouldBeTrue();
