@@ -122,7 +122,7 @@ namespace MattEland.Emergence.WpfCore.ViewModels
         public void MovePlayer(MoveDirection direction)
         {
             UIState = UIState.Executing;
-            Update(_gameManager.MovePlayer(direction));
+            Update(_gameService.MovePlayer(direction));
         }
 
         private void Update(CommandContext context)
@@ -183,7 +183,7 @@ namespace MattEland.Emergence.WpfCore.ViewModels
                 case CommandActivationType.Simple:
                 case CommandActivationType.Active:
                     UIState = UIState.Executing;
-                    Update(_gameManager.HandleCommand(command, _gameManager.Player.Pos));
+                    Update(_gameService.HandleCommand(command, _gameService.Player.Pos));
                     break;
 
                 case CommandActivationType.Targeted:
@@ -202,7 +202,7 @@ namespace MattEland.Emergence.WpfCore.ViewModels
             if (UIState != UIState.SelectingTarget) return;
 
             UIState = UIState.Executing;
-            Update(_gameManager.HandleCommand(TargetedCommand, pos));
+            Update(_gameService.HandleCommand(TargetedCommand, pos));
         }
     }
 }
