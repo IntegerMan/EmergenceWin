@@ -145,5 +145,7 @@ namespace MattEland.Emergence.WpfCore.ViewModels
                     throw new NotSupportedException($"{command.ActivationType:G} commands are not supported from the UI");
             }
         }
+
+        public void Wait() => Update(GameService.Wait());
     }
 }

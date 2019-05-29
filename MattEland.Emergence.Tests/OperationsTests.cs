@@ -10,10 +10,10 @@ namespace MattEland.Emergence.Tests
         public void UsingCommandsShouldDetractOperations()
         {
             // Arrange
-            var command = new OverloadCommand();
+            var command = new CommandInstance(new OverloadCommand());
 
             // Act
-            GameService.HandleCommand(command, Player.Pos);
+            GameViewModel.HandleCommand(command);
 
             // Assert
             Player.Operations.ShouldBeLessThan(Player.MaxOperations);
@@ -26,7 +26,7 @@ namespace MattEland.Emergence.Tests
             Player.Operations = 0;
 
             // Act
-            GameService.Wait();
+            GameViewModel.Wait();
 
             // Assert
             Player.Operations.ShouldBe(1);
