@@ -216,7 +216,7 @@ namespace MattEland.Emergence.Engine.Game
         public CombatManager CombatManager { get; }
         public LootProvider LootProvider { get; }
 
-        [CanBeNull]
+        [NotNull]
         public Player Player { get; private set; }
 
         public LevelData Level { get; private set; }

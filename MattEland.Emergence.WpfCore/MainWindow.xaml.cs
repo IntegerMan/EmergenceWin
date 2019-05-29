@@ -53,12 +53,12 @@ namespace MattEland.Emergence.WpfCore
             }
         }
 
-        private void OnCommandClicked(object sender, RoutedEventArgs e)
-        {
-            Button b = (Button) e.Source;
-            CommandViewModel vm = (CommandViewModel) b.DataContext;
+        private static T GetElementDataContext<T>(RoutedEventArgs e) => (T) ((FrameworkElement) e.Source).DataContext;
 
-            vm.Execute();
-        }
+        private void OnCommandClicked(object sender, RoutedEventArgs e) 
+            => GetElementDataContext<CommandViewModel>(e).Execute();
+
+        private void OnTileClicked(object sender, MouseButtonEventArgs e) 
+            => _vm.HandleTargetedCommandInput(GetElementDataContext<WorldObjectViewModel>(e).Source.Pos);
     }
 }

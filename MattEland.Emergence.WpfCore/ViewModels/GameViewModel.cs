@@ -17,12 +17,53 @@ namespace MattEland.Emergence.WpfCore.ViewModels
         private readonly IDictionary<Guid, WorldObjectViewModel> _objects = new Dictionary<Guid, WorldObjectViewModel>();
 
         private readonly GameService _gameManager;
+        private UIState _uiState;
+        private CommandInstance _targetedCommand;
 
         public GameViewModel()
         {
             _gameManager = new GameService();
 
             Update(_gameManager.StartNewGame());
+        }
+
+        public UIState UIState
+        {
+            get => _uiState;
+            set
+            {
+                if (value == _uiState) return;
+                _uiState = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(UIPrompt));
+            }
+        }
+
+        public CommandInstance TargetedCommand
+        {
+            get => _targetedCommand;
+            set
+            {
+                if (Equals(value, _targetedCommand)) return;
+                _targetedCommand = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(UIPrompt));
+            }
+        }
+
+        public string UIPrompt
+        {
+            get
+            {
+                switch (UIState)
+                {
+                    case UIState.ReadyForInput: return "Ready";
+                    case UIState.Executing: return "Thinking...";
+                    case UIState.SelectingTarget: return $"Select a Target for {TargetedCommand?.Command?.Name}";
+                    case UIState.GameOver: return "Game Over";
+                    default: return $"Unknown UIState: {UIState:G}";
+                }
+            }
         }
 
         private void ProcessMessages(IEnumerable<GameMessage> messages)
@@ -77,12 +118,17 @@ namespace MattEland.Emergence.WpfCore.ViewModels
 
         public int YOffset { get; set; } = -35;
 
-        public void MovePlayer(MoveDirection direction) => Update(_gameManager.MovePlayer(direction));
+        public void MovePlayer(MoveDirection direction)
+        {
+            UIState = UIState.Executing;
+            Update(_gameManager.MovePlayer(direction));
+        }
 
         private void Update(CommandContext context)
         {
             ProcessMessages(context.Messages);
             UpdateCommands(context);
+            UIState = UIState.ReadyForInput;
         }
 
         private void CenterOnPlayer()
@@ -110,20 +156,31 @@ namespace MattEland.Emergence.WpfCore.ViewModels
 
             if (command == null) throw new InvalidOperationException("Cannot execute an empty command");
 
+            TargetedCommand = slot;
+
             switch (command.ActivationType)
             {
                 case CommandActivationType.Simple:
                 case CommandActivationType.Active:
+                    UIState = UIState.Executing;
                     Update(_gameManager.HandleCommand(command, _gameManager.Player.Pos));
                     break;
 
                 case CommandActivationType.Targeted:
-                    // TODO: Not implemented
+                    UIState = UIState.SelectingTarget;
                     break;
 
                 default:
                     throw new NotSupportedException($"{command.ActivationType:G} commands are not supported from the UI");
             }
+        }
+
+        public void HandleTargetedCommandInput(Pos2D pos)
+        {
+            if (UIState != UIState.SelectingTarget) return;
+
+            UIState = UIState.Executing;
+            Update(_gameManager.HandleCommand(TargetedCommand, pos));
         }
     }
 }

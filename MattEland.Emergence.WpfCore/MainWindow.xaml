@@ -28,6 +28,11 @@
     </Grid.ColumnDefinitions>
 
     <DockPanel>
+
+      <materialDesign:Card DockPanel.Dock="Top" Margin="0 0 0 8">
+        <TextBlock Text="{Binding UIPrompt}" Margin="8" />
+      </materialDesign:Card>
+
       <materialDesign:Card DockPanel.Dock="Bottom" Margin="0 8 0 0">
         <ItemsControl ItemsSource="{Binding Commands}">
           <ItemsControl.ItemsPanel>
@@ -53,8 +58,10 @@
           <ItemsControl.ItemTemplate>
             <DataTemplate>
               <Border Background="{Binding BackgroundBrush}"
-                                Width="{Binding Size}"
-                                Height="{Binding Size}">
+                      ToolTip="{Binding ToolTip}"
+                      MouseLeftButtonDown="OnTileClicked"
+                      Width="{Binding Size}"
+                      Height="{Binding Size}">
                 <TextBlock Text="{Binding Content}"
                                        Foreground="{Binding ForegroundBrush}"
                                        FontFamily="Lucida Console"
@@ -86,14 +93,26 @@
       <materialDesign:Card VerticalAlignment="Stretch">
         <DockPanel>
           <TextBlock Text="Messages" DockPanel.Dock="Top" Margin="8" Style="{StaticResource MaterialDesignTitleTextBlock}"></TextBlock>
-          <ListBox ItemsSource="{Binding Messages}" DisplayMemberPath="Text" />
+          <ListBox ItemsSource="{Binding Messages}">
+            <ListBox.ItemTemplate>
+              <DataTemplate>
+                <TextBlock FontSize="10" Text="{Binding Text}" ToolTip="{Binding Text}" />
+              </DataTemplate>
+            </ListBox.ItemTemplate>
+          </ListBox>
         </DockPanel>
       </materialDesign:Card>
 
       <materialDesign:Card Grid.Row="2">
         <DockPanel>
           <TextBlock Text="Objects" DockPanel.Dock="Top" Margin="8" Style="{StaticResource MaterialDesignTitleTextBlock}"></TextBlock>
-          <ListBox ItemsSource="{Binding WorldObjects}" DisplayMemberPath="Tag" />
+          <ListBox ItemsSource="{Binding WorldObjects}">
+            <ListBox.ItemTemplate>
+              <DataTemplate>
+                <TextBlock FontSize="10" Text="{Binding ToolTip}" ToolTip="{Binding ToolTip}" />
+              </DataTemplate>
+            </ListBox.ItemTemplate>
+          </ListBox>
         </DockPanel>
       </materialDesign:Card>
     </Grid>

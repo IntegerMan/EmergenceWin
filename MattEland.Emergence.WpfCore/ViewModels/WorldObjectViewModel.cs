@@ -63,11 +63,10 @@ namespace MattEland.Emergence.WpfCore.ViewModels
         {
             OnPropertyChanged(nameof(X));
             OnPropertyChanged(nameof(Y));
-            OnPropertyChanged(nameof(Tag));
         }
 
-        public string Tag => $"{Content} {Source.Pos}";
+        public string ToolTip => $"{Source.Pos}: {Source.Name}";
 
-        public override string ToString() => Tag;
+        public override string ToString() => ToolTip;
     }
 }
