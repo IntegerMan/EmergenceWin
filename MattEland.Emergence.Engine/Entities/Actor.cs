@@ -124,55 +124,30 @@ namespace MattEland.Emergence.Engine.Entities
 
         public virtual DamageType AttackDamageType => DamageType.Normal;
 
-        public override char AsciiChar
+        private static readonly IDictionary<ActorType, char> _actorCharacters = new Dictionary<ActorType, char>
         {
-            get
-            {
-                switch (ActorType)
-                {
-                    case ActorType.Bit:
-                        return '1';
-                    case ActorType.Daemon:
-                        return 'd';
-                    case ActorType.AntiVirus:
-                        return 'V';
-                    case ActorType.SystemDefender:
-                        return 'D';
-                    case ActorType.Inspector:
-                        return 'i';
-                    case ActorType.SecurityAgent:
-                        return 's';
-                    case ActorType.GarbageCollector:
-                        return 'G';
-                    case ActorType.Helpy:
-                        return '?';
-                    case ActorType.QueryAgent:
-                        return 'q';
-                    case ActorType.KernelWorker:
-                        return 'k';
-                    case ActorType.LogicBomb:
-                        return 'l';
-                    case ActorType.Turret:
-                        return 'T';
-                    case ActorType.Core:
-                        return 'C';
-                    case ActorType.Player:
-                        return '@';
-                    case ActorType.Bug:
-                        return 'b';
-                    case ActorType.Feature:
-                        return 'f';
-                    case ActorType.Virus:
-                        return 'v';
-                    case ActorType.Worm:
-                        return 'w';
-                    case ActorType.Glitch:
-                        return 'g';
-                    default:
-                        return 'a';
-                }
-            }
-        }
+            [ActorType.Bit] = '1',
+            [ActorType.Daemon] = 'd',
+            [ActorType.AntiVirus] = 'V',
+            [ActorType.SystemDefender] = 'D',
+            [ActorType.Inspector] = 'i',
+            [ActorType.SecurityAgent] = 's',
+            [ActorType.GarbageCollector] = 'G',
+            [ActorType.Helpy] = '?',
+            [ActorType.QueryAgent] = 'q',
+            [ActorType.KernelWorker] = 'k',
+            [ActorType.LogicBomb] = 'l',
+            [ActorType.Turret] = 'T',
+            [ActorType.Core] = 'C',
+            [ActorType.Player] = '@',
+            [ActorType.Bug] = 'b',
+            [ActorType.Feature] = 'f',
+            [ActorType.Virus] = 'v',
+            [ActorType.Worm] = 'w',
+            [ActorType.Glitch] = 'g',
+        };
+
+        public override char AsciiChar => _actorCharacters.ContainsKey(ActorType) ? _actorCharacters[ActorType] : 'a';
 
         public virtual void OnWaited(CommandContext context)
         {
@@ -270,25 +245,15 @@ namespace MattEland.Emergence.Engine.Entities
             }
         }
 
-        public override string ForegroundColor {
-            get
-            {
-                switch (Team)
-                {
-                    case Alignment.SystemAntiVirus:
-                        return GameColors.Orange;
-                    case Alignment.SystemSecurity:
-                        return GameColors.Red;
-                    case Alignment.Virus:
-                    case Alignment.Bug:
-                        return GameColors.Purple;
-                    case Alignment.Player:
-                        return GameColors.Green;
-                    default:
-                        return GameColors.Yellow;
-                }
-            }
-        }
+        private static readonly IDictionary<Alignment, string> _teamColors = new Dictionary<Alignment, string>
+        {
+            [Alignment.SystemSecurity] = GameColors.Red,
+            [Alignment.SystemAntiVirus] = GameColors.Orange,
+            [Alignment.Player] = GameColors.Green,
+            [Alignment.Bug] = GameColors.Purple,
+            [Alignment.Virus] = GameColors.Purple
+        };
 
+        public override string ForegroundColor => _teamColors.ContainsKey(Team) ? _teamColors[Team] : GameColors.Yellow;
     }
 }
