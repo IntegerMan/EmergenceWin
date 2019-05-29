@@ -73,6 +73,7 @@
     <Compile Include="Commands\EscapeCommandTests.cs" />
     <Compile Include="Commands\OverloadCommandTests.cs" />
     <Compile Include="Commands\ScanCommandTests.cs" />
+    <Compile Include="Commands\SwapCommandTests.cs" />
     <Compile Include="CoreTests.cs" />
     <Compile Include="CorruptionTests.cs" />
     <Compile Include="DoorTests.cs" />

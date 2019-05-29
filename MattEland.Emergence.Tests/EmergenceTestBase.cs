@@ -1,9 +1,12 @@
-﻿using JetBrains.Annotations;
+﻿using System.Collections.Generic;
+using JetBrains.Annotations;
+using MattEland.Emergence.Engine.Commands;
 using MattEland.Emergence.Engine.DTOs;
 using MattEland.Emergence.Engine.Entities;
 using MattEland.Emergence.Engine.Game;
 using MattEland.Emergence.Engine.Level;
 using MattEland.Emergence.WpfCore.ViewModels;
+using MattEland.Shared.Collections;
 using NUnit.Framework;
 
 namespace MattEland.Emergence.Tests
@@ -46,5 +49,28 @@ namespace MattEland.Emergence.Tests
 
         [NotNull]
         protected static GameService BuildGameService() => new GameService(new TestRandomizer(0));
+
+        [NotNull, ItemNotNull]
+        protected IEnumerable<CommandInstance> SetPlayerCommands(params GameCommand[] commands)
+        {
+            var playerCommands = GameViewModel.Context.Player.HotbarCommands;
+            playerCommands.Clear();
+
+            commands.Each(c => playerCommands.Add(new CommandInstance(c)));
+
+            return playerCommands;
+        }
+
+        [NotNull]
+        protected CommandInstance SetPlayerCommand(GameCommand command)
+        {
+            var playerCommands = GameViewModel.Context.Player.HotbarCommands;
+            playerCommands.Clear();
+
+            var slot = new CommandInstance(command);
+            playerCommands.Add(slot);
+
+            return slot;
+        }
     }
 }
