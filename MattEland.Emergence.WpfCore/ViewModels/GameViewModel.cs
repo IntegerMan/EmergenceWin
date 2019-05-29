@@ -16,15 +16,16 @@ namespace MattEland.Emergence.WpfCore.ViewModels
     {
         private readonly IDictionary<Guid, WorldObjectViewModel> _objects = new Dictionary<Guid, WorldObjectViewModel>();
 
-        private readonly GameService _gameManager;
+        private readonly GameService _gameService;
+        private ActorViewModel _player;
         private UIState _uiState;
         private CommandInstance _targetedCommand;
 
         public GameViewModel()
         {
-            _gameManager = new GameService();
+            _gameService = new GameService();
 
-            Update(_gameManager.StartNewGame());
+            Update(_gameService.StartNewGame());
         }
 
         public UIState UIState
@@ -126,10 +127,29 @@ namespace MattEland.Emergence.WpfCore.ViewModels
 
         private void Update(CommandContext context)
         {
+            Context = context;
+
+            Player = new ActorViewModel(context.Player);
+
             ProcessMessages(context.Messages);
             UpdateCommands(context);
             UIState = UIState.ReadyForInput;
         }
+
+        public CommandContext Context { get; set; }
+
+        public ActorViewModel Player
+        {
+            get => _player;
+            set
+            {
+                if (Equals(value, _player)) return;
+                _player = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public GameService GameService => _gameService;
 
         private void CenterOnPlayer()
         {
@@ -174,6 +194,8 @@ namespace MattEland.Emergence.WpfCore.ViewModels
                     throw new NotSupportedException($"{command.ActivationType:G} commands are not supported from the UI");
             }
         }
+
+        public void Wait() => Update(GameService.Wait());
 
         public void HandleTargetedCommandInput(Pos2D pos)
         {

@@ -85,12 +85,27 @@
 
     <Grid Grid.Column="2">
       <Grid.RowDefinitions>
+        <RowDefinition Height="Auto"></RowDefinition>
+        <RowDefinition Height="8"></RowDefinition>
         <RowDefinition></RowDefinition>
         <RowDefinition Height="8"></RowDefinition>
         <RowDefinition></RowDefinition>
       </Grid.RowDefinitions>
 
-      <materialDesign:Card VerticalAlignment="Stretch">
+      <materialDesign:Card VerticalAlignment="Stretch" DataContext="{Binding Player}">
+        <DockPanel>
+          <TextBlock Text="Player" DockPanel.Dock="Top" Margin="8" Style="{StaticResource MaterialDesignTitleTextBlock}"></TextBlock>
+          <StackPanel Margin="8">
+            <TextBlock>Stability</TextBlock>
+            <ProgressBar Margin="0 8" Height="8" Value="{Binding Health, Mode=OneWay}" Maximum="{Binding MaxHealth}" Minimum="0"></ProgressBar>
+
+            <TextBlock>Operations</TextBlock>
+            <ProgressBar Margin="0 8" Height="8" Value="{Binding Operations, Mode=OneWay}" Maximum="{Binding MaxOperations}" Minimum="0"></ProgressBar>
+          </StackPanel>
+        </DockPanel>
+      </materialDesign:Card>
+
+      <materialDesign:Card VerticalAlignment="Stretch"  Grid.Row="2">
         <DockPanel>
           <TextBlock Text="Messages" DockPanel.Dock="Top" Margin="8" Style="{StaticResource MaterialDesignTitleTextBlock}"></TextBlock>
           <ListBox ItemsSource="{Binding Messages}">
@@ -103,7 +118,7 @@
         </DockPanel>
       </materialDesign:Card>
 
-      <materialDesign:Card Grid.Row="2">
+      <materialDesign:Card Grid.Row="4">
         <DockPanel>
           <TextBlock Text="Objects" DockPanel.Dock="Top" Margin="8" Style="{StaticResource MaterialDesignTitleTextBlock}"></TextBlock>
           <ListBox ItemsSource="{Binding WorldObjects}">

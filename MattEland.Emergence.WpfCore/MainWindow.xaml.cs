@@ -50,6 +50,9 @@ namespace MattEland.Emergence.WpfCore
                     _vm.MovePlayer(MoveDirection.Down);
                     break;
 
+                case Key.Space:
+                    _vm.Wait();
+                    break;
             }
         }
 
