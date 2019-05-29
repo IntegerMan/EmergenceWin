@@ -33,6 +33,7 @@ namespace MattEland.Emergence.Engine.Game
         private readonly IRandomization _randomizer;
 
         private readonly GameCommand _moveCommand;
+        private readonly GameCommand _waitCommand;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GameService"/> class.
@@ -45,6 +46,7 @@ namespace MattEland.Emergence.Engine.Game
             _levelService = new LevelGenerationService(new PrefabService(), new EncountersService(), new BasicRandomization());
             _randomizer = randomizer ?? new BasicRandomization();
             _moveCommand = new MoveCommand();
+            _waitCommand = new WaitCommand();
         }
 
         public CommandContext StartNewGame([CanBeNull] NewGameParameters parameters = null)
@@ -121,13 +123,13 @@ namespace MattEland.Emergence.Engine.Game
                 Player.SetCommandActiveState(command, activeState);
             }
 
-            // Give objects and actors a chance to react to the changed state
-            foreach (var obj in context.Level.Objects.ToList())
-            {
-                obj.MaintainActiveEffects(context);
-            }
+            // Regenerate operations
+            context.Level.Actors.Where(a => !a.IsDead).Each(a => a.AdjustOperationsPoints(1));
 
-            // Ensure that vision is accurate for the player before sending back to the client
+            // Give objects and actors a chance to react to the changed state
+            context.Level.Objects.Where(o => !o.IsDead).EachSafe(o => o.MaintainActiveEffects(context));
+
+            // Ensure that vision is accurate for the player
             context.CalculateLineOfSight(context.Player);
 
             // The player can change so make sure we keep a reference to the correct player object
@@ -145,5 +147,7 @@ namespace MattEland.Emergence.Engine.Game
         public CommandContext MovePlayer(MoveDirection direction) => HandleCommand(_moveCommand, Player.Pos.GetNeighbor(direction));
 
         internal LevelData GenerateLevel(LevelGenerationParameters levelParams, Player player) => Level = _levelService.GenerateLevel(levelParams, player);
+
+        public CommandContext Wait() => HandleCommand(_waitCommand, Player.Pos);
     }
 }

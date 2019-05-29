@@ -16,13 +16,14 @@ namespace MattEland.Emergence.WpfCore.ViewModels
     {
         private readonly IDictionary<Guid, WorldObjectViewModel> _objects = new Dictionary<Guid, WorldObjectViewModel>();
 
-        private readonly GameService _gameManager;
+        private readonly GameService _gameService;
+        private ActorViewModel _player;
 
         public GameViewModel()
         {
-            _gameManager = new GameService();
+            _gameService = new GameService();
 
-            Update(_gameManager.StartNewGame());
+            Update(_gameService.StartNewGame());
         }
 
         private void ProcessMessages(IEnumerable<GameMessage> messages)
@@ -77,13 +78,32 @@ namespace MattEland.Emergence.WpfCore.ViewModels
 
         public int YOffset { get; set; } = -35;
 
-        public void MovePlayer(MoveDirection direction) => Update(_gameManager.MovePlayer(direction));
+        public void MovePlayer(MoveDirection direction) => Update(_gameService.MovePlayer(direction));
 
         private void Update(CommandContext context)
         {
+            Context = context;
+
+            Player = new ActorViewModel(context.Player);
+
             ProcessMessages(context.Messages);
             UpdateCommands(context);
         }
+
+        public CommandContext Context { get; set; }
+
+        public ActorViewModel Player
+        {
+            get => _player;
+            set
+            {
+                if (Equals(value, _player)) return;
+                _player = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public GameService GameService => _gameService;
 
         private void CenterOnPlayer()
         {
@@ -114,7 +134,7 @@ namespace MattEland.Emergence.WpfCore.ViewModels
             {
                 case CommandActivationType.Simple:
                 case CommandActivationType.Active:
-                    Update(_gameManager.HandleCommand(command, _gameManager.Player.Pos));
+                    Update(_gameService.HandleCommand(command, _gameService.Player.Pos));
                     break;
 
                 case CommandActivationType.Targeted:

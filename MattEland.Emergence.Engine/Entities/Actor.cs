@@ -21,8 +21,6 @@ namespace MattEland.Emergence.Engine.Entities
     {
         private int _operations;
 
-        public IList<Pos2D> RecentPositions { get; } = new List<Pos2D>();
-
         /// <summary>
         /// Gets the type of the actor.
         /// </summary>

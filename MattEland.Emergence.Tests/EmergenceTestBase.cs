@@ -3,6 +3,7 @@ using MattEland.Emergence.Engine.DTOs;
 using MattEland.Emergence.Engine.Entities;
 using MattEland.Emergence.Engine.Game;
 using MattEland.Emergence.Engine.Level;
+using MattEland.Emergence.WpfCore.ViewModels;
 using NUnit.Framework;
 
 namespace MattEland.Emergence.Tests
@@ -13,11 +14,14 @@ namespace MattEland.Emergence.Tests
         public CommandContext Context { get; set; }
         public Player Player => Context.Player;
 
+        public GameViewModel GameViewModel { get; set; }
+
         [SetUp]
         protected virtual void Initialize()
         {
-            GameService = new GameService();
-            Context = GameService.StartNewGame();
+            GameViewModel = new GameViewModel();
+            GameService = GameViewModel.GameService;
+            Context = GameViewModel.Context;
             Context.ClearMessages();
         }
 
