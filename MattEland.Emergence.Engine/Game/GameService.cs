@@ -2,6 +2,7 @@
 using System.Linq;
 using GeneticSharp.Domain.Randomizations;
 using JetBrains.Annotations;
+using MattEland.Emergence.Engine.AI;
 using MattEland.Emergence.Engine.Commands;
 using MattEland.Emergence.Engine.DTOs;
 using MattEland.Emergence.Engine.Entities;
@@ -49,7 +50,7 @@ namespace MattEland.Emergence.Engine.Game
             _waitCommand = new WaitCommand();
         }
 
-        public CommandContext StartNewGame([CanBeNull] NewGameParameters parameters = null)
+        public GameContext StartNewGame([CanBeNull] NewGameParameters parameters = null)
         {
             if (State != GameStatus.NotStarted && State != GameStatus.GameOver) throw new InvalidOperationException("The game has already been started");
 
@@ -78,7 +79,7 @@ namespace MattEland.Emergence.Engine.Game
             Level = _levelService.GenerateLevel(levelParameters, Player);
 
             // Ensure line of sight is calculated
-            var context = new CommandContext(Level, this, _entityProvider, _combatManager, _lootProvider, _randomizer);
+            var context = new GameContext(Level, this, _entityProvider, _combatManager, _lootProvider, _randomizer);
             context.CalculateLineOfSight(Player);
 
             Level.Objects.Each(o => context.CreatedObject(o));
@@ -88,16 +89,14 @@ namespace MattEland.Emergence.Engine.Game
             return context;
         }
 
-        public CommandContext HandleCommand([NotNull] CommandInstance slot, Pos2D pos)
+        public GameContext HandleCommand([NotNull] CommandSlot slot, Pos2D pos)
         {
-            if (slot?.Command == null) throw new ArgumentNullException(nameof(slot));
+            if (slot.Command == null) throw new ArgumentNullException(nameof(slot));
 
-            var context = HandleCommand(slot.Command, pos, slot.IsActive);
-
-            return context;
+            return HandleCommand(slot.Command, pos, slot.IsActive);
         }
 
-        public CommandContext HandleCommand([NotNull] GameCommand command, Pos2D pos, bool isActive = false)
+        public GameContext HandleCommand([NotNull] GameCommand command, Pos2D pos, bool isActive = false)
         {
             if (command == null) throw new ArgumentNullException(nameof(command));
             if (State == GameStatus.GameOver) throw new InvalidOperationException("The game is over. Start a new game to play again.");
@@ -107,7 +106,7 @@ namespace MattEland.Emergence.Engine.Game
 
             NumMoves++;
 
-            var context = new CommandContext(Level, this, _entityProvider, _combatManager, _lootProvider, _randomizer);
+            var context = new GameContext(Level, this, _entityProvider, _combatManager, _lootProvider, _randomizer);
 
             // Give objects and actors a chance to react to the current game state
             foreach (var obj in context.Level.Objects.ToList())
@@ -123,11 +122,12 @@ namespace MattEland.Emergence.Engine.Game
                 Player.SetCommandActiveState(command, activeState);
             }
 
-            // Regenerate operations
-            context.Level.Actors.Where(a => !a.IsDead).Each(a => a.AdjustOperationsPoints(1));
+            var nonDead = context.Level.Objects.Where(o => !o.IsDead).ToList();
+
+            nonDead.OfType<Actor>().Each(a => ProcessActorTurn(a, context));
 
             // Give objects and actors a chance to react to the changed state
-            context.Level.Objects.Where(o => !o.IsDead).EachSafe(o => o.MaintainActiveEffects(context));
+            nonDead.Each(o => o.MaintainActiveEffects(context));
 
             // Ensure that vision is accurate for the player
             context.CalculateLineOfSight(context.Player);
@@ -141,13 +141,25 @@ namespace MattEland.Emergence.Engine.Game
             return context;
         }
 
+        private static void ProcessActorTurn([NotNull] Actor actor, [NotNull] GameContext context)
+        {
+            // Allow AI to do their thing
+            if (!actor.IsPlayer && !actor.IsDead)
+            {
+                context.AI.ProcessActorTurn(actor);
+            }
+
+            // Regenerate operations
+            actor.AdjustOperationsPoints(1);
+        }
+
         public int NumMoves { get; set; }
         public Player Player { get; private set; }
 
-        public CommandContext MovePlayer(MoveDirection direction) => HandleCommand(_moveCommand, Player.Pos.GetNeighbor(direction));
+        public GameContext MovePlayer(MoveDirection direction) => HandleCommand(_moveCommand, Player.Pos.GetNeighbor(direction));
 
         internal LevelData GenerateLevel(LevelGenerationParameters levelParams, Player player) => Level = _levelService.GenerateLevel(levelParams, player);
 
-        public CommandContext Wait() => HandleCommand(_waitCommand, Player.Pos);
+        public GameContext Wait() => HandleCommand(_waitCommand, Player.Pos);
     }
 }

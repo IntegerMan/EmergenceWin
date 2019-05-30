@@ -22,7 +22,7 @@ namespace MattEland.Emergence.Engine.Commands
         public override string ShortName => "RESTR";
         public override CommandActivationType ActivationType => CommandActivationType.Active;
 
-        public override void ApplyEffect(CommandContext context, Actor executor, Pos2D pos)
+        public override void ApplyEffect(GameContext context, Actor executor, Pos2D pos)
         {
             if (executor.AdjustStability(1) && (executor.IsPlayer || context.CanPlayerSee(executor.Pos)))
             {

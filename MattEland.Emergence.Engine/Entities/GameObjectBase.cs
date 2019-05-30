@@ -96,7 +96,7 @@ namespace MattEland.Emergence.Engine.Entities
         /// <param name="context">The command context.</param>
         /// <param name="actor">The actor entering the cell.</param>
         /// <returns><c>true</c> if the action is allowable, <c>false</c> if the action was handled and should be prevented.</returns>
-        public virtual bool OnActorAttemptedEnter(CommandContext context, Actor actor)
+        public virtual bool OnActorAttemptedEnter(GameContext context, Actor actor)
         {
             return true;
         }
@@ -147,7 +147,7 @@ namespace MattEland.Emergence.Engine.Entities
         /// </summary>
         public virtual bool IsCorruptable => true;
 
-        public virtual void ApplyCorruptionDamage(CommandContext context, [CanBeNull] GameObjectBase source, int damage)
+        public virtual void ApplyCorruptionDamage(GameContext context, [CanBeNull] GameObjectBase source, int damage)
         {
             if (IsCorruptable)
             {
@@ -166,7 +166,7 @@ namespace MattEland.Emergence.Engine.Entities
 
         public virtual bool CanBeCaptured => false;
 
-        public virtual void OnCaptured(CommandContext context, GameObjectBase executor, Alignment oldTeam)
+        public virtual void OnCaptured(GameContext context, GameObjectBase executor, Alignment oldTeam)
         {
             if (executor.IsPlayer || context.CanPlayerSee(executor.Pos) || context.CanPlayerSee(Pos))
             {
@@ -174,7 +174,7 @@ namespace MattEland.Emergence.Engine.Entities
             }
         }
 
-        public virtual void OnDestroyed(CommandContext context, GameObjectBase attacker)
+        public virtual void OnDestroyed(GameContext context, GameObjectBase attacker)
         {
             var debris = GameObjectFactory.CreateObject(ObjectId, GameObjectType.Debris, Pos);
 
@@ -183,12 +183,12 @@ namespace MattEland.Emergence.Engine.Entities
 
         public Guid Id { get; set; } = Guid.NewGuid();
 
-        public virtual void MaintainActiveEffects(CommandContext context)
+        public virtual void MaintainActiveEffects(GameContext context)
         {
             // Do this when actors executing commands becomes a thing
         }
 
-        public virtual void ApplyActiveEffects(CommandContext context)
+        public virtual void ApplyActiveEffects(GameContext context)
         {
             // Do this when actors executing commands becomes a thing            
         }

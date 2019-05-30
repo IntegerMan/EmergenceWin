@@ -20,12 +20,12 @@ namespace MattEland.Emergence.Engine.Commands
 
         public override string IconId => "select_all";
 
-        protected override void OnActivated(CommandContext context, Actor executor, Pos2D pos)
+        protected override void OnActivated(GameContext context, Actor executor, Pos2D pos)
         {
             CorruptionHelper.CleanseNearby(context, executor, pos);
         }
 
-        public override void ApplyEffect(CommandContext context, Actor executor, Pos2D pos)
+        public override void ApplyEffect(GameContext context, Actor executor, Pos2D pos)
         {
             CorruptionHelper.CleanseNearby(context, executor, pos);
         }

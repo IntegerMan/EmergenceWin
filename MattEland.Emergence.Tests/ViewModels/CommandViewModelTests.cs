@@ -12,7 +12,7 @@ namespace MattEland.Emergence.Tests.ViewModels
         {
             // Arrange
             var command = new OverloadCommand();
-            var instance = new CommandInstance(command);
+            var instance = new CommandSlot(command);
             var gameVM = new GameViewModel();
 
             // Act

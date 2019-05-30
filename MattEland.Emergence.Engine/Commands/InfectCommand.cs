@@ -22,7 +22,7 @@ namespace MattEland.Emergence.Engine.Commands
 
         public override string IconId => "bug_report";
 
-        public override void ApplyEffect(CommandContext context, Actor executor, Pos2D pos)
+        public override void ApplyEffect(GameContext context, Actor executor, Pos2D pos)
         {
             // Do nothing
             if (executor.IsPlayer || context.CanPlayerSee(pos))

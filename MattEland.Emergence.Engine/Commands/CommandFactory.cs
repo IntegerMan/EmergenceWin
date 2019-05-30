@@ -61,7 +61,7 @@ namespace MattEland.Emergence.Engine.Commands
             return dict;
         }
 
-        public static CommandInstance CreateCommandReference([CanBeNull] CommandInfoDto dto)
+        public static CommandSlot CreateCommandReference([CanBeNull] CommandInfoDto dto)
         {
             GameCommand command = null;
             bool isActive = false;
@@ -72,7 +72,7 @@ namespace MattEland.Emergence.Engine.Commands
                 isActive = dto.IsActive;
             }
 
-            return new CommandInstance(command, isActive);
+            return new CommandSlot(command, isActive);
         }
 
         public static IEnumerable<GameCommand> RegisteredCommands => Commands.Values;

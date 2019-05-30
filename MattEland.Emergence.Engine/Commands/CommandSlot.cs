@@ -2,9 +2,9 @@
 
 namespace MattEland.Emergence.Engine.Commands
 {
-    public class CommandInstance
+    public class CommandSlot
     {
-        public CommandInstance([CanBeNull] GameCommand command = null, bool isActive = false)
+        public CommandSlot([CanBeNull] GameCommand command = null, bool isActive = false)
         {
             Command = command;
             IsActive = isActive;

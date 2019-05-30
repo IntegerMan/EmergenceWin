@@ -17,14 +17,14 @@ namespace MattEland.Emergence.Engine.Entities
 
         public override string Name => "Select a Character";
 
-        public override void MaintainActiveEffects(CommandContext context)
+        public override void MaintainActiveEffects(GameContext context)
         {
             base.MaintainActiveEffects(context);
 
             UpdateIsHidden(context);
         }
 
-        private void UpdateIsHidden(CommandContext context)
+        private void UpdateIsHidden(GameContext context)
         {
             var isHidden = context.Player.ObjectId == ObjectId;
 
@@ -35,14 +35,14 @@ namespace MattEland.Emergence.Engine.Entities
             }
         }
 
-        public override void ApplyActiveEffects(CommandContext context)
+        public override void ApplyActiveEffects(GameContext context)
         {
             base.ApplyActiveEffects(context);
 
             UpdateIsHidden(context);
         }
 
-        public override bool OnActorAttemptedEnter(CommandContext context, Actor actor)
+        public override bool OnActorAttemptedEnter(GameContext context, Actor actor)
         {
             if (!actor.IsPlayer)
             {

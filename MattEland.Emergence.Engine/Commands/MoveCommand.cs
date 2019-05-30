@@ -18,7 +18,7 @@ namespace MattEland.Emergence.Engine.Commands
         public override bool IsSilent => true;
 
         public override CommandActivationType ActivationType => CommandActivationType.Simple;
-        public override void ApplyEffect(CommandContext context, Actor executor, Pos2D pos)
+        public override void ApplyEffect(GameContext context, Actor executor, Pos2D pos)
         {
             base.ApplyEffect(context, executor, pos);
 

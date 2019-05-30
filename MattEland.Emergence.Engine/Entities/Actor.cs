@@ -111,7 +111,7 @@ namespace MattEland.Emergence.Engine.Entities
         public bool IsImmobile { get; set; }
 
         /// <inheritdoc />
-        public override bool OnActorAttemptedEnter(CommandContext context, Actor actor)
+        public override bool OnActorAttemptedEnter(GameContext context, Actor actor)
         {
             if (actor == this) return false;
 
@@ -147,7 +147,7 @@ namespace MattEland.Emergence.Engine.Entities
 
         public override char AsciiChar => _actorCharacters.ContainsKey(ActorType) ? _actorCharacters[ActorType] : 'a';
 
-        public virtual void OnWaited(CommandContext context)
+        public virtual void OnWaited(GameContext context)
         {
         }
 
@@ -170,7 +170,7 @@ namespace MattEland.Emergence.Engine.Entities
 
         public virtual bool IsCommandActive(GameCommand command) => false;
 
-        public override void OnDestroyed(CommandContext context, GameObjectBase attacker)
+        public override void OnDestroyed(GameContext context, GameObjectBase attacker)
         {
             // Increment the kill count if the player just killed an actor
             if (attacker.IsPlayer)
@@ -213,7 +213,7 @@ namespace MattEland.Emergence.Engine.Entities
             }
         }
 
-        public override void ApplyActiveEffects(CommandContext context)
+        public override void ApplyActiveEffects(GameContext context)
         {
             base.ApplyActiveEffects(context);
 
@@ -227,7 +227,7 @@ namespace MattEland.Emergence.Engine.Entities
 
         public override int ZIndex => 25;
 
-        public override void ApplyCorruptionDamage(CommandContext context, [CanBeNull] GameObjectBase source, int damage)
+        public override void ApplyCorruptionDamage(GameContext context, [CanBeNull] GameObjectBase source, int damage)
         {
             base.ApplyCorruptionDamage(context, source, damage);
 

@@ -11,7 +11,7 @@ namespace MattEland.Emergence.Engine.Entities
         {
         }
 
-        public override void ApplyActiveEffects(CommandContext context)
+        public override void ApplyActiveEffects(GameContext context)
         {
             base.ApplyActiveEffects(context);
 

@@ -20,12 +20,12 @@ namespace MattEland.Emergence.Engine.Commands
 
         public override Rarity Rarity => Rarity.Rare;
 
-        protected override void OnActivated(CommandContext context, Actor executor, Pos2D pos)
+        protected override void OnActivated(GameContext context, Actor executor, Pos2D pos)
         {
             executor.EffectiveAccuracy += 1;
         }
 
-        protected override void OnDeactivated(CommandContext context, Actor executor, Pos2D pos)
+        protected override void OnDeactivated(GameContext context, Actor executor, Pos2D pos)
         {
             executor.EffectiveAccuracy -= 1;
         }

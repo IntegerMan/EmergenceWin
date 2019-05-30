@@ -10,7 +10,7 @@ namespace MattEland.Emergence.Tests
         public void UsingCommandsShouldDetractOperations()
         {
             // Arrange
-            var command = new CommandInstance(new OverloadCommand());
+            var command = new CommandSlot(new OverloadCommand());
 
             // Act
             GameViewModel.HandleCommand(command);

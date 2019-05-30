@@ -14,7 +14,7 @@ namespace MattEland.Emergence.Tests
     public abstract class EmergenceTestBase
     {
         public GameService GameService { get; set; }
-        public CommandContext Context { get; set; }
+        public GameContext Context { get; set; }
         public Player Player => Context.Player;
 
         public GameViewModel GameViewModel { get; set; }
@@ -51,23 +51,23 @@ namespace MattEland.Emergence.Tests
         protected static GameService BuildGameService() => new GameService(new TestRandomizer(0));
 
         [NotNull, ItemNotNull]
-        protected IEnumerable<CommandInstance> SetPlayerCommands(params GameCommand[] commands)
+        protected IEnumerable<CommandSlot> SetPlayerCommands(params GameCommand[] commands)
         {
             var playerCommands = GameViewModel.Context.Player.HotbarCommands;
             playerCommands.Clear();
 
-            commands.Each(c => playerCommands.Add(new CommandInstance(c)));
+            commands.Each(c => playerCommands.Add(new CommandSlot(c)));
 
             return playerCommands;
         }
 
         [NotNull]
-        protected CommandInstance SetPlayerCommand(GameCommand command)
+        protected CommandSlot SetPlayerCommand(GameCommand command)
         {
             var playerCommands = GameViewModel.Context.Player.HotbarCommands;
             playerCommands.Clear();
 
-            var slot = new CommandInstance(command);
+            var slot = new CommandSlot(command);
             playerCommands.Add(slot);
 
             return slot;

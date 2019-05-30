@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using MattEland.Emergence.Engine.Entities;
 using MattEland.Emergence.Engine.Game;
+using MattEland.Emergence.Engine.Model;
+using MattEland.Shared.Collections;
 
 namespace MattEland.Emergence.Engine.Level
 {
@@ -120,6 +122,32 @@ namespace MattEland.Emergence.Engine.Level
         public void ClearVisibilityCache() => _sightBlockerCache.Clear();
 
         public bool IsPosExterior(Pos2D pos) => pos.X == UpperLeft.X || pos.X == LowerRight.X || pos.Y == LowerRight.Y || pos.Y == UpperLeft.Y;
+
+        public IEnumerable<GameCell> GetAdjacentCells(Pos2D pos)
+        {
+            foreach (var dir in new[] { MoveDirection.Up, MoveDirection.Right, MoveDirection.Down, MoveDirection.Left })
+            {
+                var cell = GetCell(pos.GetNeighbor(dir));
+                if (cell != null)
+                {
+                    yield return cell;
+                }
+            }
+        }
+
+        public IEnumerable<GameCell> GetCellAndAdjacent(Pos2D pos)
+        {
+            var cell = GetCell(pos);
+            if (cell != null)
+            {
+                yield return cell;
+            }
+
+            foreach (var adjacentCell in GetAdjacentCells(pos))
+            {
+                yield return adjacentCell;
+            }
+        }
 
         public IEnumerable<GameCell> GetCellsInSquare(Pos2D pos, int radius)
         {

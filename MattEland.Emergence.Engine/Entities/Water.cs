@@ -18,7 +18,7 @@ namespace MattEland.Emergence.Engine.Entities
 
         public override string Name => "Thread Pool";
 
-        public override bool OnActorAttemptedEnter(CommandContext context, Actor actor)
+        public override bool OnActorAttemptedEnter(GameContext context, Actor actor)
         {
             if (actor.IsPlayer)
             {

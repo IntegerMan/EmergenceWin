@@ -40,7 +40,7 @@ namespace MattEland.Emergence.Engine.Loot
 
         }
 
-        public void SpawnLootAsNeeded(CommandContext context, GameObjectBase source, Rarity rarity)
+        public void SpawnLootAsNeeded(GameContext context, GameObjectBase source, Rarity rarity)
         {
             if (rarity >= Rarity.Rare || context.Randomizer.GetInt(1, 6) >= 5)
             {
@@ -59,7 +59,7 @@ namespace MattEland.Emergence.Engine.Loot
             }
         }
 
-        public void SpawnLoot(CommandContext context, GameObjectBase source, Rarity rarity)
+        public void SpawnLoot(GameContext context, GameObjectBase source, Rarity rarity)
         {
 
             if (rarity == Rarity.None)
@@ -102,7 +102,7 @@ namespace MattEland.Emergence.Engine.Loot
             }
         }
 
-        private static bool LootAlreadyExists(CommandContext context, LootEntry entry)
+        private static bool LootAlreadyExists(GameContext context, LootEntry entry)
         {
             foreach (var cell in context.Level.Cells)
             {

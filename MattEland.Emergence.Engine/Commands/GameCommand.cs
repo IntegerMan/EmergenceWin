@@ -60,7 +60,7 @@ namespace MattEland.Emergence.Engine.Commands
         /// <param name="executor">The actor executing the command.</param>
         /// <param name="pos">The targeted position for the command. For non-targeted commands, this will be <paramref name="executor"/>'s current position.</param>
         /// <param name="isCurrentlyActive">Whether or not the command is currently active</param>
-        public bool Execute(CommandContext context, Actor executor, Pos2D pos, bool isCurrentlyActive)
+        public bool Execute(GameContext context, Actor executor, Pos2D pos, bool isCurrentlyActive)
         {
             switch (ActivationType)
             {
@@ -85,7 +85,7 @@ namespace MattEland.Emergence.Engine.Commands
             }
         }
 
-        private bool HandleCommandActivation(CommandContext context, Actor executor, Pos2D pos)
+        private bool HandleCommandActivation(GameContext context, Actor executor, Pos2D pos)
         {
             executor.Operations -= ActivationCost;
 
@@ -114,7 +114,7 @@ namespace MattEland.Emergence.Engine.Commands
 
         public virtual bool IsSilent => false;
 
-        private bool HandleInsufficientOperations(CommandContext context, Actor executor)
+        private bool HandleInsufficientOperations(GameContext context, Actor executor)
         {
             if (executor.IsPlayer)
             {
@@ -129,7 +129,7 @@ namespace MattEland.Emergence.Engine.Commands
             return false;
         }
 
-        private bool DeactivateCommand(CommandContext context, Actor executor, Pos2D pos)
+        private bool DeactivateCommand(GameContext context, Actor executor, Pos2D pos)
         {
             if (executor.IsPlayer)
             {
@@ -142,11 +142,11 @@ namespace MattEland.Emergence.Engine.Commands
             return false;
         }
 
-        protected virtual void OnActivated(CommandContext context, Actor executor, Pos2D pos)
+        protected virtual void OnActivated(GameContext context, Actor executor, Pos2D pos)
         {
         }
 
-        protected virtual void OnDeactivated(CommandContext context, Actor executor, Pos2D pos)
+        protected virtual void OnDeactivated(GameContext context, Actor executor, Pos2D pos)
         {
         }
 
@@ -157,7 +157,7 @@ namespace MattEland.Emergence.Engine.Commands
         /// <param name="context">The command context.</param>
         /// <param name="executor">The actor executing the command.</param>
         /// <param name="pos">The command's targeted position, or <paramref name="executor"/>'s position.</param>
-        public virtual void ApplyEffect(CommandContext context, Actor executor, Pos2D pos)
+        public virtual void ApplyEffect(GameContext context, Actor executor, Pos2D pos)
         {
         }
 

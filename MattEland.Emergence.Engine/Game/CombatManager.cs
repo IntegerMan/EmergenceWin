@@ -22,7 +22,7 @@ namespace MattEland.Emergence.Engine.Game
         /// <param name="defender">The defender.</param>
         /// <param name="verb">The display name of the type of attack being used</param>
         /// <param name="damageType">The type of damage to apply</param>
-        public void HandleAttack(CommandContext context,
+        public void HandleAttack(GameContext context,
             GameObjectBase attacker,
             GameObjectBase defender,
             string verb,
@@ -43,7 +43,7 @@ namespace MattEland.Emergence.Engine.Game
 
         }
 
-        private void ApplyDamageToActor(CommandContext context,
+        private void ApplyDamageToActor(GameContext context,
             GameObjectBase attacker,
             GameObjectBase defender,
             string verb,
@@ -69,7 +69,7 @@ namespace MattEland.Emergence.Engine.Game
             }
         }
 
-        private static void ShowNoDamageMessage(CommandContext context,
+        private static void ShowNoDamageMessage(GameContext context,
             GameObjectBase attacker,
             GameObjectBase defender,
             string verb)
@@ -87,7 +87,7 @@ namespace MattEland.Emergence.Engine.Game
         /// <param name="attacker">The actor carrying out the attack.</param>
         /// <param name="defender">The actor defending against the attack.</param>
         /// <returns>The amount of damage to deliver</returns>
-        private static int CalculateDamage(CommandContext context, GameObjectBase attacker, GameObjectBase defender, string verb)
+        private static int CalculateDamage(GameContext context, GameObjectBase attacker, GameObjectBase defender, string verb)
         {
             // Short circuit everything if we're targeting something invulnerable
             if (defender.IsInvulnerable)
@@ -138,7 +138,7 @@ namespace MattEland.Emergence.Engine.Game
         /// <param name="verb">A verb describing the action.</param>
         /// <param name="damageType"></param>
         /// <returns>The message to log</returns>
-        public string HurtObject(CommandContext context,
+        public string HurtObject(GameContext context,
             GameObjectBase attacker,
             GameObjectBase defender,
             int damage,
@@ -213,7 +213,7 @@ namespace MattEland.Emergence.Engine.Game
             }
         }
 
-        public void HandleExplosion(CommandContext context,
+        public void HandleExplosion(GameContext context,
             GameObjectBase executor,
             Pos2D epicenter,
             int strength,
@@ -251,7 +251,7 @@ namespace MattEland.Emergence.Engine.Game
 
         }
 
-        private void ApplyExplosionDamageAndAddEffects(CommandContext context,
+        private void ApplyExplosionDamageAndAddEffects(GameContext context,
             GameObjectBase executor,
             DamageType damageType,
             GameObjectBase obj,
@@ -268,7 +268,7 @@ namespace MattEland.Emergence.Engine.Game
             }
         }
 
-        private static void AddNoExplosionDamageEffects(CommandContext context,
+        private static void AddNoExplosionDamageEffects(GameContext context,
             GameObjectBase executor,
             int strength,
             GameObjectBase obj,
@@ -306,7 +306,7 @@ namespace MattEland.Emergence.Engine.Game
         /// <param name="context">The command context used to interact with the game world.</param>
         /// <param name="defender">The object being captured.</param>
         /// <param name="attacker">The actor doing the capturing</param>
-        public void HandleCapture(CommandContext context, GameObjectBase defender, GameObjectBase attacker)
+        public void HandleCapture(GameContext context, GameObjectBase defender, GameObjectBase attacker)
         {
             if (defender.Team == attacker.Team)
             {
@@ -338,7 +338,7 @@ namespace MattEland.Emergence.Engine.Game
             return (int)Math.Round(attacker.EffectiveStrength * (decimal) random.GetDouble(1, 1.5));
         }
 
-        private static bool DetermineIfAttackHits(CommandContext context, GameObjectBase attacker, GameObjectBase defender)
+        private static bool DetermineIfAttackHits(GameContext context, GameObjectBase attacker, GameObjectBase defender)
         {
             decimal hitChance = attacker.EffectiveAccuracy;
             decimal evadeChance = defender.EffectiveEvasion;

@@ -31,7 +31,7 @@ namespace MattEland.Emergence.Engine.Commands
 
         public override string IconId => "build";
 
-        public override void ApplyEffect(CommandContext context, Actor executor, Pos2D pos)
+        public override void ApplyEffect(GameContext context, Actor executor, Pos2D pos)
         {
             // Figure out how much to add without going over the maximum stability
             int amount = Math.Min(executor.MaxStability - executor.Stability, Strength);

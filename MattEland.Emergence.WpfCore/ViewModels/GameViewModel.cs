@@ -19,7 +19,7 @@ namespace MattEland.Emergence.WpfCore.ViewModels
         private readonly GameService _gameService;
         private ActorViewModel _player;
         private UIState _uiState;
-        private CommandInstance _targetedCommand;
+        private CommandSlot _targetedCommand;
 
         public GameViewModel()
         {
@@ -40,7 +40,7 @@ namespace MattEland.Emergence.WpfCore.ViewModels
             }
         }
 
-        public CommandInstance TargetedCommand
+        public CommandSlot TargetedCommand
         {
             get => _targetedCommand;
             set
@@ -104,7 +104,7 @@ namespace MattEland.Emergence.WpfCore.ViewModels
             CenterOnPlayer();
         }
 
-        private void UpdateCommands(CommandContext context)
+        private void UpdateCommands(GameContext context)
         {
             Commands.Clear();
 
@@ -125,7 +125,7 @@ namespace MattEland.Emergence.WpfCore.ViewModels
             Update(_gameService.MovePlayer(direction));
         }
 
-        private void Update(CommandContext context)
+        private void Update(GameContext context)
         {
             Context = context;
 
@@ -136,7 +136,7 @@ namespace MattEland.Emergence.WpfCore.ViewModels
             UIState = UIState.ReadyForInput;
         }
 
-        public CommandContext Context { get; set; }
+        public GameContext Context { get; set; }
 
         public ActorViewModel Player
         {
@@ -170,7 +170,7 @@ namespace MattEland.Emergence.WpfCore.ViewModels
             WorldObjects.Each(o => { o.NotifyOffsetChanged(); });
         }
 
-        public void HandleCommand(CommandInstance slot)
+        public void HandleCommand(CommandSlot slot)
         {
             var command = slot.Command;
 

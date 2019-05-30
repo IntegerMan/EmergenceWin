@@ -13,21 +13,21 @@ namespace MattEland.Emergence.Engine.Entities
     {
         public Player(PlayerDto dto) : base(dto)
         {
-            HotbarCommands = new List<CommandInstance>();
+            HotbarCommands = new List<CommandSlot>();
             CreateCommandReferences(dto.Hotbar, HotbarCommands);
 
-            StoredCommands = new List<CommandInstance>();
+            StoredCommands = new List<CommandSlot>();
             CreateCommandReferences(dto.StoredCommands, StoredCommands);
         }
 
         private static void CreateCommandReferences([CanBeNull] IEnumerable<CommandInfoDto> commandDtos,
-            [NotNull] ICollection<CommandInstance> commandRefCollection)
+            [NotNull] ICollection<CommandSlot> commandRefCollection)
         {
             if (commandDtos == null) return;
 
             foreach (var commandInfoDto in commandDtos)
             {
-                CommandInstance reference = null;
+                CommandSlot reference = null;
 
                 if (commandInfoDto != null)
                 {
@@ -40,12 +40,12 @@ namespace MattEland.Emergence.Engine.Entities
 
         public override bool HasAi => false;
 
-        [ItemCanBeNull] public IList<CommandInstance> HotbarCommands { get; }
+        [ItemCanBeNull] public IList<CommandSlot> HotbarCommands { get; }
 
-        [ItemCanBeNull] public IList<CommandInstance> StoredCommands { get; }
+        [ItemCanBeNull] public IList<CommandSlot> StoredCommands { get; }
 
         [ItemNotNull]
-        public IEnumerable<CommandInstance> Commands
+        public IEnumerable<CommandSlot> Commands
         {
             get
             {
@@ -67,7 +67,7 @@ namespace MattEland.Emergence.Engine.Entities
             }
         }
 
-        public bool AttemptPickupItem(CommandContext context, GameObjectBase item)
+        public bool AttemptPickupItem(GameContext context, GameObjectBase item)
         {
             var command = CommandFactory.CreateCommand(item.ObjectId);
 
@@ -132,7 +132,7 @@ namespace MattEland.Emergence.Engine.Entities
             }
         }
 
-        public override void MaintainActiveEffects(CommandContext context)
+        public override void MaintainActiveEffects(GameContext context)
         {
             base.MaintainActiveEffects(context);
 

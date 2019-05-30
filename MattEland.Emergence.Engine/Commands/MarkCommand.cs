@@ -24,7 +24,7 @@ namespace MattEland.Emergence.Engine.Commands
 
         public override string IconId => "label_outline";
 
-        public override void ApplyEffect(CommandContext context, Actor executor, Pos2D pos)
+        public override void ApplyEffect(GameContext context, Actor executor, Pos2D pos)
         {
             if (!executor.IsPlayer)
             {

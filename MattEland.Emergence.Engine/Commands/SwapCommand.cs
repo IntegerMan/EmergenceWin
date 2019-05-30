@@ -21,7 +21,7 @@ namespace MattEland.Emergence.Engine.Commands
 
         public override string IconId => "swap_horiz";
 
-        public override void ApplyEffect(CommandContext context, Actor executor, Pos2D pos)
+        public override void ApplyEffect(GameContext context, Actor executor, Pos2D pos)
         {
             if (executor.IsPlayer || context.CanPlayerSee(executor.Pos) || context.CanPlayerSee(pos))
             {

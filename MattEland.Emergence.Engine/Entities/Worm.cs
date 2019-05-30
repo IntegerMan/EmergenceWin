@@ -13,7 +13,7 @@ namespace MattEland.Emergence.Engine.Entities
 
         public override DamageType AttackDamageType => DamageType.Corruption;
 
-        public override void ApplyActiveEffects(CommandContext context)
+        public override void ApplyActiveEffects(GameContext context)
         {
             base.ApplyActiveEffects(context);
 

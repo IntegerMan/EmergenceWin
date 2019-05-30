@@ -16,7 +16,7 @@ namespace MattEland.Emergence.Engine.Entities
         public override bool IsInteractive => true;
 
         /// <inheritdoc />
-        public override bool OnActorAttemptedEnter(CommandContext context, Actor actor)
+        public override bool OnActorAttemptedEnter(GameContext context, Actor actor)
         {
             if (!IsOpen)
             {
@@ -35,7 +35,7 @@ namespace MattEland.Emergence.Engine.Entities
         /// <summary>
         /// Called when the object is opened.
         /// </summary>
-        protected virtual void Open(CommandContext context, GameObjectBase opener)
+        protected virtual void Open(GameContext context, GameObjectBase opener)
         {
             IsOpen = true;
             context.AddSoundEffect(this, SoundEffects.DoorOpened);
@@ -45,7 +45,7 @@ namespace MattEland.Emergence.Engine.Entities
         /// <summary>
         /// Called when the object is closed.
         /// </summary>
-        protected virtual void Close(CommandContext context, GameObjectBase opener)
+        protected virtual void Close(GameContext context, GameObjectBase opener)
         {
             IsOpen = false;
             context.AddSoundEffect(this, SoundEffects.DoorClosed);

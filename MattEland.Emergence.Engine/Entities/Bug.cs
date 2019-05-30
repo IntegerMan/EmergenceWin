@@ -12,7 +12,7 @@ namespace MattEland.Emergence.Engine.Entities
 
         public override DamageType AttackDamageType => DamageType.Combination;
 
-        public override void OnWaited(CommandContext context)
+        public override void OnWaited(GameContext context)
         {
             base.OnWaited(context);
 
@@ -28,7 +28,7 @@ namespace MattEland.Emergence.Engine.Entities
             }
         }
 
-        public override void ApplyCorruptionDamage(CommandContext context, GameObjectBase source, int damage)
+        public override void ApplyCorruptionDamage(GameContext context, GameObjectBase source, int damage)
         {
             if (damage < 0)
             {

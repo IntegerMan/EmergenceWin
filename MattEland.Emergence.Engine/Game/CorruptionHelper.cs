@@ -11,7 +11,7 @@ namespace MattEland.Emergence.Engine.Game
 {
     public static class CorruptionHelper
     {
-        public static void ApplyCorruptionDamage(CommandContext context,
+        public static void ApplyCorruptionDamage(GameContext context,
             GameObjectBase attacker,
             GameObjectBase defender,
             int damage)
@@ -26,7 +26,7 @@ namespace MattEland.Emergence.Engine.Game
             }
         }
 
-        public static void CorruptNearby(this Pos2D pos, CommandContext context, Actor executor)
+        public static void CorruptNearby(this Pos2D pos, GameContext context, Actor executor)
         {
             const int strength = 1;
 
@@ -51,7 +51,7 @@ namespace MattEland.Emergence.Engine.Game
         /// </summary>
         /// <param name="cell">The cell in question</param>
         /// <param name="context">The command context for the game</param>
-        public static void SpreadCorruptionOnCell(this GameCell cell, CommandContext context)
+        public static void SpreadCorruptionOnCell(this GameCell cell, GameContext context)
         {
             // Do nothing if there's no corruption already
             if (cell.Corruption <= 0)
@@ -85,7 +85,7 @@ namespace MattEland.Emergence.Engine.Game
             }
         }
 
-        private static void SpawnGlitch(CommandContext context, GameCell cell)
+        private static void SpawnGlitch(GameContext context, GameCell cell)
         {
             var glitch = GameObjectFactory.CreateObject(Actors.Glitch, GameObjectType.Actor, cell.Pos);
             context.AddObject(glitch);
@@ -95,7 +95,7 @@ namespace MattEland.Emergence.Engine.Game
             }
         }
 
-        public static void SpreadCorruption(CommandContext context, int maxCells)
+        public static void SpreadCorruption(GameContext context, int maxCells)
         {
             // Grab random cells from the level
             var cells = new List<GameCell>(maxCells);
@@ -132,7 +132,7 @@ namespace MattEland.Emergence.Engine.Game
         public static bool IsCorruptionDamageType(this DamageType damageType) 
             => damageType == DamageType.Corruption || damageType == DamageType.Combination;
 
-        public static void CleanseNearby(CommandContext context, Actor executor, Pos2D pos)
+        public static void CleanseNearby(GameContext context, Actor executor, Pos2D pos)
         {
             const int strength = 1;
 

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using GeneticSharp.Domain.Randomizations;
 using JetBrains.Annotations;
+using MattEland.Emergence.Engine.AI;
 using MattEland.Emergence.Engine.DTOs;
 using MattEland.Emergence.Engine.Effects;
 using MattEland.Emergence.Engine.Entities;
@@ -19,11 +20,11 @@ using MattEland.Shared.Collections;
 namespace MattEland.Emergence.Engine.Game
 {
 
-    public sealed class CommandContext
+    public sealed class GameContext
     {
         private readonly IList<GameMessage> _messages;
 
-        public CommandContext([NotNull] LevelData level,
+        public GameContext([NotNull] LevelData level,
                               [NotNull] GameService gameService,
                               [NotNull] EntityDefinitionService entityService,
                               [NotNull] CombatManager combatManager,
@@ -37,6 +38,8 @@ namespace MattEland.Emergence.Engine.Game
             Randomizer = randomizer  ?? throw new ArgumentNullException(nameof(randomizer));
 
             _messages = new List<GameMessage>();
+
+            AI = new ArtificialIntelligenceService(this);
 
             SetLevel(level);
         }
@@ -283,6 +286,9 @@ namespace MattEland.Emergence.Engine.Game
         private void EndGame() => IsGameOver = true;
 
         public bool IsGameOver { get; set; }
+
+        [NotNull]
+        public ArtificialIntelligenceService AI { get; }
 
         public void AddError(string message) => AddMessage(message, ClientMessageType.Assertion);
 

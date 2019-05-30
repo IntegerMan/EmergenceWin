@@ -9,7 +9,7 @@ namespace MattEland.Emergence.Engine.Entities
         {
         }
 
-        public override bool OnActorAttemptedEnter(CommandContext context, Actor actor)
+        public override bool OnActorAttemptedEnter(GameContext context, Actor actor)
         {
             context.MoveObject(actor, Pos);
 

@@ -13,7 +13,7 @@ namespace MattEland.Emergence.Engine.Entities
         }
 
         /// <inheritdoc />
-        protected override void Open(CommandContext context, GameObjectBase opener)
+        protected override void Open(GameContext context, GameObjectBase opener)
         {
             if (IsCorrupted)
             {
@@ -28,7 +28,7 @@ namespace MattEland.Emergence.Engine.Entities
 
         public override char AsciiChar => 't';
 
-        public override void OnDestroyed(CommandContext context, GameObjectBase attacker)
+        public override void OnDestroyed(GameContext context, GameObjectBase attacker)
         {
             base.OnDestroyed(context, attacker);
 
@@ -38,7 +38,7 @@ namespace MattEland.Emergence.Engine.Entities
             }
         }
 
-        private void SpawnNastySurprise(CommandContext context)
+        private void SpawnNastySurprise(GameContext context)
         {
             switch (context.Randomizer.GetInt(0, 2))
             {

@@ -13,7 +13,7 @@ namespace MattEland.Emergence.Engine.Entities
         public override bool IsInteractive => true;
         public override char AsciiChar => 'p';
 
-        public override void ApplyActiveEffects(CommandContext context)
+        public override void ApplyActiveEffects(GameContext context)
         {
             base.ApplyActiveEffects(context);
 
@@ -27,7 +27,7 @@ namespace MattEland.Emergence.Engine.Entities
         }
 
         /// <inheritdoc />
-        public override bool OnActorAttemptedEnter(CommandContext context, Actor actor)
+        public override bool OnActorAttemptedEnter(GameContext context, Actor actor)
         {
             if (actor.IsPlayer)
             {

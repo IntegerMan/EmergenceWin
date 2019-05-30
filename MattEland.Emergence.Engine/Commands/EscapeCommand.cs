@@ -23,7 +23,7 @@ namespace MattEland.Emergence.Engine.Commands
 
         public override int ActivationCost => 2;
 
-        public override void ApplyEffect(CommandContext context, Actor executor, Pos2D pos)
+        public override void ApplyEffect(GameContext context, Actor executor, Pos2D pos)
         {
             GameCell target = context.Level.Cells.Where(c => !c.HasObstacle).GetRandomElement(context.Randomizer);
 

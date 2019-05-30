@@ -9,19 +9,19 @@ namespace MattEland.Emergence.WpfCore.ViewModels
         [NotNull] private readonly GameViewModel _game;
 
         [CanBeNull]
-        public CommandInstance CommandInstance { get; }
+        public CommandSlot CommandSlot { get; }
 
-        public CommandViewModel([CanBeNull] CommandInstance commandInstance, [NotNull] GameViewModel game)
+        public CommandViewModel([CanBeNull] CommandSlot commandSlot, [NotNull] GameViewModel game)
         {
             _game = game ?? throw new ArgumentNullException(nameof(game));
-            CommandInstance = commandInstance;
+            CommandSlot = commandSlot;
         }
 
-        public string Content => CommandInstance?.Command != null ? CommandInstance.Command.ShortName : string.Empty;
+        public string Content => CommandSlot?.Command != null ? CommandSlot.Command.ShortName : string.Empty;
 
         public void Execute()
         {
-            _game.HandleCommand(CommandInstance);
+            _game.HandleCommand(CommandSlot);
         }
     }
 }

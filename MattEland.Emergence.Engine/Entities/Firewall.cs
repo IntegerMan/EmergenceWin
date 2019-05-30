@@ -17,7 +17,7 @@ namespace MattEland.Emergence.Engine.Entities
         public override char AsciiChar => IsOpen ? ':' : '|';
         public bool IsOpen { get; private set; }
 
-        public override void MaintainActiveEffects(CommandContext context)
+        public override void MaintainActiveEffects(GameContext context)
         {
             IsOpen = context.Level.HasAdminAccess || context.Player.ObjectId == Actors.PlayerDebugger;
         }
@@ -25,7 +25,7 @@ namespace MattEland.Emergence.Engine.Entities
         public override string Name => "Firewall";
 
         /// <inheritdoc />
-        public override bool OnActorAttemptedEnter(CommandContext context, Actor actor)
+        public override bool OnActorAttemptedEnter(GameContext context, Actor actor)
         {
             if (IsOpen || 
                 actor.Team == Alignment.SystemCore || 
