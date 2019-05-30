@@ -224,7 +224,6 @@ namespace MattEland.Emergence.Engine.Game
 
         public LevelData Level { get; private set; }
 
-
         public GameService GameService { get; }
 
         public void AddMessage(string message, ClientMessageType messageType)
@@ -397,13 +396,15 @@ namespace MattEland.Emergence.Engine.Game
             }
         }
 
-        public void CalculateLineOfSight(Actor actor)
+        public IEnumerable<Pos2D> CalculateLineOfSight(Actor actor)
         {
             var fov = new ShadowCasterViewProvider(Level);
             fov.ComputeFov(actor.Pos, actor.EffectiveLineOfSightRadius);
 
             actor.VisibleCells = fov.VisiblePositions;
             actor.MarkCellsAsKnown(fov.VisiblePositions);
+
+            return actor.VisibleCells;
         }
 
         public void AddSoundEffect(OpenableGameObjectBase source, SoundEffects sound) => AddEffect(new SoundEffect(source, sound));

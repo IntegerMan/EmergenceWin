@@ -25,8 +25,7 @@ namespace MattEland.Emergence.Engine.AI
             if (actor.IsPlayer || actor.IsDead) return;
 
             // We're going to evaluate only the tiles immediately in front of the actor
-            // TODO: I likely need to grab visible tiles instead
-            var choices = Context.Level.GetCellAndAdjacent(actor.Pos).ToList();
+            var choices = Context.GetCellsVisibleFromPoint(actor.Pos, actor.EffectiveLineOfSightRadius).ToList();
 
             // Grab behaviors that are applicable for this actor
             var behaviors = GetBehaviors(actor);

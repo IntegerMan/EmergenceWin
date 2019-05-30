@@ -12,7 +12,9 @@ namespace MattEland.Emergence.Engine.AI
 
         public override bool Evaluate(GameContext context, Actor actor, IEnumerable<GameCell> choices)
         {
-            var option = choices.Where(o => !o.HasNonActorObstacle).GetRandomElement(context.Randomizer);
+            var walkable = context.Level.GetCellAndAdjacent(actor.Pos);
+            var option = walkable.Where(o => !o.HasNonActorObstacle).GetRandomElement(context.Randomizer);
+
             if (option.Pos == actor.Pos)
             {
                 WaitCommand.Execute(context, actor, actor.Pos, false);

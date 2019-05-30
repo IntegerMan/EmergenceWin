@@ -2,7 +2,6 @@
 using System.Linq;
 using GeneticSharp.Domain.Randomizations;
 using JetBrains.Annotations;
-using MattEland.Emergence.Engine.AI;
 using MattEland.Emergence.Engine.Commands;
 using MattEland.Emergence.Engine.DTOs;
 using MattEland.Emergence.Engine.Entities;
@@ -28,13 +27,25 @@ namespace MattEland.Emergence.Engine.Game
 
         public GameStatus State { get; private set; } = GameStatus.NotStarted;
 
-        public LevelData Level { get; private set; }
+        public LevelData Level
+        {
+            get => _level;
+            private set
+            {
+                _level = value;
+                Context?.SetLevel(value);
+            }
+        }
 
         [NotNull]
         private readonly IRandomization _randomizer;
 
         private readonly GameCommand _moveCommand;
         private readonly GameCommand _waitCommand;
+        private LevelData _level;
+
+        [CanBeNull]
+        public GameContext Context { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GameService"/> class.
@@ -77,16 +88,16 @@ namespace MattEland.Emergence.Engine.Game
             var levelParameters = new LevelGenerationParameters { LevelType = LevelType.Tutorial };
             Player = GameObjectFactory.CreatePlayer(parameters.CharacterId);
             Level = _levelService.GenerateLevel(levelParameters, Player);
+            Context = new GameContext(Level, this, _entityProvider, _combatManager, _lootProvider, _randomizer);
 
             // Ensure line of sight is calculated
-            var context = new GameContext(Level, this, _entityProvider, _combatManager, _lootProvider, _randomizer);
-            context.CalculateLineOfSight(Player);
+            Context.CalculateLineOfSight(Player);
 
-            Level.Objects.Each(o => context.CreatedObject(o));
+            Level.Objects.Each(o => Context.CreatedObject(o));
 
             State = GameStatus.Ready;
 
-            return context;
+            return Context;
         }
 
         public GameContext HandleCommand([NotNull] CommandSlot slot, Pos2D pos)
@@ -102,19 +113,19 @@ namespace MattEland.Emergence.Engine.Game
             if (State == GameStatus.GameOver) throw new InvalidOperationException("The game is over. Start a new game to play again.");
             if (State != GameStatus.Ready) throw new InvalidOperationException("The game is not ready for input");
 
+            Context.ClearMessages();
+
             State = GameStatus.Executing;
 
             NumMoves++;
 
-            var context = new GameContext(Level, this, _entityProvider, _combatManager, _lootProvider, _randomizer);
-
             // Give objects and actors a chance to react to the current game state
-            foreach (var obj in context.Level.Objects.ToList())
+            foreach (var obj in Context.Level.Objects.ToList())
             {
-                obj.ApplyActiveEffects(context);
+                obj.ApplyActiveEffects(Context);
             }
 
-            command.Execute(context, Player, pos, isActive);
+            command.Execute(Context, Player, pos, isActive);
 
             if (command.ActivationType == CommandActivationType.Active)
             {
@@ -122,23 +133,23 @@ namespace MattEland.Emergence.Engine.Game
                 Player.SetCommandActiveState(command, activeState);
             }
 
-            var nonDead = context.Level.Objects.Where(o => !o.IsDead).ToList();
+            var nonDead = Context.Level.Objects.Where(o => !o.IsDead).ToList();
 
-            nonDead.OfType<Actor>().Each(a => ProcessActorTurn(a, context));
+            nonDead.OfType<Actor>().Each(a => ProcessActorTurn(a, Context));
 
             // Give objects and actors a chance to react to the changed state
-            nonDead.Each(o => o.MaintainActiveEffects(context));
+            nonDead.Each(o => o.MaintainActiveEffects(Context));
 
             // Ensure that vision is accurate for the player
-            context.CalculateLineOfSight(context.Player);
+            Context.CalculateLineOfSight(Context.Player);
 
             // The player can change so make sure we keep a reference to the correct player object
-            Player = context.Player;
+            Player = Context.Player;
 
             // Update the game state
-            State = context.IsGameOver ? GameStatus.GameOver : GameStatus.Ready;
+            State = Context.IsGameOver ? GameStatus.GameOver : GameStatus.Ready;
 
-            return context;
+            return Context;
         }
 
         private static void ProcessActorTurn([NotNull] Actor actor, [NotNull] GameContext context)
