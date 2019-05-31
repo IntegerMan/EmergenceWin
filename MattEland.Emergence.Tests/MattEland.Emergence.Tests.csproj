@@ -69,6 +69,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BehaviorTests.cs" />
     <Compile Include="CombatTests.cs" />
     <Compile Include="Commands\EscapeCommandTests.cs" />
     <Compile Include="Commands\OverloadCommandTests.cs" />

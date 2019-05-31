@@ -12,17 +12,22 @@ namespace MattEland.Emergence.Engine.AI
         [NotNull]
         public GameContext Context { get; }
 
+        public CommonBehaviors CommonBehaviors { get; } = new CommonBehaviors();
+
         public ArtificialIntelligenceService([NotNull] GameContext context)
         {
             Context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public void ProcessActorTurn([NotNull] Actor actor)
+        [NotNull]
+        public BehaviorTreeResult ProcessActorTurn([NotNull] Actor actor)
         {
             if (actor == null) throw new ArgumentNullException(nameof(actor));
 
+            var result = new BehaviorTreeResult();
+
             // Casuals begone
-            if (actor.IsPlayer || actor.IsDead) return;
+            if (actor.IsPlayer || actor.IsDead) return result;
 
             // We're going to evaluate only the tiles immediately in front of the actor
             var choices = Context.GetCellsVisibleFromPoint(actor.Pos, actor.EffectiveLineOfSightRadius).ToList();
@@ -33,12 +38,17 @@ namespace MattEland.Emergence.Engine.AI
             // Evaluate each behavior in sequence
             foreach (var behavior in behaviors)
             {
+                result.EvaluatedBehaviors.Add(behavior);
+
                 // If any behavior marked itself as the handler of the event, do not evaluate future behaviors
                 if (behavior.Evaluate(Context, actor, choices))
                 {
+                    result.SelectedBehavior = behavior;
                     break;
                 }
             }
+
+            return result;
         }
 
 
@@ -47,10 +57,10 @@ namespace MattEland.Emergence.Engine.AI
         {
             if (!actor.IsImmobile)
             {
-                yield return new WanderBehavior();
+                yield return CommonBehaviors.Wander;
             }
 
-            yield return new IdleBehavior();
+            yield return CommonBehaviors.Idle;
         }
     }
 }

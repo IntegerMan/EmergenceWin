@@ -160,14 +160,14 @@ namespace MattEland.Emergence.Engine.Level
             return PosRepository.FromString(input);
         }
 
-        public Pos2D GetNeighbor(MoveDirection direction)
+        public Pos2D GetNeighbor(MoveDirection direction, int spacesOver = 1)
         {
             switch (direction)
             {
-                case MoveDirection.Up: return Add(0, -1);
-                case MoveDirection.Right: return Add(1, 0);
-                case MoveDirection.Down: return Add(0, 1);
-                case MoveDirection.Left: return Add(-1, 0);
+                case MoveDirection.Up: return Add(0, -spacesOver);
+                case MoveDirection.Right: return Add(spacesOver, 0);
+                case MoveDirection.Down: return Add(0, spacesOver);
+                case MoveDirection.Left: return Add(-spacesOver, 0);
                 default:
                     throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
             }
