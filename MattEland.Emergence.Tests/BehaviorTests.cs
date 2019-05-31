@@ -16,6 +16,8 @@ namespace MattEland.Emergence.Tests
         [NotNull]
         protected ArtificialIntelligenceService AI => Context.AI;
 
+        protected CommonBehaviors Behaviors => AI.CommonBehaviors;
+
         [Test]
         public void BehaviorSystemShouldNotEvaluateForPlayer()
         {
@@ -30,19 +32,34 @@ namespace MattEland.Emergence.Tests
             Player.Pos.ShouldBe(pos);
         }
 
-        [Test] public void BehaviorSystemShouldReturnIdleForTurret()
+        [Test] 
+        public void BehaviorSystemShouldReturnIdleForTurret()
         {
             // Arrange
             var turretPos = Player.Pos.GetNeighbor(MoveDirection.Left, 2);
-            Turret turret = (Turret)GameObjectFactory.CreateActor(Actors.Turret, turretPos);
+            var turret = (Turret)GameObjectFactory.CreateActor(Actors.Turret, turretPos);
 
             // Act
             var result = AI.ProcessActorTurn(turret);
 
             // Assert
-            result.SelectedBehavior.ShouldBe(AI.CommonBehaviors.Idle);
-            result.EvaluatedBehaviors.ShouldNotContain(AI.CommonBehaviors.Wander);
+            result.SelectedBehavior.ShouldBe(Behaviors.Idle);
+            result.EvaluatedBehaviors.ShouldNotContain(Behaviors.Wander);
             turret.Pos.ShouldBe(turretPos);
+        }
+
+        [Test] 
+        public void BehaviorSystemShouldEvaluateIdleForHelpy()
+        {
+            // Arrange
+            var turretPos = Player.Pos.GetNeighbor(MoveDirection.Left, 10);
+            var actor = (Actor)GameObjectFactory.CreateActor(Actors.Helpy, turretPos);
+
+            // Act
+            var result = AI.ProcessActorTurn(actor);
+
+            // Assert
+            result.SelectedBehavior.ShouldBe(Behaviors.Wander);
         }
     }
 }
