@@ -18,7 +18,7 @@ namespace MattEland.Emergence.Engine.Entities
     /// and/or decisions every turn and occupies a single space in the game world at any time.
     /// </summary>
     /// <seealso cref="T:MattEland.Emergence.Engine.Entities.GameObjectBase" />
-    public class Actor : GameObjectBase
+    public abstract class Actor : GameObjectBase
     {
         private int _operations;
 
@@ -44,11 +44,11 @@ namespace MattEland.Emergence.Engine.Entities
         /// <value>The maximum operations of the object.</value>
         public int MaxOperations { get; set; }
 
-        public int Strength { get; set; }
-        public int Defense { get; set; }
-        public int Accuracy { get; set; }
-        public int Evasion { get; set; }
-        public decimal LineOfSightRadius { get; set; }
+        public abstract int Strength { get; }
+        public abstract int Defense { get; }
+        public abstract int Accuracy { get; }
+        public abstract int Evasion{ get; }
+        public abstract decimal LineOfSightRadius { get; }
 
         public override bool HasAi => true;
 
@@ -61,27 +61,14 @@ namespace MattEland.Emergence.Engine.Entities
         /// <summary>
         /// Initializes a new instance of the <see cref="Actor"/> class.
         /// </summary>
-        public Actor(ActorDto dto) : base(dto)
+        protected Actor() : base(dto)
         {
-            ActorType = dto.ActorType;
+        }
 
-            // Max should always be set before current
-            MaxStability = dto.MaxHp;
-            Stability = dto.MaxHp - dto.HpUsed;
-            MaxOperations = dto.MaxOp;
-            Operations = dto.MaxOp - dto.OpUsed;
-
-            Defense = dto.Defense;
-            Evasion = dto.Evasion;
-            Strength = dto.Strength;
-            Accuracy = dto.Accuracy;
-            LineOfSightRadius = dto.LineOfSightRadius;
-            IsImmobile = dto.IsImmobile;
-            KillCount = dto.KillCount;
-            LootRarity = dto.LootRarity;
-            DamageDealt = dto.DamageDealt;
-            DamageReceived = dto.DamageReceived;
-            CoresCaptured = dto.CoresCaptured;
+        public virtual void Initialize()
+        {
+            Stability = MaxStability;
+            Operations = MaxOperations;
 
             ResetEffectiveValues();
         }
