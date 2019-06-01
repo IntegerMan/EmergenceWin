@@ -15,6 +15,7 @@ namespace MattEland.Emergence.Engine.Entities.Actors
     {
         public Player(Pos2D pos, ActorType playerType) : base(pos)
         {
+            Team = Alignment.Player;
             PlayerType = playerType;
 
             HotbarCommands = new List<CommandSlot>();
