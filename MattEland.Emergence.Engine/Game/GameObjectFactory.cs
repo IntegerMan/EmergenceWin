@@ -2,6 +2,7 @@
 using MattEland.Emergence.Engine.DTOs;
 using MattEland.Emergence.Engine.Entities;
 using MattEland.Emergence.Engine.Entities.Actors;
+using MattEland.Emergence.Engine.Entities.Items;
 using MattEland.Emergence.Engine.Entities.Obstacles;
 using MattEland.Emergence.Engine.Level;
 using MattEland.Emergence.Engine.Level.Generation.Encounters;
@@ -160,8 +161,52 @@ namespace MattEland.Emergence.Engine.Game
                 case GameObjectType.Treasure:
                     return new TreasureTrove(pos);
 
+                case GameObjectType.Divider:
+                    return new Divider(pos);
+
+                case GameObjectType.Cabling:
+                    return new Cabling(pos);
+
+                case GameObjectType.Firewall:
+                    return new Firewall(pos);
+
+                case GameObjectType.Exit:
+                    return new LevelExit(pos);
+
+                case GameObjectType.Entrance:
+                    return new LevelEntrance(pos);
+
+                case GameObjectType.Service:
+                    return new LevelService(pos);
+
+                case GameObjectType.DataStore:
+                    return new DataStore(pos);
+
+                case GameObjectType.Wall:
+                    return new Wall(pos, false);
+
+                case GameObjectType.Debris:
+                    return new Debris(pos);
+
+                case GameObjectType.CommandPickup:
+                    return new CommandPickup(pos, id, "Command Pickup");
+
+                case GameObjectType.Water:
+                    return new Water(pos);
+
+                case GameObjectType.Help:
+                    return new HelpTile(pos, id);
+
+                case GameObjectType.CharacterSelect:
+                    return new CharacterSelectTile(pos, GetActorType(id));
+
+                case GameObjectType.Floor:
+                case GameObjectType.Player:
+                case GameObjectType.GenericPickup:
+                    throw new NotSupportedException($"{objType:G} / {id} cannot be instantiated using CreateObject");
+
                 default:
-                    throw new NotImplementedException($"{objType:G} is not supported for instantiation");
+                    throw new NotImplementedException($"{objType:G} / {id} is not supported for instantiation");
             }
         }
 
