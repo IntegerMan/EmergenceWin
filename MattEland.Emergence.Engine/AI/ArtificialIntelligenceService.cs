@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
 using MattEland.Emergence.Engine.Entities;
+using MattEland.Emergence.Engine.Entities.Actors;
 using MattEland.Emergence.Engine.Game;
 
 namespace MattEland.Emergence.Engine.AI

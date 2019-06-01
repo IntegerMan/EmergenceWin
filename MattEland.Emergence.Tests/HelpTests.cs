@@ -3,6 +3,7 @@ using JetBrains.Annotations;
 using MattEland.Emergence.Engine.DTOs;
 using MattEland.Emergence.Engine.Effects;
 using MattEland.Emergence.Engine.Entities;
+using MattEland.Emergence.Engine.Entities.Obstacles;
 using NUnit.Framework;
 using Shouldly;
 

@@ -4,6 +4,9 @@ using JetBrains.Annotations;
 using MattEland.Emergence.Engine.Commands;
 using MattEland.Emergence.Engine.DTOs;
 using MattEland.Emergence.Engine.Entities;
+using MattEland.Emergence.Engine.Entities.Actors;
+using MattEland.Emergence.Engine.Entities.Items;
+using MattEland.Emergence.Engine.Entities.Obstacles;
 using MattEland.Emergence.Engine.Level;
 using MattEland.Emergence.Engine.Level.Generation.Encounters;
 
@@ -15,138 +18,15 @@ namespace MattEland.Emergence.Engine.Game
 
         private static EntityDefinitionService EntityService => _entityService ?? (_entityService = new EntityDefinitionService());
 
-        /// <summary>
-        /// Creates a level object from a data transmission object.
-        /// </summary>
-        /// <param name="dto">The data transmission object.</param>
-        /// <returns>The constructed level object.</returns>
-        /// <exception cref="ArgumentException">Thrown if the algorithm does not support the type of object that <paramref name="dto"/> is.</exception>
-        private static GameObjectBase CreateFromDto(GameObjectDto dto)
-        {
-            switch (dto.Type)
-            {
-                case GameObjectType.Player:
-                    return new Player((PlayerDto)dto);
-
-                case GameObjectType.Core:
-                    return new LevelCore((ActorDto)dto);
-
-                case GameObjectType.Turret:
-                case GameObjectType.Actor:
-                    return BuildActor((ActorDto) dto);
-
-                case GameObjectType.Wall:
-                    return CreateWall(dto.Pos, false);
-
-                case GameObjectType.Door:
-                    return new Door((OpenableDto)dto);
-
-                case GameObjectType.Cabling:
-                    return new Cabling(dto);
-
-                case GameObjectType.Water:
-                    return new Water(dto);
-
-                case GameObjectType.Firewall:
-                    return new Firewall(dto);
-
-                case GameObjectType.Entrance:
-                    return new LevelEntrance(dto);
-
-                case GameObjectType.Exit:
-                    return new LevelExit(dto);
-
-                case GameObjectType.Service:
-                    return new LevelService(dto);
-
-                case GameObjectType.DataStore:
-                    return new DataStore(dto);
-
-                case GameObjectType.Divider:
-                    return new Divider(dto);
-
-                case GameObjectType.Debris:
-                    return new Debris(dto);
-
-                case GameObjectType.CommandPickup:
-                    return new CommandPickup(dto);
-
-                case GameObjectType.GenericPickup:
-                    switch (dto.ObjectId)
-                    {
-                        case "GET_HP":
-                            return new StabilityPickup(dto);
-
-                        case "GET_MAXHP":
-                            return new MaxStabilityPickup(dto);
-
-                        case "GET_OPS":
-                            return new OperationsPickup(dto);
-
-                        case "GET_MAXOPS":
-                            return new MaxOperationsPickup(dto);
-
-                        default:
-                            throw new ArgumentOutOfRangeException($"No pickup handler present for ID {dto.ObjectId}");
-                    }
-
-                case GameObjectType.Treasure:
-                    return new TreasureTrove((OpenableDto)dto);
-
-                case GameObjectType.Help:
-                    return new HelpTile(dto);
-
-                case GameObjectType.CharacterSelect:
-                    return new CharacterSelectTile(dto);
-
-                default:
-                    throw new ArgumentException($"Unsupported object type {dto.Type}", nameof(dto));
-            }
-        }
-
-        private static GameObjectBase BuildActor(ActorDto dto)
-        {
-            switch (dto.ObjectId)
-            {
-                case Actors.AntiVirus:
-                   return new AntiVirus(dto);
-
-                case Actors.Virus:
-                   return new Virus(dto);
-
-                case Actors.Worm:
-                   return new Worm(dto);
-
-                case Actors.Turret:
-                   return new Turret(dto);
-
-                case Actors.LogicBomb:
-                   return new LogicBomb(dto);
-
-                case Actors.Bug:
-                case Actors.Feature:
-                case Actors.Glitch:
-                    return new Bug(dto);
-
-                default:
-                    return new Actor(dto);
-            }
-        }
 
         /// <summary>
         /// Creates a player object instance with stats from the defined <paramref name="playerId"/>.
         /// </summary>
-        /// <param name="playerId">The player identifier. This cannot be null or empty.</param>
         /// <returns>The player instance</returns>
-        public static Player CreatePlayer([NotNull] string playerId)
+        public static Player CreatePlayer(Pos2D pos, ActorType playerType)
         {
-            if (string.IsNullOrWhiteSpace(playerId))
-            {
-                throw new ArgumentException("playerId is required", nameof(playerId));
-            }
-
-            var dto = new PlayerDto();
-
+            return new Player(pos, playerType);
+            /*
             var entityDef = EntityService.GetEntity(playerId);
 
             // Position doesn't really matter since LevelBuilder will auto-set the position
@@ -171,8 +51,10 @@ namespace MattEland.Emergence.Engine.Game
             }
 
             return (Player)CreateFromDto(dto);
+            */
         }
 
+        /*
         private static List<CommandInfoDto> BuildCommandSlots(int count)
         {
             var slots = new List<CommandInfoDto>(count);
@@ -223,6 +105,7 @@ namespace MattEland.Emergence.Engine.Game
 
             return dto;
         }
+        */
 
         private static ActorType GetActorType(string id)
         {
@@ -329,6 +212,34 @@ namespace MattEland.Emergence.Engine.Game
         public static GameObjectBase CreateCore(Pos2D pos) 
             => CreateFromDto(SetEntityStats(new ActorDto(ActorType.Core), Actors.Core, GameObjectType.Core, pos));
 
-        public static GameObjectBase CreateActor(string id, Pos2D pos) => CreateObject(id, GameObjectType.Actor, pos);
+        public static GameObjectBase CreateActor(string id, Pos2D pos)
+        {
+            ActorType actorType = GetActorType(id);
+            switch (actorType)
+            {
+                case ActorType.AntiVirus: return new AntiVirus(pos);
+                case ActorType.LogicBomb: return new LogicBomb(pos);
+                case ActorType.Turret: return new Turret(pos);
+                case ActorType.Core: return new LevelCore(pos);
+                case ActorType.Player: return new Player(pos, ActorType.Player);
+                case ActorType.Bug: return new Bug(pos);
+                case ActorType.Virus: return new Virus(pos);
+                case ActorType.Worm: return new Worm(pos);
+
+                case ActorType.Bit:
+                case ActorType.Daemon:
+                case ActorType.SystemDefender:
+                case ActorType.Inspector:
+                case ActorType.SecurityAgent:
+                case ActorType.GarbageCollector:
+                case ActorType.Helpy:
+                case ActorType.QueryAgent:
+                case ActorType.KernelWorker:
+                case ActorType.Feature: 
+                case ActorType.Glitch:
+                default:
+                    throw new NotImplementedException($"Actor Type {actorType:G} is not currently supported");
+            }
+        }
     }
 }

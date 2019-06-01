@@ -2,6 +2,7 @@ using System;
 using System.Diagnostics;
 using System.Windows.Media;
 using MattEland.Emergence.Engine.Entities;
+using MattEland.Emergence.Engine.Entities.Actors;
 using MattEland.Emergence.Engine.Level;
 using MattEland.Emergence.Engine.Messages;
 using MattEland.Shared.WPF;

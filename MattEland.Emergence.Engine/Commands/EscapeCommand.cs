@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using MattEland.Emergence.Engine.DTOs;
 using MattEland.Emergence.Engine.Entities;
+using MattEland.Emergence.Engine.Entities.Actors;
 using MattEland.Emergence.Engine.Game;
 using MattEland.Emergence.Engine.Level;
 using MattEland.Emergence.Engine.Services;

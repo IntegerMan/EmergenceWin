@@ -1,19 +1,22 @@
 ﻿using MattEland.Emergence.Engine.DTOs;
+using MattEland.Emergence.Engine.Entities.Actors;
 using MattEland.Emergence.Engine.Game;
+using MattEland.Emergence.Engine.Level;
 using MattEland.Emergence.Engine.Model;
 
 namespace MattEland.Emergence.Engine.Entities
 {
     public class LevelService : GameObjectBase
     {
-        public LevelService(GameObjectDto dto) : base(dto)
+        public LevelService(Pos2D pos) : base(pos)
         {
         }
 
-        public override bool IsInteractive => true;
         public override char AsciiChar => '*';
 
         public override string Name => "Service";
+
+        public override GameObjectType ObjectType => GameObjectType.Service;
 
         /// <inheritdoc />
         public override bool OnActorAttemptedEnter(GameContext context, Actor actor)

@@ -4,6 +4,7 @@ using System.Linq;
 using GeneticSharp.Domain.Randomizations;
 using MattEland.Emergence.Engine.DTOs;
 using MattEland.Emergence.Engine.Entities;
+using MattEland.Emergence.Engine.Entities.Obstacles;
 using MattEland.Emergence.Engine.Game;
 using MattEland.Emergence.Engine.Level.Generation.Encounters;
 using MattEland.Emergence.Engine.Level.Generation.Prefabs;

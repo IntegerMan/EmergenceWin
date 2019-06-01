@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using MattEland.Emergence.Engine.Entities;
+using MattEland.Emergence.Engine.Entities.Obstacles;
 using MattEland.Emergence.Engine.Model;
 using MattEland.Emergence.Engine.Services;
 using NUnit.Framework;

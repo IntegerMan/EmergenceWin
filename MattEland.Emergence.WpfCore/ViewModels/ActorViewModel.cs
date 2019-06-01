@@ -1,6 +1,7 @@
 ﻿using System;
 using JetBrains.Annotations;
 using MattEland.Emergence.Engine.Entities;
+using MattEland.Emergence.Engine.Entities.Actors;
 
 namespace MattEland.Emergence.WpfCore.ViewModels
 {
