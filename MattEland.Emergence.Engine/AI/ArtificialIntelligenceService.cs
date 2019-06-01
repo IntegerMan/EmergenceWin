@@ -33,7 +33,7 @@ namespace MattEland.Emergence.Engine.AI
             var choices = Context.GetCellsVisibleFromPoint(actor.Pos, actor.EffectiveLineOfSightRadius).ToList();
 
             // Grab behaviors that are applicable for this actor
-            var behaviors = GetBehaviors(actor);
+            var behaviors = actor.GetBehaviors(Context);
 
             // Evaluate each behavior in sequence
             foreach (var behavior in behaviors)
@@ -49,18 +49,6 @@ namespace MattEland.Emergence.Engine.AI
             }
 
             return result;
-        }
-
-
-        [NotNull, ItemNotNull]
-        private IEnumerable<ActorBehaviorBase> GetBehaviors([NotNull] Actor actor)
-        {
-            if (!actor.IsImmobile)
-            {
-                yield return CommonBehaviors.Wander;
-            }
-
-            yield return CommonBehaviors.Idle;
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
+using MattEland.Emergence.Engine.AI;
 using MattEland.Emergence.Engine.Commands;
 using MattEland.Emergence.Engine.DTOs;
 using MattEland.Emergence.Engine.Effects;
@@ -243,7 +244,7 @@ namespace MattEland.Emergence.Engine.Entities
             }
         }
 
-        private static readonly IDictionary<Alignment, string> _teamColors = new Dictionary<Alignment, string>
+        private static readonly IDictionary<Alignment, string> TeamColors = new Dictionary<Alignment, string>
         {
             [Alignment.SystemSecurity] = GameColors.Red,
             [Alignment.SystemAntiVirus] = GameColors.Orange,
@@ -252,6 +253,24 @@ namespace MattEland.Emergence.Engine.Entities
             [Alignment.Virus] = GameColors.Purple
         };
 
-        public override string ForegroundColor => _teamColors.ContainsKey(Team) ? _teamColors[Team] : GameColors.Yellow;
+        public override string ForegroundColor => TeamColors.ContainsKey(Team) ? TeamColors[Team] : GameColors.Yellow;
+
+        /// <summary>
+        /// Gets an ordered series of behaviors associated with this actor's artificial intelligence.
+        /// </summary>
+        /// <param name="context">The game context</param>
+        /// <returns>An enumerable series of behaviors for the actor to evaluate as part of a behavior tree</returns>
+        [NotNull, ItemNotNull]
+        public virtual IEnumerable<ActorBehaviorBase> GetBehaviors([NotNull] GameContext context)
+        {
+            var behaviors = context.AI.CommonBehaviors;
+
+            if (!IsImmobile)
+            {
+                yield return behaviors.Wander;
+            }
+
+            yield return behaviors.Idle;
+        }
     }
 }
