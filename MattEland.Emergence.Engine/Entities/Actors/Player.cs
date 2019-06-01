@@ -24,6 +24,7 @@ namespace MattEland.Emergence.Engine.Entities.Actors
             // TODO: CreateCommandReferences(dto.StoredCommands, StoredCommands);
         }
 
+        /*
         private static void CreateCommandReferences([CanBeNull] IEnumerable<CommandInfoDto> commandDtos,
             [NotNull] ICollection<CommandSlot> commandRefCollection)
         {
@@ -41,6 +42,7 @@ namespace MattEland.Emergence.Engine.Entities.Actors
                 commandRefCollection.Add(reference);
             }
         }
+        */
 
         [ItemCanBeNull] public IList<CommandSlot> HotbarCommands { get; }
 
@@ -89,12 +91,10 @@ namespace MattEland.Emergence.Engine.Entities.Actors
                 return true;
             }
 
-            var dto = command.BuildDto(false);
-
             int index = HotbarCommands.IndexOf(null);
             if (index >= 0)
             {
-                HotbarCommands[index] = CommandFactory.CreateCommandReference(dto);
+                HotbarCommands[index] = CommandFactory.CreateCommandReference(command);
                 context.AddMessage($"{Name} picks up {command.Name}", ClientMessageType.Success);
                 return true;
             }
@@ -102,7 +102,7 @@ namespace MattEland.Emergence.Engine.Entities.Actors
             index = StoredCommands.IndexOf(null);
             if (index >= 0)
             {
-                StoredCommands[index] = CommandFactory.CreateCommandReference(dto);
+                StoredCommands[index] = CommandFactory.CreateCommandReference(command);
                 context.AddMessage($"{Name} picks up {command.Name} and stores it", ClientMessageType.Success);
                 return true;
             }
@@ -160,8 +160,7 @@ namespace MattEland.Emergence.Engine.Entities.Actors
                 {
                     if (IsPlayer)
                     {
-                        context.AddMessage($"{cmd.Command.Name} deactivates due to lack of available operations",
-                            ClientMessageType.Failure);
+                        context.AddMessage($"{cmd.Command.Name} deactivates due to lack of available operations", ClientMessageType.Failure);
                         context.AddEffect(new DeactivatedEffect(this, cmd.Command.Name));
                     }
 

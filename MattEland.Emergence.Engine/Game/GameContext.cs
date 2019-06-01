@@ -272,7 +272,7 @@ namespace MattEland.Emergence.Engine.Game
             var nextLevel = GameService.GenerateLevel(new LevelGenerationParameters
             {
                 LevelType = levelType,
-                PlayerId = Player.ObjectId
+                PlayerType = Player.PlayerType
             }, Player);
 
             SetLevel(nextLevel);

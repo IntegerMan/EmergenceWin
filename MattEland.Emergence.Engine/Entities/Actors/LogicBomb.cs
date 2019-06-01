@@ -1,5 +1,4 @@
-﻿using MattEland.Emergence.Engine.DTOs;
-using MattEland.Emergence.Engine.Level;
+﻿using MattEland.Emergence.Engine.Level;
 
 namespace MattEland.Emergence.Engine.Entities.Actors
 {

@@ -227,16 +227,12 @@ namespace MattEland.Emergence.Engine.Level.Generation
         {
             foreach (var cell in level.Cells.Where(c => c.FloorType != FloorType.Void && !c.HasNonActorObstacle))
             {
-                level.AddObject(new Floor(new GameObjectDto
-                {
-                    Pos = cell.Pos,
-                    Type = GameObjectType.Floor
-                }, cell.FloorType));
+                level.AddObject(new Floor(cell.Pos, cell.FloorType));
             }
         }
 
         private static void FinalizePlacedWalls(LevelData level) => 
-            level.Objects.Where(o => o.ObjectType == GameObjectType.Wall && level.IsPosExterior(o.Pos)).Each(w => w.State = "External");
+            level.Objects.OfType<Wall>().Each(w => w.IsExternal = level.IsPosExterior(w.Pos));
 
         /// <summary>
         /// Generates actors for the level and places their contents inside of the level.

@@ -8,7 +8,7 @@ namespace MattEland.Emergence.Engine.Entities.Obstacles
 {
     public class Wall : GameObjectBase
     {
-        public bool IsExternal { get; }
+        public bool IsExternal { get; set; }
 
         public Wall(Pos2D pos, bool isExternal) : base(pos)
         {

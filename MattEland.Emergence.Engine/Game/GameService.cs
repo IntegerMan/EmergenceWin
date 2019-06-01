@@ -4,7 +4,6 @@ using GeneticSharp.Domain.Randomizations;
 using JetBrains.Annotations;
 using MattEland.Emergence.Engine.Commands;
 using MattEland.Emergence.Engine.DTOs;
-using MattEland.Emergence.Engine.Entities;
 using MattEland.Emergence.Engine.Entities.Actors;
 using MattEland.Emergence.Engine.Level;
 using MattEland.Emergence.Engine.Level.Generation;
@@ -76,18 +75,12 @@ namespace MattEland.Emergence.Engine.Game
 
             if (parameters == null)
             {
-                parameters = new NewGameParameters
-                {
-                    CharacterId = defaultPlayerId
-                };
-            } else if (string.IsNullOrWhiteSpace(parameters.CharacterId))
-            {
-                parameters.CharacterId = defaultPlayerId;
+                parameters = new NewGameParameters {PlayerType = ActorType.Player};
             }
 
             // Set up the basic parameters
             var levelParameters = new LevelGenerationParameters { LevelType = LevelType.Tutorial };
-            Player = GameObjectFactory.CreatePlayer(parameters.CharacterId);
+            Player = GameObjectFactory.CreatePlayer(new Pos2D(0,0), parameters.PlayerType);
             Level = _levelService.GenerateLevel(levelParameters, Player);
             Context = new GameContext(Level, this, _entityProvider, _combatManager, _lootProvider, _randomizer);
 

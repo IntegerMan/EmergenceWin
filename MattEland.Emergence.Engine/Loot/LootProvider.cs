@@ -2,6 +2,7 @@
 using System.Linq;
 using MattEland.Emergence.Engine.Commands;
 using MattEland.Emergence.Engine.Entities;
+using MattEland.Emergence.Engine.Entities.Items;
 using MattEland.Emergence.Engine.Game;
 using MattEland.Emergence.Engine.Level;
 using MattEland.Emergence.Engine.Services;
@@ -88,13 +89,7 @@ namespace MattEland.Emergence.Engine.Loot
                 }
 
                 // Actually create the entry
-                var obj = GameObjectFactory.CreateObject(entry.ObjectId, entry.ObjectType, source.Pos, dto =>
-                {
-                    if (!string.IsNullOrWhiteSpace(entry.Name))
-                    {
-                        dto.Name = entry.Name;
-                    }
-                });
+                var obj = GameObjectFactory.CreateObject(entry.ObjectId, entry.ObjectType, source.Pos);
                 
                 context.AddObject(obj);
 
@@ -106,21 +101,17 @@ namespace MattEland.Emergence.Engine.Loot
         {
             foreach (var cell in context.Level.Cells)
             {
-                if (cell.Objects.Any(o => o.ObjectId == entry.ObjectId))
+                if (cell.Objects.OfType<CommandPickup>().Any(o => o.CommandId == entry.ObjectId))
                 {
                     return true;
                 }
-
             }
 
-            if (context.Player != null)
+            foreach (var instance in context.Player.Commands)
             {
-                foreach (var instance in context.Player.Commands)
+                if (instance?.Command?.Id == entry.ObjectId)
                 {
-                    if (instance?.Command?.Id == entry.ObjectId)
-                    {
-                        return true;
-                    }
+                    return true;
                 }
             }
 

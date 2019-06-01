@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using JetBrains.Annotations;
-using MattEland.Emergence.Engine.Commands;
 using MattEland.Emergence.Engine.DTOs;
 using MattEland.Emergence.Engine.Entities;
 using MattEland.Emergence.Engine.Entities.Actors;
-using MattEland.Emergence.Engine.Entities.Items;
 using MattEland.Emergence.Engine.Entities.Obstacles;
 using MattEland.Emergence.Engine.Level;
 using MattEland.Emergence.Engine.Level.Generation.Encounters;
@@ -143,63 +139,36 @@ namespace MattEland.Emergence.Engine.Game
             }
         }
 
-        public static GameObjectBase CreateObject(string id, GameObjectType objType, Pos2D pos, Action<GameObjectDto> configure = null)
+        public static GameObjectBase CreateObject(string id, GameObjectType objType, Pos2D pos)
         {
             // Figure out which DTO to build
-            GameObjectDto dto;
             switch (objType)
             {
-                case GameObjectType.Player:
-                    dto = new PlayerDto();
-                    break;
-
                 case GameObjectType.Turret:
-                    return CreateFromDto(SetEntityStats(new ActorDto(ActorType.Turret), Actors.Turret, objType, pos));
+                    return new Turret(pos);
 
                 case GameObjectType.Core:
                     return CreateCore(pos);
 
                 case GameObjectType.Actor:
-                    return CreateFromDto(SetEntityStats(new ActorDto(GetActorType(id)), id, objType, pos));
+                    // return CreateFromDto(SetEntityStats(new ActorDto(GetActorType(id)), id, objType, pos));
+                    throw new NotImplementedException($"Actor {id} is not supported for instantiation");
 
                 case GameObjectType.Door:
+                    return new Door(pos);
+
                 case GameObjectType.Treasure:
-                    dto = new OpenableDto();
-                    break;
+                    return new TreasureTrove(pos);
 
                 default:
-                    dto = new GameObjectDto();
-                    break;
+                    throw new NotImplementedException($"{objType:G} is not supported for instantiation");
             }
-
-            // Set common properties on dto
-            dto.Type = objType;
-            dto.ObjectId = id;
-            dto.Pos = pos;
-            dto.HpUsed = 0;
-            dto.MaxHp = 10;
-
-            configure?.Invoke(dto);
-
-            return CreateFromDto(dto);
         }
 
 
         public static GameObjectBase CreateWall(Pos2D pos, bool isExterior)
         {
-            var hp = 3;
-            var dto = new GameObjectDto
-            {
-                Pos = pos,
-                Type = GameObjectType.Wall,
-                MaxHp = hp,
-                HpUsed = 0,
-                ObjectId = null,
-                Team = Alignment.Neutral,
-                Name = "Wall",
-                State = isExterior ? "External" : null
-            };
-            var wall = new Wall(dto);
+            var wall = new Wall(pos, isExterior);
 
             if (isExterior)
             {
@@ -209,8 +178,7 @@ namespace MattEland.Emergence.Engine.Game
             return wall;
         }
 
-        public static GameObjectBase CreateCore(Pos2D pos) 
-            => CreateFromDto(SetEntityStats(new ActorDto(ActorType.Core), Actors.Core, GameObjectType.Core, pos));
+        public static GameObjectBase CreateCore(Pos2D pos) => new LevelCore(pos);
 
         public static GameObjectBase CreateActor(string id, Pos2D pos)
         {

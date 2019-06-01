@@ -11,7 +11,7 @@ namespace MattEland.Emergence.Engine.Entities.Actors
 {
     public class LevelCore : Actor
     {
-        public LevelCore(Pos2D dto) : base(dto)
+        public LevelCore(Pos2D pos) : base(pos)
         {
         }
 

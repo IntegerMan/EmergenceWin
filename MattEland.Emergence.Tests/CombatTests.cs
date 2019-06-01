@@ -25,7 +25,6 @@ namespace MattEland.Emergence.Tests
         public void HandleHit()
         {
             // Arrange
-            Player.Accuracy = 100;
             Player.EffectiveStrength = 3;
             Player.EffectiveAccuracy = 100;
             Turret.EffectiveEvasion = 0;

@@ -19,6 +19,6 @@ namespace MattEland.Emergence.Engine.Messages
             NewPos = newPos;
         }
 
-        public override string ToString() => $"Move {Source.ObjectId.Substring(0, 5)}... from {OldPos.ToString()} to {NewPos.ToString()}";
+        public override string ToString() => $"Move {Source.Name} from {OldPos.ToString()} to {NewPos.ToString()}";
     }
 }
