@@ -18,7 +18,7 @@ namespace MattEland.Emergence.Tests
             Context.TeleportActor(Player, playerStartPos);
             
             // Act
-            GameService.MovePlayer(MoveDirection.Left);
+            GameViewModel.MovePlayer(MoveDirection.Left);
             
             // Assert
             door.IsOpen.ShouldBeTrue();
@@ -33,7 +33,7 @@ namespace MattEland.Emergence.Tests
             Context.TeleportActor(Player, playerStartPos);
             
             // Act
-            GameService.MovePlayer(MoveDirection.Left);
+            GameViewModel.MovePlayer(MoveDirection.Left);
             
             // Assert
             door.IsOpen.ShouldBeTrue();

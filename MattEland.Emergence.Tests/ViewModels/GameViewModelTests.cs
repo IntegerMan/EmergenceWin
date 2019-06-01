@@ -20,6 +20,8 @@ namespace MattEland.Emergence.Tests.ViewModels
             vm.WorldObjects.ShouldNotBeEmpty();
             vm.Commands.ShouldNotBeEmpty();
             vm.Messages.ShouldNotBeEmpty();
+            vm.UIState.ShouldBe(UIState.ReadyForInput);
+            vm.UIPrompt.ShouldContain("Ready");
         }
 
         [Test]
