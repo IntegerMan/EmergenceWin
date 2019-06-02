@@ -54,7 +54,7 @@ namespace MattEland.Emergence.Engine.Entities
         /// Gets or sets the maximum stability or health of the object.
         /// </summary>
         /// <value>The maximum stability of the object.</value>
-        public int MaxStability { get; set; }
+        public int MaxStability { get; set; } = 3;
 
         /// <summary>
         /// Gets a value indicating whether this instance is invulnerable.

@@ -138,7 +138,11 @@ namespace MattEland.Emergence.Engine.Game
         public GameObjectBase AddObject(GameObjectBase obj)
         {
             Level.AddObject(obj);
+
+            obj.Initialize();
+
             AddMessage(new CreatedMessage(obj));
+
             return obj;
         }
 
@@ -309,11 +313,15 @@ namespace MattEland.Emergence.Engine.Game
             _messages.Add(message);
         }
 
-        public void UpdateObject(GameObjectBase gameObject) => AddMessage(new ObjectUpdatedMessage(gameObject));
+        public void UpdateObject([NotNull] GameObjectBase gameObject) => AddMessage(new ObjectUpdatedMessage(gameObject));
 
-        public void CreatedObject(GameObjectBase gameObject) => AddMessage(new CreatedMessage(gameObject));
+        public void CreatedObject([NotNull] GameObjectBase gameObject)
+        {                
+            gameObject.Initialize();
+            AddMessage(new CreatedMessage(gameObject));
+        }
 
-        public void TeleportActor(Actor actor, Pos2D pos)
+        public void TeleportActor([NotNull] Actor actor, Pos2D pos)
         {
             const int damage = 1;
 
@@ -345,7 +353,7 @@ namespace MattEland.Emergence.Engine.Game
 
         }
 
-        private void HandleFailedTeleport(Actor actor, Pos2D pos, int damage)
+        private void HandleFailedTeleport([NotNull] Actor actor, Pos2D pos, int damage)
         {
             if (actor.IsPlayer || CanPlayerSee(pos))
             {
@@ -356,7 +364,7 @@ namespace MattEland.Emergence.Engine.Game
             CombatManager.HurtObject(this, actor, actor, damage, "scrambles", DamageType.Normal);
         }
 
-        private void AddTeleportEffect(Actor actor, Pos2D pos)
+        private void AddTeleportEffect([NotNull] Actor actor, Pos2D pos)
         {
             // Don't give the client-application an unfair idea of where the target teleported to if they can't see it
             var endPos = pos;
@@ -368,7 +376,7 @@ namespace MattEland.Emergence.Engine.Game
             AddEffect(new TeleportEffect(actor.Pos, endPos));
         }
 
-        private void HandleTelefragged(Actor actor,
+        private void HandleTelefragged([NotNull] Actor actor,
             IEnumerable<Actor> telefragged,
             Pos2D oldPos,
             Pos2D newPos,
@@ -398,7 +406,7 @@ namespace MattEland.Emergence.Engine.Game
             }
         }
 
-        public IEnumerable<Pos2D> CalculateLineOfSight(Actor actor)
+        public IEnumerable<Pos2D> CalculateLineOfSight([NotNull] Actor actor)
         {
             var fov = new ShadowCasterViewProvider(Level);
             fov.ComputeFov(actor.Pos, actor.EffectiveLineOfSightRadius);
@@ -412,7 +420,6 @@ namespace MattEland.Emergence.Engine.Game
         public void AddSoundEffect(OpenableGameObjectBase source, SoundEffects sound) => AddEffect(new SoundEffect(source, sound));
 
         public void ClearMessages() => _messages.Clear();
-
 
         public void GenerateFillerWallsAsNeeded(Pos2D position)
         {

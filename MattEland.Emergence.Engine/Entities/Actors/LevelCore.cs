@@ -15,6 +15,9 @@ namespace MattEland.Emergence.Engine.Entities.Actors
         {
         }
 
+        public override bool IsImmobile => true;
+        public override bool IsInvulnerable => true;
+
         public override bool CanBeCaptured => true;
 
         public override bool OnActorAttemptedEnter(GameContext context, Actor actor)

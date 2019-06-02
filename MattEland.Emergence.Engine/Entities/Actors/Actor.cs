@@ -94,9 +94,9 @@ namespace MattEland.Emergence.Engine.Entities.Actors
         public virtual decimal EffectiveLineOfSightRadius { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether or not this object can move.
+        /// Gets a value indicating whether or not this object can move.
         /// </summary>
-        public bool IsImmobile { get; set; }
+        public virtual bool IsImmobile => false;
 
         /// <inheritdoc />
         public override bool OnActorAttemptedEnter(GameContext context, Actor actor)

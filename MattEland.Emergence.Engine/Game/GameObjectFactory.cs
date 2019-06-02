@@ -5,16 +5,11 @@ using MattEland.Emergence.Engine.Entities.Actors;
 using MattEland.Emergence.Engine.Entities.Items;
 using MattEland.Emergence.Engine.Entities.Obstacles;
 using MattEland.Emergence.Engine.Level;
-using MattEland.Emergence.Engine.Level.Generation.Encounters;
 
 namespace MattEland.Emergence.Engine.Game
 {
     public static class GameObjectFactory
     {
-        private static EntityDefinitionService _entityService;
-
-        private static EntityDefinitionService EntityService => _entityService ?? (_entityService = new EntityDefinitionService());
-
 
         /// <summary>
         /// Creates a player object instance with stats from the defined <paramref name="playerId"/>.
@@ -152,7 +147,6 @@ namespace MattEland.Emergence.Engine.Game
                     return CreateCore(pos);
 
                 case GameObjectType.Actor:
-                    // return CreateFromDto(SetEntityStats(new ActorDto(GetActorType(id)), id, objType, pos));
                     throw new NotImplementedException($"Actor {id} is not supported for instantiation");
 
                 case GameObjectType.Door:

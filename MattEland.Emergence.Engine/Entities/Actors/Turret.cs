@@ -7,6 +7,7 @@ namespace MattEland.Emergence.Engine.Entities.Actors
         public Turret(Pos2D pos) : base(pos)
         {
         }
+        public override bool IsImmobile => true;
 
         public override string Name => "Turret";
         public override char AsciiChar => 'T';
