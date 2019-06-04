@@ -139,8 +139,6 @@ namespace MattEland.Emergence.Engine.Game
         {
             Level.AddObject(obj);
 
-            obj.Initialize();
-
             AddMessage(new CreatedMessage(obj));
 
             return obj;
@@ -315,11 +313,7 @@ namespace MattEland.Emergence.Engine.Game
 
         public void UpdateObject([NotNull] GameObjectBase gameObject) => AddMessage(new ObjectUpdatedMessage(gameObject));
 
-        public void CreatedObject([NotNull] GameObjectBase gameObject)
-        {                
-            gameObject.Initialize();
-            AddMessage(new CreatedMessage(gameObject));
-        }
+        public void CreatedObject([NotNull] GameObjectBase gameObject) => AddMessage(new CreatedMessage(gameObject));
 
         public void TeleportActor([NotNull] Actor actor, Pos2D pos)
         {

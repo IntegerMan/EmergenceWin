@@ -43,7 +43,7 @@ namespace MattEland.Emergence.Engine.Entities.Actors
         /// Gets or sets the maximum operations of the object, used as energy for command management.
         /// </summary>
         /// <value>The maximum operations of the object.</value>
-        public int MaxOperations { get; set; }
+        public int MaxOperations { get; set; } = 5;
 
         public virtual int Strength { get; } = 1;
         public virtual int Defense { get; } = 0;
@@ -224,5 +224,7 @@ namespace MattEland.Emergence.Engine.Entities.Actors
 
             yield return behaviors.Idle;
         }
+
+
     }
 }

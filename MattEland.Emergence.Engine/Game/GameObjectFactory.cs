@@ -232,21 +232,131 @@ namespace MattEland.Emergence.Engine.Game
                 case ActorType.Bug: return new Bug(pos);
                 case ActorType.Virus: return new Virus(pos);
                 case ActorType.Worm: return new Worm(pos);
-
-                case ActorType.Bit:
-                case ActorType.Daemon:
-                case ActorType.SystemDefender:
-                case ActorType.Inspector:
-                case ActorType.SecurityAgent:
-                case ActorType.GarbageCollector:
-                case ActorType.Helpy:
-                case ActorType.QueryAgent:
-                case ActorType.KernelWorker:
-                case ActorType.Feature: 
-                case ActorType.Glitch:
+                case ActorType.Helpy: return new Helpy(pos);
+                case ActorType.Bit: return new Bit(pos);
+                case ActorType.Daemon: return new Daemon(pos);
+                case ActorType.SystemDefender: return new SystemDefender(pos);
+                case ActorType.Inspector: return new Inspector(pos);
+                case ActorType.SecurityAgent: return new SecurityAgent(pos);
+                case ActorType.GarbageCollector: return new GarbageCollector(pos);
+                case ActorType.QueryAgent: return new QueryAgent(pos);
+                case ActorType.KernelWorker: return new KernelWorker(pos);
+                case ActorType.Feature: return new Feature(pos);
+                case ActorType.Glitch: return new Glitch(pos);
                 default:
                     throw new NotImplementedException($"Actor Type {actorType:G} is not currently supported");
             }
         }
+    }
+
+    public class Helpy : Actor
+    {
+        public Helpy(Pos2D pos) : base(pos)
+        {
+            Team = Alignment.SystemCore;
+        }
+
+        public override string Name => "Helpy";
+        public override char AsciiChar => '?';
+    }
+    public class Bit : Actor
+    {
+        public Bit(Pos2D pos) : base(pos)
+        {
+            Team = Alignment.SystemCore;
+        }
+
+        public override string Name => "Bit";
+        public override char AsciiChar => '0';
+    }
+    public class Daemon : Actor
+    {
+        public Daemon(Pos2D pos) : base(pos)
+        {
+            Team = Alignment.SystemSecurity;
+        }
+
+        public override string Name => "Daemon";
+        public override char AsciiChar => 'd';
+    }
+    public class SystemDefender : Actor
+    {
+        public SystemDefender(Pos2D pos) : base(pos)
+        {
+            Team = Alignment.SystemSecurity;
+        }
+
+        public override string Name => "System Defender";
+        public override char AsciiChar => 'D';
+    }
+    public class Inspector : Actor
+    {
+        public Inspector(Pos2D pos) : base(pos)
+        {
+            Team = Alignment.SystemCore;
+        }
+
+        public override string Name => "Inspector";
+        public override char AsciiChar => 'i';
+    }
+    public class SecurityAgent : Actor
+    {
+        public SecurityAgent(Pos2D pos) : base(pos)
+        {
+            Team = Alignment.SystemSecurity;
+        }
+
+        public override string Name => "Security Agent";
+        public override char AsciiChar => 's';
+    }
+    public class GarbageCollector : Actor
+    {
+        public GarbageCollector(Pos2D pos) : base(pos)
+        {
+            Team = Alignment.SystemSecurity;
+        }
+
+        public override string Name => "Garbage Collector";
+        public override char AsciiChar => 'G';
+    }
+    public class QueryAgent : Actor
+    {
+        public QueryAgent(Pos2D pos) : base(pos)
+        {
+            Team = Alignment.SystemCore;
+        }
+
+        public override string Name => "Query Agent";
+        public override char AsciiChar => 'q';
+    }
+    public class KernelWorker : Actor
+    {
+        public KernelWorker(Pos2D pos) : base(pos)
+        {
+            Team = Alignment.SystemCore;
+        }
+
+        public override string Name => "Kernel Worker";
+        public override char AsciiChar => 'k';
+    }
+    public class Feature : Bug
+    {
+        public Feature(Pos2D pos) : base(pos)
+        {
+            Team = Alignment.Bug;
+        }
+
+        public override string Name => "Feature";
+        public override char AsciiChar => 'f';
+    }
+    public class Glitch : Bug
+    {
+        public Glitch(Pos2D pos) : base(pos)
+        {
+            Team = Alignment.Bug;
+        }
+
+        public override string Name => "Glitch";
+        public override char AsciiChar => 'g';
     }
 }

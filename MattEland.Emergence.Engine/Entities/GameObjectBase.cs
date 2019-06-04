@@ -22,6 +22,8 @@ namespace MattEland.Emergence.Engine.Entities
         protected GameObjectBase(Pos2D pos)
         {
             Pos = pos;
+
+            Initialize();
         }
 
         /// <summary>
