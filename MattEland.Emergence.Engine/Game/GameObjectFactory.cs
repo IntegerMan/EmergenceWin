@@ -147,7 +147,7 @@ namespace MattEland.Emergence.Engine.Game
                     return CreateCore(pos);
 
                 case GameObjectType.Actor:
-                    throw new NotImplementedException($"Actor {id} is not supported for instantiation");
+                    return CreateActor(id, pos);
 
                 case GameObjectType.Door:
                     return new Door(pos);
