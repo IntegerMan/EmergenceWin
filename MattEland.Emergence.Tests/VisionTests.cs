@@ -14,6 +14,7 @@ namespace MattEland.Emergence.Tests
             // Act
 
             // Assert
+            Player.EffectiveLineOfSightRadius.ShouldBeGreaterThan(0);
             Player.VisibleCells.ShouldContain(Player.Pos);
         }
 

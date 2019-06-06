@@ -125,7 +125,7 @@ namespace MattEland.Emergence.Engine.Entities.Actors
         public override int Defense { get; } // TODO switch on player type
         public override int Accuracy { get; } // TODO switch on player type
         public override int Evasion { get; } // TODO switch on player type
-        public override decimal LineOfSightRadius { get; }
+        public override decimal LineOfSightRadius => 5.25M; // TODO: Something more flexible
         public ActorType PlayerType { get; }
 
         /// <inheritdoc />

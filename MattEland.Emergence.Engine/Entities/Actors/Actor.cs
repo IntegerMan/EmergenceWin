@@ -49,7 +49,7 @@ namespace MattEland.Emergence.Engine.Entities.Actors
         public virtual int Defense { get; } = 0;
         public virtual int Accuracy { get; } = 65;
         public virtual int Evasion { get; } = 20;
-        public virtual decimal LineOfSightRadius { get; } = 5;
+        public virtual decimal LineOfSightRadius { get; } = 5M;
 
         /// <summary>
         /// Gets or sets the number of kills the actor is responsible for.
@@ -91,7 +91,7 @@ namespace MattEland.Emergence.Engine.Entities.Actors
             EffectiveLineOfSightRadius = LineOfSightRadius;
         }
 
-        public virtual decimal EffectiveLineOfSightRadius { get; set; }
+        public virtual decimal EffectiveLineOfSightRadius { get; set; } = 5M;
 
         /// <summary>
         /// Gets a value indicating whether or not this object can move.
