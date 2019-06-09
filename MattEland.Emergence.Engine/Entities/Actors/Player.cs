@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
 using MattEland.Emergence.Engine.Commands;
@@ -182,7 +183,23 @@ namespace MattEland.Emergence.Engine.Entities.Actors
 
         public override GameObjectType ObjectType => GameObjectType.Player;
 
-        public override string Name => "Player"; // TODO switch on player type
+        public override string Name
+        {
+            get
+            {
+                switch (PlayerType)
+                {
+                    case PlayerType.Logistics: return "Logistics AI";
+                    case PlayerType.Forecast: return "Weather Forecast AI";
+                    case PlayerType.Game: return "Game AI";
+                    case PlayerType.Search: return "Search AI";
+                    case PlayerType.Malware: return "Malware AI";
+                    case PlayerType.Debugger: return "Debugging Assistant";
+                    case PlayerType.AntiVirus: return "Anti-Virus AI";
+                    default: return "Player";
+                }
+            }
+        }
 
         /// <inheritdoc />
         public override bool IsPlayer => true;
