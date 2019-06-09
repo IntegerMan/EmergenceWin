@@ -10,6 +10,7 @@ namespace MattEland.Emergence.Tests
     {
         [TestCase(Actors.Turret, 42)]
         [TestCase(Actors.Helpy, 20)]
+        [TestCase(Actors.SecurityAgent, 80)]
         public void AccuracyShouldBeCorrect(string id, decimal expected)
         {
             // Arrange
@@ -24,6 +25,7 @@ namespace MattEland.Emergence.Tests
 
         [TestCase(Actors.Search, 25)]
         [TestCase(Actors.KernelWorker, 15)]
+        [TestCase(Actors.Defender, 30)]
         public void EvasionShouldBeCorrect(string id, decimal expected)
         {
             // Arrange
@@ -52,6 +54,7 @@ namespace MattEland.Emergence.Tests
         
         [TestCase(Actors.AntiVirus, 2)]
         [TestCase(Actors.Daemon, 3)]
+        [TestCase(Actors.Inspector, 1)]
         public void StrengthShouldBeCorrect(string id, decimal expected)
         {
             // Arrange

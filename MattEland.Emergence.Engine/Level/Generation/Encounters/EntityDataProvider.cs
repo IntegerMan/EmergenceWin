@@ -16,15 +16,10 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
 
         public EntityDataProvider()
         {
-            Instance = this;
             _items = new Dictionary<string, EntityData>();
 
             LoadData();
         }
-        
-        public static EntityDataProvider Instance { get; private set; }
-
-        public IEnumerable<EntityData> Items => _items.Values;
 
         private void LoadData()
         {
@@ -91,49 +86,6 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
 */
                              e.Hp = 50;
                              e.Op = 50;
-                         });
-
-            DefineActor(Actors.Defender, "System Defender", Alignment.SystemAntiVirus,
-                         e =>
-                         {
-/*
-                             e.Accuracy = 50;
-                             e.Evasion = 30;
-                             e.Strength = 3;
-                             e.Defense = 2;
-*/
-                             e.Hp = 5;
-                             e.Op = 15;
-                         });
-
-            DefineActor(Actors.Inspector, "Inspector", Alignment.SystemAntiVirus,
-                         e =>
-                         {
-/*
-                             e.Accuracy = 95;
-                             e.Evasion = 15;
-                             e.Strength = 1;
-                             e.Defense = 0;
-*/
-                             e.Hp = 3;
-                             e.Op = 5;
-                             e.BlocksSight = false;
-                             e.LootRarity = Rarity.Common;
-                         });
-
-            DefineActor(Actors.SecurityAgent, "Security Agent", Alignment.SystemSecurity,
-                         e =>
-                         {
-/*
-                             e.Accuracy = 80;
-                             e.Evasion = 15;
-                             e.Strength = 1;
-                             e.Defense = 0;
-*/
-                             e.Hp = 3;
-                             e.Op = 3;
-                             e.BlocksSight = false;
-                             e.LootRarity = Rarity.Common;
                          });
 
             DefineActor(Actors.GarbageCollector, "Garbage Collector", Alignment.SystemSecurity,
