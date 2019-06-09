@@ -16,10 +16,13 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
 
         public EntityDataProvider()
         {
+            Instance = this;
             _items = new Dictionary<string, EntityData>();
 
             LoadData();
         }
+        
+        public static EntityDataProvider Instance { get; private set; }
 
         public IEnumerable<EntityData> Items => _items.Values;
 
@@ -53,9 +56,11 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
                              e.Commands = new List<string> { "ARMOR", "CLEANSE", "SWEEP" };
                              e.HelpText = "The anti-virus AI may not hit the hardest, but it can take on many threats at once";
                              e.LineOfSightRadius = 4.5m;
+/*
                              e.Defense = 3;
                              e.Accuracy = 95;
                              e.Evasion = 15;
+*/
                          });
 
             DefinePlayer(Actors.PlayerGame, "Game AI",  
@@ -64,7 +69,7 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
                              e.Commands = new List<string> { "TARGETING", "SPIKE", "BURST" };
                              e.HelpText = "The game AI is all about dishing out damage to specific targets";
                              e.LineOfSightRadius = 4.75m;
-                             e.Strength = 3;
+//                             e.Strength = 3;
                          });
 
             DefinePlayer(Actors.PlayerMalware, "Malware AI",  
@@ -79,36 +84,24 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
                          {
                              e.Commands = new List<string> { "INFECT", "ESCAPE", "SWAP", "RESTORE", "OVERLOAD", "BURST", "BARRAGE", "CLEANSE", "SWEEP" };
                              e.HelpText = "The Debugger is intended to excise bugs and make things ready for release.";
+/*
                              e.Accuracy = 100;
                              e.Strength = 25;
                              e.Defense = 5;
+*/
                              e.Hp = 50;
                              e.Op = 50;
-                         });
-
-            DefineActor(Actors.AntiVirus, "Anti-Virus Agent", Alignment.SystemAntiVirus,
-                         e =>
-                         {
-                             e.Accuracy = 50;
-                             e.Evasion = 30;
-                             e.Strength = 2;
-                         });
-
-            DefineActor(Actors.Daemon, "Daemon", Alignment.SystemSecurity,
-                         e =>
-                         {
-                             e.Accuracy = 70;
-                             e.Evasion = 5;
-                             e.Strength = 3;
                          });
 
             DefineActor(Actors.Defender, "System Defender", Alignment.SystemAntiVirus,
                          e =>
                          {
+/*
                              e.Accuracy = 50;
                              e.Evasion = 30;
                              e.Strength = 3;
                              e.Defense = 2;
+*/
                              e.Hp = 5;
                              e.Op = 15;
                          });
@@ -116,10 +109,12 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
             DefineActor(Actors.Inspector, "Inspector", Alignment.SystemAntiVirus,
                          e =>
                          {
+/*
                              e.Accuracy = 95;
                              e.Evasion = 15;
                              e.Strength = 1;
                              e.Defense = 0;
+*/
                              e.Hp = 3;
                              e.Op = 5;
                              e.BlocksSight = false;
@@ -129,10 +124,12 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
             DefineActor(Actors.SecurityAgent, "Security Agent", Alignment.SystemSecurity,
                          e =>
                          {
+/*
                              e.Accuracy = 80;
                              e.Evasion = 15;
                              e.Strength = 1;
                              e.Defense = 0;
+*/
                              e.Hp = 3;
                              e.Op = 3;
                              e.BlocksSight = false;
@@ -142,10 +139,12 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
             DefineActor(Actors.GarbageCollector, "Garbage Collector", Alignment.SystemSecurity,
                          e =>
                          {
+/*
                              e.Accuracy = 90;
                              e.Evasion = 0;
                              e.Strength = 5;
                              e.Defense = 1;
+*/
                              e.LineOfSightRadius = 7;
                              e.Hp = 10;
                              e.Op = 10;
@@ -155,116 +154,41 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
             DefineActor(Actors.Bit, "Bit", Alignment.SystemCore,
                          e =>
                          {
+/*
                              e.Accuracy = 20;
                              e.Evasion = 0;
                              e.Strength = 0;
                              e.Defense = 0;
+*/
                              e.Hp = 1;
                              e.Op = 1;
                              e.LootRarity = Rarity.None;
                          });
 
-            DefineActor(Actors.Turret, "Turret", Alignment.SystemSecurity,
-                         e =>
-                         {
-                             e.Accuracy = 42;
-                             e.Evasion = 0;
-                             e.Strength = 2;
-                             e.Defense = 2;
-                             e.Hp = 3;
-                             e.Op = 30;
-                             e.LineOfSightRadius = 7;
-                             e.IsImmobile = true;
-                             e.LootRarity = Rarity.Rare;
-                         });
-
             DefineActor(Actors.Core, "System Core", Alignment.SystemCore,
                          e =>
                          {
+/*
                              e.Accuracy = 20;
                              e.Evasion = 40;
                              e.Strength = 2;
                              e.Defense = 0;
+*/
                              e.Hp = 5;
                              e.Op = 15;
                              e.IsImmobile = true;
                              e.LootRarity = Rarity.None;
                          });
 
-            DefineActor(Actors.Helpy, "Helpy", Alignment.SystemCore,
-                         e =>
-                         {
-                             e.Accuracy = 20;
-                             e.Evasion = 50;
-                             e.Strength = 1;
-                             e.Defense = 1;
-                             e.Hp = 2;
-                             e.Op = 10;
-                             e.BlocksSight = false;
-                             e.LootRarity = Rarity.Common;
-                         });
-
-            DefineActor(Actors.Search, "Query Agent", Alignment.SystemCore,
-                         e =>
-                         {
-                             e.Accuracy = 20;
-                             e.Evasion = 25;
-                             e.Strength = 0;
-                             e.Defense = 0;
-                             e.Hp = 2;
-                             e.Op = 10;
-                             e.LineOfSightRadius = 7;
-                             e.BlocksSight = false;
-                             e.LootRarity = Rarity.Common;
-                         });
-
-            DefineActor(Actors.KernelWorker, "Kernel Worker", Alignment.SystemCore,
-                         e =>
-                         {
-                             e.Accuracy = 20;
-                             e.Evasion = 15;
-                             e.Strength = 0;
-                             e.Defense = 0;
-                             e.Hp = 1;
-                             e.Op = 1;
-                             e.LineOfSightRadius = 7;
-                             e.BlocksSight = false;
-                             e.LootRarity = Rarity.Common;
-                         });
-
-            DefineActor(Actors.LogicBomb, "Logic Bomb", Alignment.Virus,
-                         e =>
-                         {
-                             e.Accuracy = 100;
-                             e.Evasion = 20;
-                             e.Strength = 3;
-                             e.Defense = 0;
-                             e.Hp = 3;
-                             e.Op = 3;
-                             e.BlocksSight = false;
-                             e.LootRarity = Rarity.Uncommon;
-                         });
-
-            DefineActor(Actors.Virus, "Virus", Alignment.Virus,
-                         e =>
-                         {
-                             e.Accuracy = 50;
-                             e.Evasion = 25;
-                             e.Strength = 2;
-                             e.Defense = 1;
-                             e.Hp = 5;
-                             e.Op = 10;
-                             e.BlocksSight = false;
-                             e.LootRarity = Rarity.Common;
-                         });
-
             DefineActor(Actors.Worm, "Worm", Alignment.Virus,
                          e =>
                          {
+/*
                              e.Accuracy = 35;
                              e.Evasion = 25;
                              e.Strength = 1;
                              e.Defense = 0;
+*/
                              e.Hp = 3;
                              e.Op = 5;
                              e.BlocksSight = false;
@@ -274,10 +198,12 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
             DefineActor(Actors.Feature,  "\"Feature\"", Alignment.Virus,
                          e =>
                          {
+/*
                              e.Accuracy = 60;
                              e.Evasion = 35;
                              e.Strength = 2;
                              e.Defense = 1;
+*/
                              e.Hp = 5;
                              e.Op = 10;
                              e.BlocksSight = false;
@@ -287,10 +213,12 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
             DefineActor(Actors.Bug,  "Bug", Alignment.Bug,
                          e =>
                          {
+/*
                              e.Accuracy = 45;
                              e.Evasion = 25;
                              e.Strength = 1;
                              e.Defense = 1;
+*/
                              e.Hp = 3;
                              e.Op = 5;
                              e.BlocksSight = false;
@@ -300,10 +228,12 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
             DefineActor(Actors.Glitch,  "Glitch", Alignment.Bug,
                          e =>
                          {
+/*
                              e.Accuracy = 55;
                              e.Evasion = 45;
                              e.Strength = 2;
                              e.Defense = 0;
+*/
                              e.Hp = 5;
                              e.Op = 10;
                              e.BlocksSight = false;
@@ -318,11 +248,6 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
                 Id = id,
                 Name = name,
                 Team = Alignment.Player,
-                BlocksSight = false,
-                Accuracy = 90,
-                Evasion = 20,
-                Strength = 2,
-                Defense = 1,
                 Hp = 10,
                 Op = 10,
                 LineOfSightRadius = 5.25m,
@@ -348,10 +273,6 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
                 Name = name,
                 Team = alignment,
                 BlocksSight = true,
-                Accuracy = 50,
-                Evasion = 10,
-                Strength = 1,
-                Defense = 1,
                 Hp = 3,
                 Op = 5,
                 LineOfSightRadius = 5,

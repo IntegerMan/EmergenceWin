@@ -46,9 +46,9 @@ namespace MattEland.Emergence.Engine.Entities.Actors
         public int MaxOperations { get; set; } = 5;
 
         public virtual int Strength { get; } = 1;
-        public virtual int Defense { get; } = 0;
-        public virtual int Accuracy { get; } = 65;
-        public virtual int Evasion { get; } = 20;
+        public virtual int Defense { get; } = 1;
+        public virtual int Accuracy { get; } = 50;
+        public virtual int Evasion { get; } = 10;
         public virtual decimal LineOfSightRadius { get; } = 5M;
 
         /// <summary>
@@ -66,11 +66,20 @@ namespace MattEland.Emergence.Engine.Entities.Actors
 
         public override void Initialize()
         {
+            InitializeProtected();
+            
             base.Initialize();
+            InitializeProtected();
 
             Operations = MaxOperations;
 
             ResetEffectiveValues();
+        }
+
+        protected virtual void InitializeProtected()
+        {
+            MaxStability = 3;
+            MaxOperations = 3;
         }
 
         public ISet<Pos2D> VisibleCells { get; set; }
@@ -154,7 +163,7 @@ namespace MattEland.Emergence.Engine.Entities.Actors
             }
         }
 
-        public Rarity LootRarity { get; set; }
+        public virtual Rarity LootRarity => Rarity.Uncommon;
 
         public virtual void SetCommandActiveState(GameCommand command, bool isActive)
         {

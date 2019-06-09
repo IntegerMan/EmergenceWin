@@ -9,6 +9,10 @@ namespace MattEland.Emergence.Engine.Entities.Actors
         {
         }
 
+        public override int Strength => 2;
+        public override int Accuracy => 50;
+        public override int Evasion => 30;
+
         public override string Name => "Anti-Virus";
 
         public override char AsciiChar => 'V';

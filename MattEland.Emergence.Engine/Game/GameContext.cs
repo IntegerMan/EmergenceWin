@@ -28,7 +28,7 @@ namespace MattEland.Emergence.Engine.Game
 
         public GameContext([NotNull] LevelData level,
                               [NotNull] GameService gameService,
-                              [NotNull] EntityDefinitionService entityService,
+                              [NotNull] EntityDataProvider entityService,
                               [NotNull] CombatManager combatManager,
                               [NotNull] LootProvider lootProvider, 
                               [NotNull] IRandomization randomizer)
@@ -51,7 +51,7 @@ namespace MattEland.Emergence.Engine.Game
 
         public event EventHandler<ActorDamagedEventArgs> OnActorHurt;
 
-        public EntityDefinitionService EntityService { get; set; }
+        public EntityDataProvider EntityService { get; set; }
 
         public IEnumerable<GameCell> GetCellsVisibleFromPoint(Pos2D point, decimal radius)
         {
@@ -199,7 +199,7 @@ namespace MattEland.Emergence.Engine.Game
 
             if (topic.StartsWith("help_actor_"))
             {
-                var definition = EntityService.GetEntity(helpTopic.Substring(5));
+                var definition = EntityService.GetItem(helpTopic.Substring(5));
 
                 if (definition != null && !string.IsNullOrWhiteSpace(definition.HelpText))
                 {

@@ -23,7 +23,7 @@ namespace MattEland.Emergence.Engine.Game
         [NotNull] private readonly LevelGenerationService _levelService;
         [NotNull] private readonly LootProvider _lootProvider;
         [NotNull] private readonly CombatManager _combatManager;
-        [NotNull] private readonly EntityDefinitionService _entityProvider;
+        [NotNull] private readonly EntityDataProvider _entityProvider;
 
         public GameStatus State { get; private set; } = GameStatus.NotStarted;
 
@@ -52,7 +52,7 @@ namespace MattEland.Emergence.Engine.Game
         /// </summary>
         public GameService([CanBeNull] IRandomization randomizer = null)
         {
-            _entityProvider = new EntityDefinitionService();
+            _entityProvider = new EntityDataProvider();
             _combatManager = new CombatManager();
             _lootProvider = new LootProvider();
             _levelService = new LevelGenerationService(new PrefabService(), new EncountersService(), new BasicRandomization());

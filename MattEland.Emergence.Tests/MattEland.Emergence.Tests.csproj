@@ -87,6 +87,7 @@
     <Compile Include="OperationsTests.cs" />
     <Compile Include="PlayerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StatisticTests.cs" />
     <Compile Include="TeleportationTests.cs" />
     <Compile Include="TestRandomizer.cs" />
     <Compile Include="ViewModels\CommandViewModelTests.cs" />

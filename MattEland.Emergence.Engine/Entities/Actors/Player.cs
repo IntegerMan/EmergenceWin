@@ -25,6 +25,22 @@ namespace MattEland.Emergence.Engine.Entities.Actors
             // TODO: CreateCommandReferences(dto.StoredCommands, StoredCommands);
         }
 
+        public override int Strength { get; } = 2;
+        public override int Defense { get; } = 1;
+        public override int Accuracy { get; } = 90;
+        public override int Evasion { get; } = 20;
+        public override decimal EffectiveLineOfSightRadius { get; set; } = 5.25M;
+
+        public override bool BlocksSight => false;
+
+        public override void Initialize()
+        {
+            base.Initialize();
+
+            MaxStability = 10;
+            MaxOperations = 10;
+        }
+
         /*
         private static void CreateCommandReferences([CanBeNull] IEnumerable<CommandInfoDto> commandDtos,
             [NotNull] ICollection<CommandSlot> commandRefCollection)
@@ -121,10 +137,6 @@ namespace MattEland.Emergence.Engine.Entities.Actors
 
         public override char AsciiChar => '@';
 
-        public override int Strength { get; } // TODO switch on player type
-        public override int Defense { get; } // TODO switch on player type
-        public override int Accuracy { get; } // TODO switch on player type
-        public override int Evasion { get; } // TODO switch on player type
         public override decimal LineOfSightRadius => 5.25M; // TODO: Something more flexible
         public ActorType PlayerType { get; }
 
