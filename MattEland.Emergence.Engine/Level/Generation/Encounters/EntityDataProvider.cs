@@ -88,50 +88,6 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
                              e.Op = 50;
                          });
 
-            DefineActor(Actors.GarbageCollector, "Garbage Collector", Alignment.SystemSecurity,
-                         e =>
-                         {
-/*
-                             e.Accuracy = 90;
-                             e.Evasion = 0;
-                             e.Strength = 5;
-                             e.Defense = 1;
-*/
-                             e.LineOfSightRadius = 7;
-                             e.Hp = 10;
-                             e.Op = 10;
-                             e.LootRarity = Rarity.Epic;
-                         });
-
-            DefineActor(Actors.Bit, "Bit", Alignment.SystemCore,
-                         e =>
-                         {
-/*
-                             e.Accuracy = 20;
-                             e.Evasion = 0;
-                             e.Strength = 0;
-                             e.Defense = 0;
-*/
-                             e.Hp = 1;
-                             e.Op = 1;
-                             e.LootRarity = Rarity.None;
-                         });
-
-            DefineActor(Actors.Core, "System Core", Alignment.SystemCore,
-                         e =>
-                         {
-/*
-                             e.Accuracy = 20;
-                             e.Evasion = 40;
-                             e.Strength = 2;
-                             e.Defense = 0;
-*/
-                             e.Hp = 5;
-                             e.Op = 15;
-                             e.IsImmobile = true;
-                             e.LootRarity = Rarity.None;
-                         });
-
             DefineActor(Actors.Worm, "Worm", Alignment.Virus,
                          e =>
                          {

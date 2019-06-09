@@ -1,6 +1,7 @@
 using MattEland.Emergence.Engine.DTOs;
 using MattEland.Emergence.Engine.Game;
 using MattEland.Emergence.Engine.Level;
+using MattEland.Emergence.Engine.Services;
 using NUnit.Framework;
 using Shouldly;
 
@@ -11,6 +12,7 @@ namespace MattEland.Emergence.Tests
         [TestCase(Actors.Turret, 42)]
         [TestCase(Actors.Helpy, 20)]
         [TestCase(Actors.SecurityAgent, 80)]
+        [TestCase(Actors.GarbageCollector, 90)]
         public void AccuracyShouldBeCorrect(string id, decimal expected)
         {
             // Arrange
@@ -26,6 +28,7 @@ namespace MattEland.Emergence.Tests
         [TestCase(Actors.Search, 25)]
         [TestCase(Actors.KernelWorker, 15)]
         [TestCase(Actors.Defender, 30)]
+        [TestCase(Actors.Bit, 0)]
         public void EvasionShouldBeCorrect(string id, decimal expected)
         {
             // Arrange
@@ -65,6 +68,19 @@ namespace MattEland.Emergence.Tests
 
             // Assert
             obj.EffectiveStrength.ShouldBe(expected);            
+        }
+
+        [TestCase(Actors.Core, Rarity.None)]
+        public void LootTierShouldBeCorrect(string id, Rarity expected)
+        {
+            // Arrange
+            var pos = new Pos2D(42, 42);
+            
+            // Act
+            var obj = GameObjectFactory.CreateActor(id, pos);
+
+            // Assert
+            obj.LootRarity.ShouldBe(expected);
         }
         
     }

@@ -219,7 +219,7 @@ namespace MattEland.Emergence.Engine.Game
 
         public static GameObjectBase CreateCore(Pos2D pos) => new LevelCore(pos);
 
-        public static GameObjectBase CreateActor(string id, Pos2D pos)
+        public static Actor CreateActor(string id, Pos2D pos)
         {
             ActorType actorType = GetActorType(id);
             switch (actorType)

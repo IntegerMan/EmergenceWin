@@ -5,6 +5,7 @@ using MattEland.Emergence.Engine.Entities.Obstacles;
 using MattEland.Emergence.Engine.Game;
 using MattEland.Emergence.Engine.Level;
 using MattEland.Emergence.Engine.Model;
+using MattEland.Emergence.Engine.Services;
 using MattEland.Shared.Collections;
 
 namespace MattEland.Emergence.Engine.Entities.Actors
@@ -14,6 +15,21 @@ namespace MattEland.Emergence.Engine.Entities.Actors
         public LevelCore(Pos2D pos) : base(pos)
         {
         }
+
+        public override int Strength => 2;
+        public override int Defense => 0;
+        public override int Accuracy => 20;
+        public override int Evasion => 40;
+        protected override void InitializeProtected()
+        {
+            base.InitializeProtected();
+
+            Team = Alignment.SystemCore;
+            MaxStability = 5;
+            MaxOperations = 15;
+        }
+
+        public override Rarity LootRarity => Rarity.None;
 
         public override bool IsImmobile => true;
         public override bool IsInvulnerable => true;
