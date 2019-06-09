@@ -26,32 +26,6 @@ namespace MattEland.Emergence.Engine.Game
             InitializeCommandSlots(player, commands);
             
             return player;
-            /*
-            var entityDef = EntityService.GetEntity(playerId);
-
-            // Position doesn't really matter since LevelBuilder will auto-set the position
-            SetEntityStats(dto, entityDef, GameObjectType.Player, new Pos2D());
-
-            dto.Hotbar = BuildCommandSlots(10);
-            dto.StoredCommands = BuildCommandSlots(30);
-
-            int commandIndex = 0;
-            foreach (var command in entityDef.Commands)
-            {
-                CommandInfoDto commandInfoDto = null;
-
-                if (command != null)
-                {
-                    var commandDef = CommandFactory.CreateCommand(command);
-
-                    commandInfoDto = commandDef?.BuildDto(false);
-                }
-
-                dto.Hotbar[commandIndex++] = commandInfoDto;
-            }
-
-            return (Player)CreateFromDto(dto);
-            */
         }
 
         private static List<GameCommand> GetStartingCommandsForPlayer(PlayerType playerType)
@@ -146,59 +120,6 @@ namespace MattEland.Emergence.Engine.Game
             }
         }
 
-        /*
-        private static List<CommandInfoDto> BuildCommandSlots(int count)
-        {
-            var slots = new List<CommandInfoDto>(count);
-
-            // Add in a bunch of empty slots that we can swap out actual commands in lieu of
-            for (int i = 0; i < count; i++)
-            {
-                slots.Add(null);
-            }
-
-            return slots;
-        }
-
-        private static ActorDto SetEntityStats(ActorDto dto, string objectId, GameObjectType objectType, Pos2D position)
-        {
-            // The entity definition service is what defines what each actor starts with for stats
-            var definition = EntityService.GetEntity(objectId);
-            if (definition == null)
-            {
-                throw new InvalidOperationException($"Could not locate an actor entity definition for '{objectId}'");
-            }
-
-            return SetEntityStats(dto, definition, objectType, position);
-        }
-
-        private static ActorDto SetEntityStats(ActorDto dto, EntityData definition, GameObjectType objectType, Pos2D position)
-        {
-            // Set the basic properties
-            dto.ObjectId = definition.Id;
-            dto.Type = objectType;
-            dto.Pos = position;
-
-            // Copy over basic stats
-            dto.MaxHp = definition.Hp;
-            dto.HpUsed = 0;
-            dto.MaxOp = definition.Op;
-            dto.OpUsed = 0;
-            dto.Name = definition.Name;
-            dto.BlocksSight = definition.BlocksSight;
-            dto.Accuracy = definition.Accuracy;
-            dto.Evasion = definition.Evasion;
-            dto.Strength = definition.Strength;
-            dto.Defense = definition.Defense;
-            dto.LineOfSightRadius = definition.LineOfSightRadius;
-            dto.Team = definition.Team;
-            dto.IsImmobile = definition.IsImmobile;
-            dto.LootRarity = definition.LootRarity;
-
-            return dto;
-        }
-        */
-
         private static ActorType GetActorType(string id)
         {
             switch (id)
@@ -221,17 +142,6 @@ namespace MattEland.Emergence.Engine.Game
                 case Actors.Virus: return ActorType.Virus;
                 case Actors.Search: return ActorType.QueryAgent;
                 case Actors.SecurityAgent: return ActorType.SecurityAgent;
-/*
-
-                case Actors.PlayerAntiVirus:
-                case Actors.PlayerDebugger:
-                case Actors.PlayerLogistics:
-                case Actors.PlayerSearch:
-                case Actors.PlayerMalware:
-                case Actors.PlayerForecast:
-                case Actors.PlayerGame: 
-                    return ActorType.Player;
-*/
 
                 default: throw new NotSupportedException($"ActorType mapping not found for {id}");
             }
@@ -319,7 +229,7 @@ namespace MattEland.Emergence.Engine.Game
                     throw new NotSupportedException($"{objType:G} / {id} cannot be instantiated using CreateObject");
 
                 default:
-                    throw new NotImplementedException($"{objType:G} / {id} is not supported for instantiation");
+                    throw new NotSupportedException($"{objType:G} / {id} is not supported for instantiation");
             }
         }
 
@@ -364,7 +274,7 @@ namespace MattEland.Emergence.Engine.Game
                 case ActorType.LogicBomb: return new LogicBomb(pos);
                 case ActorType.Turret: return new Turret(pos);
                 case ActorType.Core: return new LevelCore(pos);
-                case ActorType.Player: return CreatePlayer(pos, GetPlayerType(id));
+                case ActorType.Player: throw new NotSupportedException("Player should be instantiated via CreatePlayer");
                 case ActorType.Bug: return new Bug(pos);
                 case ActorType.Virus: return new Virus(pos);
                 case ActorType.Worm: return new Worm(pos);
@@ -380,7 +290,7 @@ namespace MattEland.Emergence.Engine.Game
                 case ActorType.Feature: return new Feature(pos);
                 case ActorType.Glitch: return new Glitch(pos);
                 default:
-                    throw new NotImplementedException($"Actor Type {actorType:G} is not currently supported");
+                    throw new NotSupportedException($"Actor Type {actorType:G} is not currently supported");
             }
         }
     }
