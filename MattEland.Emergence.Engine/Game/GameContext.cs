@@ -141,7 +141,7 @@ namespace MattEland.Emergence.Engine.Game
 
         public void DisplayHelp(GameObjectBase source, string helpTopic)
         {
-            string message = GetMessageForTopic(helpTopic);
+            string message = HelpProvider.GetMessageForTopic(helpTopic);
 
             if (string.IsNullOrWhiteSpace(message)) return;
 
@@ -186,35 +186,6 @@ namespace MattEland.Emergence.Engine.Game
             }
 
             return sb.ToString();
-        }
-
-        private string GetMessageForTopic(string helpTopic)
-        {
-            var topic = helpTopic.ToLowerInvariant();
-
-            /* TODO: Need a better option
-            if (topic.StartsWith("help_actor_"))
-            {
-                var definition = EntityService.GetItem(helpTopic.Substring(5));
-
-                if (definition != null && !string.IsNullOrWhiteSpace(definition.HelpText))
-                {
-                    return definition.HelpText;
-                }
-            }
-            */
-
-            switch (topic)
-            {
-                case "help_firewalls":
-                    return "Exits are protected by a firewall. Capture every core on a machine in order to move on.";
-
-                case "help_welcome":
-                    return "You're an AI inside of a computer network. Travel between systems and escape to the Internet.";
-
-                default:
-                    throw new NotSupportedException($"Topic {helpTopic} is not implemented");
-            }
         }
 
         public CombatManager CombatManager { get; }
