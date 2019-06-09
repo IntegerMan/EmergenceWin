@@ -12,7 +12,6 @@ using MattEland.Emergence.Engine.Entities.Actors;
 using MattEland.Emergence.Engine.Entities.Obstacles;
 using MattEland.Emergence.Engine.Level;
 using MattEland.Emergence.Engine.Level.Generation;
-using MattEland.Emergence.Engine.Level.Generation.Encounters;
 using MattEland.Emergence.Engine.Loot;
 using MattEland.Emergence.Engine.Messages;
 using MattEland.Emergence.Engine.Services;
@@ -28,13 +27,11 @@ namespace MattEland.Emergence.Engine.Game
 
         public GameContext([NotNull] LevelData level,
                               [NotNull] GameService gameService,
-                              [NotNull] EntityDataProvider entityService,
                               [NotNull] CombatManager combatManager,
                               [NotNull] LootProvider lootProvider, 
                               [NotNull] IRandomization randomizer)
         {
             GameService = gameService ?? throw new ArgumentNullException(nameof(gameService));
-            EntityService = entityService ?? throw new ArgumentNullException(nameof(entityService));
             CombatManager = combatManager ?? throw new ArgumentNullException(nameof(combatManager));
             LootProvider = lootProvider ?? throw new ArgumentNullException(nameof(lootProvider));
             Randomizer = randomizer  ?? throw new ArgumentNullException(nameof(randomizer));
@@ -50,9 +47,7 @@ namespace MattEland.Emergence.Engine.Game
         public IRandomization Randomizer { get; }
 
         public event EventHandler<ActorDamagedEventArgs> OnActorHurt;
-
-        public EntityDataProvider EntityService { get; set; }
-
+        
         public IEnumerable<GameCell> GetCellsVisibleFromPoint(Pos2D point, decimal radius)
         {
             var fovCalculator = new ShadowCasterViewProvider(Level);
@@ -197,6 +192,7 @@ namespace MattEland.Emergence.Engine.Game
         {
             var topic = helpTopic.ToLowerInvariant();
 
+            /* TODO: Need a better option
             if (topic.StartsWith("help_actor_"))
             {
                 var definition = EntityService.GetItem(helpTopic.Substring(5));
@@ -206,6 +202,7 @@ namespace MattEland.Emergence.Engine.Game
                     return definition.HelpText;
                 }
             }
+            */
 
             switch (topic)
             {

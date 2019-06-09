@@ -23,7 +23,6 @@ namespace MattEland.Emergence.Engine.Game
         [NotNull] private readonly LevelGenerationService _levelService;
         [NotNull] private readonly LootProvider _lootProvider;
         [NotNull] private readonly CombatManager _combatManager;
-        [NotNull] private readonly EntityDataProvider _entityProvider;
 
         public GameStatus State { get; private set; } = GameStatus.NotStarted;
 
@@ -52,7 +51,6 @@ namespace MattEland.Emergence.Engine.Game
         /// </summary>
         public GameService([CanBeNull] IRandomization randomizer = null)
         {
-            _entityProvider = new EntityDataProvider();
             _combatManager = new CombatManager();
             _lootProvider = new LootProvider();
             _levelService = new LevelGenerationService(new PrefabService(), new EncountersService(), new BasicRandomization());
@@ -82,7 +80,7 @@ namespace MattEland.Emergence.Engine.Game
             var levelParameters = new LevelGenerationParameters { LevelType = LevelType.Tutorial };
             Player = GameObjectFactory.CreatePlayer(new Pos2D(0,0), parameters.PlayerType);
             Level = _levelService.GenerateLevel(levelParameters, Player);
-            Context = new GameContext(Level, this, _entityProvider, _combatManager, _lootProvider, _randomizer);
+            Context = new GameContext(Level, this, _combatManager, _lootProvider, _randomizer);
 
             // Ensure line of sight is calculated
             Context.CalculateLineOfSight(Player);

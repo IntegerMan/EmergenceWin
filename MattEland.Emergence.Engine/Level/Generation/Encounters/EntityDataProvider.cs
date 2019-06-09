@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using MattEland.Emergence.Engine.DTOs;
-using MattEland.Emergence.Engine.Services;
 
 namespace MattEland.Emergence.Engine.Level.Generation.Encounters
 {
@@ -111,25 +110,6 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
         {
             if (_items.ContainsKey(id)) throw new InvalidOperationException($"Entity {id} has already been defined");
             _items[id] = data;
-        }
-
-        private void DefineActor(string id, string name, Alignment alignment, Action<EntityData> configureAction = null)
-        {
-            var data = new EntityData
-            {
-                Id = id,
-                Name = name,
-                Team = alignment,
-                BlocksSight = true,
-                Hp = 3,
-                Op = 5,
-                LineOfSightRadius = 5,
-                LootRarity = Rarity.Uncommon
-            };
-
-            configureAction?.Invoke(data);
-
-            DefineEntity(id, data);
         }
 
         [NotNull]
