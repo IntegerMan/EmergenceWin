@@ -14,7 +14,7 @@ namespace MattEland.Emergence.Engine.Game
     {
 
         /// <summary>
-        /// Creates a player object instance with stats from the defined <paramref name="playerId"/>.
+        /// Creates a player object instance with stats from the defined <paramref name="playerType"/>.
         /// </summary>
         /// <returns>The player instance</returns>
         public static Player CreatePlayer(Pos2D pos, PlayerType playerType)
@@ -69,16 +69,58 @@ namespace MattEland.Emergence.Engine.Game
                     });
                     break;
                 case PlayerType.Forecast:
+                    commands.AddRange(new GameCommand[]
+                    {
+                        new SpikeCommand(),
+                        new RestoreCommand(),
+                        new BarrageCommand()
+                    });
                     break;
                 case PlayerType.Game:
+                    commands.AddRange(new GameCommand[]
+                    {
+                        new TargetingCommand(),
+                        new SpikeCommand(),
+                        new BurstCommand()
+                    });
                     break;
                 case PlayerType.Search:
+                    commands.AddRange(new GameCommand[]
+                    {
+                        new ScanCommand(),
+                        new EscapeCommand(),
+                        new SurgeCommand()
+                    });
                     break;
                 case PlayerType.Malware:
+                    commands.AddRange(new GameCommand[]
+                    {
+                        new OverloadCommand(),
+                        new InfectCommand(),
+                        new CorruptCommand()
+                    });
                     break;
                 case PlayerType.Debugger:
+                    commands.AddRange(new GameCommand[]
+                    {
+                        new InfectCommand(),
+                        new EscapeCommand(),
+                        new SwapCommand(),
+                        new RestoreCommand(),
+                        new OverloadCommand(),
+                        new BurstCommand(),
+                        new BarrageCommand(),
+                        new CleanseCommand(),
+                        new VirusSweepCommand(),
+                    });
                     break;
                 case PlayerType.AntiVirus:
+                    commands.AddRange(new GameCommand[]
+                    {
+                        new ArmorCommand(),
+                        new CleanseCommand(),
+                        new VirusSweepCommand()
+                    });
                     break;
                 default:
                     throw new NotSupportedException($"Cannot set commands for unknown player type {playerType:G}");
@@ -86,10 +128,12 @@ namespace MattEland.Emergence.Engine.Game
 
             return commands;
         }
+        
+        const int NumCommandSlots = 8;
 
         private static void InitializeCommandSlots(Player player, List<GameCommand> commands)
         {
-            for (int i = 0; i < 8; i++)
+            for (int i = 0; i < NumCommandSlots; i++)
             {
                 GameCommand command = null;
 

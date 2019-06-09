@@ -15,21 +15,76 @@ namespace MattEland.Emergence.Engine.Entities.Actors
     {
         public Player(Pos2D pos, PlayerType playerType) : base(pos)
         {
-            Team = Alignment.Player;
             PlayerType = playerType;
 
             HotbarCommands = new List<CommandSlot>();
-            // TODO: CreateCommandReferences(dto.Hotbar, HotbarCommands);
-
             StoredCommands = new List<CommandSlot>();
-            // TODO: CreateCommandReferences(dto.StoredCommands, StoredCommands);
         }
 
-        public override int Strength { get; } = 2;
-        public override int Defense { get; } = 1;
-        public override int Accuracy { get; } = 90;
-        public override int Evasion { get; } = 20;
-        public override decimal EffectiveLineOfSightRadius { get; set; } = 5.25M;
+        public override int Strength
+        {
+            get
+            {
+                switch (PlayerType)
+                {
+                    case PlayerType.Debugger: return 25;
+                    case PlayerType.Game: return 3;
+                    case PlayerType.AntiVirus: return 3;
+                    default: return 2;
+                }
+            }
+        }
+
+        public override int Defense
+        {
+            get
+            {
+                switch (PlayerType)
+                {
+                    case PlayerType.Debugger: return 5;
+                    default: return 1;
+                }
+            }
+        }
+
+        public override int Accuracy
+        {
+            get
+            {
+                switch (PlayerType)
+                {
+                    case PlayerType.Debugger: return 100;
+                    case PlayerType.AntiVirus: return 95;
+                    default: return 90;
+                }
+            }
+        }
+
+        public override int Evasion
+        {
+            get
+            {
+                switch (PlayerType)
+                {
+                    case PlayerType.AntiVirus: return 15;
+                    default: return 20;
+                }
+            }
+        }
+
+        public override decimal LineOfSightRadius
+        {
+            get
+            {
+                switch (PlayerType)
+                {
+                    case PlayerType.Search: return 5.75M;
+                    case PlayerType.AntiVirus: return 4.5M;
+                    case PlayerType.Game: return 4.75M;
+                    default: return 5.25M;    
+                }
+            }
+        }
 
         public override bool BlocksSight => false;
 
@@ -41,25 +96,22 @@ namespace MattEland.Emergence.Engine.Entities.Actors
             MaxOperations = 10;
         }
 
-        /*
-        private static void CreateCommandReferences([CanBeNull] IEnumerable<CommandInfoDto> commandDtos,
-            [NotNull] ICollection<CommandSlot> commandRefCollection)
+        protected override void InitializeProtected()
         {
-            if (commandDtos == null) return;
+            base.InitializeProtected();
+            Team = Alignment.Player;
 
-            foreach (var commandInfoDto in commandDtos)
+            if (PlayerType == PlayerType.Debugger)
             {
-                CommandSlot reference = null;
-
-                if (commandInfoDto != null)
-                {
-                    reference = CommandFactory.CreateCommandReference(commandInfoDto);
-                }
-
-                commandRefCollection.Add(reference);
+                MaxOperations = 50;
+                MaxStability = 50;
+            }
+            else
+            {
+                MaxStability = 10;
+                MaxOperations = 10;
             }
         }
-        */
 
         [ItemCanBeNull] public IList<CommandSlot> HotbarCommands { get; }
 
@@ -137,7 +189,6 @@ namespace MattEland.Emergence.Engine.Entities.Actors
 
         public override char AsciiChar => '@';
 
-        public override decimal LineOfSightRadius => 5.25M; // TODO: Something more flexible
         public PlayerType PlayerType { get; }
 
         /// <inheritdoc />
