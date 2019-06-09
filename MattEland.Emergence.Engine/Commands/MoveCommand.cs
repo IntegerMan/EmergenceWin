@@ -23,7 +23,8 @@ namespace MattEland.Emergence.Engine.Commands
             base.ApplyEffect(context, executor, pos);
 
             // Interact with all objects in the tile
-            foreach (var obj in context.Level.Objects.Where(o => o.Pos == pos).OrderByDescending(o => o.ZIndex))
+            var interactive = context.Level.Objects.Where(o => o.Pos == pos).OrderByDescending(o => o.ZIndex);
+            foreach (var obj in interactive)
             {
                 if (obj.OnActorAttemptedEnter(context, executor))
                 {

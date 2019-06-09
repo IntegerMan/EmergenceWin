@@ -69,7 +69,7 @@ namespace MattEland.Emergence.Tests
         {
             // Arrange
             var pos = Player.Pos.GetNeighbor(MoveDirection.Left);
-            var target = Context.AddObject(GameObjectFactory.CreateActor(Actors.Bit, pos));
+            var target = AddObject(GameObjectFactory.CreateActor(Actors.Bit, pos));
             Player.EffectiveAccuracy = 100;
             target.EffectiveEvasion = 0;
             target.EffectiveDefense = 0;
