@@ -1,6 +1,5 @@
 using MattEland.Emergence.Engine.Entities.Actors;
 using MattEland.Emergence.Engine.Entities.Obstacles;
-using MattEland.Emergence.Engine.Level;
 using MattEland.Emergence.Engine.Model;
 using NUnit.Framework;
 using Shouldly;

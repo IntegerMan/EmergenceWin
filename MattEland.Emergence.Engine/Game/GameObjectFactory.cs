@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using MattEland.Emergence.Engine.Commands;
 using MattEland.Emergence.Engine.DTOs;
 using MattEland.Emergence.Engine.Entities;
 using MattEland.Emergence.Engine.Entities.Actors;
@@ -17,7 +19,13 @@ namespace MattEland.Emergence.Engine.Game
         /// <returns>The player instance</returns>
         public static Player CreatePlayer(Pos2D pos, PlayerType playerType)
         {
-            return new Player(pos, playerType);
+            var player = new Player(pos, playerType);
+
+            var commands = GetStartingCommandsForPlayer(playerType);
+
+            InitializeCommandSlots(player, commands);
+            
+            return player;
             /*
             var entityDef = EntityService.GetEntity(playerId);
 
@@ -44,6 +52,54 @@ namespace MattEland.Emergence.Engine.Game
 
             return (Player)CreateFromDto(dto);
             */
+        }
+
+        private static List<GameCommand> GetStartingCommandsForPlayer(PlayerType playerType)
+        {
+            var commands = new List<GameCommand>();
+
+            switch (playerType)
+            {
+                case PlayerType.Logistics:
+                    commands.AddRange(new GameCommand[]
+                    {
+                        new MarkCommand(),
+                        new RecallCommand(),
+                        new SwapCommand()
+                    });
+                    break;
+                case PlayerType.Forecast:
+                    break;
+                case PlayerType.Game:
+                    break;
+                case PlayerType.Search:
+                    break;
+                case PlayerType.Malware:
+                    break;
+                case PlayerType.Debugger:
+                    break;
+                case PlayerType.AntiVirus:
+                    break;
+                default:
+                    throw new NotSupportedException($"Cannot set commands for unknown player type {playerType:G}");
+            }
+
+            return commands;
+        }
+
+        private static void InitializeCommandSlots(Player player, List<GameCommand> commands)
+        {
+            for (int i = 0; i < 8; i++)
+            {
+                GameCommand command = null;
+
+                if (commands.Count > i)
+                {
+                    command = commands[i];
+                }
+
+                player.HotbarCommands.Add(new CommandSlot(command));
+            }
         }
 
         /*
@@ -211,13 +267,32 @@ namespace MattEland.Emergence.Engine.Game
                 case GameObjectType.CharacterSelect:
                     return new CharacterSelectTile(pos, GetPlayerType(id));
 
+                case GameObjectType.GenericPickup:
+                    return CreatePickup(id, pos);
+
                 case GameObjectType.Floor:
                 case GameObjectType.Player:
-                case GameObjectType.GenericPickup:
                     throw new NotSupportedException($"{objType:G} / {id} cannot be instantiated using CreateObject");
 
                 default:
                     throw new NotImplementedException($"{objType:G} / {id} is not supported for instantiation");
+            }
+        }
+
+        private static GameObjectBase CreatePickup(string id, Pos2D pos)
+        {
+            switch (id)
+            {
+                case "GET_MAXHP":
+                    return new MaxStabilityPickup(pos);
+                case "GET_HP":
+                    return new StabilityPickup(pos);
+                case "GET_MAXOPS":
+                    return new MaxOperationsPickup(pos);
+                case "GET_OPS":
+                    return new OperationsPickup(pos);
+                default:
+                    throw new NotSupportedException($"Pickup {id} cannot be instantiated");
             }
         }
 
@@ -245,7 +320,7 @@ namespace MattEland.Emergence.Engine.Game
                 case ActorType.LogicBomb: return new LogicBomb(pos);
                 case ActorType.Turret: return new Turret(pos);
                 case ActorType.Core: return new LevelCore(pos);
-                case ActorType.Player: return new Player(pos, PlayerType.Logistics);
+                case ActorType.Player: return CreatePlayer(pos, GetPlayerType(id));
                 case ActorType.Bug: return new Bug(pos);
                 case ActorType.Virus: return new Virus(pos);
                 case ActorType.Worm: return new Worm(pos);
