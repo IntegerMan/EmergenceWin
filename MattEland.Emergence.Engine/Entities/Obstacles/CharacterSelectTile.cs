@@ -8,9 +8,9 @@ namespace MattEland.Emergence.Engine.Entities.Obstacles
     public class CharacterSelectTile : GameObjectBase
     {
         private bool _isHidden;
-        public ActorType PlayerType { get; }
+        public PlayerType PlayerType { get; }
 
-        public CharacterSelectTile(Pos2D pos, ActorType playerType) : base(pos)
+        public CharacterSelectTile(Pos2D pos, PlayerType playerType) : base(pos)
         {
             PlayerType = playerType;
         }

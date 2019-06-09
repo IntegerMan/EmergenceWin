@@ -1,4 +1,6 @@
-﻿namespace MattEland.Emergence.Engine.Level.Generation
+﻿using MattEland.Emergence.Engine.Entities.Actors;
+
+namespace MattEland.Emergence.Engine.Level.Generation
 {
     /// <summary>
     /// Contains information needed to generate a level
@@ -10,6 +12,6 @@
         /// </summary>
         public LevelType LevelType { get; set; }
 
-        public ActorType PlayerType { get; set; } = ActorType.Player;
+        public PlayerType PlayerType { get; set; } = PlayerType.Logistics;
     }
 }

@@ -1,3 +1,4 @@
+using MattEland.Emergence.Engine.Entities.Actors;
 using MattEland.Emergence.Engine.Entities.Obstacles;
 using MattEland.Emergence.Engine.Level;
 using MattEland.Emergence.Engine.Model;
@@ -8,14 +9,13 @@ namespace MattEland.Emergence.Tests
 {
     public class PlayerSwitchTests : EmergenceTestBase
     {
-        [Test]
-        public void ChangingPlayerShouldChangePlayer()
+        [TestCase(PlayerType.Game)]
+        public void ChangingPlayerShouldChangePlayer(PlayerType newType)
         {
             // Arrange
             var direction = MoveDirection.Left;
-            var pos = Player.Pos.GetNeighbor(direction, 2);
+            var pos = Player.Pos.GetNeighbor(direction);
             var oldType = Player.PlayerType;
-            var newType = ActorType.Player;
             var switcher = new CharacterSelectTile(pos, newType);
             AddObject(switcher);
 
@@ -23,6 +23,7 @@ namespace MattEland.Emergence.Tests
             GameViewModel.MovePlayer(direction);
 
             // Assert
+            oldType.ShouldNotBe(newType);
             Player.PlayerType.ShouldBe(newType);
             Player.PlayerType.ShouldNotBe(oldType);
         }

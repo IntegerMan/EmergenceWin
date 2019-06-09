@@ -13,7 +13,7 @@ namespace MattEland.Emergence.Engine.Entities.Actors
 {
     public class Player : Actor
     {
-        public Player(Pos2D pos, ActorType playerType) : base(pos)
+        public Player(Pos2D pos, PlayerType playerType) : base(pos)
         {
             Team = Alignment.Player;
             PlayerType = playerType;
@@ -138,7 +138,7 @@ namespace MattEland.Emergence.Engine.Entities.Actors
         public override char AsciiChar => '@';
 
         public override decimal LineOfSightRadius => 5.25M; // TODO: Something more flexible
-        public ActorType PlayerType { get; }
+        public PlayerType PlayerType { get; }
 
         /// <inheritdoc />
         public override bool IsCommandActive(GameCommand command) => 

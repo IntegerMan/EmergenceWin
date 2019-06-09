@@ -21,7 +21,7 @@ namespace MattEland.Emergence.Engine.Entities.Obstacles
 
         public override void MaintainActiveEffects(GameContext context)
         {
-            IsOpen = context.Level.HasAdminAccess || context.Player.PlayerType == ActorType.Player;
+            IsOpen = context.Level.HasAdminAccess || context.Player.PlayerType == PlayerType.Debugger;
         }
 
         public override string Name => "Firewall";

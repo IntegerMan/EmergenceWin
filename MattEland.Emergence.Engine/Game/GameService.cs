@@ -66,14 +66,14 @@ namespace MattEland.Emergence.Engine.Game
             State = GameStatus.Executing;
 
 #if DEBUG
-            const string defaultPlayerId = Actors.PlayerDebugger;
+            const PlayerType defaultPlayer = PlayerType.Debugger;
 #else
-            const string defaultPlayerId = Actors.PlayerAntiVirus;
+            const PlayerType defaultPlayer = PlayerType.Logistics;
 #endif
 
             if (parameters == null)
             {
-                parameters = new NewGameParameters {PlayerType = ActorType.Player};
+                parameters = new NewGameParameters {PlayerType = defaultPlayer};
             }
 
             // Set up the basic parameters

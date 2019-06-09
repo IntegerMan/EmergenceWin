@@ -15,7 +15,7 @@ namespace MattEland.Emergence.Engine.Game
         /// Creates a player object instance with stats from the defined <paramref name="playerId"/>.
         /// </summary>
         /// <returns>The player instance</returns>
-        public static Player CreatePlayer(Pos2D pos, ActorType playerType)
+        public static Player CreatePlayer(Pos2D pos, PlayerType playerType)
         {
             return new Player(pos, playerType);
             /*
@@ -121,6 +121,7 @@ namespace MattEland.Emergence.Engine.Game
                 case Actors.Virus: return ActorType.Virus;
                 case Actors.Search: return ActorType.QueryAgent;
                 case Actors.SecurityAgent: return ActorType.SecurityAgent;
+/*
 
                 case Actors.PlayerAntiVirus:
                 case Actors.PlayerDebugger:
@@ -130,8 +131,24 @@ namespace MattEland.Emergence.Engine.Game
                 case Actors.PlayerForecast:
                 case Actors.PlayerGame: 
                     return ActorType.Player;
+*/
 
-                default: throw new NotSupportedException($"ActorType mapping not found for actor {id}");
+                default: throw new NotSupportedException($"ActorType mapping not found for {id}");
+            }
+        }
+        private static PlayerType GetPlayerType(string id)
+        {
+            switch (id)
+            {
+                case Actors.PlayerAntiVirus: return PlayerType.AntiVirus;
+                case Actors.PlayerDebugger: return PlayerType.Debugger;
+                case Actors.PlayerLogistics: return PlayerType.Logistics;
+                case Actors.PlayerSearch: return PlayerType.Search;
+                case Actors.PlayerMalware: return PlayerType.Malware;
+                case Actors.PlayerForecast: return PlayerType.Forecast;
+                case Actors.PlayerGame: return PlayerType.Game;
+
+                default: throw new NotSupportedException($"PlayerType mapping not found for {id}");
             }
         }
 
@@ -192,7 +209,7 @@ namespace MattEland.Emergence.Engine.Game
                     return new HelpTile(pos, id);
 
                 case GameObjectType.CharacterSelect:
-                    return new CharacterSelectTile(pos, GetActorType(id));
+                    return new CharacterSelectTile(pos, GetPlayerType(id));
 
                 case GameObjectType.Floor:
                 case GameObjectType.Player:
@@ -228,7 +245,7 @@ namespace MattEland.Emergence.Engine.Game
                 case ActorType.LogicBomb: return new LogicBomb(pos);
                 case ActorType.Turret: return new Turret(pos);
                 case ActorType.Core: return new LevelCore(pos);
-                case ActorType.Player: return new Player(pos, ActorType.Player);
+                case ActorType.Player: return new Player(pos, PlayerType.Logistics);
                 case ActorType.Bug: return new Bug(pos);
                 case ActorType.Virus: return new Virus(pos);
                 case ActorType.Worm: return new Worm(pos);

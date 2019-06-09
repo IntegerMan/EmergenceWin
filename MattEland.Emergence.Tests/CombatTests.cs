@@ -81,8 +81,7 @@ namespace MattEland.Emergence.Tests
             // Assert
             target.IsDead.ShouldBeTrue();
         }
-
-
+        
         [Test]
         public void AttackingAWeakActorShouldNotEnterItsCell()
         {
