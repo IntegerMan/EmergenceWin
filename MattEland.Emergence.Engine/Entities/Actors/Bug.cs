@@ -1,47 +1,34 @@
-﻿using MattEland.Emergence.Engine.DTOs;
-using MattEland.Emergence.Engine.Game;
 using MattEland.Emergence.Engine.Level;
 using MattEland.Emergence.Engine.Services;
 
 namespace MattEland.Emergence.Engine.Entities.Actors
 {
-    public class Bug : Actor
+    public sealed class Bug : VirusActorBase
     {
         public Bug(Pos2D pos) : base(pos)
         {
         }
 
-        public override DamageType AttackDamageType => DamageType.Combination;
-
-        public override void OnWaited(GameContext context)
+        public override int Strength => 1;
+        public override int Defense => 1;
+        public override int Accuracy => 45;
+        public override int Evasion => 25;
+        
+        protected override void InitializeProtected()
         {
-            base.OnWaited(context);
+            base.InitializeProtected();
 
-            // Bugs can pretty quickly get corruption to cascade throughout a level, so tone down passive infections
-            if (context.Randomizer.GetInt(0, 2) == 0)
-            {
-                var cell = context.Level.GetCell(Pos);
-
-                if (cell != null)
-                {
-                    cell.Corruption += 1;
-                }
-            }
+            Team = Alignment.Bug;
+            MaxStability = 3;
+            MaxOperations = 5;
         }
 
-        public override void ApplyCorruptionDamage(GameContext context, GameObjectBase source, int damage)
-        {
-            if (damage >= 0) return;
+        public override Rarity LootRarity => Rarity.Common;
 
-            var message = context.CombatManager.HurtObject(context, source, this, -damage, "cleanses", DamageType.Normal);
-            if (context.CanPlayerSee(Pos))
-            {
-                context.AddMessage(message, ClientMessageType.Generic);
-            }
-        }
+        public override bool BlocksSight => false;
 
         public override string Name => "Bug";
         public override char AsciiChar => 'b';
-        public override bool IsCorruptable => false;
+        
     }
 }

@@ -3,7 +3,7 @@ using MattEland.Emergence.Engine.Services;
 
 namespace MattEland.Emergence.Engine.Entities.Actors
 {
-    public class LogicBomb : Bug
+    public class LogicBomb : VirusActorBase
     {
         public override string Name => "Logic Bomb";
         public override char AsciiChar => 'l';

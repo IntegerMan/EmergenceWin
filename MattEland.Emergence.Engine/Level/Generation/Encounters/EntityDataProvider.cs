@@ -87,66 +87,6 @@ namespace MattEland.Emergence.Engine.Level.Generation.Encounters
                              e.Hp = 50;
                              e.Op = 50;
                          });
-
-            DefineActor(Actors.Worm, "Worm", Alignment.Virus,
-                         e =>
-                         {
-/*
-                             e.Accuracy = 35;
-                             e.Evasion = 25;
-                             e.Strength = 1;
-                             e.Defense = 0;
-*/
-                             e.Hp = 3;
-                             e.Op = 5;
-                             e.BlocksSight = false;
-                             e.LootRarity = Rarity.Common;
-                         });
-
-            DefineActor(Actors.Feature,  "\"Feature\"", Alignment.Virus,
-                         e =>
-                         {
-/*
-                             e.Accuracy = 60;
-                             e.Evasion = 35;
-                             e.Strength = 2;
-                             e.Defense = 1;
-*/
-                             e.Hp = 5;
-                             e.Op = 10;
-                             e.BlocksSight = false;
-                             e.LootRarity = Rarity.Uncommon;
-                         });
-
-            DefineActor(Actors.Bug,  "Bug", Alignment.Bug,
-                         e =>
-                         {
-/*
-                             e.Accuracy = 45;
-                             e.Evasion = 25;
-                             e.Strength = 1;
-                             e.Defense = 1;
-*/
-                             e.Hp = 3;
-                             e.Op = 5;
-                             e.BlocksSight = false;
-                             e.LootRarity = Rarity.Common;
-                         });
-
-            DefineActor(Actors.Glitch,  "Glitch", Alignment.Bug,
-                         e =>
-                         {
-/*
-                             e.Accuracy = 55;
-                             e.Evasion = 45;
-                             e.Strength = 2;
-                             e.Defense = 0;
-*/
-                             e.Hp = 5;
-                             e.Op = 10;
-                             e.BlocksSight = false;
-                             e.LootRarity = Rarity.None; // Should not be farmable
-                         });
         }
 
         private void DefinePlayer(string id, string name, Action<EntityData> configureAction = null)

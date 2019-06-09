@@ -3,7 +3,7 @@ using MattEland.Emergence.Engine.Services;
 
 namespace MattEland.Emergence.Engine.Entities.Actors
 {
-    public class Virus : Bug
+    public class Virus : VirusActorBase
     {
         public Virus(Pos2D pos) : base(pos)
         {

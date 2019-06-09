@@ -29,6 +29,7 @@ namespace MattEland.Emergence.Tests
         [TestCase(Actors.KernelWorker, 15)]
         [TestCase(Actors.Defender, 30)]
         [TestCase(Actors.Bit, 0)]
+        [TestCase(Actors.Bug, 25)]
         public void EvasionShouldBeCorrect(string id, decimal expected)
         {
             // Arrange
@@ -43,6 +44,7 @@ namespace MattEland.Emergence.Tests
 
         [TestCase(Actors.LogicBomb, 0)]
         [TestCase(Actors.Virus, 1)]
+        [TestCase(Actors.Worm, 0)]
         public void DefenseShouldBeCorrect(string id, decimal expected)
         {
             // Arrange
@@ -71,6 +73,8 @@ namespace MattEland.Emergence.Tests
         }
 
         [TestCase(Actors.Core, Rarity.None)]
+        [TestCase(Actors.Glitch, Rarity.None)]
+        [TestCase(Actors.Feature, Rarity.Uncommon)]
         public void LootTierShouldBeCorrect(string id, Rarity expected)
         {
             // Arrange
