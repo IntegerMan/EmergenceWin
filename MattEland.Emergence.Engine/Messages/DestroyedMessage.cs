@@ -14,6 +14,6 @@ namespace MattEland.Emergence.Engine.Messages
         [NotNull]
         public GameObjectBase Source { get; }
 
-        public override string ToString() => $"Destroy object {Source.ObjectId ?? Source.Id.ToString().Substring(0, 5)}...";
+        public override string ToString() => $"Destroy {Source.Name} at {Source.Pos}";
     }
 }

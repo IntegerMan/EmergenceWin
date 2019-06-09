@@ -1,152 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
-using JetBrains.Annotations;
 using MattEland.Emergence.Engine.Commands;
 using MattEland.Emergence.Engine.DTOs;
 using MattEland.Emergence.Engine.Entities;
+using MattEland.Emergence.Engine.Entities.Actors;
+using MattEland.Emergence.Engine.Entities.Items;
+using MattEland.Emergence.Engine.Entities.Obstacles;
 using MattEland.Emergence.Engine.Level;
-using MattEland.Emergence.Engine.Level.Generation.Encounters;
 
 namespace MattEland.Emergence.Engine.Game
 {
     public static class GameObjectFactory
     {
-        private static EntityDefinitionService _entityService;
-
-        private static EntityDefinitionService EntityService => _entityService ?? (_entityService = new EntityDefinitionService());
 
         /// <summary>
-        /// Creates a level object from a data transmission object.
+        /// Creates a player object instance with stats from the defined <paramref name="playerType"/>.
         /// </summary>
-        /// <param name="dto">The data transmission object.</param>
-        /// <returns>The constructed level object.</returns>
-        /// <exception cref="ArgumentException">Thrown if the algorithm does not support the type of object that <paramref name="dto"/> is.</exception>
-        private static GameObjectBase CreateFromDto(GameObjectDto dto)
-        {
-            switch (dto.Type)
-            {
-                case GameObjectType.Player:
-                    return new Player((PlayerDto)dto);
-
-                case GameObjectType.Core:
-                    return new LevelCore((ActorDto)dto);
-
-                case GameObjectType.Turret:
-                case GameObjectType.Actor:
-                    return BuildActor((ActorDto) dto);
-
-                case GameObjectType.Wall:
-                    return CreateWall(dto.Pos, false);
-
-                case GameObjectType.Door:
-                    return new Door((OpenableDto)dto);
-
-                case GameObjectType.Cabling:
-                    return new Cabling(dto);
-
-                case GameObjectType.Water:
-                    return new Water(dto);
-
-                case GameObjectType.Firewall:
-                    return new Firewall(dto);
-
-                case GameObjectType.Entrance:
-                    return new LevelEntrance(dto);
-
-                case GameObjectType.Exit:
-                    return new LevelExit(dto);
-
-                case GameObjectType.Service:
-                    return new LevelService(dto);
-
-                case GameObjectType.DataStore:
-                    return new DataStore(dto);
-
-                case GameObjectType.Divider:
-                    return new Divider(dto);
-
-                case GameObjectType.Debris:
-                    return new Debris(dto);
-
-                case GameObjectType.CommandPickup:
-                    return new CommandPickup(dto);
-
-                case GameObjectType.GenericPickup:
-                    switch (dto.ObjectId)
-                    {
-                        case "GET_HP":
-                            return new StabilityPickup(dto);
-
-                        case "GET_MAXHP":
-                            return new MaxStabilityPickup(dto);
-
-                        case "GET_OPS":
-                            return new OperationsPickup(dto);
-
-                        case "GET_MAXOPS":
-                            return new MaxOperationsPickup(dto);
-
-                        default:
-                            throw new ArgumentOutOfRangeException($"No pickup handler present for ID {dto.ObjectId}");
-                    }
-
-                case GameObjectType.Treasure:
-                    return new TreasureTrove((OpenableDto)dto);
-
-                case GameObjectType.Help:
-                    return new HelpTile(dto);
-
-                case GameObjectType.CharacterSelect:
-                    return new CharacterSelectTile(dto);
-
-                default:
-                    throw new ArgumentException($"Unsupported object type {dto.Type}", nameof(dto));
-            }
-        }
-
-        private static GameObjectBase BuildActor(ActorDto dto)
-        {
-            switch (dto.ObjectId)
-            {
-                case Actors.AntiVirus:
-                   return new AntiVirus(dto);
-
-                case Actors.Virus:
-                   return new Virus(dto);
-
-                case Actors.Worm:
-                   return new Worm(dto);
-
-                case Actors.Turret:
-                   return new Turret(dto);
-
-                case Actors.LogicBomb:
-                   return new LogicBomb(dto);
-
-                case Actors.Bug:
-                case Actors.Feature:
-                case Actors.Glitch:
-                    return new Bug(dto);
-
-                default:
-                    return new Actor(dto);
-            }
-        }
-
-        /// <summary>
-        /// Creates a player object instance with stats from the defined <paramref name="playerId"/>.
-        /// </summary>
-        /// <param name="playerId">The player identifier. This cannot be null or empty.</param>
         /// <returns>The player instance</returns>
-        public static Player CreatePlayer([NotNull] string playerId)
+        public static Player CreatePlayer(Pos2D pos, PlayerType playerType)
         {
-            if (string.IsNullOrWhiteSpace(playerId))
-            {
-                throw new ArgumentException("playerId is required", nameof(playerId));
-            }
+            var player = new Player(pos, playerType);
 
-            var dto = new PlayerDto();
+            var commands = GetStartingCommandsForPlayer(playerType);
 
+            InitializeCommandSlots(player, commands);
+            
+            return player;
+            /*
             var entityDef = EntityService.GetEntity(playerId);
 
             // Position doesn't really matter since LevelBuilder will auto-set the position
@@ -171,8 +51,102 @@ namespace MattEland.Emergence.Engine.Game
             }
 
             return (Player)CreateFromDto(dto);
+            */
         }
 
+        private static List<GameCommand> GetStartingCommandsForPlayer(PlayerType playerType)
+        {
+            var commands = new List<GameCommand>();
+
+            switch (playerType)
+            {
+                case PlayerType.Logistics:
+                    commands.AddRange(new GameCommand[]
+                    {
+                        new MarkCommand(),
+                        new RecallCommand(),
+                        new SwapCommand()
+                    });
+                    break;
+                case PlayerType.Forecast:
+                    commands.AddRange(new GameCommand[]
+                    {
+                        new SpikeCommand(),
+                        new RestoreCommand(),
+                        new BarrageCommand()
+                    });
+                    break;
+                case PlayerType.Game:
+                    commands.AddRange(new GameCommand[]
+                    {
+                        new TargetingCommand(),
+                        new SpikeCommand(),
+                        new BurstCommand()
+                    });
+                    break;
+                case PlayerType.Search:
+                    commands.AddRange(new GameCommand[]
+                    {
+                        new ScanCommand(),
+                        new EscapeCommand(),
+                        new SurgeCommand()
+                    });
+                    break;
+                case PlayerType.Malware:
+                    commands.AddRange(new GameCommand[]
+                    {
+                        new OverloadCommand(),
+                        new InfectCommand(),
+                        new CorruptCommand()
+                    });
+                    break;
+                case PlayerType.Debugger:
+                    commands.AddRange(new GameCommand[]
+                    {
+                        new InfectCommand(),
+                        new EscapeCommand(),
+                        new SwapCommand(),
+                        new RestoreCommand(),
+                        new OverloadCommand(),
+                        new BurstCommand(),
+                        new BarrageCommand(),
+                        new CleanseCommand(),
+                        new VirusSweepCommand(),
+                    });
+                    break;
+                case PlayerType.AntiVirus:
+                    commands.AddRange(new GameCommand[]
+                    {
+                        new ArmorCommand(),
+                        new CleanseCommand(),
+                        new VirusSweepCommand()
+                    });
+                    break;
+                default:
+                    throw new NotSupportedException($"Cannot set commands for unknown player type {playerType:G}");
+            }
+
+            return commands;
+        }
+        
+        const int NumCommandSlots = 8;
+
+        private static void InitializeCommandSlots(Player player, List<GameCommand> commands)
+        {
+            for (int i = 0; i < NumCommandSlots; i++)
+            {
+                GameCommand command = null;
+
+                if (commands.Count > i)
+                {
+                    command = commands[i];
+                }
+
+                player.HotbarCommands.Add(new CommandSlot(command));
+            }
+        }
+
+        /*
         private static List<CommandInfoDto> BuildCommandSlots(int count)
         {
             var slots = new List<CommandInfoDto>(count);
@@ -223,6 +197,7 @@ namespace MattEland.Emergence.Engine.Game
 
             return dto;
         }
+        */
 
         private static ActorType GetActorType(string id)
         {
@@ -246,6 +221,7 @@ namespace MattEland.Emergence.Engine.Game
                 case Actors.Virus: return ActorType.Virus;
                 case Actors.Search: return ActorType.QueryAgent;
                 case Actors.SecurityAgent: return ActorType.SecurityAgent;
+/*
 
                 case Actors.PlayerAntiVirus:
                 case Actors.PlayerDebugger:
@@ -255,68 +231,119 @@ namespace MattEland.Emergence.Engine.Game
                 case Actors.PlayerForecast:
                 case Actors.PlayerGame: 
                     return ActorType.Player;
+*/
 
-                default: throw new NotSupportedException($"ActorType mapping not found for actor {id}");
+                default: throw new NotSupportedException($"ActorType mapping not found for {id}");
+            }
+        }
+        private static PlayerType GetPlayerType(string id)
+        {
+            switch (id)
+            {
+                case Actors.PlayerAntiVirus: return PlayerType.AntiVirus;
+                case Actors.PlayerDebugger: return PlayerType.Debugger;
+                case Actors.PlayerLogistics: return PlayerType.Logistics;
+                case Actors.PlayerSearch: return PlayerType.Search;
+                case Actors.PlayerMalware: return PlayerType.Malware;
+                case Actors.PlayerForecast: return PlayerType.Forecast;
+                case Actors.PlayerGame: return PlayerType.Game;
+
+                default: throw new NotSupportedException($"PlayerType mapping not found for {id}");
             }
         }
 
-        public static GameObjectBase CreateObject(string id, GameObjectType objType, Pos2D pos, Action<GameObjectDto> configure = null)
+        public static GameObjectBase CreateObject(string id, GameObjectType objType, Pos2D pos)
         {
             // Figure out which DTO to build
-            GameObjectDto dto;
             switch (objType)
             {
-                case GameObjectType.Player:
-                    dto = new PlayerDto();
-                    break;
-
                 case GameObjectType.Turret:
-                    return CreateFromDto(SetEntityStats(new ActorDto(ActorType.Turret), Actors.Turret, objType, pos));
+                    return new Turret(pos);
 
                 case GameObjectType.Core:
                     return CreateCore(pos);
 
                 case GameObjectType.Actor:
-                    return CreateFromDto(SetEntityStats(new ActorDto(GetActorType(id)), id, objType, pos));
+                    return CreateActor(id, pos);
 
                 case GameObjectType.Door:
+                    return new Door(pos);
+
                 case GameObjectType.Treasure:
-                    dto = new OpenableDto();
-                    break;
+                    return new TreasureTrove(pos);
+
+                case GameObjectType.Divider:
+                    return new Divider(pos);
+
+                case GameObjectType.Cabling:
+                    return new Cabling(pos);
+
+                case GameObjectType.Firewall:
+                    return new Firewall(pos);
+
+                case GameObjectType.Exit:
+                    return new LevelExit(pos);
+
+                case GameObjectType.Entrance:
+                    return new LevelEntrance(pos);
+
+                case GameObjectType.Service:
+                    return new LevelService(pos);
+
+                case GameObjectType.DataStore:
+                    return new DataStore(pos);
+
+                case GameObjectType.Wall:
+                    return new Wall(pos, false);
+
+                case GameObjectType.Debris:
+                    return new Debris(pos);
+
+                case GameObjectType.CommandPickup:
+                    return new CommandPickup(pos, id, "Command Pickup");
+
+                case GameObjectType.Water:
+                    return new Water(pos);
+
+                case GameObjectType.Help:
+                    return new HelpTile(pos, id);
+
+                case GameObjectType.CharacterSelect:
+                    return new CharacterSelectTile(pos, GetPlayerType(id));
+
+                case GameObjectType.GenericPickup:
+                    return CreatePickup(id, pos);
+
+                case GameObjectType.Floor:
+                case GameObjectType.Player:
+                    throw new NotSupportedException($"{objType:G} / {id} cannot be instantiated using CreateObject");
 
                 default:
-                    dto = new GameObjectDto();
-                    break;
+                    throw new NotImplementedException($"{objType:G} / {id} is not supported for instantiation");
             }
+        }
 
-            // Set common properties on dto
-            dto.Type = objType;
-            dto.ObjectId = id;
-            dto.Pos = pos;
-            dto.HpUsed = 0;
-            dto.MaxHp = 10;
-
-            configure?.Invoke(dto);
-
-            return CreateFromDto(dto);
+        private static GameObjectBase CreatePickup(string id, Pos2D pos)
+        {
+            switch (id)
+            {
+                case "GET_MAXHP":
+                    return new MaxStabilityPickup(pos);
+                case "GET_HP":
+                    return new StabilityPickup(pos);
+                case "GET_MAXOPS":
+                    return new MaxOperationsPickup(pos);
+                case "GET_OPS":
+                    return new OperationsPickup(pos);
+                default:
+                    throw new NotSupportedException($"Pickup {id} cannot be instantiated");
+            }
         }
 
 
         public static GameObjectBase CreateWall(Pos2D pos, bool isExterior)
         {
-            var hp = 3;
-            var dto = new GameObjectDto
-            {
-                Pos = pos,
-                Type = GameObjectType.Wall,
-                MaxHp = hp,
-                HpUsed = 0,
-                ObjectId = null,
-                Team = Alignment.Neutral,
-                Name = "Wall",
-                State = isExterior ? "External" : null
-            };
-            var wall = new Wall(dto);
+            var wall = new Wall(pos, isExterior);
 
             if (isExterior)
             {
@@ -326,9 +353,35 @@ namespace MattEland.Emergence.Engine.Game
             return wall;
         }
 
-        public static GameObjectBase CreateCore(Pos2D pos) 
-            => CreateFromDto(SetEntityStats(new ActorDto(ActorType.Core), Actors.Core, GameObjectType.Core, pos));
+        public static GameObjectBase CreateCore(Pos2D pos) => new LevelCore(pos);
 
-        public static GameObjectBase CreateActor(string id, Pos2D pos) => CreateObject(id, GameObjectType.Actor, pos);
+        public static Actor CreateActor(string id, Pos2D pos)
+        {
+            ActorType actorType = GetActorType(id);
+            switch (actorType)
+            {
+                case ActorType.AntiVirus: return new AntiVirus(pos);
+                case ActorType.LogicBomb: return new LogicBomb(pos);
+                case ActorType.Turret: return new Turret(pos);
+                case ActorType.Core: return new LevelCore(pos);
+                case ActorType.Player: return CreatePlayer(pos, GetPlayerType(id));
+                case ActorType.Bug: return new Bug(pos);
+                case ActorType.Virus: return new Virus(pos);
+                case ActorType.Worm: return new Worm(pos);
+                case ActorType.Helpy: return new Helpy(pos);
+                case ActorType.Bit: return new Bit(pos);
+                case ActorType.Daemon: return new Daemon(pos);
+                case ActorType.SystemDefender: return new SystemDefender(pos);
+                case ActorType.Inspector: return new Inspector(pos);
+                case ActorType.SecurityAgent: return new SecurityAgent(pos);
+                case ActorType.GarbageCollector: return new GarbageCollector(pos);
+                case ActorType.QueryAgent: return new QueryAgent(pos);
+                case ActorType.KernelWorker: return new KernelWorker(pos);
+                case ActorType.Feature: return new Feature(pos);
+                case ActorType.Glitch: return new Glitch(pos);
+                default:
+                    throw new NotImplementedException($"Actor Type {actorType:G} is not currently supported");
+            }
+        }
     }
 }

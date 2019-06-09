@@ -1,6 +1,7 @@
-﻿using MattEland.Emergence.Engine.DTOs;
-using MattEland.Emergence.Engine.Effects;
+﻿using MattEland.Emergence.Engine.Effects;
+using MattEland.Emergence.Engine.Entities.Actors;
 using MattEland.Emergence.Engine.Game;
+using MattEland.Emergence.Engine.Level;
 
 namespace MattEland.Emergence.Engine.Entities
 {
@@ -8,12 +9,10 @@ namespace MattEland.Emergence.Engine.Entities
     {
         public bool IsOpen { get; private set; }
 
-        protected OpenableGameObjectBase(OpenableDto dto) : base(dto)
+        protected OpenableGameObjectBase(Pos2D pos, bool isOpen) : base(pos)
         {
-            IsOpen = dto.IsOpen;
+            IsOpen = isOpen;
         }
-
-        public override bool IsInteractive => true;
 
         /// <inheritdoc />
         public override bool OnActorAttemptedEnter(GameContext context, Actor actor)

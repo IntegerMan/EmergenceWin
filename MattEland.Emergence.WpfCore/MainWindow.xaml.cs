@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using MattEland.Emergence.Engine.Model;
 using MattEland.Emergence.WpfCore.ViewModels;

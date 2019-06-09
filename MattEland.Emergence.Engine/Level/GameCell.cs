@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using JetBrains.Annotations;
 using MattEland.Emergence.Engine.Entities;
+using MattEland.Emergence.Engine.Entities.Actors;
 
 namespace MattEland.Emergence.Engine.Level
 {

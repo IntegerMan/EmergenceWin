@@ -3,6 +3,7 @@ using JetBrains.Annotations;
 using MattEland.Emergence.Engine.Commands;
 using MattEland.Emergence.Engine.DTOs;
 using MattEland.Emergence.Engine.Entities;
+using MattEland.Emergence.Engine.Entities.Actors;
 using MattEland.Emergence.Engine.Game;
 using MattEland.Emergence.Engine.Level;
 using MattEland.Emergence.WpfCore.ViewModels;
@@ -13,11 +14,11 @@ namespace MattEland.Emergence.Tests
 {
     public abstract class EmergenceTestBase
     {
-        public GameService GameService { get; set; }
-        public GameContext Context { get; set; }
+        public GameService GameService { get; private set; }
+        public GameContext Context { get; private set; }
         public Player Player => Context.Player;
 
-        public GameViewModel GameViewModel { get; set; }
+        public GameViewModel GameViewModel { get; private set; }
 
         [SetUp]
         protected virtual void Initialize()
@@ -71,6 +72,14 @@ namespace MattEland.Emergence.Tests
             playerCommands.Add(slot);
 
             return slot;
+        }
+
+        [NotNull]
+        protected GameObjectBase AddObject(GameObjectBase obj)
+        {
+            GameViewModel.ProcessMessage(Context.AddObject(obj));
+
+            return obj;
         }
     }
 }

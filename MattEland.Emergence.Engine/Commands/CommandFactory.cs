@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using JetBrains.Annotations;
-using MattEland.Emergence.Engine.DTOs;
 
 namespace MattEland.Emergence.Engine.Commands
 {
@@ -13,22 +12,13 @@ namespace MattEland.Emergence.Engine.Commands
     /// </summary>
     public static class CommandFactory
     {
+        [CanBeNull]
         private static IDictionary<string, GameCommand> _commands;
 
-        public static IDictionary<string, GameCommand> Commands
-        {
-            get
-            {
-                // Lazy load the dictionary
-                if (_commands == null)
-                {
-                    _commands = BuildCommandDictionary();
-                }
+        [NotNull]
+        public static IDictionary<string, GameCommand> Commands => _commands ?? (_commands = BuildCommandDictionary());
 
-                return _commands;
-            }
-        }
-
+        [NotNull]
         public static GameCommand CreateCommand([NotNull] string commandId)
         {
             if (string.IsNullOrWhiteSpace(commandId))
@@ -44,6 +34,7 @@ namespace MattEland.Emergence.Engine.Commands
             return Commands[commandId.ToLowerInvariant()];
         }
 
+        [NotNull]
         private static IDictionary<string, GameCommand> BuildCommandDictionary()
         {
             var commandType = typeof(GameCommand);
@@ -61,20 +52,14 @@ namespace MattEland.Emergence.Engine.Commands
             return dict;
         }
 
-        public static CommandSlot CreateCommandReference([CanBeNull] CommandInfoDto dto)
+        public static CommandSlot CreateCommandReference([CanBeNull] GameCommand command)
         {
-            GameCommand command = null;
-            bool isActive = false;
-
-            if (dto != null)
-            {
-                command = CreateCommand(dto.Id);
-                isActive = dto.IsActive;
-            }
+            var isActive = command != null && command.ActivationType == CommandActivationType.Active;
 
             return new CommandSlot(command, isActive);
         }
 
+        [NotNull, ItemNotNull]
         public static IEnumerable<GameCommand> RegisteredCommands => Commands.Values;
     }
 }

@@ -1,6 +1,6 @@
 ﻿using MattEland.Emergence.Engine.DTOs;
 using MattEland.Emergence.Engine.Effects;
-using MattEland.Emergence.Engine.Entities;
+using MattEland.Emergence.Engine.Entities.Actors;
 using MattEland.Emergence.Engine.Game;
 using MattEland.Emergence.Engine.Level;
 using MattEland.Emergence.Engine.Services;
@@ -160,24 +160,6 @@ namespace MattEland.Emergence.Engine.Commands
         public virtual void ApplyEffect(GameContext context, Actor executor, Pos2D pos)
         {
         }
-
-
-        /// <summary>
-        /// Builds a data transmission object based on this instance.
-        /// </summary>
-        /// <returns>An equivalent data transmission object</returns>
-        public CommandInfoDto BuildDto(bool isActive) => new CommandInfoDto
-        {
-            Id = Id,
-            IconId = IconId,
-            Name = Name,
-            ShortName = ShortName,
-            ActivationCost = ActivationCost,
-            ActivationType = ActivationType,
-            MaintenanceCost = MaintenanceCost,
-            Description = Description,
-            IsActive = isActive
-        };
 
     }
 }

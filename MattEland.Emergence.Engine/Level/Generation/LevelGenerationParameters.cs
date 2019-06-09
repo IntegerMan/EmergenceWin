@@ -1,4 +1,4 @@
-﻿using MattEland.Emergence.Engine.DTOs;
+﻿using MattEland.Emergence.Engine.Entities.Actors;
 
 namespace MattEland.Emergence.Engine.Level.Generation
 {
@@ -12,6 +12,6 @@ namespace MattEland.Emergence.Engine.Level.Generation
         /// </summary>
         public LevelType LevelType { get; set; }
 
-        public string PlayerId { get; set; } = Actors.PlayerLogistics;
+        public PlayerType PlayerType { get; set; } = PlayerType.Logistics;
     }
 }

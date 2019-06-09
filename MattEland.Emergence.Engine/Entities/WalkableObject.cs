@@ -1,11 +1,12 @@
-﻿using MattEland.Emergence.Engine.DTOs;
+﻿using MattEland.Emergence.Engine.Entities.Actors;
 using MattEland.Emergence.Engine.Game;
+using MattEland.Emergence.Engine.Level;
 
 namespace MattEland.Emergence.Engine.Entities
 {
     public abstract class WalkableObject : GameObjectBase
     {
-        protected WalkableObject(GameObjectDto dto) : base(dto)
+        protected WalkableObject(Pos2D pos) : base(pos)
         {
         }
 

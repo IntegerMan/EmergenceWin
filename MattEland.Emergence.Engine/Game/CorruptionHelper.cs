@@ -4,6 +4,7 @@ using System.Linq;
 using MattEland.Emergence.Engine.DTOs;
 using MattEland.Emergence.Engine.Effects;
 using MattEland.Emergence.Engine.Entities;
+using MattEland.Emergence.Engine.Entities.Actors;
 using MattEland.Emergence.Engine.Level;
 using MattEland.Emergence.Engine.Services;
 
@@ -132,10 +133,8 @@ namespace MattEland.Emergence.Engine.Game
         public static bool IsCorruptionDamageType(this DamageType damageType) 
             => damageType == DamageType.Corruption || damageType == DamageType.Combination;
 
-        public static void CleanseNearby(GameContext context, Actor executor, Pos2D pos)
+        public static void CleanseNearby(GameContext context, Actor executor, Pos2D pos, int strength = 1)
         {
-            const int strength = 1;
-
             var cells = context.Level.GetCellsInSquare(pos, 1);
             foreach (var cell in cells)
             {

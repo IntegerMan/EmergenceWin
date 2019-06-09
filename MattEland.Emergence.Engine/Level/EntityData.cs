@@ -16,10 +16,6 @@ namespace MattEland.Emergence.Engine.Level
 
         public bool BlocksSight { get; set; }
         public int Hp { get; set; }
-        public int Accuracy { get; set; }
-        public int Evasion { get; set; }
-        public int Strength { get; set; }
-        public int Defense { get; set; }
         public decimal LineOfSightRadius { get; set; }
         public Alignment Team { get; set; }
         public string Name { get; set; }
