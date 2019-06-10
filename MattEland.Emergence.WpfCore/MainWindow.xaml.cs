@@ -8,7 +8,7 @@ namespace MattEland.Emergence.WpfCore
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
         private GameViewModel _vm;
 
@@ -52,7 +52,47 @@ namespace MattEland.Emergence.WpfCore
                 case Key.Space:
                     _vm.Wait();
                     break;
+                
+                case Key.D1:
+                    RunCommand(0);
+                    break;
+                
+                case Key.D2:
+                    RunCommand(1);
+                    break;
+                
+                case Key.D3:
+                    RunCommand(2);
+                    break;
+                
+                case Key.D4:
+                    RunCommand(3);
+                    break;
+                
+                case Key.D5:
+                    RunCommand(4);
+                    break;
+                
+                case Key.D6:
+                    RunCommand(5);
+                    break;
+                
+                case Key.D7:
+                    RunCommand(6);
+                    break;
+                    
+                case Key.D8:
+                    RunCommand(7);
+                    break;
             }
+        }
+
+        private void RunCommand(int index)
+        {
+            if (_vm.Commands.Count < index) return;
+            
+            var vm = _vm.Commands[index];
+            vm?.Execute();
         }
 
         private static T GetElementDataContext<T>(RoutedEventArgs e) => (T) ((FrameworkElement) e.Source).DataContext;
