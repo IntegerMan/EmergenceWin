@@ -21,6 +21,9 @@ namespace MattEland.Emergence.WpfCore.ViewModels
         private ActorViewModel _player;
         private UIState _uiState;
         private CommandSlot _targetedCommand;
+        
+        [NotNull]
+        private readonly ISet<Pos2D> _knownCells = new HashSet<Pos2D>();
 
         public GameViewModel()
         {
@@ -88,6 +91,10 @@ namespace MattEland.Emergence.WpfCore.ViewModels
                     vm = GetObject(updateMessage.Source.Id);
                     vm.UpdateFrom(updateMessage);
                     break;
+                    
+                case ChangedLevelMessage _:
+                    _knownCells.Clear();
+                    break;
 
                 case DestroyedMessage destroyedMessage:
                     _objects.Remove(destroyedMessage.Source.Id);
@@ -104,7 +111,13 @@ namespace MattEland.Emergence.WpfCore.ViewModels
 
         private void UpdateVisibleCells(VisibleCellsMessage visible)
         {
-            _objects.Values.Each(o => o.IsVisible = visible.Cells.Contains(o.Source.Pos));
+            visible.Cells.Each(p => _knownCells.Add(p));
+            
+            _objects.Values.Each(o =>
+            {
+                o.IsVisible = visible.Cells.Contains(o.Source.Pos);
+                o.OnIsKnownInvalidated();
+            });
         }
 
         private void ProcessMessages([NotNull, ItemNotNull] IEnumerable<GameMessage> messages)
@@ -225,6 +238,11 @@ namespace MattEland.Emergence.WpfCore.ViewModels
 
             UIState = UIState.Executing;
             Update(_gameService.HandleCommand(TargetedCommand, pos));
+        }
+
+        public bool IsCellKnownToPlayer(Pos2D pos)
+        {
+            return _knownCells.Contains(pos);
         }
     }
 }

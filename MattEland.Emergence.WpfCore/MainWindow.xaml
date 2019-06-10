@@ -61,6 +61,7 @@
                       ToolTip="{Binding ToolTip}"
                       MouseLeftButtonDown="OnTileClicked"
                       Opacity="{Binding Opacity}"
+                      Visibility="{Binding Visibility}"
                       Width="{Binding Size}"
                       Height="{Binding Size}">
                 <TextBlock Text="{Binding Content}"

@@ -236,6 +236,8 @@ namespace MattEland.Emergence.Engine.Game
 
         public void SwitchToLevel(LevelType levelType)
         {
+            AddMessage(new ChangedLevelMessage(levelType));
+            
             Player.ClearKnownCells();
 
             // Generate messages for the level pieces that need to go away
@@ -408,5 +410,4 @@ namespace MattEland.Emergence.Engine.Game
         }
 
     }
-
 }

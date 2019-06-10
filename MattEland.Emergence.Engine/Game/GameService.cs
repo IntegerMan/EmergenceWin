@@ -10,6 +10,7 @@ using MattEland.Emergence.Engine.Level.Generation;
 using MattEland.Emergence.Engine.Level.Generation.Encounters;
 using MattEland.Emergence.Engine.Level.Generation.Prefabs;
 using MattEland.Emergence.Engine.Loot;
+using MattEland.Emergence.Engine.Messages;
 using MattEland.Emergence.Engine.Model;
 using MattEland.Shared.Collections;
 

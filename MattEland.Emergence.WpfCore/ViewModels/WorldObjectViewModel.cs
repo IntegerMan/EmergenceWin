@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.Windows;
 using System.Windows.Media;
 using MattEland.Emergence.Engine.Entities;
 using MattEland.Emergence.Engine.Entities.Actors;
@@ -76,13 +77,36 @@ namespace MattEland.Emergence.WpfCore.ViewModels
             {
                 if (value == _isVisible) return;
                 _isVisible = value;
-                OnPropertyChanged();
-                OnPropertyChanged(nameof(Opacity));
+                OnIsKnownInvalidated();
             }
         }
 
-        public decimal Opacity => IsVisible ? 1 : 0.5M;
+        public Visibility Visibility => !IsKnown || (!IsVisible && Source.ObjectType == GameObjectType.Actor)
+                ? Visibility.Collapsed
+                : Visibility.Visible;
+
+        public bool IsKnown => _gameVm.IsCellKnownToPlayer(Source.Pos);
+
+        public decimal Opacity
+        {
+            get
+            {
+                if (IsVisible) return 1;
+                
+                if (Source.ObjectType == GameObjectType.Actor) return 0;
+
+                return 0.65M;
+            }
+        }
 
         public override string ToString() => ToolTip;
+
+        public void OnIsKnownInvalidated()
+        {
+            OnPropertyChanged(nameof(Opacity));
+            OnPropertyChanged(nameof(Visibility));
+            OnPropertyChanged(nameof(IsKnown));
+            OnPropertyChanged(nameof(IsVisible));
+        }
     }
 }
