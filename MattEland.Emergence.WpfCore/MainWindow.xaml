@@ -49,7 +49,7 @@
       </materialDesign:Card>
 
       <Border ClipToBounds="True" Background="Black">
-        <ItemsControl ItemsSource="{Binding WorldObjects}" >
+        <ItemsControl ItemsSource="{Binding VisibleWorldObjects}" >
           <ItemsControl.ItemsPanel>
             <ItemsPanelTemplate>
               <Canvas />

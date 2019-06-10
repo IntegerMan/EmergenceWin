@@ -99,6 +99,7 @@ namespace MattEland.Emergence.WpfCore.ViewModels
                 case DestroyedMessage destroyedMessage:
                     _objects.Remove(destroyedMessage.Source.Id);
                     WorldObjects.Where(o => o.Id == destroyedMessage.Source.Id).EachSafe(o => WorldObjects.Remove(o));
+                    VisibleWorldObjects.Where(o => o.Id == destroyedMessage.Source.Id).EachSafe(o => VisibleWorldObjects.Remove(o));
                     break;
                 
                 case VisibleCellsMessage visibleMessage:
@@ -115,7 +116,21 @@ namespace MattEland.Emergence.WpfCore.ViewModels
             
             _objects.Values.Each(o =>
             {
+                bool wasVisible = o.IsVisible;
                 o.IsVisible = visible.Cells.Contains(o.Source.Pos);
+
+                if (wasVisible != o.IsVisible)
+                {
+                    if (o.IsVisible)
+                    {
+                        VisibleWorldObjects.Add(o);
+                    }
+                    else
+                    {
+                        VisibleWorldObjects.Remove(o);
+                    }
+                }
+                
                 o.OnIsKnownInvalidated();
             });
         }
@@ -147,6 +162,8 @@ namespace MattEland.Emergence.WpfCore.ViewModels
         }
 
         public IList<WorldObjectViewModel> WorldObjects { get; } = new ObservableCollection<WorldObjectViewModel>();
+        public IList<WorldObjectViewModel> VisibleWorldObjects { get; } = new ObservableCollection<WorldObjectViewModel>();
+        
         public IList<CommandViewModel> Commands { get; } = new ObservableCollection<CommandViewModel>();
         public IList<MessageViewModel> Messages { get; } = new ObservableCollection<MessageViewModel>();
         
@@ -202,7 +219,7 @@ namespace MattEland.Emergence.WpfCore.ViewModels
             XOffset = -(pos.X - 25);
             YOffset = -(pos.Y - 15);
 
-            WorldObjects.Each(o => { o.NotifyOffsetChanged(); });
+            VisibleWorldObjects.Each(o => { o.NotifyOffsetChanged(); });
         }
 
         public void HandleCommand(CommandSlot slot)
