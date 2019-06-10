@@ -8,130 +8,141 @@
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
-        TextOptions.TextFormattingMode="Ideal" 
-        TextOptions.TextRenderingMode="Auto"        
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         WindowStartupLocation="CenterScreen"
         mc:Ignorable="d"
         Title="Emergence Client"
-        Height="800" Width="1480" 
+        Height="800" Width="1480"
         KeyDown="MainWindow_OnKeyDown"
         Loaded="OnWindowLoaded"
         d:DataContext="{d:DesignInstance viewModels:GameViewModel}">
 
-  <Grid Margin="8">
-    <Grid.ColumnDefinitions>
-      <ColumnDefinition Width="*" />
-      <ColumnDefinition Width="8" />
-      <ColumnDefinition Width="300" />
-    </Grid.ColumnDefinitions>
+    <Grid Margin="8">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="8" />
+            <ColumnDefinition Width="300" />
+        </Grid.ColumnDefinitions>
 
-    <DockPanel>
-
-      <materialDesign:Card DockPanel.Dock="Top" Margin="0 0 0 8">
-        <TextBlock Text="{Binding UIPrompt}" Margin="8" />
-      </materialDesign:Card>
-
-      <materialDesign:Card DockPanel.Dock="Bottom" Margin="0 8 0 0">
-        <ItemsControl ItemsSource="{Binding Commands}">
-          <ItemsControl.ItemsPanel>
-            <ItemsPanelTemplate>
-              <StackPanel Orientation="Horizontal"></StackPanel>
-            </ItemsPanelTemplate>
-          </ItemsControl.ItemsPanel>
-          <ItemsControl.ItemTemplate>
-            <DataTemplate>
-              <Button Style="{DynamicResource MaterialDesignRaisedButton}" Margin="8 8 0 8" Content="{Binding Content}" Click="OnCommandClicked"></Button>
-            </DataTemplate>
-          </ItemsControl.ItemTemplate>
-        </ItemsControl>
-      </materialDesign:Card>
-
-      <Border ClipToBounds="True" Background="Black">
-        <ItemsControl ItemsSource="{Binding VisibleWorldObjects}" >
-          <ItemsControl.ItemsPanel>
-            <ItemsPanelTemplate>
-              <Canvas />
-            </ItemsPanelTemplate>
-          </ItemsControl.ItemsPanel>
-          <ItemsControl.ItemTemplate>
-            <DataTemplate>
-              <Border Background="{Binding BackgroundBrush}"
-                      ToolTip="{Binding ToolTip}"
-                      MouseLeftButtonDown="OnTileClicked"
-                      Opacity="{Binding Opacity}"
-                      Visibility="{Binding Visibility}"
-                      Width="{Binding Size}"
-                      Height="{Binding Size}">
-                <TextBlock Text="{Binding Content}"
-                                       Foreground="{Binding ForegroundBrush}"
-                                       FontFamily="Lucida Console"
-                                       FontSize="24"
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Center" />
-              </Border>
-            </DataTemplate>
-          </ItemsControl.ItemTemplate>
-          <ItemsControl.ItemContainerStyle>
-            <Style TargetType="ContentPresenter">
-              <Setter Property="Tag" Value="{Binding Path=Tag}" />
-              <Setter Property="Canvas.Left" Value="{Binding Path=X}" />
-              <Setter Property="Canvas.Top" Value="{Binding Path=Y}" />
-              <Setter Property="Canvas.ZIndex" Value="{Binding Path=ZIndex}" />
-            </Style>
-          </ItemsControl.ItemContainerStyle>
-        </ItemsControl>
-      </Border>
-    </DockPanel>
-
-    <Grid Grid.Column="2">
-      <Grid.RowDefinitions>
-        <RowDefinition Height="Auto"></RowDefinition>
-        <RowDefinition Height="8"></RowDefinition>
-        <RowDefinition></RowDefinition>
-        <RowDefinition Height="8"></RowDefinition>
-        <RowDefinition></RowDefinition>
-      </Grid.RowDefinitions>
-
-      <materialDesign:Card VerticalAlignment="Stretch" DataContext="{Binding Player}">
         <DockPanel>
-          <TextBlock Text="Player" DockPanel.Dock="Top" Margin="8" Style="{StaticResource MaterialDesignTitleTextBlock}"></TextBlock>
-          <StackPanel Margin="8">
-            <TextBlock>Stability</TextBlock>
-            <ProgressBar Margin="0 8" Height="8" Value="{Binding Health, Mode=OneWay}" Maximum="{Binding MaxHealth}" Minimum="0"></ProgressBar>
 
-            <TextBlock>Operations</TextBlock>
-            <ProgressBar Margin="0 8" Height="8" Value="{Binding Operations, Mode=OneWay}" Maximum="{Binding MaxOperations}" Minimum="0"></ProgressBar>
-          </StackPanel>
-        </DockPanel>
-      </materialDesign:Card>
+            <materialDesign:Card DockPanel.Dock="Top" Margin="0 0 0 8">
+                <TextBlock Text="{Binding UIPrompt}" Margin="8" />
+            </materialDesign:Card>
 
-      <materialDesign:Card VerticalAlignment="Stretch"  Grid.Row="2">
-        <DockPanel>
-          <TextBlock Text="Messages" DockPanel.Dock="Top" Margin="8" Style="{StaticResource MaterialDesignTitleTextBlock}"></TextBlock>
-          <ListBox ItemsSource="{Binding Messages}">
-            <ListBox.ItemTemplate>
-              <DataTemplate>
-                <TextBlock FontSize="10" Text="{Binding Text}" ToolTip="{Binding Text}" />
-              </DataTemplate>
-            </ListBox.ItemTemplate>
-          </ListBox>
-        </DockPanel>
-      </materialDesign:Card>
+            <materialDesign:Card DockPanel.Dock="Bottom" Margin="0 8 0 0" Visibility="{Binding GameVisibility}">
+                <ItemsControl ItemsSource="{Binding Commands}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Button Style="{DynamicResource MaterialDesignRaisedButton}" Margin="8 8 0 8"
+                                    Content="{Binding Content}" Click="OnCommandClicked" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </materialDesign:Card>
 
-      <materialDesign:Card Grid.Row="4">
-        <DockPanel>
-          <TextBlock Text="Objects" DockPanel.Dock="Top" Margin="8" Style="{StaticResource MaterialDesignTitleTextBlock}"></TextBlock>
-          <ListBox ItemsSource="{Binding WorldObjects}">
-            <ListBox.ItemTemplate>
-              <DataTemplate>
-                <TextBlock FontSize="10" Text="{Binding ToolTip}" ToolTip="{Binding ToolTip}" />
-              </DataTemplate>
-            </ListBox.ItemTemplate>
-          </ListBox>
+            <Grid Background="Black">
+                <TextBlock Text="Game Over" HorizontalAlignment="Center" VerticalAlignment="Center"
+                           Visibility="{Binding GameOverVisibility}" />
+
+                <Border ClipToBounds="True" Background="Black" Visibility="{Binding GameVisibility}">
+                    <ItemsControl ItemsSource="{Binding VisibleWorldObjects}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <Canvas />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Background="{Binding BackgroundBrush}"
+                                        ToolTip="{Binding ToolTip}"
+                                        MouseLeftButtonDown="OnTileClicked"
+                                        Opacity="{Binding Opacity}"
+                                        Visibility="{Binding Visibility}"
+                                        Width="{Binding Size}"
+                                        Height="{Binding Size}">
+                                    <TextBlock Text="{Binding Content}"
+                                               Foreground="{Binding ForegroundBrush}"
+                                               FontFamily="Lucida Console"
+                                               FontSize="24"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center" />
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                        <ItemsControl.ItemContainerStyle>
+                            <Style TargetType="ContentPresenter">
+                                <Setter Property="Tag" Value="{Binding Path=Tag}" />
+                                <Setter Property="Canvas.Left" Value="{Binding Path=X}" />
+                                <Setter Property="Canvas.Top" Value="{Binding Path=Y}" />
+                                <Setter Property="Canvas.ZIndex" Value="{Binding Path=ZIndex}" />
+                            </Style>
+                        </ItemsControl.ItemContainerStyle>
+                    </ItemsControl>
+                </Border>
+            </Grid>
         </DockPanel>
-      </materialDesign:Card>
+
+        <Grid Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="8" />
+                <RowDefinition />
+                <RowDefinition Height="8" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <materialDesign:Card VerticalAlignment="Stretch" DataContext="{Binding Player}">
+                <DockPanel>
+                    <TextBlock Text="Player" DockPanel.Dock="Top" Margin="8"
+                               Style="{StaticResource MaterialDesignTitleTextBlock}" />
+                    <StackPanel Margin="8">
+                        <TextBlock>Stability</TextBlock>
+                        <ProgressBar Margin="0 8" Height="8" Value="{Binding Health, Mode=OneWay}"
+                                     Maximum="{Binding MaxHealth}" Minimum="0" />
+
+                        <TextBlock>Operations</TextBlock>
+                        <ProgressBar Margin="0 8" Height="8" Value="{Binding Operations, Mode=OneWay}"
+                                     Maximum="{Binding MaxOperations}" Minimum="0" />
+                    </StackPanel>
+                </DockPanel>
+            </materialDesign:Card>
+
+            <materialDesign:Card VerticalAlignment="Stretch" Grid.Row="2">
+                <DockPanel>
+                    <TextBlock Text="Messages" DockPanel.Dock="Top" Margin="8"
+                               Style="{StaticResource MaterialDesignTitleTextBlock}" />
+                    <ListBox ItemsSource="{Binding Messages}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock FontSize="10" Text="{Binding Text}" ToolTip="{Binding Text}" />
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </DockPanel>
+            </materialDesign:Card>
+
+            <materialDesign:Card Grid.Row="4">
+                <DockPanel>
+                    <TextBlock Text="Objects" DockPanel.Dock="Top" Margin="8"
+                               Style="{StaticResource MaterialDesignTitleTextBlock}" />
+                    <ListBox ItemsSource="{Binding VisibleWorldObjects}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock FontSize="10" Text="{Binding ToolTip}" ToolTip="{Binding ToolTip}" />
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </DockPanel>
+            </materialDesign:Card>
+        </Grid>
     </Grid>
-  </Grid>
 </Window>

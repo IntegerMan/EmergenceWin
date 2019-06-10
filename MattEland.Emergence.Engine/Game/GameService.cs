@@ -139,6 +139,12 @@ namespace MattEland.Emergence.Engine.Game
             // The player can change so make sure we keep a reference to the correct player object
             Player = Context.Player;
 
+            // Death should end the game
+            if (Player.IsDead && !Context.IsGameOver)
+            {
+                Context.EndGame();
+            }
+            
             // Update the game state
             State = Context.IsGameOver ? GameStatus.GameOver : GameStatus.Ready;
             

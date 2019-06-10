@@ -258,9 +258,9 @@ namespace MattEland.Emergence.Engine.Game
             UpdateObject(Player);
         }
 
-        private void EndGame() => IsGameOver = true;
+        public void EndGame() => IsGameOver = true;
 
-        public bool IsGameOver { get; set; }
+        public bool IsGameOver { get; private set; }
 
         [NotNull]
         public ArtificialIntelligenceService AI { get; }

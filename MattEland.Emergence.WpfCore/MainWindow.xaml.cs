@@ -89,7 +89,7 @@ namespace MattEland.Emergence.WpfCore
 
         private void RunCommand(int index)
         {
-            if (_vm.Commands.Count < index) return;
+            if (_vm.Commands.Count < index || _vm.UIState != UIState.ReadyForInput) return;
             
             var vm = _vm.Commands[index];
             vm?.Execute();

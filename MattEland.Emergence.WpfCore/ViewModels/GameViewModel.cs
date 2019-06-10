@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows;
 using JetBrains.Annotations;
 using MattEland.Emergence.Engine.Commands;
 using MattEland.Emergence.Engine.Entities.Actors;
@@ -24,6 +25,9 @@ namespace MattEland.Emergence.WpfCore.ViewModels
         
         [NotNull]
         private readonly ISet<Pos2D> _knownCells = new HashSet<Pos2D>();
+
+        private Visibility _gameOverVisibility = Visibility.Collapsed;
+        private Visibility _gameVisibility = Visibility.Visible;
 
         public GameViewModel()
         {
@@ -175,7 +179,25 @@ namespace MattEland.Emergence.WpfCore.ViewModels
 
             ProcessMessages(context.Messages);
             UpdateCommands(context);
-            UIState = UIState.ReadyForInput;
+            UpdateGameState(context);
+        }
+
+        private void UpdateGameState(GameContext context)
+        {
+            if (context.IsGameOver)
+            {
+                GameOverVisibility = Visibility.Visible;
+                GameVisibility = Visibility.Collapsed;
+
+                UIState = UIState.GameOver;
+            }
+            else
+            {
+                GameOverVisibility = Visibility.Collapsed;
+                GameVisibility = Visibility.Visible;
+            
+                UIState = UIState.ReadyForInput;
+            }
         }
 
         public GameContext Context { get; set; }
@@ -192,6 +214,28 @@ namespace MattEland.Emergence.WpfCore.ViewModels
         }
 
         public GameService GameService => _gameService;
+
+        public Visibility GameOverVisibility
+        {
+            get => _gameOverVisibility;
+            set
+            {
+                if (value == _gameOverVisibility) return;
+                _gameOverVisibility = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public Visibility GameVisibility
+        {
+            get => _gameVisibility;
+            set
+            {
+                if (value == _gameVisibility) return;
+                _gameVisibility = value;
+                OnPropertyChanged();
+            }
+        }
 
         private void CenterOnPlayer()
         {
@@ -247,9 +291,6 @@ namespace MattEland.Emergence.WpfCore.ViewModels
             Update(_gameService.HandleCommand(TargetedCommand, pos));
         }
 
-        public bool IsCellKnownToPlayer(Pos2D pos)
-        {
-            return _knownCells.Contains(pos);
-        }
+        public bool IsCellKnownToPlayer(Pos2D pos) => _knownCells.Contains(pos);
     }
 }

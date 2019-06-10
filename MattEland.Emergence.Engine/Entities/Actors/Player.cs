@@ -252,12 +252,6 @@ namespace MattEland.Emergence.Engine.Entities.Actors
 
                 cmd.Command.ApplyEffect(context, this, Pos);
             }
-
-            // Death should end the game
-            if (IsDead && !context.IsGameOver)
-            {
-                context.IsGameOver = true;
-            }
         }
 
     }

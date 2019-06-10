@@ -95,7 +95,7 @@ namespace MattEland.Emergence.WpfCore.ViewModels
                 
                 if (Source.ObjectType == GameObjectType.Actor) return 0;
 
-                return 0.65M;
+                return 0.5M;
             }
         }
 
