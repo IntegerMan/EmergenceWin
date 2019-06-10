@@ -117,16 +117,9 @@ namespace MattEland.Emergence.WpfCore.ViewModels
                 bool wasVisible = o.IsVisible;
                 o.IsVisible = visible.Cells.Contains(o.Source.Pos);
 
-                if (wasVisible != o.IsVisible)
+                if (wasVisible != o.IsVisible && o.IsVisible)
                 {
-                    if (o.IsVisible)
-                    {
-                        VisibleWorldObjects.Add(o);
-                    }
-                    else
-                    {
-                        VisibleWorldObjects.Remove(o);
-                    }
+                    VisibleWorldObjects.Add(o);
                 }
                 
                 o.OnIsKnownInvalidated();
