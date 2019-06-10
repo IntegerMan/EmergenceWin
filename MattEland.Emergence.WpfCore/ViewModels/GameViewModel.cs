@@ -78,7 +78,6 @@ namespace MattEland.Emergence.WpfCore.ViewModels
             {
                 case CreatedMessage createMessage:
                     vm = new WorldObjectViewModel(createMessage.Source, this);
-                    WorldObjects.Add(vm);
                     _objects[vm.Id] = vm;
                     break;
 
@@ -98,7 +97,6 @@ namespace MattEland.Emergence.WpfCore.ViewModels
 
                 case DestroyedMessage destroyedMessage:
                     _objects.Remove(destroyedMessage.Source.Id);
-                    WorldObjects.Where(o => o.Id == destroyedMessage.Source.Id).EachSafe(o => WorldObjects.Remove(o));
                     VisibleWorldObjects.Where(o => o.Id == destroyedMessage.Source.Id).EachSafe(o => VisibleWorldObjects.Remove(o));
                     break;
                 
@@ -161,7 +159,6 @@ namespace MattEland.Emergence.WpfCore.ViewModels
             context.Player.HotbarCommands.Each(c => Commands.Add(new CommandViewModel(c, this)));
         }
 
-        public IList<WorldObjectViewModel> WorldObjects { get; } = new ObservableCollection<WorldObjectViewModel>();
         public IList<WorldObjectViewModel> VisibleWorldObjects { get; } = new ObservableCollection<WorldObjectViewModel>();
         
         public IList<CommandViewModel> Commands { get; } = new ObservableCollection<CommandViewModel>();
@@ -205,9 +202,9 @@ namespace MattEland.Emergence.WpfCore.ViewModels
 
         private void CenterOnPlayer()
         {
-            if (!WorldObjects.Any()) return;
+            if (!VisibleWorldObjects.Any()) return;
 
-            var player = WorldObjects.Select(o => o.Source).OfType<Player>().FirstOrDefault();
+            var player = VisibleWorldObjects.Select(o => o.Source).OfType<Player>().FirstOrDefault();
             if (player != null)
             {
                 CenterOn(player.Pos);

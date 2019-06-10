@@ -17,7 +17,7 @@ namespace MattEland.Emergence.Tests.ViewModels
             var vm = new GameViewModel();
 
             // Assert
-            vm.WorldObjects.ShouldNotBeEmpty();
+            vm.VisibleWorldObjects.ShouldNotBeEmpty();
             vm.Commands.ShouldNotBeEmpty();
             vm.Messages.ShouldNotBeEmpty();
             vm.UIState.ShouldBe(UIState.ReadyForInput);
@@ -29,7 +29,7 @@ namespace MattEland.Emergence.Tests.ViewModels
         {
             // Arrange
             var vm = new GameViewModel();
-            var player = vm.WorldObjects.First(o => o.Source.IsPlayer);
+            var player = vm.VisibleWorldObjects.First(o => o.Source.IsPlayer);
             var oldX = player.X;
             var oldPos = player.Source.Pos;
 
