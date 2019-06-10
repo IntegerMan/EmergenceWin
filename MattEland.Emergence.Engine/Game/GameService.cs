@@ -81,12 +81,12 @@ namespace MattEland.Emergence.Engine.Game
             Player = GameObjectFactory.CreatePlayer(new Pos2D(0,0), parameters.PlayerType);
             Level = _levelService.GenerateLevel(levelParameters, Player);
             Context = new GameContext(Level, this, _combatManager, _lootProvider, _randomizer);
-
-            // Ensure line of sight is calculated
-            Context.CalculateLineOfSight(Player);
-
+            
             Level.Objects.Each(o => Context.CreatedObject(o));
 
+            // Ensure line of sight is calculated. This message should come after new creation events
+            UpdatePlayerLineOfSight();
+            
             State = GameStatus.Ready;
 
             return Context;
@@ -133,15 +133,21 @@ namespace MattEland.Emergence.Engine.Game
             nonDead.Each(o => o.MaintainActiveEffects(Context));
 
             // Ensure that vision is accurate for the player
-            Context.CalculateLineOfSight(Context.Player);
+            UpdatePlayerLineOfSight();
 
             // The player can change so make sure we keep a reference to the correct player object
             Player = Context.Player;
 
             // Update the game state
             State = Context.IsGameOver ? GameStatus.GameOver : GameStatus.Ready;
-
+            
             return Context;
+        }
+
+        private void UpdatePlayerLineOfSight()
+        {
+            var cells = Context.CalculateLineOfSight(Context.Player);
+            Context.AddMessage(new VisibleCellsMessage(cells));
         }
 
         private static void ProcessActorTurn([NotNull] Actor actor, [NotNull] GameContext context)

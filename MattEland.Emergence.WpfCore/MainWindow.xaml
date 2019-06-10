@@ -60,6 +60,7 @@
               <Border Background="{Binding BackgroundBrush}"
                       ToolTip="{Binding ToolTip}"
                       MouseLeftButtonDown="OnTileClicked"
+                      Opacity="{Binding Opacity}"
                       Width="{Binding Size}"
                       Height="{Binding Size}">
                 <TextBlock Text="{Binding Content}"

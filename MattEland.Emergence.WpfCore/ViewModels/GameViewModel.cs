@@ -93,11 +93,20 @@ namespace MattEland.Emergence.WpfCore.ViewModels
                     _objects.Remove(destroyedMessage.Source.Id);
                     WorldObjects.Where(o => o.Id == destroyedMessage.Source.Id).EachSafe(o => WorldObjects.Remove(o));
                     break;
+                
+                case VisibleCellsMessage visibleMessage:
+                    UpdateVisibleCells(visibleMessage);
+                    break;
             }
 
             Messages.Add(new MessageViewModel(message));
         }
-        
+
+        private void UpdateVisibleCells(VisibleCellsMessage visible)
+        {
+            _objects.Values.Each(o => o.IsVisible = visible.Cells.Contains(o.Source.Pos));
+        }
+
         private void ProcessMessages([NotNull, ItemNotNull] IEnumerable<GameMessage> messages)
         {
             Messages.Clear();

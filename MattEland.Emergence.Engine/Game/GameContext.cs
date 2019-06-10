@@ -274,7 +274,7 @@ namespace MattEland.Emergence.Engine.Game
             AddMessage(new MovedMessage(obj, oldPos, newPos));
         }
 
-        private void AddMessage([NotNull] GameMessage message)
+        public void AddMessage([NotNull] GameMessage message)
         {
             if (message == null) throw new ArgumentNullException(nameof(message));
 
@@ -370,7 +370,7 @@ namespace MattEland.Emergence.Engine.Game
             }
         }
 
-        public IEnumerable<Pos2D> CalculateLineOfSight([NotNull] Actor actor)
+        public ISet<Pos2D> CalculateLineOfSight([NotNull] Actor actor)
         {
             var fov = new ShadowCasterViewProvider(Level);
             fov.ComputeFov(actor.Pos, actor.EffectiveLineOfSightRadius);

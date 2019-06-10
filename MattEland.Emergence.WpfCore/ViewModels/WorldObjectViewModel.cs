@@ -13,6 +13,7 @@ namespace MattEland.Emergence.WpfCore.ViewModels
     public class WorldObjectViewModel : ViewModelBase
     {
         private readonly GameViewModel _gameVm;
+        private bool _isVisible;
 
         public GameObjectBase Source { get; private set; }
 
@@ -67,6 +68,20 @@ namespace MattEland.Emergence.WpfCore.ViewModels
         }
 
         public string ToolTip => $"{Source.Pos}: {Source.Name}";
+
+        public bool IsVisible
+        {
+            get => _isVisible;
+            set
+            {
+                if (value == _isVisible) return;
+                _isVisible = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(Opacity));
+            }
+        }
+
+        public decimal Opacity => IsVisible ? 1 : 0.5M;
 
         public override string ToString() => ToolTip;
     }

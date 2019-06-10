@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
 using MattEland.Emergence.Engine.Commands;
@@ -145,6 +144,12 @@ namespace MattEland.Emergence.Engine.Entities.Actors
         {
             // TODO: this won't work once we have more items that can be picked up
             CommandPickup commandPickup = (CommandPickup) item;
+            if (commandPickup.CommandId == null)
+            {
+                context.AddError($"{Name} attempts to pick up the command but it vanishes into the void");
+                return true;
+            }
+            
             var command = CommandFactory.CreateCommand(commandPickup.CommandId);
 
             if (item.IsCorrupted)
@@ -152,12 +157,6 @@ namespace MattEland.Emergence.Engine.Entities.Actors
                 context.AddMessage($"{Name} picks up the corrupted item and is struck by a virus!", ClientMessageType.Failure);
                 var message = context.CombatManager.HurtObject(context, item, this, 3, "infects", DamageType.Combination);
                 context.AddMessage(message, ClientMessageType.Failure);
-                return true;
-            }
-
-            if (command == null)
-            {
-                context.AddError($"{Name} attempts to pick up the command but it vanishes into the void");
                 return true;
             }
 
