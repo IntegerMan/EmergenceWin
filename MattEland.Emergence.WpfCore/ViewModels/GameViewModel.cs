@@ -33,7 +33,13 @@ namespace MattEland.Emergence.WpfCore.ViewModels
         {
             _gameService = new GameService();
 
-            Update(_gameService.StartNewGame());
+#if DEBUG
+            const PlayerType defaultPlayer = PlayerType.Debugger;
+#else
+            const PlayerType defaultPlayer = PlayerType.Logistics;
+#endif
+            
+            Update(_gameService.StartNewGame(defaultPlayer));
         }
 
         public UIState UIState

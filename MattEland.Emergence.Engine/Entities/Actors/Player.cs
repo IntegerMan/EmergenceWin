@@ -88,14 +88,6 @@ namespace MattEland.Emergence.Engine.Entities.Actors
 
         public override bool BlocksSight => false;
 
-        public override void Initialize()
-        {
-            base.Initialize();
-
-            MaxStability = 10;
-            MaxOperations = 10;
-        }
-
         protected override void InitializeProtected()
         {
             base.InitializeProtected();

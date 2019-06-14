@@ -155,11 +155,6 @@ namespace MattEland.Emergence.Engine.Level
             return distance;
         }
 
-        public static Pos2D FromString(string input)
-        {
-            return PosRepository.FromString(input);
-        }
-
         public Pos2D GetNeighbor(MoveDirection direction, int spacesOver = 1)
         {
             switch (direction)
@@ -172,5 +167,9 @@ namespace MattEland.Emergence.Engine.Level
                     throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
             }
         }
+
+        public bool IsAdjacentTo(Pos2D pos) =>
+            (pos.X == X && Math.Abs(pos.Y - Y) == 1) || 
+            (pos.Y == Y && Math.Abs(pos.X - X) == 1);
     }
 }

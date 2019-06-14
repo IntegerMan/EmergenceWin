@@ -69,7 +69,6 @@ namespace MattEland.Emergence.Engine.Entities.Actors
             InitializeProtected();
             
             base.Initialize();
-            InitializeProtected();
 
             Operations = MaxOperations;
 
@@ -226,6 +225,8 @@ namespace MattEland.Emergence.Engine.Entities.Actors
         {
             var behaviors = context.AI.CommonBehaviors;
 
+            yield return behaviors.Melee;
+            
             if (!IsImmobile)
             {
                 yield return behaviors.Wander;
@@ -234,6 +235,23 @@ namespace MattEland.Emergence.Engine.Entities.Actors
             yield return behaviors.Idle;
         }
 
-
+        public bool IsHostileTo(Actor other)
+        {
+            var isBugOrVirus = other.Team == Alignment.Bug || other.Team == Alignment.Virus;
+            
+            switch (this.Team)
+            {
+                case Alignment.SystemCore:
+                case Alignment.SystemSecurity:
+                    return other.Team == Alignment.Bug || other.Team == Alignment.Player;
+                case Alignment.SystemAntiVirus:
+                    return other.Team == Alignment.Player || isBugOrVirus;
+                case Alignment.Virus:
+                case Alignment.Bug:
+                    return !isBugOrVirus;
+                default:
+                    return false;
+            }
+        }
     }
 }

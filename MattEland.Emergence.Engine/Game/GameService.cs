@@ -60,26 +60,16 @@ namespace MattEland.Emergence.Engine.Game
             _waitCommand = new WaitCommand();
         }
 
-        public GameContext StartNewGame([CanBeNull] NewGameParameters parameters = null)
+        public GameContext StartNewGame(PlayerType playerType = PlayerType.Logistics)
         {
             if (State != GameStatus.NotStarted && State != GameStatus.GameOver) throw new InvalidOperationException("The game has already been started");
 
             State = GameStatus.Executing;
 
-#if DEBUG
-            const PlayerType defaultPlayer = PlayerType.Debugger;
-#else
-            const PlayerType defaultPlayer = PlayerType.Logistics;
-#endif
-
-            if (parameters == null)
-            {
-                parameters = new NewGameParameters {PlayerType = defaultPlayer};
-            }
 
             // Set up the basic parameters
             var levelParameters = new LevelGenerationParameters { LevelType = LevelType.Tutorial };
-            Player = GameObjectFactory.CreatePlayer(new Pos2D(0,0), parameters.PlayerType);
+            Player = GameObjectFactory.CreatePlayer(new Pos2D(0,0), playerType);
             Level = _levelService.GenerateLevel(levelParameters, Player);
             Context = new GameContext(Level, this, _combatManager, _lootProvider, _randomizer);
             

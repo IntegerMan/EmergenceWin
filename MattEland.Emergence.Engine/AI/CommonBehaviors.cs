@@ -9,5 +9,8 @@ namespace MattEland.Emergence.Engine.AI
 
         [NotNull]
         public WanderBehavior Wander { get; } = new WanderBehavior();
+
+        [NotNull]
+        public MeleeAttackBehavior Melee { get; } = new MeleeAttackBehavior();
     }
 }
