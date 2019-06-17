@@ -123,7 +123,7 @@
                     <ListBox ItemsSource="{Binding Messages}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock FontSize="10" Text="{Binding Text}" ToolTip="{Binding Text}" />
+                                <TextBlock FontSize="10" Text="{Binding Text}" ToolTip="{Binding Text}" Foreground="{Binding Foreground}" />
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>

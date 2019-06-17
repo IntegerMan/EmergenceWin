@@ -1,5 +1,6 @@
 ﻿using MattEland.Emergence.Engine.Entities;
 using MattEland.Emergence.Engine.Level;
+using MattEland.Emergence.Engine.Model;
 
 namespace MattEland.Emergence.Engine.Effects
 {
@@ -12,5 +13,7 @@ namespace MattEland.Emergence.Engine.Effects
             EndPos = endPos;
         }
     
+        public override string ForegroundColor => GameColors.LightYellow;
+
     }
 }

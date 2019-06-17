@@ -1,4 +1,5 @@
 ﻿using MattEland.Emergence.Engine.Entities;
+using MattEland.Emergence.Engine.Model;
 
 namespace MattEland.Emergence.Engine.Effects
 {
@@ -11,5 +12,7 @@ namespace MattEland.Emergence.Engine.Effects
             Amount = amount;
         }
      
+        public override string ForegroundColor => GameColors.Green;
+
     }
 }

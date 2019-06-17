@@ -1,6 +1,7 @@
 using JetBrains.Annotations;
 using MattEland.Emergence.Engine.Entities;
 using MattEland.Emergence.Engine.Level;
+using MattEland.Emergence.Engine.Model;
 
 namespace MattEland.Emergence.Engine.Messages
 {
@@ -20,5 +21,7 @@ namespace MattEland.Emergence.Engine.Messages
         }
 
         public override string ToString() => $"Move {Source.Name} from {OldPos.ToString()} to {NewPos.ToString()}";
+        
+        public override string ForegroundColor => GameColors.Gray;
     }
 }

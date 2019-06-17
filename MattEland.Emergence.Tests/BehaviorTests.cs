@@ -52,13 +52,26 @@ namespace MattEland.Emergence.Tests
         {
             // Arrange
             var turretPos = Player.Pos.GetNeighbor(MoveDirection.Left, 10);
-            var actor = (Actor)GameObjectFactory.CreateActor(Actors.Helpy, turretPos);
+            var actor = GameObjectFactory.CreateActor(Actors.Helpy, turretPos);
 
             // Act
             var result = AI.ProcessActorTurn(actor);
 
             // Assert
             result.SelectedBehavior.ShouldBe(Behaviors.Wander);
+        }
+
+        [Test]
+        public void BehaviorSystemShouldHaveSecurityMeleePlayerWhenAdjacent()
+        {
+            // Arrange
+            var actor = GameObjectFactory.CreateActor(Actors.SecurityAgent, Player.Pos.GetNeighbor(MoveDirection.Left));
+            
+            // Act
+            var result = AI.ProcessActorTurn(actor);
+
+            // Assert
+            result.SelectedBehavior.ShouldBe(Behaviors.Melee);
         }
     }
 }

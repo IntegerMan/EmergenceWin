@@ -1,4 +1,5 @@
 ﻿using MattEland.Emergence.Engine.Entities;
+using MattEland.Emergence.Engine.Model;
 
 namespace MattEland.Emergence.Engine.Effects
 {
@@ -10,6 +11,8 @@ namespace MattEland.Emergence.Engine.Effects
         {
             CommandName = commandName;
         }
+        
+        public override string ForegroundColor => GameColors.LightGreen;
 
     }
 }

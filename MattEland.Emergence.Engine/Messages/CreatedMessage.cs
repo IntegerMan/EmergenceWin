@@ -1,6 +1,7 @@
 ﻿using System;
 using JetBrains.Annotations;
 using MattEland.Emergence.Engine.Entities;
+using MattEland.Emergence.Engine.Model;
 
 namespace MattEland.Emergence.Engine.Messages
 {
@@ -15,5 +16,7 @@ namespace MattEland.Emergence.Engine.Messages
         public GameObjectBase Source { get; }
 
         public override string ToString() => $"Created {Source.AsciiChar} at {Source.Pos}";
+        
+        public override string ForegroundColor => GameColors.LightGreen;
     }
 }

@@ -1,4 +1,5 @@
 ﻿using MattEland.Emergence.Engine.Entities;
+using MattEland.Emergence.Engine.Model;
 
 namespace MattEland.Emergence.Engine.Effects
 {
@@ -9,5 +10,7 @@ namespace MattEland.Emergence.Engine.Effects
         }
 
         public override string ToString() => $"Destroyed {Source}";
+
+        public override string ForegroundColor => GameColors.Red;
     }
 }

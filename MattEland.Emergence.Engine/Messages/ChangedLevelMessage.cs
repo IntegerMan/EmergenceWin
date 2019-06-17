@@ -1,4 +1,5 @@
 using MattEland.Emergence.Engine.Level;
+using MattEland.Emergence.Engine.Model;
 
 namespace MattEland.Emergence.Engine.Messages
 {
@@ -10,5 +11,7 @@ namespace MattEland.Emergence.Engine.Messages
         {
             Level = level;
         }
+
+        public override string ForegroundColor => GameColors.Blue;
     }
 }

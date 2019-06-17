@@ -1,6 +1,7 @@
 ﻿using System;
 using JetBrains.Annotations;
 using MattEland.Emergence.Engine.DTOs;
+using MattEland.Emergence.Engine.Model;
 
 namespace MattEland.Emergence.Engine.Messages
 {
@@ -18,6 +19,8 @@ namespace MattEland.Emergence.Engine.Messages
         }
 
         public override string ToString() => $"Display '{Text}'";
+        
+        public override string ForegroundColor => GameColors.White;
 
     }
 }

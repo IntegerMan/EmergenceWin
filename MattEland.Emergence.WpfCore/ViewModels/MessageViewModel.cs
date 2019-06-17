@@ -1,4 +1,5 @@
-﻿using MattEland.Emergence.Engine.Messages;
+﻿using System.Windows.Media;
+using MattEland.Emergence.Engine.Messages;
 
 namespace MattEland.Emergence.WpfCore.ViewModels
 {
@@ -12,5 +13,7 @@ namespace MattEland.Emergence.WpfCore.ViewModels
         public GameMessage Message { get; }
 
         public string Text => Message.ToString();
+
+        public Brush Foreground => MattEland.Shared.WPF.BrushBuilder.GetBrushForHexColor(Message.ForegroundColor);
     }
 }

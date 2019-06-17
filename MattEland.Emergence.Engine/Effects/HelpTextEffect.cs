@@ -1,6 +1,7 @@
 ﻿using System;
 using JetBrains.Annotations;
 using MattEland.Emergence.Engine.Entities;
+using MattEland.Emergence.Engine.Model;
 
 namespace MattEland.Emergence.Engine.Effects
 {
@@ -14,5 +15,7 @@ namespace MattEland.Emergence.Engine.Effects
         }
 
         public override string ToString() => $"Help: {HelpText}";
+
+        public override string ForegroundColor => GameColors.Blue;
     }
 }

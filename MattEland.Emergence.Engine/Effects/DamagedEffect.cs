@@ -1,4 +1,7 @@
-﻿using MattEland.Emergence.Engine.Entities;
+﻿using System.Reflection;
+using JetBrains.Annotations;
+using MattEland.Emergence.Engine.Entities;
+using MattEland.Emergence.Engine.Model;
 using MattEland.Emergence.Engine.Services;
 
 namespace MattEland.Emergence.Engine.Effects
@@ -12,8 +15,14 @@ namespace MattEland.Emergence.Engine.Effects
         {
             Amount = amount;
             DamageType = damageType;
+            Target = source;
         }
 
-        public override string ToString() => $"Damaged: {Amount} {DamageType:G}";
+        [NotNull]
+        public GameObjectBase Target { get; }
+
+        public override string ToString() => $"Damaged {Target.Name}: {Amount} {DamageType:G}";
+        
+        public override string ForegroundColor => GameColors.Red;
     }
 }
