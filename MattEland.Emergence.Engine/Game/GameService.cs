@@ -2,6 +2,7 @@
 using System.Linq;
 using GeneticSharp.Domain.Randomizations;
 using JetBrains.Annotations;
+using MattEland.Emergence.Engine.Actions;
 using MattEland.Emergence.Engine.Commands;
 using MattEland.Emergence.Engine.DTOs;
 using MattEland.Emergence.Engine.Entities.Actors;
@@ -83,6 +84,19 @@ namespace MattEland.Emergence.Engine.Game
             return Context;
         }
 
+        public GameContext HandleAction([NotNull] GameActionBase action)
+        {
+            if (action == null) throw new ArgumentNullException(nameof(action));
+            
+            BeginProcessing(false);
+            
+            action.Execute(Context);
+
+            MaintainContextState();
+            
+            return Context;
+        }
+        
         public GameContext HandleCommand([NotNull] CommandSlot slot, Pos2D pos)
         {
             if (slot.Command == null) throw new ArgumentNullException(nameof(slot));
@@ -93,21 +107,9 @@ namespace MattEland.Emergence.Engine.Game
         public GameContext HandleCommand([NotNull] GameCommand command, Pos2D pos, bool isActive = false)
         {
             if (command == null) throw new ArgumentNullException(nameof(command));
-            if (State == GameStatus.GameOver) throw new InvalidOperationException("The game is over. Start a new game to play again.");
-            if (State != GameStatus.Ready) throw new InvalidOperationException("The game is not ready for input");
-
-            Context.ClearMessages();
-
-            State = GameStatus.Executing;
-
-            NumMoves++;
-
-            // Give objects and actors a chance to react to the current game state
-            foreach (var obj in Context.Level.Objects.ToList())
-            {
-                obj.ApplyActiveEffects(Context);
-            }
-
+            
+            BeginProcessing(true);
+            
             command.Execute(Context, Player, pos, isActive);
 
             if (command.ActivationType == CommandActivationType.Active)
@@ -116,14 +118,49 @@ namespace MattEland.Emergence.Engine.Game
                 Player.SetCommandActiveState(command, activeState);
             }
 
-            var nonDead = Context.Level.Objects.Where(o => !o.IsDead).ToList();
+            HandleActorMoves();
 
+            MaintainContextState();
+
+            return Context;
+        }
+
+        private void HandlePreTurnActions()
+        {
+            foreach (var obj in Context.Level.Objects.ToList())
+            {
+                obj.ApplyActiveEffects(Context);
+            }
+        }
+
+        private void HandleActorMoves()
+        {
+            var nonDead = Context.Level.Objects.Where(o => !o.IsDead).ToList();
             nonDead.OfType<Actor>().Each(a => ProcessActorTurn(a, Context));
 
             // Give objects and actors a chance to react to the changed state
             nonDead.Each(o => o.MaintainActiveEffects(Context));
+        }
 
-            // Ensure that vision is accurate for the player
+        private void BeginProcessing(bool incrementMoveCounter)
+        {
+            if (State == GameStatus.GameOver) throw new InvalidOperationException("The game is over. Start a new game to play again.");
+            if (State != GameStatus.Ready) throw new InvalidOperationException("The game is not ready for input");
+
+            Context.ClearMessages();
+            State = GameStatus.Executing;
+
+            if (incrementMoveCounter)
+            {
+                NumMoves++;
+            }
+
+            HandlePreTurnActions();
+        }
+
+        private void MaintainContextState()
+        {
+// Ensure that vision is accurate for the player
             UpdatePlayerLineOfSight();
 
             // The player can change so make sure we keep a reference to the correct player object
@@ -134,11 +171,9 @@ namespace MattEland.Emergence.Engine.Game
             {
                 Context.EndGame();
             }
-            
+
             // Update the game state
             State = Context.IsGameOver ? GameStatus.GameOver : GameStatus.Ready;
-            
-            return Context;
         }
 
         private void UpdatePlayerLineOfSight()

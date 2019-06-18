@@ -69,6 +69,14 @@
                                         Visibility="{Binding Visibility}"
                                         Width="{Binding Size}"
                                         Height="{Binding Size}">
+                                    <Border.ContextMenu>
+                                        <ContextMenu>
+                                            <MenuItem Header="Create">
+                                                <MenuItem Header="Actor" Click="OnCreateActorClick"></MenuItem>
+                                            </MenuItem>
+                                            <MenuItem Header="Destroy" Click="OnDestroyClick"></MenuItem>
+                                        </ContextMenu>
+                                    </Border.ContextMenu>
                                     <TextBlock Text="{Binding Content}"
                                                Foreground="{Binding ForegroundBrush}"
                                                FontFamily="Lucida Console"

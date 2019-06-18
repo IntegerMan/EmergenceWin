@@ -1,5 +1,8 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Input;
+using MattEland.Emergence.Engine.Actions;
+using MattEland.Emergence.Engine.Level;
 using MattEland.Emergence.Engine.Model;
 using MattEland.Emergence.WpfCore.ViewModels;
 
@@ -102,5 +105,27 @@ namespace MattEland.Emergence.WpfCore
 
         private void OnTileClicked(object sender, MouseButtonEventArgs e) 
             => _vm.HandleTargetedCommandInput(GetElementDataContext<WorldObjectViewModel>(e).Source.Pos);
+
+        private void OnCreateActorClick(object sender, RoutedEventArgs e)
+        {
+            var vm = GetDataContextFromFrameworkElement<WorldObjectViewModel>(sender);
+            
+            _vm.HandleAction(new CreateActorAction(ActorType.SecurityAgent, vm.Pos));
+        }
+
+        private void OnDestroyClick(object sender, RoutedEventArgs e)
+        {
+            var vm = GetDataContextFromFrameworkElement<WorldObjectViewModel>(sender);
+
+            _vm.HandleAction(new DeleteObjectAction(vm.Source));
+        }
+
+        private static T GetDataContextFromFrameworkElement<T>(object sender) where T : class
+        {
+            var fe = sender as FrameworkElement;
+            var dc = fe?.DataContext as T;
+
+            return dc;
+        }
     }
 }

@@ -99,6 +99,8 @@ namespace MattEland.Emergence.WpfCore.ViewModels
             }
         }
 
+        public Pos2D Pos => Source.Pos;
+
         public override string ToString() => ToolTip;
 
         public void OnIsKnownInvalidated()

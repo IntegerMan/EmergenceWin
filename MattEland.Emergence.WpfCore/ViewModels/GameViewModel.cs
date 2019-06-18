@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using JetBrains.Annotations;
+using MattEland.Emergence.Engine.Actions;
 using MattEland.Emergence.Engine.Commands;
 using MattEland.Emergence.Engine.Entities.Actors;
 using MattEland.Emergence.Engine.Game;
@@ -261,6 +262,8 @@ namespace MattEland.Emergence.WpfCore.ViewModels
 
             VisibleWorldObjects.Each(o => { o.NotifyOffsetChanged(); });
         }
+
+        public void HandleAction(GameActionBase action) => Update(_gameService.HandleAction(action));
 
         public void HandleCommand(CommandSlot slot)
         {
