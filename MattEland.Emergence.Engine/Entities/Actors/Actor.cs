@@ -226,6 +226,7 @@ namespace MattEland.Emergence.Engine.Entities.Actors
             var behaviors = context.AI.CommonBehaviors;
 
             yield return behaviors.Melee;
+            yield return behaviors.MoveTowardsTarget;
             
             if (!IsImmobile)
             {
@@ -235,8 +236,11 @@ namespace MattEland.Emergence.Engine.Entities.Actors
             yield return behaviors.Idle;
         }
 
-        public bool IsHostileTo(Actor other)
+        public bool IsHostileTo([CanBeNull] Actor other)
         {
+            // This is somewhat silly, but this lets me make very minimal queries
+            if (other == null) return false;
+            
             var isBugOrVirus = other.Team == Alignment.Bug || other.Team == Alignment.Virus;
             
             switch (this.Team)

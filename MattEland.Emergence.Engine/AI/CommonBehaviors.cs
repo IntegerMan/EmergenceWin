@@ -12,5 +12,8 @@ namespace MattEland.Emergence.Engine.AI
 
         [NotNull]
         public MeleeAttackBehavior Melee { get; } = new MeleeAttackBehavior();
+        
+        [NotNull]
+        public MoveTowardsEnemyBehavior MoveTowardsTarget { get; } = new MoveTowardsEnemyBehavior();
     }
 }
