@@ -67,6 +67,7 @@ namespace MattEland.Emergence.WpfCore.ViewModels
         {
             OnPropertyChanged(nameof(X));
             OnPropertyChanged(nameof(Y));
+            OnPropertyChanged(nameof(ToolTip));
         }
 
         public string ToolTip => $"{Source.Pos}: {Source.Name}";

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using JetBrains.Annotations;
 using MattEland.Emergence.Engine.Level;
 
@@ -23,7 +24,7 @@ namespace MattEland.Emergence.WpfCore.ViewModels
         }
 
         [NotNull, ItemNotNull]
-        public IEnumerable<string> ActorTypes => Enum.GetNames(typeof(ActorType));
+        public IEnumerable<string> ActorTypes => Enum.GetNames(typeof(ActorType)).OrderBy(n => n);
 
         [NotNull]
         public string SelectedActorType

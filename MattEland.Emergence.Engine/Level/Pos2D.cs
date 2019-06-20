@@ -123,10 +123,18 @@ namespace MattEland.Emergence.Engine.Level
             return new Pos2D(_x + xDelta, _y + yDelta);
         }
 
+        public int CalculateDistanceInMovesFrom(Pos2D point)
+        {
+            var xDiff = Math.Abs(_x - point._x);
+            var yDiff = Math.Abs(_y - point._y);
+
+            return xDiff + yDiff;
+        }
+        
         public double CalculateDistanceFrom(Pos2D point)
         {
             // Work in absolute values relative to 0,0
-            var xDiff = Math.Abs(_x - point._y);
+            var xDiff = Math.Abs(_x - point._x);
             var yDiff = Math.Abs(_y - point._y);
 
             // Check to see if we have a cached value already

@@ -226,10 +226,11 @@ namespace MattEland.Emergence.Engine.Entities.Actors
             var behaviors = context.AI.CommonBehaviors;
 
             yield return behaviors.Melee;
-            yield return behaviors.MoveTowardsTarget;
             
             if (!IsImmobile)
             {
+                yield return behaviors.MoveTowardsTarget;
+                yield return behaviors.MoveAwayFromEnemy;
                 yield return behaviors.Wander;
             }
 
@@ -246,6 +247,7 @@ namespace MattEland.Emergence.Engine.Entities.Actors
             switch (this.Team)
             {
                 case Alignment.SystemCore:
+                    return false;
                 case Alignment.SystemSecurity:
                     return other.Team == Alignment.Bug || other.Team == Alignment.Player;
                 case Alignment.SystemAntiVirus:
@@ -253,6 +255,8 @@ namespace MattEland.Emergence.Engine.Entities.Actors
                 case Alignment.Virus:
                 case Alignment.Bug:
                     return !isBugOrVirus;
+                case Alignment.Player: // This is for enemies to recognize the player as hostile so they can run
+                    return true;
                 default:
                     return false;
             }

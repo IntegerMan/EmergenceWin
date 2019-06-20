@@ -3,6 +3,7 @@ using MattEland.Emergence.Engine.AI;
 using MattEland.Emergence.Engine.DTOs;
 using MattEland.Emergence.Engine.Entities.Actors;
 using MattEland.Emergence.Engine.Game;
+using MattEland.Emergence.Engine.Level;
 using MattEland.Emergence.Engine.Model;
 using NUnit.Framework;
 using Shouldly;
@@ -72,6 +73,21 @@ namespace MattEland.Emergence.Tests
 
             // Assert
             result.SelectedBehavior.ShouldBe(Behaviors.Melee);
+        }
+        
+        [Test]
+        public void BehaviorSystemShouldHaveBitMoveAwayFromPlayer()
+        {
+            // Arrange
+            var pos = new Pos2D(-13, 45);
+            var actor = GameObjectFactory.CreateActor(Actors.Bit, pos);
+            
+            // Act
+            var result = AI.ProcessActorTurn(actor);
+            
+            // Assert
+            result.SelectedBehavior.ShouldBe(Behaviors.MoveAwayFromEnemy);
+            actor.Pos.ShouldBe(pos.GetNeighbor(MoveDirection.Down));
         }
     }
 }
