@@ -72,7 +72,7 @@
                                     <Border.ContextMenu>
                                         <ContextMenu>
                                             <MenuItem Header="Create">
-                                                <MenuItem Header="Actor" Click="OnCreateActorClick"></MenuItem>
+                                                <MenuItem Header="Actor" Click="OnCreateActorClick" />
                                             </MenuItem>
                                             <MenuItem Header="Destroy" Click="OnDestroyClick"></MenuItem>
                                         </ContextMenu>

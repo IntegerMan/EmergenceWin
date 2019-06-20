@@ -13,7 +13,7 @@ namespace MattEland.Emergence.WpfCore
     /// </summary>
     public partial class MainWindow
     {
-        private GameViewModel _vm;
+        private GameViewModel _gameVM;
 
         public MainWindow()
         {
@@ -22,38 +22,38 @@ namespace MattEland.Emergence.WpfCore
 
         private void OnWindowLoaded(object sender, RoutedEventArgs e)
         {
-            _vm = new GameViewModel();
-            DataContext = _vm;
+            _gameVM = new GameViewModel();
+            DataContext = _gameVM;
         }
 
         private void MainWindow_OnKeyDown(object sender, KeyEventArgs e)
         {
-            if (_vm == null) return;
+            if (_gameVM == null) return;
 
             switch (e.Key)
             {
                 case Key.Left:
                 case Key.NumPad4:
-                    _vm.MovePlayer(MoveDirection.Left);
+                    _gameVM.MovePlayer(MoveDirection.Left);
                     break;
 
                 case Key.Up:
                 case Key.NumPad8:
-                    _vm.MovePlayer(MoveDirection.Up);
+                    _gameVM.MovePlayer(MoveDirection.Up);
                     break;
 
                 case Key.Right:
                 case Key.NumPad6:
-                    _vm.MovePlayer(MoveDirection.Right);
+                    _gameVM.MovePlayer(MoveDirection.Right);
                     break;
 
                 case Key.Down:
                 case Key.NumPad2:
-                    _vm.MovePlayer(MoveDirection.Down);
+                    _gameVM.MovePlayer(MoveDirection.Down);
                     break;
 
                 case Key.Space:
-                    _vm.Wait();
+                    _gameVM.Wait();
                     break;
                 
                 case Key.D1:
@@ -92,9 +92,9 @@ namespace MattEland.Emergence.WpfCore
 
         private void RunCommand(int index)
         {
-            if (_vm.Commands.Count < index || _vm.UIState != UIState.ReadyForInput) return;
+            if (_gameVM.Commands.Count < index || _gameVM.UIState != UIState.ReadyForInput) return;
             
-            var vm = _vm.Commands[index];
+            var vm = _gameVM.Commands[index];
             vm?.Execute();
         }
 
@@ -104,20 +104,23 @@ namespace MattEland.Emergence.WpfCore
             => GetElementDataContext<CommandViewModel>(e).Execute();
 
         private void OnTileClicked(object sender, MouseButtonEventArgs e) 
-            => _vm.HandleTargetedCommandInput(GetElementDataContext<WorldObjectViewModel>(e).Source.Pos);
+            => _gameVM.HandleTargetedCommandInput(GetElementDataContext<WorldObjectViewModel>(e).Source.Pos);
 
         private void OnCreateActorClick(object sender, RoutedEventArgs e)
         {
-            var vm = GetDataContextFromFrameworkElement<WorldObjectViewModel>(sender);
+            var objectVm = GetDataContextFromFrameworkElement<WorldObjectViewModel>(sender);
             
-            _vm.HandleAction(new CreateActorAction(ActorType.SecurityAgent, vm.Pos));
+            var createVm = new CreateObjectViewModel(objectVm, _gameVM);
+
+            var window = new CreateActorWindow(createVm);
+            window.ShowDialog();
         }
 
         private void OnDestroyClick(object sender, RoutedEventArgs e)
         {
             var vm = GetDataContextFromFrameworkElement<WorldObjectViewModel>(sender);
-
-            _vm.HandleAction(new DeleteObjectAction(vm.Source));
+            
+            _gameVM.HandleAction(new DeleteObjectAction(vm.Source));
         }
 
         private static T GetDataContextFromFrameworkElement<T>(object sender) where T : class

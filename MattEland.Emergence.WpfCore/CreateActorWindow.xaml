@@ -1,0 +1,31 @@
+<Window x:Class="MattEland.Emergence.WpfCore.CreateActorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:viewModels="clr-namespace:MattEland.Emergence.WpfCore.ViewModels"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        mc:Ignorable="d"
+        Title="Create Actor" 
+        Height="175.924" Width="326.893" 
+        d:DataContext="{d:DesignInstance viewModels:CreateObjectViewModel}" WindowStyle="ToolWindow" ResizeMode="NoResize" Topmost="True" ShowInTaskbar="False" WindowStartupLocation="CenterOwner">
+    <DockPanel>
+        <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" HorizontalAlignment="Right" Margin="8">
+            <Button IsCancel="True" Click="OnCancelClick" Margin="8,0,0,0">Cancel</Button>
+            <Button IsDefault="True" Click="OnCreateClick" Margin="8,0,0,0">Create</Button>
+        </StackPanel>
+        <StackPanel Margin="8,8,8,0">
+            <TextBlock FontSize="24">Create Actor</TextBlock>
+            <DockPanel Margin="0,12,0,0">
+                <Label Content="Actor"/>
+                <ComboBox ItemsSource="{Binding ActorTypes}" SelectedItem="{Binding SelectedActorType}" Margin="8,0,0,0"/>
+            </DockPanel>
+        </StackPanel>
+    </DockPanel>
+</Window>
