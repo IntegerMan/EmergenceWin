@@ -5,8 +5,8 @@ namespace MattEland.Emergence.Engine.Actions
 {
     public class CreateActorAction : GameActionBase
     {
-        private Pos2D _pos;
-        private ActorType _actorType;
+        private readonly Pos2D _pos;
+        private readonly ActorType _actorType;
 
         public CreateActorAction(ActorType actorType, Pos2D pos)
         {
