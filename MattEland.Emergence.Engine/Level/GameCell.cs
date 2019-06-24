@@ -5,6 +5,9 @@ using System.Linq;
 using JetBrains.Annotations;
 using MattEland.Emergence.Engine.Entities;
 using MattEland.Emergence.Engine.Entities.Actors;
+using MattEland.Emergence.Engine.Game;
+using MattEland.Emergence.Engine.Model;
+using MattEland.Shared.Collections;
 
 namespace MattEland.Emergence.Engine.Level
 {
@@ -166,5 +169,31 @@ namespace MattEland.Emergence.Engine.Level
         [CanBeNull]
         public Actor Core { get; private set; }
 
+        public IEnumerable<GameCell> GetAdjacentCells([NotNull] GameContext context)
+        {
+            if (context == null) throw new ArgumentNullException(nameof(context));
+            
+            var directions = Enum.GetValues(typeof(MoveDirection)).Cast<MoveDirection>().ToList();
+
+            var cells = new List<GameCell>(directions.Count);
+
+            directions.Each(d =>
+            {
+                var cell = context.Level.GetCell(Pos.GetNeighbor(d));
+                if (cell != null)
+                {
+                    cells.Add(cell);
+                }
+            });
+            
+            return cells;
+        }
+        
+        public IEnumerable<GameCell> FilterAdjacentCells([NotNull] GameContext context, Func<IEnumerable<GameCell>, IEnumerable<GameCell>> filter)
+        {
+            if (context == null) throw new ArgumentNullException(nameof(context));
+
+            return filter(GetAdjacentCells(context));
+        }
     }
 }
