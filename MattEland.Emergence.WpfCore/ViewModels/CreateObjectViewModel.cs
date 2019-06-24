@@ -24,7 +24,8 @@ namespace MattEland.Emergence.WpfCore.ViewModels
         }
 
         [NotNull, ItemNotNull]
-        public IEnumerable<string> ActorTypes => Enum.GetNames(typeof(ActorType)).OrderBy(n => n);
+        public IEnumerable<string> ActorTypes 
+            => new List<string>(Enum.GetNames(typeof(ActorType))).OrderBy(n => n);
 
         [NotNull]
         public string SelectedActorType

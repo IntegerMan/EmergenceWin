@@ -87,7 +87,7 @@ namespace MattEland.Emergence.Tests
             
             // Assert
             result.SelectedBehavior.ShouldBe(Behaviors.MoveAwayFromEnemy);
-            actor.Pos.ShouldBe(pos.GetNeighbor(MoveDirection.Down));
+            actor.Pos.ShouldBe(pos.GetNeighbor(MoveDirection.Right));
         }
     }
 }

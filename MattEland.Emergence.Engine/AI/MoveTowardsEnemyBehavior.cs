@@ -20,7 +20,7 @@ namespace MattEland.Emergence.Engine.AI
             
             // TODO: PathTo the position using a*
 
-            Pos2D newPos = actor.Pos;
+            Pos2D newPos;
             if (target.Pos.X < actor.Pos.X && !HasObstacle(context, actor.Pos, MoveDirection.Left))
             {
                 newPos = actor.Pos.GetNeighbor(MoveDirection.Left);
