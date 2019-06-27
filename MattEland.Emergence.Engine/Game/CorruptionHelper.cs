@@ -133,7 +133,10 @@ namespace MattEland.Emergence.Engine.Game
         public static bool IsCorruptionDamageType(this DamageType damageType) 
             => damageType == DamageType.Corruption || damageType == DamageType.Combination;
 
-        public static void CleanseNearby(GameContext context, Actor executor, Pos2D pos, int strength = 1)
+        public static void CleanseNearby(GameContext context, Actor executor, Pos2D pos) => 
+            CleanseNearby(context, executor, pos, 1);
+
+        public static void CleanseNearby(GameContext context, Actor executor, Pos2D pos, int strength)
         {
             var cells = context.Level.GetCellsInSquare(pos, 1);
             foreach (var cell in cells)
