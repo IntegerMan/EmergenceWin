@@ -128,6 +128,7 @@ namespace MattEland.Emergence.Engine.Entities
             if (IsCorruptable)
             {
                 Corruption += damage;
+                context.UpdateObject(this);
             }
         }
 
